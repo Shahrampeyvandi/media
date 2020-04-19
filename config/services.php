@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => '255472263652-volkl5iah38trt9ivftkblllmcp54rm7.apps.googleusercontent.com',
+        'client_secret' => 'O2lRUjAEGHHEII5AewHs5WKx',
+        'redirect' => 'http://localhost/Laravel/media/public/auth/google/callback',
+    ],
 ];

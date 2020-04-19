@@ -24,6 +24,7 @@ class CreateMembersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('email')->nullable()->unique();
+            $table->string('google_id')->nullable();
             $table->string('age')->nullable();
             $table->enum('group',['student','teacher','admin']);
             $table->string('history')->nullable();

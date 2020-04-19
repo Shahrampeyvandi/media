@@ -13,6 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Socialite;
+
 
 class LoginController extends Controller
 {
@@ -208,4 +210,53 @@ try{
         Auth::logout();
         return redirect()->route('BaseUrl');
     }
+
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+    
+            $user = Socialite::driver('google')->user();
+     
+            $finduser = Members::where('google_id', $user->id)->first();
+     
+            if($finduser){
+     
+                Auth::login($finduser);
+    
+                return redirect()->route('BaseUrl');
+
+            }else{
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id'=> $user->id,
+                    'password' => encrypt('123456dummy')
+                ]);
+                $member = new Members();
+        $member->firstname = $user->name;
+        $member->lastname = $user->name;
+        $member->username = $request->userid;
+        $member->password = Hash::make('123456dummy');
+        $member->email = $user->email;
+        $member->google_id = $user->id;
+        $member->group = $request->user_role;
+        $member->ability = 'member';
+        $member->save();
+    
+                Auth::login($newUser);
+     
+                return redirect('/home');
+            }
+    
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        }
+
 }
