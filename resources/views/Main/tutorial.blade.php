@@ -21,6 +21,7 @@
                 <div class="pr-3">
                     <div id="primary" class="primary">
 
+                        
                         <section id="play" class="mt-3">
                             <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
                                 poster="{{route('BaseUrl')}}/{{$content->picture}}" data-setup="{}">

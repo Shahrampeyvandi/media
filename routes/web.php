@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');
     Route::get('/panel/mycomments', 'Panel\CommentController@myComments')->name('Panel.Comments');
     Route::get('/uploadfile', 'Panel\DashboardController@UploadFile')->name('Main.UploadFile');
+   
+    Route::get('/user/{path}', 'Front\ProfileController@Show')->name('User.Show');
     Route::post('addcomment', 'Front\CommentController@AddPostComment')->name('AddComment');
     Route::post('likepost', 'Front\LikeController@LikePost')->name('LikePost');
     Route::post('addtofav', 'Front\FavoriteController@AddFavorite')->name('AddFavorite');

@@ -179,6 +179,8 @@ class LoginController extends Controller
             }
             $request->file('user_profile')->move($destinationPath, $fileName);
             $filePath = 'members/' . $fileName;
+        }else{
+            $filePath=null;
         }
 try{
         $member = new Members();
