@@ -234,24 +234,21 @@ try{
                 return redirect()->route('BaseUrl');
 
             }else{
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
-                ]);
+                // $newUser = User::create([
+                //     'name' => $user->name,
+                //     'email' => $user->email,
+                //     'google_id'=> $user->id,
+                //     'password' => encrypt('123456dummy')
+                // ]);
                 $member = new Members();
         $member->firstname = $user->name;
         $member->lastname = $user->name;
-        $member->username = $request->userid;
         $member->password = Hash::make('123456dummy');
         $member->email = $user->email;
         $member->google_id = $user->id;
-        $member->group = $request->user_role;
-        $member->ability = 'member';
         $member->save();
     
-                Auth::login($newUser);
+                Auth::login($member);
      
                 return redirect('/home');
             }

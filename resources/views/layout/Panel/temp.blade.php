@@ -334,6 +334,14 @@
                             </div>
                         </a>
                     </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Post.Report.All')}}" aria-label=""><i
+                                class="ti ti-layout-slider fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">گزارش های تخلف</span>
+                            </div>
+                        </a>
+                    </li>
                     @endif
                        
                         <li class="menu-item-link">

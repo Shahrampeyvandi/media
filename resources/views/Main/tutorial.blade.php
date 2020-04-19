@@ -65,17 +65,16 @@
                         <div class="popup">
                             <a class="close" href="#">&times;</a>
                             <div class="content">
-                                <form id="" action="{{route('AddComment')}}" method="post">
+                                <form id="" action="{{route('Post.Report')}}" method="post">
                                     @csrf
                                     <div class="mt-3">
                                         <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> ارسال گزارش تخلف
                                         </h5>
                                         <div class="form-group col-md-12">
                                             <input type="hidden" id="parent_id" name="parent_id" value="0">
-                                            <input type="hidden" name="post_id" value="{{$content->id}}">
-                                            <input type="text"  class="form-control mb-2" name="title"
-                                            id="title" placeholder="عنوان">
-                                            <textarea type="text" placeholder="متن " rows="4" class="form-control" name="description"
+                                            <input type="hidden" name="postid" value="{{$content->id}}">
+                                            
+                                            <textarea type="text" placeholder="توضیح " rows="4" class="form-control" name="info"
                                                 id="description"></textarea>
                                         </div>
                                     </div>

@@ -19,7 +19,7 @@ class CreateViolationReportsTable extends Migration
             $table->unsignedBigInteger('members_id');
             $table->foreign('members_id')->references('id')->on('members');
             $table->unsignedBigInteger('posts_id')->nullable();
-            $table->foreign('posts_id')->references('id')->on('members');
+            $table->foreign('posts_id')->references('id')->on('posts');
             $table->unsignedBigInteger('episods_id')->nullable();
             $table->foreign('episods_id')->references('id')->on('episodes');
             $table->timestamps();

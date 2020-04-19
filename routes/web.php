@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
 
+    Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
+
 });
 
 // روت های مختص ادمین پنل
@@ -85,6 +87,8 @@ Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name
 Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
 
 Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+
+Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
 
 });
 

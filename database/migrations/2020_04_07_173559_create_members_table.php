@@ -26,12 +26,12 @@ class CreateMembersTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('google_id')->nullable();
             $table->string('age')->nullable();
-            $table->enum('group',['student','teacher','admin']);
+            $table->enum('group',['student','teacher','admin'])->default('student');
             $table->string('history')->nullable();
             $table->string('books')->nullable();
             $table->string('years')->nullable();
             $table->boolean('active')->default(1);
-            $table->enum('ability',['admin','mid-level-admin','member']);
+            $table->enum('ability',['admin','mid-level-admin','member'])->default('member');
             $table->timestamps();
         });
         DB::table('members')->insert(
