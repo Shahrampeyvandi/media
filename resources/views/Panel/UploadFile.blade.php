@@ -264,32 +264,14 @@
         $(document).on('change','#type',function(){
             if($(this).val() == '6'){
                 $('.btn--wrapper input').val('ارسال')
-                $('.fileform').hide()
+               
                 $('.epizode').show()
             }else{
                 $('.btn--wrapper input').val('آپلود')
-                $('.fileform').show()
+                
                 $('.epizode').hide()
             }
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         $("#upload-file").validate({
 		rules: {
