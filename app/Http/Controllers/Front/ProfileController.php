@@ -7,6 +7,7 @@ use App\Models\Contents\Categories;
 use App\Models\Members\Members;
 use App\Models\Contents\Posts;
 use Illuminate\Http\Request;
+use App\Models\Members\Follows;
 
 class ProfileController extends Controller
 {
@@ -14,15 +15,22 @@ class ProfileController extends Controller
     {    
         
        $categories = Categories::all();
-       $user = Members::whereUsername($username)->first();
-    
+       $member = Members::whereUsername($username)->first();
+
+       $followers=Follows::where('followed_id',$member->id)->count();
+       $followings=Follows::where('follower_id',$member->id)->count();
+
        $moveis= Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
-        return view('Main.channel.user',compact(['user','categories','moveis']));
+        return view('Main.channel.user',compact(['member','categories','moveis','followers','followings']));
     }
 
-    public function About()
+    public function About($username)
     {
-        
-        return view('Main.channel.about');
+        $member = Members::whereUsername($username)->first();
+
+        $followers=Follows::where('followed_id',$member->id)->count();
+        $followings=Follows::where('follower_id',$member->id)->count();
+
+        return view('Main.channel.about',compact(['member','followers','followings']));
     }
 }
