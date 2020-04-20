@@ -25,12 +25,12 @@
                             id="inlineFormInputName2" placeholder="ایمیل خود را وارد کنید">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-info  mb-2">ادامه</button>
+                        <button type="submit" class="btn btn-sm btn-info  mb-2">ادامه</button>
                     </div>
                     <hr />
                 </form>
                 <form action="#" class="form-inline">
-                    <button type="submit" class="btn btn-danger ">ثبت نام با حساب گوگل</button>
+                    <button type="submit" class="btn btn-sm btn-danger ">ثبت نام با حساب گوگل</button>
                     <hr />
                 </form>
             </div>

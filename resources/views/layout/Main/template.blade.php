@@ -542,6 +542,37 @@
            
       
     });
+    var learning_slider = new Swiper('.swiper-container-learning', {
+           
+           spaceBetween: 5,
+           pagination: '.swiper-pagination',
+       paginationClickable: true,
+       breakpoints: {
+           320: {
+               slidesPerView: 1,
+               spaceBetween: 10
+           },
+           640: {
+               slidesPerView: 1,
+               spaceBetween: 20
+           },
+           768: {
+               slidesPerView: 3,
+               spaceBetween: 10
+           },
+           1024: {
+               slidesPerView: 4,
+               spaceBetween: 20
+           },
+           1380: {
+               slidesPerView: 4,
+               spaceBetween: 40
+           },
+           
+          
+       }
+     
+   });
     var music_slider = new Swiper('.swiper-container-music', {
            
             spaceBetween: 5,

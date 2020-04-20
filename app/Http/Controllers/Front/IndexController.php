@@ -25,6 +25,7 @@ class IndexController extends Controller
         $podcasts=Posts::where('confirmed',1)->where('categories_id',5)->take(4)->get();
         $learning=Posts::where('confirmed',1)->where('categories_id',6)->take(10)->get();
 
+
         //dd($moveis[0]->languages);
 
         return view('Main.index',compact(['categories','moveis','animations','clips','musics','podcasts','learning','slideshows']));

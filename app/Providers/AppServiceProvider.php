@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Contents\Categories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     { view()->composer('*', function($view)
         {
+            $view->with('categories', Categories::all());
             if (Auth::check()) {
                 $notifications=DB::table('notifications')->where('members_id',Auth::user()->id)->latest()->take(5)->get();
                 $notystatus = Db::table('notifications')->where('members_id',Auth::user()->id)->where('read',0)->count();

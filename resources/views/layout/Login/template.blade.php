@@ -25,6 +25,18 @@
   <script src="{{route('BaseUrl')}}/Panel/vendor/jquery/jquery-3.4.1.js"></script>
   <script src="{{route('BaseUrl')}}/Panel/assets/js/jquery.validate.js"></script>
     @yield('js')
+    <script>
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
+    </script>
 </body>
 
 </html>

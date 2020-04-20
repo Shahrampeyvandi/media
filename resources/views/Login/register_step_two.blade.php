@@ -9,11 +9,11 @@
                 <form action="{{route('SignUp.verifySubmit')}}" method="POST">
                         @csrf
                        <div class="form-group">
-                        <label for="inlineFormInputName2" class="text-center text-black-50">کد فرستاده شده برای ({{$id}}) را وارد نمایید</label>
+                        <label for="inlineFormInputName2" class="text-center text-black-50">کد فرستاده شده برای ({{substr_replace($id,"***",2,5)}}) را وارد نمایید</label>
                         <input type="text" name="code" class="form-control my-3 " id="inlineFormInputName2" placeholder="">
                        </div>
                        <div class="form-group">
-                        <button type="submit" class="btn btn-info  mb-2">تایید</button>
+                        <button type="submit" class="btn btn-sm btn-info  mb-2">تایید</button>
                        </div>
                         <hr/>
                     </form>

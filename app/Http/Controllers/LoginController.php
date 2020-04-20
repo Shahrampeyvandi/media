@@ -150,6 +150,8 @@ class LoginController extends Controller
 
     public function registerStepThree(Request $request)
     {
+
+        dd($request->all());
         $validatedData = $request->validate([
             'userid' => 'unique:members,username',
             'user_mobile' => 'unique:members,mobile',

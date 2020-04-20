@@ -5466,6 +5466,9 @@ table.table a.btn.btn-danger {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),
         0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
+.btn-rounded {
+    border-radius: 10em;
+}
 .btn-warning:focus,
 .btn-warning:active,
 .btn-warning.active {

@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/mycomments', 'Panel\CommentController@myComments')->name('Panel.Comments');
     Route::get('/uploadfile', 'Panel\DashboardController@UploadFile')->name('Main.UploadFile');
    
-    Route::get('/user/{path}', 'Front\ProfileController@Show')->name('User.Show');
+   
     Route::post('addcomment', 'Front\CommentController@AddPostComment')->name('AddComment');
     Route::post('likepost', 'Front\LikeController@LikePost')->name('LikePost');
     Route::post('addtofav', 'Front\FavoriteController@AddFavorite')->name('AddFavorite');
@@ -57,6 +57,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
+
+    // Channel Routes
+    Route::get('/{name}', 'Front\ProfileController@Show')->name('User.Videos');
+    Route::get('/{name}/about', 'Front\ProfileController@About')->name('User.About');
+
+
+
 
 });
 

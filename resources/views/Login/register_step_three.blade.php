@@ -5,7 +5,7 @@
     <div class="main mt-5 mt-md-0" style="display: flex; justify-content: center; align-items: center;">
         <div class="col-md-12 card" style="max-width:650px !important;margin-bottom: 2rem; ">
             <div class="head-login">
-                <h3 class="my-4"><a class="text-black-50" href="#">اطلاعات فردی</a></h3>
+                <h4 class="my-4"><a class="text-black-50" href="#">اطلاعات فردی</a></h4>
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
@@ -33,7 +33,7 @@
                               <div class="row">
                                 <div class="form-group col-md-6">
                                   <label for="user_name" class="col-form-label"><span class="text-danger">*</span> نام: </label>
-                                  <input type="text" class="form-control" name="user_name" id="user_name">
+                                  <input type="text" class="form-control" name="user_name" id="user_name" autocomplete="off">
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="user_family" class="col-form-label"><span class="text-danger">*</span> نام خانوادگی:</label>
@@ -42,13 +42,18 @@
                               </div>
                               <div class="row">
                                 <div class="form-group col-md-6">
-                                  <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> رمز عبور: </label>
-                                  <input type="text" class="form-control" name="user_pass" id="user_pass">
+                                  
+                                  <label for="user_pass" class="col-form-label"><span class="text-danger"  autocomplete="off">*</span> رمز عبور: </label>
+                                  
+                                 
+                                  <input type="password" class="form-control" name="user_pass" id="user_pass">
+                                  <span toggle="#user_pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="user_cpass" class="col-form-label"><span class="text-danger">*</span> تکرار
                                     رمز عبور:</label>
-                                  <input type="text" class="form-control" name="user_cpass" id="user_cpass">
+                                  <input type="password" class="form-control" name="user_cpass" id="user_cpass">
+                                  <span toggle="#user_cpass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                               </div>
                               <div class="row">
@@ -98,8 +103,8 @@
                           
                           </div>
                           <div class="row">
-                            <div class="form-group col-md-6">
-                                <button type="submit" class="btn btn-block btn-success ">تایید و ورود</button>
+                            <div class="form-group col-md-3">
+                                <button type="submit" class="btn btn-sm btn-block btn-success ">تایید و ورود</button>
 
                             </div>
                         </div>
@@ -145,7 +150,7 @@
       user_role:"required",
 			user_pass: {
 				required: true,
-				minlength: 5
+				minlength: 6
 			},
 			user_cpass: {
 				required: true,
@@ -155,6 +160,16 @@
 				
       required: true
 			},
+      user_history:{
+        required: function(element){
+            return $("#teacher").val().length > 0;
+        }
+      },
+      user_sanavat:{
+        required: function(element){
+            return $("#teacher").val().length > 0;
+        }
+      }
 	
 		},
 		messages: {
@@ -167,7 +182,7 @@
 			},
 			user_pass: {
 				required: "رمز عبور دا وارد نمایید",
-				minlength: "رمز عبور بایستی حداقل 5 کاراکتر باشد"
+				minlength: "رمز عبور بایستی حداقل 6 کاراکتر باشد"
 			},
 			user_cpass: {
 				required: "رمز عبور را وارد نمایید",
@@ -176,7 +191,11 @@
       user_mobile:{
         required:"شماره موبایل الزامی میباشد"
       },
-      user_responsibility:"انتخاب نقش الزامی است"
+      user_responsibility:"انتخاب نقش الزامی است",
+      user_role:"نقش خود را انتخاب کنید",
+      user_history:{required:"سابقه تدریس الزامی میباشد"}
+    ,user_sanavat:{required:"سابقه سنوات را وارد نمایید"}
+
 		}
 	});
   })

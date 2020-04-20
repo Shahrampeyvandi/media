@@ -10,6 +10,8 @@ use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
+use App\Models\Notifications\Notifications;
+use App\Rules\VideoDimension;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -85,11 +87,11 @@ class DashboardController extends Controller
     public function SubmitUploadFile(Request $request)
     {
         
-
-       
+        
+      
       if ($request->type !== "6") {
         $validator = Validator::make($request->all(), [
-            'file' => 'mimes:avi,mp4,mp3,mpga,mkv,3gp|required',
+            'file' => 'mimes:avi,mp4,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
             'pic' => 'nullable|mimes:jpeg,png,jpg',
           
         ]);
@@ -100,33 +102,13 @@ class DashboardController extends Controller
         }
         
       }
-      
-    
-     
+          
         if(!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt"){
             return response()->json(
                 ['errors' => 'فایل زیر نویس باید دارای فرمت vtt باشد']
                 , 200);
         }
         
-       
-        // $rules = array(
-        //     'file' => 'mimes:avi,mp4,mp3,mkv,3gp|required',
-        //     'pic' => 'mimes:jpeg,png,jpg'
-
-        // );
-
-        // $validator = Validator::make($request->all(), $rules);
-        // if ($validator->fails()) {
-        //     // Redirect or return json to frontend with a helpful message to inform the user 
-        //     // that the provided file was not an adequate type
-        //     return response()->json([
-        //         'error' => $validator->errors()->getMessages()]
-        //         , 400);
-        // }
-
-
-
         // Upload path
         $destinationPath = "files/posts/$request->title";
      if ($request->file !== null) {
@@ -273,6 +255,17 @@ class DashboardController extends Controller
             }
 
         }
+
+        // notification for user
+      
+       if (!auth()->user()->is_admin() && !auth()->user()->is_mid_admin()) {
+        $notification=new Notifications;
+        $notification->members_id=auth()->user()->id;
+        $notification->title='پست شما در انتظار تایید میباشد';
+        $notification->text='عنوان: '.$post->title.'<br/>دسته بندی: '.$post->categories->name.'';
+        $notification->posts_id=$post->id;
+        $notification->save();
+       }
 
 
        if($request->type !== "6"){

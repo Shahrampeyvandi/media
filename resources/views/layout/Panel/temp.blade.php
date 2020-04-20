@@ -87,17 +87,25 @@
 @endif                                    
                                     </div>
                                 <div class="dropdown-content mdb-color lighten-1">
-                                    <div id="notification " class="d-b pr-2 pt-2">
+                                    <div id="notification " class="d-b  pt-2">
                                         <ul>
                                         
                                             @foreach ($notifications as $notification)
-                                        <li><a  href="#" data-id="{{$notification->id}}" class="noty-link text-white d-flex flex-sm-wrap mb-2">
-                                                <span class="mr-1 fs-0-8">
-                                                    <span class="text-info">{{$notification->title}}</span>
+                                        <li><div  class=" text-white d-flex flex-column flex-sm-wrap mb-2">
+                                                <span class="mr-1 fs-0-8 d-flex justify-content-between">
+                                                   
+                                                    <span class="text-info">{{$notification->title}}
+                                                    </span>
+                                                    @if ($notification->read == 0)
+                                                    <a  href="#" data-id="{{$notification->id}}" class="noty-link text-white mdb-color lighten-4 px-1 radius-5">فهمیدم</a>
+                                                    @endif
                                                 </span>
-                                                <span class="mr-1 fs-0-8">
-                                                    {{$notification->text}}
-                                                </span></a></li>
+                                                <span class="mr-1 fs-0-8 ">
+                                                    <span>{!!$notification->text!!}</span>
+                                                    
+                                                </span>
+                                            
+                                            </div></li>
                                             @endforeach
                                            
                                           
@@ -385,10 +393,13 @@
     @toastr_render
     <script src="{{asset('Panel/assets/js/custom.js')}}"></script>
     <script>
+ 
+
           $('.noty-link').click(function(e){
         e.preventDefault()
       
-        let id = $(this).attr('id')
+        let id = $(this).data('id')
+       
        var thiss = $(this)
 
         $.ajaxSetup({

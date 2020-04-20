@@ -222,8 +222,8 @@ class PostsController extends Controller
 
     public function ReadNoty(Request $request)
     {
-
-        $notification=Notifications::where($request->id)->first();
+       
+        $notification=Notifications::whereId($request->id)->first();
         $notification->read=1;
         $notification->update();
         

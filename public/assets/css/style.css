@@ -3101,8 +3101,15 @@ img {
 .v-m {
   vertical-align: middle;
 }
-
-.form-control {
+.flex-column {
+  -ms-flex-direction: column!important;
+  flex-direction: column!important
+ }
+ .flex-wrap{
+  -ms-flex-wrap: wrap!important;
+  flex-wrap: wrap!important
+ }
+.form-control {b
   display: block;
   width: 100%;
   height: calc(1.5em + .75rem + 2px);
