@@ -30,7 +30,8 @@
                     <hr />
                 </form>
                 <form action="#" class="form-inline">
-                    <button type="submit" class="btn btn-sm btn-danger ">ثبت نام با حساب گوگل</button>
+                <a href="{{route('SignUp.Google')}}" class="btn btn-danger">ثبت نام با حساب گوگل</a>
+                    <button type="submit" class="btn btm-sm btn-danger ">ثبت نام با حساب گوگل</button>
                     <hr />
                 </form>
             </div>

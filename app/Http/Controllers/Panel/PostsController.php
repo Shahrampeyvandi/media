@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Members\Members;
 use App\Models\Notifications\Notifications;
 use App\Models\Contents\Posts;
+use App\Models\Contents\ViolationReports;
 use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
@@ -283,6 +284,30 @@ class PostsController extends Controller
         $post= Posts::whereId(request()->id)->first();
     
        return view('Panel.CheckPost',compact(['member','post']));
+    }
+
+    public function report(Request $request)
+    {
+        $report=new ViolationReports;
+        $report->info=$request->info;
+        $report->members_id=auth()->user()->id;
+        $report->posts_id=$request->postid;
+        $report->save();
+
+        toastr()->success('گزارش شما با موفقیت ثبت شد');
+       return back();
+    }
+
+    public function allreport()
+    {
+
+        $reports=ViolationReports::all();
+
+
+     
+
+    return view('Panel.ViolationReports',compact('reports'));
+
     }
    
 }

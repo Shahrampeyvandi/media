@@ -9,6 +9,8 @@ Route::get('/login', 'LoginController@index')->name('login');
 Route::post('/login', 'LoginController@verifyLogin')->name('Login');
 Route::get('/logout', 'LoginController@Logout')->name('logout');
 
+
+
 // register routes
 Route::get('/signup', 'LoginController@SignUp')->name('SignUp');
 Route::post('signup', 'LoginController@registerStepOne')->name('SignUp');
@@ -16,7 +18,8 @@ Route::get('/verify/{mobile?}', 'LoginController@verifyRegister')->name('SignUp.
 Route::post('/verify', 'LoginController@verifyRegisterSubmit')->name('SignUp.verifySubmit');
 Route::get('/registerinformation', 'LoginController@registerStepThreeForm')->name('SignUp.Final');
 Route::post('/registerinformation', 'LoginController@registerStepThree')->name('SignUp.Final');
-
+Route::get('auth/google', 'LoginController@redirectToGoogle')->name('SignUp.Google');
+Route::get('auth/google/callback', 'LoginController@handleGoogleCallback')->name('SignUp.Google.Callback');
 
 // panel routes
 Route::get('/', 'Front\IndexController@Index')->name('BaseUrl');
@@ -64,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+    Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
 
 });
 
@@ -89,6 +93,8 @@ Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name
 Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
 
 Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+
+Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
 
 });
 
