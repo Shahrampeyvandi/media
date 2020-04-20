@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid boxShadow p-5">
-<div class="row">
+{{-- <div class="row">
 <div class="col-lg-6 col-xs-6 my-3">
             <!-- small box -->
             
@@ -39,7 +39,7 @@
         </div>
     </div>
      @endif
-        </div>
+        </div> --}}
     <div class="row">
         <div class="col-lg-4 col-xs-6 my-3">
             <!-- small box -->
