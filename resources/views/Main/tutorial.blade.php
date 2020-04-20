@@ -152,7 +152,7 @@
                                 </svg></a>
 
                             <div class="details">
-                                <a href="/movies" title="{{$content->categories->name}}" class="title">دسته بندی:
+                                <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="title">دسته بندی:
                                     {{$content->categories->name}}</a>
                                 <span class="caption">{{$countcategoryposts}}
                                     {{$content->categories->name}}</span>
@@ -210,64 +210,31 @@
                             <div class="episodes_list--item ">
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/0">معرفی دوره</a></div>
+                                            href="{{route('ShowItem',['id'=>$content->id])}}">معرفی دوره</a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details"><span class="detail-type">رایگان</span> <span
-                                            class="detail-time">۰۹:۴۹</span></div>
+                                            class="detail-time">{{$content->duration}}</span></div>
                                 </div>
                             </div>
-                            <div class="episodes_list--item ">
-                                <div class="section-right"><span class="episodes_list--number">۱</span>
-                                    <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/1">نصب و راه اندازی React Native
-                                            در ویندوز</a></div>
-                                </div>
-                                <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-type">رایگان</span> <span
-                                            class="detail-time">۴۴:۴۳</span></div>
-                                </div>
-                            </div>
+
+                            @foreach($episodes as $episode)
                             <div class="episodes_list--item lock">
-                                <div class="section-right"><span class="episodes_list--number">۲</span>
+                                <div class="section-right"><span class="episodes_list--number">{{$episode->number}}</span>
                                     <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/2">نصب و راه اندازی React Native
-                                            در macOs</a></div>
+                                            href="{{route('ShowItem.Episode',['id'=>$content->id,'ep'=>$episode->number])}}">
+                                            {{$episode->title}}
+                                            </a></div>
                                 </div>
                                 <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-time">۱۶:۳۵</span></div>
+                                    <div class="episodes_list--details"> <span
+                                            class="detail-time">{{$episode->duration}}</span></div>
                                 </div>
                             </div>
-                            <div class="episodes_list--item lock">
-                                <div class="section-right"><span class="episodes_list--number">۳</span>
-                                    <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/3">debugging در پروژه های React
-                                            native</a></div>
-                                </div>
-                                <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-time">۱۸:۳۷</span></div>
-                                </div>
-                            </div>
-                            <div class="episodes_list--item lock">
-                                <div class="section-right"><span class="episodes_list--number">۴</span>
-                                    <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/4">سلام دنیا با React Native</a>
-                                    </div>
-                                </div>
-                                <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-time">۱۱:۰۴</span></div>
-                                </div>
-                            </div>
-                            <div class="episodes_list--item lock">
-                                <div class="section-right"><span class="episodes_list--number">۵</span>
-                                    <div class="episodes_list--title"><a
-                                            href="/series/react-native-tutorial/episode/5">مروری بر Props ها و State
-                                            ها</a></div>
-                                </div>
-                                <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-time">۱۴:۲۵</span></div>
-                                </div>
-                            </div>
+
+@endforeach
+
+                        
                             
                            
                         </div>
@@ -275,7 +242,7 @@
               
 
 
-                    {{-- <div class="w-100 information put-right mt-2 mb-5 pl-3 grey lighten-2 radius-5">
+                     <div class="w-100 information put-right mt-2 mb-5 pl-3 grey lighten-2 radius-5">
                         <h3 class="mb-2 pr-2 pt-3 text-white">نظرهای شما</h3>
                         @if (count($comments))
                         @foreach ($comments as $comment)
@@ -431,7 +398,7 @@
         @else
         <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
         @endif
-    </div> --}}
+    </div> 
 </div>
 </div>
 <div class="col-md-3">

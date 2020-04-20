@@ -17,6 +17,15 @@ class CreateEpisodesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('posts_id');
             $table->foreign('posts_id')->references('id')->on('posts');
+            $table->integer('number')->nullable();
+            $table->unsignedBigInteger('categories_id')->default(6);
+            $table->foreign('categories_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('languages_id');
+            $table->foreign('languages_id')->references('id')->on('languages');
+            $table->unsignedBigInteger('subjects_id');
+            $table->foreign('subjects_id')->references('id')->on('subjects');
+            $table->unsignedBigInteger('levels_id');
+            $table->foreign('levels_id')->references('id')->on('levels');
             $table->string('title');
             $table->text('desc');
             $table->string('picture')->nullable();
