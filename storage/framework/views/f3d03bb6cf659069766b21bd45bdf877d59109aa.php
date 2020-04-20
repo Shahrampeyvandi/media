@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        ژن برتر - پنل
+    </title>
+    <!-- UA-153829- -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="content-language" content="fa" />
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Panel/vendor/FontAwesome/all.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Panel/vendor/themify/themify-icons.css">
+    <link rel="stylesheet" href="<?php echo e(asset('Panel/vendor/dataTable/responsive.bootstrap.min.css')); ?>">
+    <script src="<?php echo e(asset('assets/js/jquery-3.4.1.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/simplebar.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/simple-scrollbar.min.js')); ?>"></script>
+    <link rel="stylesheet" href=" <?php echo e(asset('Panel/assets/css/app.css')); ?> ">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/toastr.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/mdb.min.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/stylemusic.css">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>" />
+    <link rel="stylesheet" href=" <?php echo e(asset('Panel/assets/css/RTL.css')); ?> ">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/dashboard.css')); ?>" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+
+    <?php echo $__env->yieldContent('css'); ?>
+    <script>
+        var isMobile = false;
+    </script>
+</head>
+
+<body class="device-desktop theme-light">
+    
+    <div class="load-progress hidden">
+        <div class="bar"></div>
+    </div>
+    <main id="main" class="main" data-sidebar>
+        <header id="header" class="header">
+            <div class="wrapper">
+                <div class="header-row">
+                    <div class="item">
+                        <div class="inline-flex sidebar-toggle">
+                            <button type="button"
+                                class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
+                                <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                    <use xlink:href="#si_cats">
+                                        <g id="si_cats" data-viewBox="0 0 24 24">
+                                            <path d="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z"></path>
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                        </g>
+                                    </use>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="item">
+                        <div class="inline-flex upload-button">
+                            <a href="<?php echo e(route('UploadFile')); ?>"
+                                class="button button-info button-small button-hollow button-bordered upload-video"
+                                data-ctr="upload-button" data-ctr-cta="upload-button">
+                                <i class="fa fa-plus"></i>
+                                <span class="text mr-1">بارگذاری فایل</span></a>
+                        </div>
+
+                        <div class="inline-flex ">
+                            <div id="" class="dropdown">
+                                <div class="dropdown-toggle"><a  href="#" style="z-index: 2"
+                                        class="button button-gray button-medium button-hollow button-circular notif-link"><svg
+                                            class="icon icon-notifications" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                            <use xlink:href="#si_notifications">
+                                                <g id="si_notifications" data-viewBox="0 0 24 24">
+                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path
+                                                        d="M12 22a2.006 2.006 0 0 0 2-2h-4a2.006 2.006 0 0 0 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5z">
+                                                    </path>
+                                                </g>
+                                            </use>
+                                        </svg>
+                                    </a>
+<?php if($notystatus): ?>
+<span class="position-absolute noty-icon"> <i class="fa fa-exclamation-circle text-danger"></i></span>
+
+<?php endif; ?>                                    
+                                    </div>
+                                <div class="dropdown-content mdb-color lighten-1">
+                                    <div id="notification " class="d-b pr-2 pt-2">
+                                        <ul>
+                                        
+                                            <?php $__currentLoopData = $notifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li><a  href="#" data-id="<?php echo e($notification->id); ?>" class="noty-link text-white d-flex flex-sm-wrap mb-2">
+                                                <span class="mr-1 fs-0-8">
+                                                    <span class="text-info"><?php echo e($notification->title); ?></span>
+                                                </span>
+                                                <span class="mr-1 fs-0-8">
+                                                    <?php echo e($notification->text); ?>
+
+                                                </span></a></li>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                           
+                                          
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-widget" data-suggest-url="/search_suggestion">
+                    <div class="input-text">
+                        <div class="input-inner">
+
+                            <input class="input" type="search" id="" value="" name="search"
+                                placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
+
+                            <div class="input-box input-round"></div>
+                        </div>
+                        <button type="submit" id=searchIcon
+                            class="button button-small button-gray button-hollow button-circular end-icon search-icon">
+                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                <use xlink:href="#si_search">
+                                    <g id="si_search" data-viewBox="0 0 24 24">
+                                        <path
+                                            d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.494 4.494 0 0 1 9.5 14z">
+                                        </path>
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                    </g>
+                                </use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="suggestions" class="search-suggestion">
+
+                        <div id="suggestionContent" class="suggestion-content">
+                            <div class="loading loading-aparat">
+                                <div class="inner"><svg class="icon icon-inner">
+                                        <use xlink:href="#si_loading-inner"></use>
+                                    </svg><svg class="icon icon-outer">
+                                        <use xlink:href="#si_loading-outer"></use>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="search-overlay"></a>
+            </div>
+        </header>
+        <aside id="sidebar" class="sidebar">
+
+            <div class="sidebar-inner" data-simplebar data-simplebar-direction=rtl>
+                <div class="sidebar-toggle">
+                    <div class="toggle">
+                        <button type="button"
+                            class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
+                            <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                <use xlink:href="#si_cats"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="logo">
+                        <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
+                            aria-label="آپارات - سرویس اشتراک ویدیو"><svg
+                                class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
+                                viewBox="viewBox=" 0 0 90 31.89"">
+                                <use xlink:href="#si_logo-fa"></use>
+                            </svg></a>
+                    </div>
+                </div>
+
+
+                <section class="top pt-3">
+
+                    <div class="avatar">
+
+                        <?php if(auth()->user()->avatar): ?>
+                        <a href="#" class="picture image">
+                            <div class=" avatar-img"
+                                style="background-image: url(<?php echo e(route('BaseUrl')); ?>/<?php echo e(auth()->user()->avatar); ?>)">
+                            </div>
+                        </a>   
+                        <?php else: ?> 
+                        <a href="#" class="picture image">
+                            <div class=" avatar-img"
+                                style="background-image: url(<?php echo e(asset('assets/images/avatar.png')); ?>)">
+                            </div>
+                        </a>   
+                        <?php endif; ?>
+
+
+                    </div>
+                    <a href="#" title="آپارات - سرویس اشتراک ویدیو" class="username mt-2"><span
+                            class="text"><?php echo e(auth()->user()->firstname .' '.auth()->user()->lastname); ?></span></a>
+                </section>
+                <div class="menu-wrapper categories ">
+
+                    <ul class="menu-list">
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('Panel.Dashboard')); ?>" aria-label="سریال و فیلم‌های سینمایی"><svg
+                                    class="icon icon-dashboard" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_dashboard">
+                                        <g id="si_dashboard" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M19 5v4H4V5h15m0 10v4H4v-4h15m1-12H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm0 10H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1z">
+                                            </path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">داشبورد </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('MyVideos')); ?>" aria-label="کارتون"><svg class="icon icon-videos"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_videos">
+                                        <g id="si_videos" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 6.47L5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-1.99 2L2 18a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V4z">
+                                            </path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">فایل های ویدیویی من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('MyAudios')); ?>" aria-label=""><i
+                                    class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">فایل های صوتی من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('UnsubscribeFiles')); ?>" aria-label=""><i
+                                    class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">فایل های منتشر نشده</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href=" <?php echo e(route('Panel.Comments')); ?> " aria-label="گیم"><svg class="icon icon-comments"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_comments">
+                                        <g id="si_comments" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 4h16v12H5.17L4 17.17V4m0-2a2 2 0 0 0-1.99 2L2 22l4-4h14a2.006 2.006 0 0 0 2-2V4a2.006 2.006 0 0 0-2-2z">
+                                            </path>
+                                            <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">دیدگاه‌های من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('Panel.MyFollowers')); ?>" aria-label="گیم"><svg class="icon icon-gamepad"
+                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                    <use xlink:href="#si_gamepad"></use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">دنبال کننده ها</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('Panel.MyFavorites')); ?> " aria-label="">
+                                <div class="content d-flex align-items-center"><i
+                                        class="ti ti-tag fs-1-5 text-black-50 ml-3"></i>
+                                    <span class="text">علاقه مندی ها</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('Profile')); ?>" aria-label=""><i
+                                    class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">ویرایش پروفایل</span>
+                                </div>
+                            </a>
+                        </li>
+
+
+
+                    <?php if(auth()->user()->is_admin()): ?>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.Posts.All')); ?>" aria-label=""><i
+                                class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">پست ها</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.Posts.Unconfirmed')); ?>" aria-label=""><i
+                                class="ti ti-file fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">پست های پیش نویس</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.Members')); ?>" aria-label=""><i
+                                class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">کاربران</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.Comments.All')); ?>" aria-label=""><i
+                                class="ti ti-comments fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">نظرات</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.SlideShow.All')); ?>" aria-label=""><i
+                                class="ti ti-layout-slider fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">اسلایدشو</span>
+                            </div>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                       
+                        <li class="menu-item-link">
+                            <a href="<?php echo e(route('logout')); ?>" aria-label=""><svg class="icon icon-logout"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_logout">
+                                        <g id="si_logout" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M13 3h-2v10h2zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12 7 7 0 1 1 7.58 6.58L6.17 5.17A8.992 8.992 0 1 0 21 12a8.932 8.932 0 0 0-3.17-6.83z">
+                                            </path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">خروج از حساب کاربری</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-overlay"></div>
+        </aside>
+        <div id="container" class="container">
+            <div class="view">
+                <div class="container-fluid">
+
+                    <main class="mt-5">
+                        <?php echo $__env->yieldContent('content'); ?>
+                    </main>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        </div>
+    </main>
+
+    <script src="<?php echo e(asset('assets/js/app.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(route('BaseUrl')); ?>/Panel/assets/js/jquery.validate.js"></script>
+    <script src="<?php echo e(asset('Panel/vendor/dataTable/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Panel/vendor/dataTable/dataTables.bootstrap4.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Panel/vendor/dataTable/dataTables.responsive.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Panel/assets/js/datatable.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/toastr.min.js')); ?>"></script>
+    <?php echo app('toastr')->render(); ?>
+    <script src="<?php echo e(asset('Panel/assets/js/custom.js')); ?>"></script>
+    <script>
+          $('.noty-link').click(function(e){
+        e.preventDefault()
+      
+        let id = $(this).attr('id')
+       var thiss = $(this)
+
+        $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+        $.ajax({ 
+            url: '<?php echo e(route("Noty.Read")); ?>',
+            type: 'POST',
+            data:{id:id},
+            dataType: 'JSON', 
+            cache:false,
+            success: function(res) {
+                
+                $('.dropdown-content').removeClass('lighten-1').addClass('lighten-2')
+            }
+    });
+    })
+    </script>
+    <?php echo $__env->yieldContent('js'); ?>
+</body>
+
+</html><?php /**PATH C:\xampp\htdocs\media\resources\views/layout/Panel/temp.blade.php ENDPATH**/ ?>
