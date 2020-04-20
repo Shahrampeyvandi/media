@@ -33,4 +33,17 @@ class ProfileController extends Controller
 
         return view('Main.channel.about',compact(['member','followers','followings']));
     }
+
+    public function Follow(Request $request)
+    {    
+        
+      $follows=new Follows;
+      $follows->followed_id=$request->id;
+      $follows->follower_id=auth()->user()->id;
+
+      $follows->save();
+      
+
+       return back();
+    }
 }

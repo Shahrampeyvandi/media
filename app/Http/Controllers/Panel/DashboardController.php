@@ -8,6 +8,7 @@ use App\Models\Contents\Episodes;
 use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
+use App\Models\Members\Messages;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Notifications\Notifications;
@@ -358,6 +359,34 @@ class DashboardController extends Controller
         $member->books=$request->books;
 
         $member->update();
+
+        return back();
+    }
+
+
+    public function sendmessage(Request $request){
+
+        $message=new Messages;
+        $message->members_id=auth()->user()->id;
+        $message->message=$request->message;
+        $message->save();
+
+
+        return back();
+    }
+
+    public function messages(){
+
+        $messages=Messages::all();
+
+        return back();
+    }
+
+    public function responsemessage(Request $request){
+
+        $message=Messages::whereId($request->id)->first();
+        $message->response=$request->response;
+        $message->update();
 
         return back();
     }
