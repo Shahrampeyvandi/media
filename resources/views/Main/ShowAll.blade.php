@@ -296,6 +296,39 @@ $(document).on('click','.page-link',function(e){
             
         })
 })
+var request = false;
+$(document).on('keyup','.search-field',function(e){
+    e.preventDefault()
+    setTimeout(() => {
+        if (!request) {
+        $('.page-loader').fadeIn(300)
+        request = true;
+        let key = $(this).val();
+        let cat_id = '{{$cid}}';
+        let url = '{{route('FilterWithName')}}';
+    
+          $.ajax({ 
+               url: url,
+               type: 'GET',
+               data:{key:key,cat_id:cat_id},
+               dataType: 'JSON', 
+              
+               success: function(res) {
+                   
+                   $('.page-loader').fadeOut(300)
+                   $('.content-page').html(res[0])
+                   $('.paginate-item').html(res[1])
+                   setTimeout(()=>{
+                       request=false;
+                   },500)
+                   
+               }
+           
+       })
+       
+     }
+   },1000)
+})
 
   });
     </script>

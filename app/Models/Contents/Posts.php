@@ -43,6 +43,7 @@ class Posts extends Model
     {
         return $this->belongsTo(Subjects::class);
     }
+   
 
    
     public function setDescAttribute($value)

@@ -3109,7 +3109,7 @@ img {
   -ms-flex-wrap: wrap!important;
   flex-wrap: wrap!important
  }
-.form-control {b
+.form-control {
   display: block;
   width: 100%;
   height: calc(1.5em + .75rem + 2px);
@@ -14411,3 +14411,10 @@ br {display:block}
 }
 }
 
+.search-field{
+  padding: 8px 10px 8px 8px;
+  border-radius: 4px;
+  border: none;
+  border: 1px solid rgb(99, 219, 255);
+  margin: 1.5rem;
+}

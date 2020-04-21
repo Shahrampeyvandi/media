@@ -29,6 +29,8 @@ Route::get('/content/{id}', 'Front\PostController@index')->name('ShowItem');
 Route::get('/policies', 'MainController@policies')->name('Policies');
 Route::get('/category/{slug}', 'Front\CategoryController@show')->name('Category');
 Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterData');
+Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
+
 
 // routes where must login
 
@@ -78,7 +80,7 @@ Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Pa
 
 Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
 Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
-Route::get('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
+Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
 Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
 Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
 Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');

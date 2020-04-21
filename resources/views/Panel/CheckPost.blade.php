@@ -30,6 +30,8 @@
             </div>
             <form id="upload-file" method="post" action="{{route('Panel.Posts.Confirm.Submit')}}" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" class="" name="id" id="id" value="{{$post->id}}">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <select name="type" id="type" class="form-control browser-default custom-select">
@@ -102,7 +104,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    {{-- <div class="form-group col-md-6">
                         <div class="form-row">
                             <div class="col-md-3">
                                 <label for="">تصویر فایل</label>
@@ -111,7 +113,7 @@
                                 <input type="file" class="form-control" name="pic">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" name="url" placeholder="آدرس یکتا">
                     </div>
@@ -213,41 +215,12 @@
                 </div>
             </div>
         </form>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                style="width: 0%">
-                0%
-            </div>
-        </div>
+        
         <br />
-        <div id="success">
-
-        </div>
+        
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-</div>
-<div class="row">
-    <div class="col-md-12 mt-3 mb-5">
-        <div class="sc-gZMcBi ePNtwd"><span>پسوند های مجاز فایل </span>
-            <div class="sc-gqjmRU CZXVf">؟</div>
-
-        </div>
-        <div class="sc-VigVT hESCWV">
-            <p>avi,mp4,mp3,mpga,mkv,3gp
-            </p>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('css')
@@ -296,23 +269,6 @@
         })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $("#upload-file").validate({
 		rules: {
             title:"required",
@@ -339,88 +295,7 @@
 			},
         
 	});
-    $('form').ajaxForm({
-        beforeSerialize:function($Form, options){
-        /* Before serialize */
-        for ( instance in CKEDITOR.instances ) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-        return true; 
-    },
-      beforeSend:function(){
-        $('#success').empty();
-        
-      },
-      uploadProgress:function(event, position, total, percentComplete)
-      {
-       if ($('#type').val() != '6') {
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال بارگذاری ...
-                </button>`)
-        $('.progress-bar').text(percentComplete + '%');
-        $('.progress-bar').css('width', percentComplete + '%');
-       }else{
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال ارسال...
-                </button>`)
-       }
-      
-      },
-     
-      success:function(data)
-      {
-        if ($('#type').val() != '6') {
-
-          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-        }else{
-            $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
-
-        }
-        if(data.errors)
-        {
-            swal("خطا"
-            , data.errors
-            ,
-             "error", {
-			button: "باشه"
-		});
-          $('.progress-bar').text('0%');
-          $('.progress-bar').css('width', '0%');
-        }
-        if(data.success)
-        {
-        if ($('#type').val() != '6') {
-            swal("موفق"
-            , "فایل با موفقیت آپلود شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-
-          $('.progress-bar').text('انجام شد');
-          $('.progress-bar').css('width', '100%');
-          }else{
-            swal("موفق"
-            , "ارسال با موفقیت انجام شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-          }
-          $('#success').append(data.image);
-
-          var form = $('#upload-file')
-            form.find('input[type="text"]').val('')
-           
-            form.find('input[type="file"]').val('')
-           
-            form.find('textarea').val('')
-          
-        }
-      }
-    });
+   
 
 });
 </script>

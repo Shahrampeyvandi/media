@@ -161,11 +161,9 @@ class PostsController extends Controller
         return view('Panel.PostsDraft',compact('posts'));
     }
 
-    public function confirm($id)
+    public function confirm()
     {
-
-
-        Posts::where('id',$id)->update([
+       $update_post = Posts::where('id',request()->id)->update([
             'confirmed'=>1,
             'title' =>request()->title,
             'desc' =>request()->desc,
@@ -178,6 +176,17 @@ class PostsController extends Controller
             'otheroninformation' =>request()->desc2
             
             ]);
+         $post = Posts::whereId(request()->id)->first();
+        
+            if ($update_post){
+                Notifications::where('posts_id',request()->id)->update([
+                    'title' => 'پیام مدیر سایت',
+                    'text' => 'پست شما با عنوان '.$post->title.' تایید و در سایت قرار گرفت',
+                    'read'=>0
+                    ]);
+            }
+
+
         // send notifications to user where post
         toastr()->success('محتوا با موفقیت ثبت شد');
         return back();

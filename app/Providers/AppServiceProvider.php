@@ -31,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
         {
             $view->with('categories', Categories::all());
             if (Auth::check()) {
-                $notifications=DB::table('notifications')->where('members_id',Auth::user()->id)->latest()->take(5)->get();
+                $notifications=DB::table('notifications')->where('members_id',Auth::user()->id)->orderBy('updated_at', 'desc')->take(5)->get();
+               
                 $notystatus = Db::table('notifications')->where('members_id',Auth::user()->id)->where('read',0)->count();
                 $view->with(['notifications'=>$notifications,'notystatus'=>$notystatus]);
             }else {

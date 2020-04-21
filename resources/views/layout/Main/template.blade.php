@@ -314,11 +314,14 @@
                
                 <div id="sizes" class="menu-item-link menu-wrapper refinement-group-wrapper">
                     <h3 class="menu-title">فیلتربندی</h3>
+                   <div class="col-10">
+                    <input type="text" class="form-control search-field" placeholder="جست و جوی عنوان">
+                   </div>
                     <div class="refinement-group mb-3 text-right pr-3">
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample4"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> زبان</span>
                         </a>
@@ -340,7 +343,7 @@
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample3"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa  fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> موضوع</span>
                         </a>
@@ -365,7 +368,7 @@
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample5"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> سطح علمی</span>
                         </a>
