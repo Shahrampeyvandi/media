@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
 
+    Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
+
 });
 
 // روت های مختص ادمین پنل
@@ -108,5 +110,7 @@ Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Repor
 
 Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
 Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
+Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
+
 });
 
