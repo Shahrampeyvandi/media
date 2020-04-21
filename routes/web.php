@@ -30,6 +30,7 @@ Route::get('/policies', 'MainController@policies')->name('Policies');
 Route::get('/category/{slug}', 'Front\CategoryController@show')->name('Category');
 Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterData');
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
+Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
 
 
 // routes where must login
