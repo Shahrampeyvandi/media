@@ -147,13 +147,14 @@ class LoginController extends Controller
     }
     public function registerStepThreeForm()
     {
-        return view('Login.register_step_three');
+        $user=null;
+        return view('Login.register_step_three',compact('user'));
     }
 
     public function registerStepThree(Request $request)
     {
 
-        dd($request->all());
+        //dd($request->all());
         $validatedData = $request->validate([
             'userid' => 'unique:members,username',
             'user_mobile' => 'unique:members,mobile',
@@ -186,13 +187,18 @@ class LoginController extends Controller
         }
 try{
         $member = new Members();
+        if($request->googleid){
+            $member->email = $request->email;
+            $member->google_id = $request->googleid;
+        }else{
+            $member->email = session()->get('email');
+        }
         $member->firstname = $request->user_name;
         $member->lastname = $request->user_family;
         $member->avatar = $filePath;
         $member->mobile = $request->user_mobile;
         $member->username = $request->userid;
         $member->password = Hash::make($request->user_pass);
-        $member->email = session()->get('email');
         $member->age = $request->age;
         $member->history = $request->user_history;
         $member->books = $request->books;
@@ -236,23 +242,27 @@ try{
                 return redirect()->route('BaseUrl');
 
             }else{
+
+
+                return view('Login.register_step_three',compact('user'));
+
                 // $newUser = User::create([
                 //     'name' => $user->name,
                 //     'email' => $user->email,
                 //     'google_id'=> $user->id,
                 //     'password' => encrypt('123456dummy')
                 // ]);
-                $member = new Members();
-        $member->firstname = $user->name;
-        $member->lastname = $user->name;
-        $member->password = Hash::make('123456dummy');
-        $member->email = $user->email;
-        $member->google_id = $user->id;
-        $member->save();
+            //    $member = new Members();
+        // $member->firstname = $user->name;
+        // $member->lastname = $user->name;
+        // $member->password = Hash::make('123456dummy');
+        // $member->email = $user->email;
+        // $member->google_id = $user->id;
+        // $member->save();
     
-                Auth::login($member);
+        //         Auth::login($member);
      
-                return redirect('/home');
+        //         return redirect('/home');
             }
     
         } catch (Exception $e) {

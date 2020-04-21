@@ -16,6 +16,14 @@
                 <div class="">
                 <form id="signupForm" action="{{route('SignUp.Final')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @if($user)
+                        <input type="hidden" class="form-control" name="googleid" id="googleid" autocomplete="off"
+                                  value="{{$user->id}}" >
+
+                        <input type="hidden" class="form-control" name="email" id="email" autocomplete="off"
+                                  value="{{$user->email}}">
+                        @endif
+
                             <div class="row">
                                 <div class="col-md-12" style="display: flex;align-items: center;justify-content: center;">
                                   <div class="profile-img">
@@ -33,11 +41,22 @@
                               <div class="row">
                                 <div class="form-group col-md-6">
                                   <label for="user_name" class="col-form-label"><span class="text-danger">*</span> نام: </label>
-                                  <input type="text" class="form-control" name="user_name" id="user_name" autocomplete="off">
+                                  <input type="text" class="form-control" name="user_name" id="user_name" autocomplete="off"
+                                  @if($user)
+                                  value="{{$user->name}}"
+
+                                  @endif
+                                  
+                                  >
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="user_family" class="col-form-label"><span class="text-danger">*</span> نام خانوادگی:</label>
-                                  <input type="text" class="form-control" name="user_family" id="user_family">
+                                  <input type="text" class="form-control" name="user_family" id="user_family"
+                                  @if($user)
+                                  value="{{$user->name}}"
+
+                                  @endif
+                                  >
                                 </div>
                               </div>
                               <div class="row">
