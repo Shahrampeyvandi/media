@@ -11,17 +11,18 @@ use App\Models\Members\Follows;
 
 class ProfileController extends Controller
 {
-    public function Show($username)
+    public function Show($username,$slug='videos')
     {    
-        
-       $categories = Categories::all();
+
+       $category = Categories::where('latin_name',$slug)->first();
        $member = Members::whereUsername($username)->first();
+       $posts=$member->posts->where('categories_id',$category->id)->where('confirmed',1)->take(10);
 
        $followers=Follows::where('followed_id',$member->id)->count();
        $followings=Follows::where('follower_id',$member->id)->count();
 
        $moveis= Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
-        return view('Main.channel.user',compact(['member','categories','moveis','followers','followings']));
+        return view('Main.channel.user',compact(['member','category','moveis','followers','followings','posts']));
     }
 
     public function About($username)

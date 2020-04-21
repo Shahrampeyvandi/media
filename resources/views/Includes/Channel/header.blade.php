@@ -26,7 +26,7 @@
                 <div class="item">
                     <div class="avatar">
 
-                        <a href="/Digiato" class="picture image">
+                        <a href="{{route('User.Videos',['name'=>$member->username])}}" class="picture image">
                             {{-- <img
                                 src="https://static.cdn.asset.aparat.com/profile-photo/349868-m.jpg"
                                 class=" avatar-img"> --}}
@@ -35,7 +35,7 @@
                             </a>
 
                         <div class="channel-title">
-                            <a id="channelTitle" href="/Digiato" title="دیجیاتو">
+                            <a id="channelTitle" href="{{route('User.Videos',['name'=>$member->username])}}" title="{{$member->username}}">
                                 <h3 class="title">
                                     <span class="name">{{$member->username}}</span>
 
@@ -75,14 +75,14 @@
 <section class="main mt-5">
    
     <div class="tabs d-flex flex-wrap pr-2">
-        <a href="{{route('User.Videos','name')}}" class="tabs push_btn ml-2 px-2 mb-2"> فیلم ها و انیمیشن ها</a>
-        <a href="#" class="tabs push_btn ml-2 px-2 mb-2">کلیپ ها</a>
-        <a href="#" class="tabs push_btn ml-2 px-2 mb-2">موسیقی ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>''])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>''])) active @endif">فیلم ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>'animations'])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>'animations'])) active @endif">انیمیشن ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>'clips'])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>'clips'])) active @endif">کلیپ ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>'musics'])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>'musics'])) active @endif">موسیقی ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>'podcasts'])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>'podcasts'])) active @endif">پادکست ها</a>
+        <a href="{{route('User.Videos',['name'=>$member->username,'slug'=>'tutorial'])}}" class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Videos',['name'=>$member->username,'slug'=>'tutorial'])) active @endif">دوره های آموزشی</a>
 
-        <a href="#" class="tabs push_btn ml-2 px-2 mb-2">پادکست ها</a>
-
-        <a href="#" class="tabs push_btn ml-2 px-2 mb-2">دوره های آموزشی</a>
-        <a href="{{route('User.About','name')}}"  @if(request()->route()->getName() == "User.About")
+        <a href="{{route('User.About',['name'=>$member->username])}}"  @if(request()->route()->getName() == "User.About")
             class="tabs push_btn active ml-2 px-2 mb-2" @else class="tabs push_btn ml-2 px-2 mb-2"  @endif >درباره کانال</a>
 
     </div>

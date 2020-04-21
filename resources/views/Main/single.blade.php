@@ -132,7 +132,7 @@
 
 
                             <div class=" fs-0-8 mt-2 mr-1">
-                                <a id="" href="/Digiato" title="دیجیاتو">
+                                <a id="" href="{{route('User.Videos',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
                                     <h3 class="title">
                                         <span class="name">{{$content->members->username}}</span>
                                     </h3>
@@ -144,13 +144,13 @@
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
                         <div class="avatar">
-                            <a href="#" title="{{$content->categories->name}}" class="picture"><svg
+                            <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="picture"><svg
                                     class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                     <use xlink:href="#si_videos"></use>
                                 </svg></a>
 
                             <div class="details">
-                                <a href="/movies" title="{{$content->categories->name}}" class="title">دسته بندی:
+                                <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="title">دسته بندی:
                                     {{$content->categories->name}}</a>
                                 <span class="caption">{{$countcategoryposts}}
                                     {{$content->categories->name}}</span>

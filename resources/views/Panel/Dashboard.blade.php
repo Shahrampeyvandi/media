@@ -215,14 +215,14 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8  mb-5">
-            <form action="http://localhost/Rastegar/public/fa/Broker" method="post">
-                <input type="hidden" name="_token" value="v1PIMehTJvPe9Q7nufNginK3CCn0KraWB1skangD">
+            <form action="{{route('Message.Send')}}" method="post">
+                @csrf
                 <div class="row " style="align-items: center">
                     <div class="col-md-12">
                         <h3 class="mb-2 fs-1">متن پیام: </h3>
                         <div class="form-group">
 
-                            <textarea class="form-control" required="" name="massage" id="" rows="4"></textarea>
+                            <textarea class="form-control" required="" name="message" id="" rows="4"></textarea>
                         </div>
                     </div>
                     <div class="col-md-2">
