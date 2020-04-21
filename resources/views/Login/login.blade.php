@@ -37,8 +37,8 @@
                              </div>
                             </div>
                            </div>
-                        <button type="submit" class="btn btn-sm btn-danger col-md-3 mb-2">ورود</button>
-                        <a href="{{route('SignUp.Google')}}" class="btn btn-danger">ورود نام با حساب گوگل</a>
+                        <button type="submit" class="btn btn-sm btn-info col-md-3 mb-2">ورود</button>
+                        <a href="{{route('SignUp.Google')}}" class="btn btn-sm btn-danger">ورود نام با حساب گوگل <i class="fab fa-google"></i></a>
 
                         <hr/>
                     </form>
