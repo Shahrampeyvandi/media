@@ -37,7 +37,7 @@
                         <div class="channel-title">
                             <a id="channelTitle" href="/Digiato" title="دیجیاتو">
                                 <h3 class="title">
-                                    <span class="name">Udemy</span>
+                                    <span class="name">{{$member->username}}</span>
 
                                 </h3>
                             </a>
@@ -60,11 +60,11 @@
                 <div class="item">
                     <div class="stat">
 
-                        <span class="number channel-followers-349868">0</span>
+                        <span class="number channel-followers-349868">{{$followers}}</span>
                         <span class="text">دنبال‌ کننده</span>
                     </div>
                     <div class="stat">
-                        <span class="number">0</span>
+                        <span class="number">{{$followings}}</span>
                         <span class="text">دنبال شونده</span>
                     </div>
                 </div>

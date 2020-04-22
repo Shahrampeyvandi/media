@@ -71,6 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/{name}', 'Front\ProfileController@Show')->name('User.Videos');
     Route::get('/{name}/about', 'Front\ProfileController@About')->name('User.About');
 
+    Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
+
+    Route::post('/sendmessage', 'Front\ProfileController@Follow')->name('Message.Send');
 
 
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');

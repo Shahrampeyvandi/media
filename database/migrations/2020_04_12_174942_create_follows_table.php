@@ -18,6 +18,8 @@ class CreateFollowsTable extends Migration
             $table->unsignedBigInteger('followed_id');
             $table->unsignedBigInteger('follower_id');
             $table->unique(['followed_id', 'follower_id']);
+            $table->foreign('followed_id')->references('id')->on('members');
+            $table->foreign('follower_id')->references('id')->on('members');
             $table->timestamps();
         });
     }
