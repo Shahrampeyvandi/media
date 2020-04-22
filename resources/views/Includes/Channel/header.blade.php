@@ -66,11 +66,11 @@
                 <div class="item">
                     <div class="stat">
 
-                        <span class="number channel-followers-349868">{{$followers}}</span>
+                        <span class="number channel-followers-349868">{{count($member->followers)}}</span>
                         <span class="text">دنبال‌ کننده</span>
                     </div>
                     <div class="stat">
-                        <span class="number">{{$followings}}</span>
+                        <span class="number">{{count($member->followings)}}</span>
                         <span class="text">دنبال شونده</span>
                     </div>
                 </div>

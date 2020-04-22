@@ -11,7 +11,8 @@ class ChannelController extends Controller
     public function List()
     {
 
+        $channels=Members::where('approved',1)->get();
         
-        return view('Main.channel.list');
+        return view('Main.channel.list',compact('channels'));
     }
 }

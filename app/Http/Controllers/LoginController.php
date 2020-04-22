@@ -223,7 +223,7 @@ class LoginController extends Controller
             Auth::Login($member);
 
 
-            Mail::to(session()->get('email'))->send(
+            Mail::to($member->email)->send(
                 new Welcome()
             );
             
