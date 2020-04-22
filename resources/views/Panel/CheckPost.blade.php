@@ -132,20 +132,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    {{-- <div class="form-group col-md-6">
                         <select name="price_type" id="price_type" class="form-control browser-default custom-select">
-                            <option @if ($post->type    == "free")
-                                selected
-                            @endif value="free" selected>رایگان</option>
-                            <option @if ($post->type    == "money")
-                                selected
-                            @endif value="money">پولی</option>
+                            <option value="free" selected>رایگان</option>
+                            <option value="money">پولی</option>
 
                         </select>
+                    </div> --}}
+                    <div class="form-group col-md-2">
+                        <label for="desc">قیمت:  </label>
+                        <input type="number" class="form-control" value="{{$post->price}}" name="price" id="price" placeholder="">
+                        <span class="rial">ریال</span>
                     </div>
-                    <div class="form-group col-md-6">
-                    <input type="number" class="form-control" name="price" id="price" value="{{$post->price}}" placeholder="قیمت به ریال">
-                    </div>
+            
+                    
+                   
                 </div>
 
                 <div class="form-footer">
@@ -226,7 +227,7 @@
 @section('css')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
 <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/style.css" />
+
 
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -234,14 +235,11 @@
 @endsection
 
 @section('js')
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> --}}
-{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> --}}
-{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
-<!-- begin::input mask -->
+
 <script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
 <script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
 <!-- end::input mask -->
-<script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
@@ -251,11 +249,6 @@
         });
         CKEDITOR.replace('desc2');
         CKEDITOR.replace('epizode_desc');
-
-
-
-
-
         $(document).on('change','#type',function(){
             if($(this).val() == '6'){
                 $('.btn--wrapper input').val('ارسال')
@@ -267,8 +260,6 @@
                 $('.epizode').hide()
             }
         })
-
-
         $("#upload-file").validate({
 		rules: {
             title:"required",
@@ -279,24 +270,16 @@
             desc:"required",
 		},
 		messages: {
-			
             title: {
             required: "لطفا عنوان فایل را وارد نمایید",
-            
-
             },
             type:"محتوای فایل را انتخاب کنید",
             lang:"زبان فایل را انتخاب کنید",
             level:"سطح علمی فایل را انتخاب کنید",
             subject:"موضوع مورد نظر خود را انتخاب کنید",
             desc:"توضیحات برای فایل الزامی است",
-
-           
 			},
-        
 	});
-   
-
 });
 </script>
 @endsection

@@ -32,6 +32,12 @@ Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterDat
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
 Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
 
+   // Channel Routes
+   Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
+   Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
+   Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
+   Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
+
 
 // routes where must login
 
@@ -52,33 +58,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');
     Route::get('/panel/mycomments', 'Panel\CommentController@myComments')->name('Panel.Comments');
     Route::get('/uploadfile', 'Panel\DashboardController@UploadFile')->name('Main.UploadFile');
-   
-   
     Route::post('addcomment', 'Front\CommentController@AddPostComment')->name('AddComment');
     Route::post('likepost', 'Front\LikeController@LikePost')->name('LikePost');
     Route::post('addtofav', 'Front\FavoriteController@AddFavorite')->name('AddFavorite');
     Route::post('likecomment', 'Front\CommentController@LikeComment')->name('LikeComment');
     Route::post('dislikecomment', 'Front\CommentController@DisLikeComment')->name('DisLikeComment');
     Route::post('/readnoty', 'Panel\PostsController@ReadNoty')->name('Noty.Read');
-    
     Route::post('panel/upload-image', 'Panel\PostsController@UploadImage')->name('UploadImage');
     Route::post('upload/epizode', 'Panel\PostsController@UploadEpizode')->name('UploadEpizode');
-
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
-
-    // Channel Routes
-    Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Videos');
-    Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
-
-    Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
-
+ 
+   
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
-
-
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
-
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
 
 });
@@ -87,27 +81,20 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin')->group(function () {
 Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
 Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
-
 Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
 Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
 Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
 Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
 Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
 Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
-
 Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
 Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
 Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
-
-
 Route::get('/panel/slideshow/', 'Panel\SlideshowController@Index')->name('Panel.SlideShow.All');
 Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SlideShow.Submit');
 Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
-
 Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
-
 Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
-
 Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
 Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
 Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');

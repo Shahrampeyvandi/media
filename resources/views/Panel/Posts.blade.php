@@ -1,37 +1,36 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div id="popup1" class="overlay">
-            <div class="popup">
-        
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    <form id="" action="{{route('Panel.Post.Delete')}}" method="post">
-                        @csrf
+<div id="popup1" class="overlay">
+    <div class="popup">
+
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form id="" action="{{route('Panel.Post.Delete')}}" method="post">
+                @csrf
+               
+                <div class="mt-5 pr-2">
+                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
+                    <div class="form-group col-md-12">
+                        <input type="hidden" id="post_id" name="post_id" value="0">
+                      
                        
-                        <div class="mt-5 pr-2">
-                            <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
-                            <div class="form-group col-md-12">
-                                <input type="hidden" id="post_id" name="post_id" value="0">
-                              
-                               
-                            </div>
-                            <p>آیا برای حذف مورد مطمئن هستید؟</p>
-                        </div>
-                        <div class="form-group  float-left offset-md-10">
-        
-                            <button type="submit" class="btn btn-sm btn-danger ">حذف </button>
-                        </div>
-                    </form>
+                    </div>
+                    <p>آیا برای حذف مورد مطمئن هستید؟</p>
                 </div>
-            </div>
+                <div class="form-group  float-left offset-md-10">
+
+                    <button type="submit" class="btn btn-sm btn-danger ">حذف </button>
+                </div>
+            </form>
         </div>
-        <div>
+    </div>
+</div>
+
+        <div class="tab-wrapper">
 
             <a href="{{route('Panel.Posts.All')}}" @if (request()->path() == "panel/allposts/category")
-                class="btn btn-info" @else class="btn btn-light"  @endif>فیلم ها</a>
+                class="btn btn-info" @else class="btn btn-light"  @endif>فیلم ها و سریال ها</a>
             <a href="{{route('Panel.Posts.All','clips')}}" @if (request()->path() == "panel/allposts/category/clips")
                 class="btn btn-info" @else class="btn btn-light"  @endif> کلیپ ها</a>
             <a href="{{route('Panel.Posts.All','animations')}}" @if (request()->path() == "panel/allposts/category/animations")
@@ -41,17 +40,16 @@
             <a href="{{route('Panel.Posts.All','podcasts')}}" @if (request()->path() == "panel/allposts/category/podcasts")
                 class="btn btn-info" @else class="btn btn-light"  @endif> پادکست ها</a>
             <a href="{{route('Panel.Posts.All','learnings')}}" @if (request()->path() == "panel/allposts/category/learnings")
-                class="btn btn-info" @else class="btn btn-light"  @endif> فیلم های آموزشی </a>
+                class="btn btn-info" @else class="btn btn-light"  @endif> دوره های آموزشی </a>
 
 
 
             <a href="#"></a>
         </div>
         <hr>
-    </div>
-</div>
 
-<div class="col-sm-9 col-sm-offset-3 col-md-12  ">
+
+<div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
             style="margin-right: 0px;"><span class="title__divider__wrapper">پست ها<span
@@ -65,6 +63,8 @@
             <tr>
                 <th>ردیف</th>
                 <th > نام پست</th>
+                <th>بازدید ها</th>
+                <th>لایک ها</th>
                 <th>دسته بندی</th>
                 <th>زبان</th>
                 <th>سطح</th>
@@ -81,7 +81,11 @@
             @foreach($posts as $key=>$post)
             <tr>
             <td>{{$key+1}}</td>
-            <td>{{$post->title}}</td>
+            <td>
+            <a href="{{route('ShowItem',$post->id)}}" class="text-primary">{{$post->title}}</a>
+            </td>
+            <td>{{$post->views}}</td>
+            <td class="text-success">{{$post->likes->count()}}</td>
             <td>{{$post->categories->name}}</td>
             <td>{{$post->languages->name}}</td>
             <td>{{$post->levels->name}}</td>
@@ -96,7 +100,10 @@
             @case(1)
             <td>تایید شده</td>
             <td>
-             <a  data-id="{{$post->id}}" class="delete-post btn btn-rounded btn-danger btn-sm m-0">حذف</a>
+                <div class="btn-group" role="group" aria-label="">
+                <a  href="{{route('Admin.CheckPost',$post->id)}}" class=" btn btn-rounded btn-info btn-sm m-0">ویرایش</a>
+                    <a  data-id="{{$post->id}}" class="delete-post btn btn-rounded btn-danger btn-sm m-0">حذف</a>
+                  </div>
             </td>
             @break
             @case(2)

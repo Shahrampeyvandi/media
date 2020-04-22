@@ -6,9 +6,9 @@
         <div>
 
             <a href="{{route('Panel.Members')}}" @if (request()->path() == "panel/members")
-                class="btn btn-info" @else class="btn btn-light"  @endif>دانش آموزان</a>
+                class="btn btn-info" @else class="btn btn-light"  @endif>دانشجویان</a>
             <a href="{{route('Panel.Members','teacher')}}" @if (request()->path() == "panel/members/teacher")
-                class="btn btn-info" @else class="btn btn-light"  @endif>معلمان</a>
+                class="btn btn-info" @else class="btn btn-light"  @endif>اساتید</a>
             <a href="{{route('Panel.Members','deactive')}}" @if (request()->path() == "panel/members/deactive")
                 class="btn btn-info" @else class="btn btn-light"  @endif>غیر فعال</a>
 

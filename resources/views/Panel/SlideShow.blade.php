@@ -40,12 +40,12 @@
     </div>
 </div>
 
-<div class="col-sm-9 col-sm-offset-3 col-md-12  ">
+<div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
             style="margin-right: 0px;"><span class="title__divider__wrapper"> بنر های اسلایدشو<span
                     class="line brk-base-bg-gradient-right"></span>
-            </span>                            <a data-id="" class="btn--delete btn btn-success btn-sm m-0">افزودن</a>
+            </span>                            <a data-id="" style="left:0;" class="btn--delete btn btn-success btn-sm m-0 position-absolute">افزودن</a>
 
             </h2>
         

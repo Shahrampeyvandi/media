@@ -41,7 +41,7 @@
                         </section>
                     </div>
 
-                   
+
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
                         <div class="genre mb-md">
                             @foreach($content->tags as $tag)
@@ -97,7 +97,7 @@
                                 @if (auth()->check())
                                 <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
-                                    گزارش تخلف 
+                                    گزارش تخلف
                                 </a>
                                 @endif
 
@@ -206,10 +206,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div id="episodes_list" class="episodes_list">
                         <div class="episodes_list--section">
-                            
+
                             <div class="episodes_list--item ">
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
@@ -227,21 +227,21 @@
                                        @endif
                                         <span class="detail-type">
                                             رایگان</span>
-                                         <span
-                                            class="detail-time">{{$content->duration}}
+                                        <span class="detail-time">{{$content->duration}}
                                         </span>
-                                        
+
                                     </div>
                                 </div>
                             </div>
 
                             @foreach($episodes as $episode)
                             <div class="episodes_list--item lock">
-                                <div class="section-right"><span class="episodes_list--number">{{$episode->number}}</span>
+                                <div class="section-right"><span
+                                        class="episodes_list--number">{{$episode->number}}</span>
                                     <div class="episodes_list--title"><a
                                             href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
                                             {{$episode->title}}
-                                            </a></div>
+                                        </a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details"> <span
@@ -249,14 +249,14 @@
                                 </div>
                             </div>
 
-@endforeach
+                            @endforeach
 
-                        
-                            
-                           
+
+
+
                         </div>
                     </div>
-              
+
 
 
                     <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
@@ -422,93 +422,16 @@
                         @else
                         <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
                         @endif
-                    </div> 
-</div>
-</div>
-<div class="col-md-3">
-    <aside id="secondary" class="secondary">
-        <section id="recom" class="single-recom">
-            <header class="recom-header">
-                <h3 class="title">پست های مرتبط</h3>
-            </header>
-            <div class="recommended-list">
-                <div class="inner">
-                   @if (count($relateds))
-                   @foreach($relateds as $related)
-                   <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
-                       <div class="w-40">
-                           @if ($related->picture)
-                           <a href="{{route('ShowItem',['id'=>$related->id])}}"> <img
-                                   src="{{route('BaseUrl')}}/{{$related->picture}}" alt="{{$related->title}}"
-                                   aria-label="{{$related->title}}" class="thumb-image" style="min-height: 130px;"></a>
-                           @else
-                           <a href="{{route('ShowItem',['id'=>$related->id])}}">
-                               <div class="d-flex justify-content-center align-items-center h-100 p-3" style="    border: 1px solid gray;
-                                           border-radius: 4px;">
-                                   {{-- <img src="{{asset('assets/images/cinema.png')}}"
-                                   alt="{{$movie->title}}"
-                                   aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                   <i class="ti ti-video-camera text-black-50" style="font-size: 4rem;"></i>
-                               </div>
-                           </a>
-                           @endif
-                       </div>
-                       <div class="thumb-details pr-2 pt-2 mb-3">
-                           <h4 class="thumb-title">
-                               <a href="{{route('ShowItem',['id'=>$related->id])}}" title="{{$related->title}}"
-                                   class="title"><span>{{$related->title}}</span></a>
-                           </h4>
-                           <a href="{{route('Category',['slug'=>$related->categories->latin_name])}}"
-                               title="{{$related->categories->name}}" class="thumb-channel has-priority"><span
-                                   class="channel-name">{{$related->categories->name}}</span>
-                               <span class="priority-brand" title="رسمی">
-                                   <svg class="icon icon-tick icon-priority" viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                       <use xlink:href="#si_tick">
-                                           <g id="si_tick" data-viewBox="0 0 24 24">
-                                               <path d="M0 0h24v24H0z" fill="none"></path>
-                                               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z">
-                                               </path>
-                                           </g>
-                                       </use>
-                                   </svg> </span></a>
-                           <ul class="meta-tags d-b w-100 mt-xs">
-                               <li class="meta d-in light-60 dark-110 fs-0-8">زبان:
-                                   {{$related->languages->name}}
-                               </li>
-                           </ul>
-                           <ul class="meta-tags d-b w-100">
-                               <li class="meta d-in light-60 dark-110 fs-0-8">موضوع:
-                                   {{$related->subjects->name}}
-                               </li>
-                           </ul>
-                           <ul class="meta-tags d-b w-100">
-                               <li class="meta d-in light-60 dark-110 fs-0-8">سطح:
-                                   {{$related->levels->name}}
-                               </li>
-                           </ul>
-                       </div>
-                   </div>
-                   @endforeach
-
-                   @else
-                   <p class="text-secondary">پست مرتبط با این موضوع وجود ندارد</p>
-                   @endif
+                    </div>
                 </div>
             </div>
-        </section>
-    </aside>
-</div>
-</div>
-</div>
+            @include('Includes.Main.relatedposts')
+        </div>
+    </div>
 </div>
 </main>
-
-
 <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
-
-
 @endsection
-
 @section('js')
-
 @endsection
+

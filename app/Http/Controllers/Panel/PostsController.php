@@ -171,6 +171,14 @@ class PostsController extends Controller
 
     public function confirm()
     {
+
+        if(request()->price !== "0" || request()->price !== null){
+            $price_type = 'money';
+         
+        }else{
+        $price_type = 'free';
+     
+        }
        $update_post = Posts::where('id',request()->id)->update([
             'confirmed'=>1,
             'title' =>request()->title,
@@ -179,8 +187,8 @@ class PostsController extends Controller
             'languages_id' =>request()->lang,
             'subjects_id' =>request()->subject,
             'levels_id' =>request()->level,
-            'type' =>request()->price_type,
             'price' =>request()->price,
+            'type'=>$price_type,
             'otheroninformation' =>request()->desc2
             
             ]);
@@ -196,7 +204,7 @@ class PostsController extends Controller
 
 
         // send notifications to user where post
-        toastr()->success('محتوا با موفقیت ثبت شد');
+        toastr()->success('محتوا با موفقیت تایید شد');
         return back();
     }
 

@@ -62,6 +62,8 @@
                 <th>برای پست</th>
                 <th>نویسنده</th>
                 <th>تاریخ ثبت</th>
+                <th>رای مثبت</th>
+                <th>رای منفی</th>
                 <th>وضعیت</th>
                 <th>عملیات</th>
 
@@ -73,10 +75,11 @@
             <tr>
             <td>{{$key+1}}</td>
             <td style="max-width: 500px;word-wrap: break-word;">{!! $comment->text !!}</td>
-            <td><a href="{{route('ShowItem',['id'=>$comment->posts->id])}}">{{$comment->posts->title}}</a></td>
+            <td><a class="text-primary" href="{{route('ShowItem',['id'=>$comment->posts->id])}}">{{$comment->posts->title}}</a></td>
             <td>{{$comment->members->username}}</td>
             <td>{{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}</td>
-
+            <td class="text-success">{{$comment->commentlikes->where('score','like')->count()}}</td>
+            <td class="text-danger">{{$comment->commentlikes->where('score','dislike')->count()}}</td>
             @switch($comment->confirmed)
             @case(0)
             <td>در انتظار تایید</td>
@@ -89,9 +92,9 @@
             </td>
             @break
             @case(1)
-            <td>تایید شده</td>
+            <td class="text-success">تایید شده</td>
             <td>
-                <a  data-id="{{$comment->id}}" class="button__ btn btn-warning btn-sm m-0">رد تایید</a>
+                <a  data-id="{{$comment->id}}" class="button__ btn btn-danger btn-sm m-0">حذف</a>
             </td>
             @break
             @case(2)

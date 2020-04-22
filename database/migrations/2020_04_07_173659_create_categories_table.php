@@ -38,7 +38,7 @@ class CreateCategoriesTable extends Migration
         DB::table('categories')->insert(
             array(
 
-                'name' => 'کلیپ',
+                'name' => 'ژن پلاس',
                 'latin_name' => 'clips'
 
                 )

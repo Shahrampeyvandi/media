@@ -28,7 +28,7 @@ $(document).ready(function(){
      e.preventDefault()
      $('.overlay').css({  'visibility': 'hidden',
          'opacity': '0',
-         'z-index': '10',})
+         'z-index': '0',})
     })
 
     $('.post--delete').click(function(e){
@@ -37,7 +37,7 @@ $(document).ready(function(){
         let memberid = $(this).data('member')
        $('#post-id').attr('value',postid)
        $('#member-id').attr('value',memberid)
-     $('.overlay.delete').css({  'visibility': 'visible',
+     $('.overlay.delete').css({'visibility': 'visible',
          'opacity': '1',
          'z-index': '10',})
     })

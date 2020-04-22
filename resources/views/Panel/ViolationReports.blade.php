@@ -1,7 +1,7 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="col-sm-9 col-sm-offset-3 col-md-12  ">
+<div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
             style="margin-right: 0px;"><span class="title__divider__wrapper"> گزارشات تخلف پست ها<span
@@ -17,7 +17,7 @@
                 <th >پست</th>
                 <th > دسته بندی</th>
                 <th > موضوع</th>
-                <th style="width:50%;"> مشکل</th>
+                <th style="width:50%;"> گزارش</th>
                 <th > کاربر گزارش دهنده</th>
                 <th > تاریخ ثبت</th>
 

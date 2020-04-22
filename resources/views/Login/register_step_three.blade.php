@@ -5,7 +5,7 @@
     <div class="main mt-5 mt-md-0" style="display: flex; justify-content: center; align-items: center;">
         <div class="col-md-12 card" style="max-width:650px !important;margin-bottom: 2rem; ">
             <div class="head-login">
-                <h4 class="my-4"><a class="text-black-50" href="#">اطلاعات فردی</a></h4>
+              <h4 class="mb-2"><a class="text-black-50 fs-0-8" href="#">اطلاعات فردی</a></h4>
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
@@ -99,7 +99,7 @@
                             <div class="custom-control custom-radio custom-control-inline">
                               <input type="radio" id="student" value="student" name="user_role" class="custom-control-input"
                                 value="">
-                              <label class="custom-control-label text-primary" for="student">دانش آموز هستم</label>
+                              <label class="custom-control-label text-primary" for="student">دانشجو هستم</label>
                             </div>
                            </div>
                            <div class="form-group col-md-6">
@@ -129,7 +129,7 @@
                           </div>
                           <div class="row">
                             <div class="form-group col-md-3">
-                                <button type="submit" class="btn btn-sm btn-block btn-success ">تایید و ورود</button>
+                                <button type="submit" class="btn btn-sm btn-block btn-success ">ثبت نام</button>
 
                             </div>
                         </div>
@@ -169,8 +169,8 @@
       user_family: "required",
 			userid: {
 				required: true,
-        minlength: 2,
-        regex: /^[a-zA-Z]+$/
+        minlength: 5,
+        regex: /^[a-zA-Z]+[a-zA-Z\d]*$/
 			},
       user_role:"required",
 			user_pass: {
@@ -213,7 +213,7 @@
 			userid: {
 				required: "لطفا نام کاربری یکتای خود را وارد نمایید",
         minlength: "نام کابری حداقل 5 کاراکتر دارد",
-        regex:"نام کاربری فقط شامل حروف لاتین میباشد"
+        regex:"نام کاربری تنها شامل حروف لاتین میباشد و نمی تواند با عدد شروع شود"
 			},
 			user_pass: {
 				required: "رمز عبور دا وارد نمایید",
@@ -230,7 +230,7 @@
       user_role:"نقش خود را انتخاب کنید",
       user_history:{required:"سابقه تدریس الزامی میباشد"}
     ,user_sanavat:{required:"سابقه سنوات را وارد نمایید"}
-    ,user_certificate:{required:"لطفا مدرک تحصیلی را وارد نمایید"}
+    ,user_certificate:{required:" مدرک تحصیلی را وارد نمایید"}
     ,user_level:{required:"مقطع تحصیلی را وارد نمایید"}
 
 
