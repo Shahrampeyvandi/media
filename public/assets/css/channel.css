@@ -398,6 +398,8 @@ a.push_btn.active {
     color: #6f7285;
     margin-top: .5em;
 }
+
+
 .avatar .picture>img {
     display: block;
     border-radius: 100%;
