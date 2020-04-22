@@ -407,7 +407,6 @@
     @toastr_render
     <script src="{{asset('Panel/assets/js/custom.js')}}"></script>
     <script>
- 
 
           $('.noty-link').click(function(e){
         e.preventDefault()
