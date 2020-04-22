@@ -44,7 +44,7 @@ class PostController extends Controller
             $episodes = Episodes::where('posts_id',$id)->orderBy('number', 'asc')->get();
 
             //dd($episodes);
-            return view('Main.tutorial', compact(['content','comments','likes','favorite_status', 'relateds', 'categories', 'countcategoryposts','episodes']));
+            return view('Main.tutorial', compact(['id','content','comments','likes','favorite_status', 'relateds', 'categories', 'countcategoryposts','episodes']));
             
         }else{
             // get Epizodes
@@ -98,7 +98,7 @@ class PostController extends Controller
        $episodes = Episodes::where('posts_id',$id)->orderBy('number', 'asc')->get();
 
            // $episodes=Episodes::where('posts_id',$)
-            return view('Main.tutorial', compact(['content','comments','likes','favorite_status', 'relateds', 'categories', 'countcategoryposts','post','episodes']));
+            return view('Main.tutorial', compact(['id','content','comments','likes','favorite_status', 'relateds', 'categories', 'countcategoryposts','post','episodes']));
             
        
 

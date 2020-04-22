@@ -33,6 +33,7 @@ class CreateMembersTable extends Migration
             $table->string('books')->nullable();
             $table->string('years')->nullable();
             $table->boolean('active')->default(1);
+            $table->boolean('approved')->default(0);
             $table->enum('ability',['admin','mid-level-admin','member'])->default('member');
             $table->timestamps();
         });
