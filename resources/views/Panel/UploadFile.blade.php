@@ -196,7 +196,7 @@
               
                 <div class="row">
                     <div class="col-md-3 my-2 ">
-                        <input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />
+                        <input type="submit" id="upload" name="upload" value="آپلود" class="btn btn-sm btn-success" />
                     </div>
                 </div>
             </div>
@@ -273,6 +273,8 @@
             }
         })
 
+
+
         $("#upload-file").validate({
 		rules: {
             title:"required",
@@ -299,88 +301,97 @@
 			},
         
 	});
-    $('form').ajaxForm({
-        beforeSerialize:function($Form, options){
-        /* Before serialize */
-        for ( instance in CKEDITOR.instances ) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-        return true; 
-    },
-      beforeSend:function(){
-        $('#success').empty();
+    // $('form').ajaxForm({
+    //     beforeSerialize:function($Form, options){
+    //     /* Before serialize */
+    //     for ( instance in CKEDITOR.instances ) {
+    //         CKEDITOR.instances[instance].updateElement();
+    //     }
+    //     return true; 
+    // },
+    //   beforeSend:function(){
+    //     $('#success').empty();
         
-      },
-      uploadProgress:function(event, position, total, percentComplete)
-      {
-       if ($('#type').val() != '6') {
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال بارگذاری ...
-                </button>`)
-        $('.progress-bar').text(percentComplete + '%');
-        $('.progress-bar').css('width', percentComplete + '%');
-       }else{
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال ارسال...
-                </button>`)
-       }
+    //   },
+    //   uploadProgress:function(event, position, total, percentComplete)
+    //   {
+    //    if ($('#type').val() != '6') {
+    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+    //                 در حال بارگذاری ...
+    //             </button>`)
+    //     $('.progress-bar').text(percentComplete + '%');
+    //     $('.progress-bar').css('width', percentComplete + '%');
+    //    }else{
+    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+    //                 در حال ارسال...
+    //             </button>`)
+    //    }
       
-      },
+    //   },
      
-      success:function(data)
-      {
-        if ($('#type').val() != '6') {
+    //   success:function(data)
+    //   {
+    //     if ($('#type').val() != '6') {
 
-          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-        }else{
-            $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
+    //       $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
+    //     }else{
+    //         $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
 
-        }
-        if(data.errors)
-        {
-            swal("خطا"
-            , data.errors
-            ,
-             "error", {
-			button: "باشه"
-		});
-          $('.progress-bar').text('0%');
-          $('.progress-bar').css('width', '0%');
-        }
-        if(data.success)
-        {
-        if ($('#type').val() != '6') {
-            swal("موفق"
-            , "فایل با موفقیت آپلود شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
+    //     }
+    //     if(data.errors)
+    //     {
+    //         swal("خطا"
+    //         , data.errors
+    //         ,
+    //          "error", {
+	// 		button: "باشه"
+	// 	});
+    //       $('.progress-bar').text('0%');
+    //       $('.progress-bar').css('width', '0%');
+    //     }
+    //     if(data.success)
+    //     {
+    //     if ($('#type').val() != '6') {
+    //         swal("موفق"
+    //         , "فایل با موفقیت آپلود شد"
+    //         ,
+    //          "success", {
+	// 		button: "باشه"
+	// 	});
 
-          $('.progress-bar').text('انجام شد');
-          $('.progress-bar').css('width', '100%');
-          }else{
-            swal("موفق"
-            , "ارسال با موفقیت انجام شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-          }
-          $('#success').append(data.image);
+    //       $('.progress-bar').text('انجام شد');
+    //       $('.progress-bar').css('width', '100%');
+    //       }else{
+    //         swal("موفق"
+    //         , "ارسال با موفقیت انجام شد"
+    //         ,
+    //          "success", {
+	// 		button: "باشه"
+	// 	});
+    //       }
+    //       $('#success').append(data.image);
 
-          var form = $('#upload-file')
-            form.find('input[type="text"]').val('')
+    //       var form = $('#upload-file')
+    //         form.find('input[type="text"]').val('')
            
-            form.find('input[type="file"]').val('')
+    //         form.find('input[type="file"]').val('')
            
-            form.find('textarea').val('')
+    //         form.find('textarea').val('')
           
-        }
-      }
-    });
+    //     }
+    //   },
+
+    //   error:function(data){
+    //     swal("خطا"
+    //         , 'آپلود ناموفق بود'
+    //         ,
+    //          "error", {
+	// 		button: "باشه"
+	// 	});
+    //   }
+    // });
 
 });
 </script>

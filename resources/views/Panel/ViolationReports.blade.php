@@ -14,8 +14,10 @@
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th style="width: 600px">پست</th>
-                <th > مشکل</th>
+                <th >پست</th>
+                <th > دسته بندی</th>
+                <th > موضوع</th>
+                <th style="width:50%;"> مشکل</th>
                 <th > کاربر گزارش دهنده</th>
                 <th > تاریخ ثبت</th>
 
@@ -26,11 +28,13 @@
             @foreach($reports as $key=>$report)
             <tr>
             <td>{{$key+1}}</td>
-            <td><a href="{{route('ShowItem',$report->posts_id)}}">
+            <td><a class="text-primary" href="{{route('ShowItem',$report->posts_id)}}">
             {{$report->posts->title}}
             </a>
             </td>
-            <td>{{$report->info}}</td>
+            <td>{{$report->posts->categories->name}}</td>
+            <td>{{$report->posts->subjects->name}}</td>
+            <td>{!!$report->info!!}</td>
             <td>
             {{$report->members->username}}
             </td>

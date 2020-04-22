@@ -6096,7 +6096,7 @@ justify-content-start {
     width: 2em;
     height: 2em;
     font-size: 1em;
-    color: transparent;
+   
     padding: 0;
   }
   .device-desktop .header .upload-video .icon {
@@ -13210,7 +13210,7 @@ html[lang="fa"] .input-select select {
   position: fixed;
     display: inline-block;
     background-color: #08d75f;
-    padding: 8px 17px;
+    padding: 8px 19px;
     color: #fff;
     border-radius: 50%;
     font-size: 20px;
@@ -13300,6 +13300,7 @@ background-size: cover;
 }
 
 @media (max-width:768px) {
+
   .filmoja-theater-area::before {
     position: absolute;
     content: "";
@@ -13313,6 +13314,13 @@ background-size: cover;
   background-size: cover;
     opacity: 0.5;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  }
+
+
+
+
+  .comment-user-name{
+    font-size: .7rem;
   }
 }
 .section_70 {
@@ -13992,6 +14000,17 @@ br {display:block}
   visibility: hidden;
   opacity: 0;
 }
+.overlay2 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
 
 
 .popup {
@@ -14036,6 +14055,8 @@ br {display:block}
   }
   .video-js{
     width: 100%;
+    margin: 0 20px;
+    height: 300px;
   }
 }
 
@@ -14172,10 +14193,10 @@ br {display:block}
   display: flex;
 }
 .pagination .page-item .page-link{
-  width: 28px;
-    display: inline-block;
-    
-    text-align: center;
+  width: 33px;
+  margin-left: 11px !important;
+  display: inline-block;
+  text-align: center;
 }
 
 .noty-icon{
@@ -14295,39 +14316,39 @@ br {display:block}
   align-items: center;
 }
 .episodes_list .episodes_list--section .episodes_list--item .section-left .episodes_list--details .detail-type {
-  color: #fff;
-  background-color: #3d72b4;
-  padding: 10px 10px 9px;
+  color: #7b7b7b;
+    background-color: #e4e4e4;
+    padding: 5px 11px 5px;
+    font-size: .9em;
+    border: 1px solid gray;
+    margin-left: 5px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+.episodes_list .episodes_list--section .episodes_list--item .section-left .episodes_list--details .detail-time {
+  color: #7b7b7b;
+  background-color: #e4e4e4;
+  padding: 5px 11px 5px;
   font-size: .9em;
+  border: 1px solid gray;
   margin-left: 5px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border-radius: 2px;
-  font-weight: 700;
-}
-.episodes_list .episodes_list--section .episodes_list--item .section-left .episodes_list--details .detail-time {
-  background: #3d72b4;
-  color: #fff;
-  padding: 8px 10px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  font-size: 1em;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
+  border-radius: 20px;
   font-weight: 700;
 }
 
 .episodes_list .episodes_list--section .episodes_list--item .section-right .episodes_list--number {
   display: none;
-  height: 45px;
-  background: #3d72b4;
+  height: 34px;
+  background: #4296ff;
   color: #fff;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  width: 45px;
+  width: 35px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
@@ -14339,7 +14360,7 @@ br {display:block}
   -ms-flex-align: center;
   align-items: center;
   border: 4px solid #ebebeb;
-  padding-top: 3px;
+  
   margin-left: 10px;
   font-weight: 500;
   font-size: 1.1em;
@@ -14417,4 +14438,89 @@ br {display:block}
   border: none;
   border: 1px solid rgb(99, 219, 255);
   margin: 1.5rem;
+}
+.follow-link{
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+    padding: 0 4px;
+    background: #f7f7f7;
+    border: 1px solid;
+    border-radius: 10px;
+    
+    height: 22px;
+    vertical-align: middle;
+    margin-top: 13px;
+    margin-right: 8px;
+}
+
+.follow-link span{
+  margin-right: 2px;
+}
+.user-avatar{
+    width: 45px;
+    overflow: hidden;
+    border: 2px solid #737df9;
+    height: 45px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.share-options .socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.share-options {
+  width: 100%;
+  padding-top: 1em;
+}
+.share-options .socials .social {
+  padding: 0 .5em;
+}
+.share-options .socials .social a {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mt-lg {
+  margin-top: 1.5em;
+}
+.share-options .socials .linkedin .circle {
+  background-color: #0077b5;
+}
+.share-options .socials .social .circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 2px 7px 0 rgba(0,0,0,.1);
+}
+.share-options .socials .social .text {
+  font-size: .9em;
+  font-weight: 300;
+  color: #6f7285;
+  margin-top: .5em;
+  text-align: center;
+}
+.share-options .socials .twit .circle {
+  background-color: #55acee;
+}
+.share-options .socials .face .circle {
+  background-color: #3b5998;
+}
+.share-options .socials .whats .circle {
+  background-color: #43d854;
+}
+.share-options .socials .tel .circle {
+  background-color: #08c;
+}
+.share-options .socials .link .circle {
+  background-color: #0077b5;
+}
+.share-options .socials .social:not(.embed) .icon, .share-options .socials .social:not(.qr-code) .icon {
+  fill: #fff;
 }

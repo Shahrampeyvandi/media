@@ -10,23 +10,25 @@
 
 @endsection
 @section('content')
-
+@include('Includes.Main.popups')
 
 <div id="container" class="container">
     <div class="view">
-
-
         <div class="row">
             <div class="col-md-9">
                 <div class="pr-3">
                     <div id="primary" class="primary">
 
-                        
-                        <section id="play" class="mt-3">
-                            <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+                        <section id="play" class="mt-5">
+                            <video id="video_1" class="video-js mx-3 w-100" controls preload="auto" height="400"
                                 poster="{{route('BaseUrl')}}/{{$content->picture}}" data-setup="{}">
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4" />
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/webm" />
+                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
+                                    label="720p" />
+                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
+                                    label="480P" selected="true" />
+                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
+                                    label="360P">
+
                                 {{-- <track kind="captions" src="{{asset('files/record.vtt')}}" srclang="en"
                                 label="English" default> --}}
                                 <p class="vjs-no-js">
@@ -38,53 +40,8 @@
                             </video>
                         </section>
                     </div>
-                    <div id="popup1" class="overlay1">
-                        <div class="popup">
-                            <a class="close" href="#">&times;</a>
-                            <div class="content">
-                                <form id="" action="{{route('AddComment')}}" method="post">
-                                    @csrf
-                                    <div class="mt-3">
-                                        <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> افزودن دیدگاه
-                                        </h5>
-                                        <div class="form-group col-md-12">
-                                            <input type="hidden" id="parent_id" name="parent_id" value="0">
-                                            <input type="hidden" name="post_id" value="{{$content->id}}">
-                                            <textarea type="text" rows="4" class="form-control" name="comment"
-                                                id="comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-sm btn-primary">ارسال </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="popup1" class="overlay report">
-                        <div class="popup">
-                            <a class="close" href="#">&times;</a>
-                            <div class="content">
-                                <form id="" action="{{route('Post.Report')}}" method="post">
-                                    @csrf
-                                    <div class="mt-3">
-                                        <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> ارسال گزارش تخلف
-                                        </h5>
-                                        <div class="form-group col-md-12">
-                                            <input type="hidden" id="parent_id" name="parent_id" value="0">
-                                            <input type="hidden" name="postid" value="{{$content->id}}">
-                                            
-                                            <textarea type="text" placeholder="توضیح " rows="4" class="form-control" name="info"
-                                                id="description"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-sm btn-primary">ارسال </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+
+                   
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
                         <div class="genre mb-md">
                             @foreach($content->tags as $tag)
@@ -92,10 +49,21 @@
                                     class="text">#{{$tag->name}}</span></a>
                             @endforeach
                         </div>
-                        <div class="d-flex justify-content-between align-items-center col-11">
+                        <div class="d-flex justify-content-between align-items-center col-12">
                             <h1 class="title fs-1-4 fw-300"> {{$content->title}}</h1>
                             <div class="d-flex align-items-center">
-
+                                <a id="shareinmedia" href="#"
+                                    class="button button-medium button-gray button-hollow "><svg class="icon icon-share"
+                                        viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                        <use xlink:href="#si_share">
+                                            <g id="si_share" data-viewBox="0 0 24 24">
+                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M18 16.08a2.912 2.912 0 0 0-1.96.77L8.91 12.7A3.274 3.274 0 0 0 9 12a3.274 3.274 0 0 0-.09-.7l7.05-4.11A2.993 2.993 0 1 0 15 5a3.274 3.274 0 0 0 .09.7L8.04 9.81a3 3 0 1 0 0 4.38l7.12 4.16a2.821 2.821 0 0 0-.08.65A2.92 2.92 0 1 0 18 16.08zM18 4a1 1 0 0 1 1 1l.063-1-1.83-.656C16.683 3.344 17 5.55 17 5a1 1 0 0 1 1-1zM6 13c-.55 0 .672.847.672.3S5.45 13.219 6 13.219s0-.019 0 .531.55-.75 0-.75zm12 7.02c-.55 0-.234 1.046-.234.5s-.237-.172.313-.172.172-.55.172 0 .299-.328-.251-.328z">
+                                                </path>
+                                            </g>
+                                        </use>
+                                    </svg></a>
                                 <a href="#" id="like-post" data-id="{{$content->id}}"> <span class="text-success">
                                         {{$likes}}
                                     </span>
@@ -127,22 +95,52 @@
 
                                 </a>
                                 @if (auth()->check())
-                                <a  class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
+                                <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
-                                    گزارش تخلف محتوا
+                                    گزارش تخلف 
                                 </a>
                                 @endif
-                            
+
                                 @if (auth()->check())
                                 <a data-id="0" class="button__  p-1 text-primary mr-2 fs-0-8 radius-5 border-1 bc-blue">
 
                                     افزودن دیدگاه
                                 </a>
-                              
+
                                 @endif
+
                             </div>
                         </div>
 
+                    </div>
+
+
+                    <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
+                        <div class="avatar">
+                            @if ($content->members->avatar)
+                            <a href="#" class="picture user-avatar">
+                                <img src="{{asset('members/1587120640.jpg')}}" alt="">
+                            </a>
+
+                            @else
+                            <a href="#" class="picture image"
+                                style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
+                                <i class="fa fa-user  position-absolute fs-1-5 text-white"
+                                    style="right: 12px;top: 7px;"></i>
+                            </a>
+                            @endif
+
+
+                            <div class=" fs-0-8 mt-2 mr-1">
+                                <a id="" href="/Digiato" title="دیجیاتو">
+                                    <h3 class="title">
+                                        <span class="name">{{$content->members->username}}</span>
+                                    </h3>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="#" title="" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
+                                کردن</span></a>
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
                         <div class="avatar">
@@ -152,21 +150,27 @@
                                 </svg></a>
 
                             <div class="details">
-                                <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="title">دسته بندی:
+                                <a href="/movies" title="{{$content->categories->name}}" class="title">دسته بندی:
                                     {{$content->categories->name}}</a>
                                 <span class="caption">{{$countcategoryposts}}
                                     {{$content->categories->name}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="description w-100 put-right">
+
+                    <div class="description w-100 put-right pr-2">
                         <h3 class="fs-0-9 mb-xs">توضیحات</h3>
                         <p class="paragraph mb-lg text-black-50">
                             {!!$content->desc!!}
                         </p>
                     </div>
-
-                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5">
+                    <div class="description w-100 put-right pr-2">
+                        <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
+                        <p class="paragraph mb-lg text-black-50">
+                            {!!$content->otheroninformation!!}
+                        </p>
+                    </div>
+                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2">
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مربوط به</div>
                             <div class="d-tc py-xs">
@@ -202,7 +206,6 @@
                             </div>
                         </div>
                     </div>
-
                     
                     <div id="episodes_list" class="episodes_list">
                         <div class="episodes_list--section">
@@ -213,8 +216,20 @@
                                             href="{{route('ShowItem',['id'=>$content->id])}}">معرفی دوره</a></div>
                                 </div>
                                 <div class="section-left">
-                                    <div class="episodes_list--details"><span class="detail-type">رایگان</span> <span
-                                            class="detail-time">{{$content->duration}}</span></div>
+                                    <div class="episodes_list--details">
+                                       @if ($content->members_id == auth()->user()->id)
+                                       <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
+                                      حذف  </span></a>
+                                       <span class="btn btn-info btn-sm btn-rounded">
+                                       تعداد بازدیدها  1</span>
+                                       @endif
+                                        <span class="detail-type">
+                                            رایگان</span>
+                                         <span
+                                            class="detail-time">{{$content->duration}}
+                                        </span>
+                                        
+                                    </div>
                                 </div>
                             </div>
 
@@ -242,163 +257,170 @@
               
 
 
-                     <div class="w-100 information put-right mt-2 mb-5 pl-3 grey lighten-2 radius-5">
-                        <h3 class="mb-2 pr-2 pt-3 text-white">نظرهای شما</h3>
+                    <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
+
+                        <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
                         @if (count($comments))
                         @foreach ($comments as $comment)
-                        <div class="row mr-2 ml-5 mb-2" style="   background: #fbfbfc;
+                        <div class="row mr-2 ml-5 mb-2" style="   background: #e9e9ff;
                                 border-radius: 5px;
                                 padding: 10px;">
-                            <div class="col-4 col-md-1 pl-0">
+                            <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
-                    alt="">
-                </div>
-            </div>
-            <div class="col-12 col-md-11 pl-3">
-                <div class="mt-3">
-                    <div class=" d-flex justify-content-between mb-2">
-                        <h3>{{$comment->members->firstname .' '.$comment->members->lastname }}</h3>
-                        <span class="text-black-50 fs-0-8">
-                            {{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}
-                        </span>
-                    </div>
-                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                        {!!$comment->text!!}
-                    </p>
-                    <div>
-                        <div class="d-flex justify-content-end">
-
-                            <div>
-                                <a data-id="{{$comment->id}}" class="like-comment border-1 radius-5 pr-2 text-success"
-                                    href="#"> <span
-                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','like')->count()}}</span>
-                                    <i class="fa fa-plus-square"></i>
-                                </a>
-                                <a data-id="{{$comment->id}}"
-                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2" href="#"> <span
-                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','dislike')->count()}}</span>
-                                    <i class="fa fa-plus-square pl-1"></i>
-                                </a>
+                                        alt="">
+                                </div>
                             </div>
-                            <div class="text-info mr-2">
-                                <a href="#"
-                                    data-name="{{$comment->members->firstname .' '.$comment->members->lastname }}"
-                                    data-id="{{$comment->id}}" class="button__"> پاسخ
-                                    <i class="fa fa-reply"></i></a>
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
+                                <div class="mt-3">
+                                    <div class=" d-flex justify-content-between mb-2">
+                                        <h3>{{$comment->members->firstname .' '.$comment->members->lastname }}</h3>
+                                        <span class="text-black-50 fs-0-8">
+                                            {{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}
+                                        </span>
+                                    </div>
+                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                        {!!$comment->text!!}
+                                    </p>
+                                    <div>
+                                        <div class="d-flex justify-content-end">
+
+                                            <div>
+                                                <a data-id="{{$comment->id}}"
+                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
+                                                    <span
+                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','like')->count()}}</span>
+                                                    <i class="fa fa-plus-square"></i>
+                                                </a>
+                                                <a data-id="{{$comment->id}}"
+                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
+                                                    href="#"> <span
+                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','dislike')->count()}}</span>
+                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                </a>
+                                            </div>
+                                            <div class="text-info mr-2">
+                                                <a href="#"
+                                                    data-name="{{$comment->members->firstname .' '.$comment->members->lastname }}"
+                                                    data-id="{{$comment->id}}" class="button__"> پاسخ
+                                                    <i class="fa fa-reply"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->get()
-        as
-        $comment_l2)
-        <div class="row mr-3 ml-2 mb-2" style="   background: #fbfbfc;
+                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->get()
+                        as
+                        $comment_l2)
+                        <div class="row mr-3 ml-2 mb-2" style="   background: #e9e9ff;
                                                        border-radius: 5px;
                                                        padding: 10px;">
-            <div class="col-4 col-md-1 pl-0">
-                <div class="w-100 d-flex justify-content-center pt-3">
-                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}" alt="">
-                </div>
-            </div>
-            <div class="col-12 col-md-11 pl-3">
-                <div class="mt-3">
-                    <div class=" d-flex justify-content-between mb-2">
-                        <h3>{{$comment_l2->members->firstname .' '.$comment_l2->members->lastname }}
-                        </h3>
-                        <span class="text-black-50 fs-0-8">
-                            {{\Morilog\Jalali\Jalalian::forge($comment_l2->created_at)->format('%d %B %Y')}}
-                        </span>
-                    </div>
-
-                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                        {!!$comment_l2->text!!}
-                    </p>
-                    <div>
-                        <div class="d-flex justify-content-end">
-
-                            <div>
-                                <a data-id="{{$comment_l2->id}}"
-                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#"> <span
-                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','like')->count()}}</span>
-                                    <i class="fa fa-plus-square"></i>
-                                </a>
-                                <a data-id="{{$comment_l2->id}}"
-                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2" href="#"> <span
-                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','dislike')->count()}}</span>
-                                    <i class="fa fa-plus-square pl-1"></i>
-                                </a>
+                            <div class="col-3 col-md-1 pl-0">
+                                <div class="w-100 d-flex justify-content-center pt-3">
+                                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
+                                        alt="">
+                                </div>
                             </div>
-                            <div class="text-info mr-2">
-                                <a href="#" data-id="{{$comment_l2->id}}" class="button__"> پاسخ
-                                    <i class="fa fa-reply"></i></a>
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
+                                <div class="mt-3">
+                                    <div class=" d-flex justify-content-between mb-2">
+                                        <h3>{{$comment_l2->members->firstname .' '.$comment_l2->members->lastname }}
+                                        </h3>
+                                        <span class="text-black-50 fs-0-8">
+                                            {{\Morilog\Jalali\Jalalian::forge($comment_l2->created_at)->format('%d %B %Y')}}
+                                        </span>
+                                    </div>
+
+                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                        {!!$comment_l2->text!!}
+                                    </p>
+                                    <div>
+                                        <div class="d-flex justify-content-end">
+
+                                            <div>
+                                                <a data-id="{{$comment_l2->id}}"
+                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
+                                                    <span
+                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','like')->count()}}</span>
+                                                    <i class="fa fa-plus-square"></i>
+                                                </a>
+                                                <a data-id="{{$comment_l2->id}}"
+                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
+                                                    href="#"> <span
+                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','dislike')->count()}}</span>
+                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                </a>
+                                            </div>
+                                            <div class="text-info mr-2">
+                                                <a href="#" data-id="{{$comment_l2->id}}" class="button__"> پاسخ
+                                                    <i class="fa fa-reply"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->get()
-        as $comment_l3)
-        <div class="row mr-5 ml-2 mb-2" style="   background: #fbfbfc;
+                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->get()
+                        as $comment_l3)
+                        <div class="row mr-5 ml-2 mb-2" style="   background: #e9e9ff;
                             border-radius: 5px;
                             padding: 10px;">
-            <div class="col-4 col-md-1 pl-0">
-                <div class="w-100 d-flex justify-content-center pt-3">
-                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}" alt="">
-                </div>
-            </div>
-            <div class="col-12 col-md-11 pl-3">
-                <div class="mt-3">
-                    <div class=" d-flex justify-content-between mb-2">
-                        <h3>{{$comment_l3->members->firstname .' '.$comment_l3->members->lastname }}
-                        </h3>
-                        <span class="text-black-50 fs-0-8">
-                            {{\Morilog\Jalali\Jalalian::forge($comment_l3->created_at)->format('%d %B %Y')}}
-                        </span>
-                    </div>
-
-                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                        {!!$comment_l3->text!!}
-                    </p>
-                    <div>
-                        <div class="d-flex justify-content-end">
-
-                            <div>
-                                <a href="#"> <span class="text-success">0</span>
-                                    <svg class="icon icon-thumb-up d-in v-m c-theme fs-1-2 ml-xxs" viewBox="0 0 24 24"
-                                        0="" 24="" 24""="">
-                                        <use xlink:href="#si_thumb-up">
-                                            <g id="si_thumb-up" data-viewbox="0 0 24 24">
-                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                <path
-                                                    d="M9 21h9a1.987 1.987 0 0 0 1.84-1.22l3.02-7.05A1.976 1.976 0 0 0 23 12v-2a2.006 2.006 0 0 0-2-2h-6.31l.95-4.57.03-.32a1.505 1.505 0 0 0-.44-1.06L14.17 1 7.58 7.59A1.987 1.987 0 0 0 7 9v10a2.006 2.006 0 0 0 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9z">
-                                                </path>
-                                                <path transform="translate(1 9)" d="M0 0h4v12H0z">
-                                                </path>
-                                            </g>
-                                        </use>
-                                    </svg> </a>
+                            <div class="col-3 col-md-1 pl-0">
+                                <div class="w-100 d-flex justify-content-center pt-3">
+                                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
+                                        alt="">
+                                </div>
                             </div>
-                            <div class="text-info mr-2">
-                                <a href="#" data-id="{{$comment_l3->id}}" class="button__"> پاسخ
-                                    <i class="fa fa-reply"></i></a>
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
+                                <div class="mt-3">
+                                    <div class=" d-flex justify-content-between mb-2">
+                                        <h3>{{$comment_l3->members->firstname .' '.$comment_l3->members->lastname }}
+                                        </h3>
+                                        <span class="text-black-50 fs-0-8">
+                                            {{\Morilog\Jalali\Jalalian::forge($comment_l3->created_at)->format('%d %B %Y')}}
+                                        </span>
+                                    </div>
+
+                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                        {!!$comment_l3->text!!}
+                                    </p>
+                                    <div>
+                                        <div class="d-flex justify-content-end">
+
+                                            <div>
+                                                <a href="#"> <span class="text-success">0</span>
+                                                    <svg class="icon icon-thumb-up d-in v-m c-theme fs-1-2 ml-xxs"
+                                                        viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                                        <use xlink:href="#si_thumb-up">
+                                                            <g id="si_thumb-up" data-viewbox="0 0 24 24">
+                                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path
+                                                                    d="M9 21h9a1.987 1.987 0 0 0 1.84-1.22l3.02-7.05A1.976 1.976 0 0 0 23 12v-2a2.006 2.006 0 0 0-2-2h-6.31l.95-4.57.03-.32a1.505 1.505 0 0 0-.44-1.06L14.17 1 7.58 7.59A1.987 1.987 0 0 0 7 9v10a2.006 2.006 0 0 0 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9z">
+                                                                </path>
+                                                                <path transform="translate(1 9)" d="M0 0h4v12H0z">
+                                                                </path>
+                                                            </g>
+                                                        </use>
+                                                    </svg> </a>
+                                            </div>
+                                            <div class="text-info mr-2">
+                                                <a href="#" data-id="{{$comment_l3->id}}" class="button__"> پاسخ
+                                                    <i class="fa fa-reply"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        @endforeach
-        @endforeach
-        @else
-        <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
-        @endif
-    </div> 
+                        @endforeach
+                        @endforeach
+                        @endforeach
+                        @else
+                        <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
+                        @endif
+                    </div> 
 </div>
 </div>
 <div class="col-md-3">

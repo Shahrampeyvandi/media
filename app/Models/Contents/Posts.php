@@ -20,6 +20,10 @@ class Posts extends Model
     {
         return $this->hasMany(Likes::class);
     }
+    public function violations()
+    {
+        return $this->hasMany(ViolationReports::class);
+    }
     public function tags()
     {
         return $this->belongsToMany(Tags::class);

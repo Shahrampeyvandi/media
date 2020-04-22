@@ -87,7 +87,7 @@ class DashboardController extends Controller
     public function SubmitUploadFile(Request $request)
     {
         
-        
+       
       
       if ($request->type !== "6") {
         $validator = Validator::make($request->all(), [
@@ -129,7 +129,7 @@ class DashboardController extends Controller
             $picextension = $request->file('pic')->getClientOriginalExtension();
             $fileName = 'pic_' . time() . '.' . $picextension;
             $request->file('pic')->move($destinationPath, $fileName);
-            $picPath = "files/$request->title/$fileName";
+            $picPath = "files/posts/$request->title/$fileName";
         }else{
             $picPath='';
         }
@@ -138,7 +138,7 @@ class DashboardController extends Controller
             $picextension = $request->file('subtitle')->getClientOriginalExtension();
             $fileName = 'subtitle_' . time() . '.' . $picextension;
             $request->file('subtitle')->move($destinationPath, $fileName);
-            $subTitle = "files/$request->title/$fileName";
+            $subTitle = "files/posts/$request->title/$fileName";
         }else{
             $subTitle='';
         }
@@ -269,14 +269,12 @@ class DashboardController extends Controller
 
 
        if($request->type !== "6"){
-        return response()->json(
-            ['success' => 'فایل با موفقیت آپلود شد']
-            , 200);
+        toastr()->success('محتوا با موفقیت ثبت شد');
+        return back();
        }
         if($request->type == "6"){
-        return response()->json(
-            ['success' => 'دوره آموزشی با موفقیت ثبت شد']
-            , 200);
+            toastr()->success('محتوا با موفقیت ثبت شد');
+            return back();
        }
        
     }

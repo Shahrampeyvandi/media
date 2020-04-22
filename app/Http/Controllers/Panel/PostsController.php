@@ -104,6 +104,14 @@ class PostsController extends Controller
 
     }
 
+
+    public function MyTutorials()
+    {
+
+        $tutorials = Posts::where('categories_id',6)->where('members_id',auth()->user()->id)->get();
+        return view('Panel.MyTutorials',compact('tutorials'));
+    }
+
     public function UnsubscribeFiles()
     {
         $member = auth()->user();
@@ -241,8 +249,9 @@ class PostsController extends Controller
 
     public function Delete(Request $request)
     {
-        
-        Posts::where('id',$request->post_id)->delete();
+       
+      
+        Posts::whereId($request->post_id)->delete();
         toastr()->success('پست با موفقیت حذف شد');
         return back();
 
@@ -297,9 +306,16 @@ class PostsController extends Controller
 
     public function report(Request $request)
     {
+        $member = auth()->user()->id;
+        if(ViolationReports::where(['posts_id'=>$request->postid,'members_id'=>$member])->count())
+        {
+            toastr()->warning('شما تنها یک بار میتوانید گزارش تخلف ثبت کنید');
+            return back();
+        }
+        
         $report=new ViolationReports;
         $report->info=$request->info;
-        $report->members_id=auth()->user()->id;
+        $report->members_id=$member;
         $report->posts_id=$request->postid;
         $report->save();
 

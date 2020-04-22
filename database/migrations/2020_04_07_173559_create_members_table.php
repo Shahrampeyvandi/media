@@ -27,6 +27,8 @@ class CreateMembersTable extends Migration
             $table->string('google_id')->nullable();
             $table->string('age')->nullable();
             $table->enum('group',['student','teacher','admin'])->default('student');
+            $table->string('certificate')->nullable();
+            $table->string('edu_level')->nullable();
             $table->string('history')->nullable();
             $table->string('books')->nullable();
             $table->string('years')->nullable();
@@ -40,9 +42,9 @@ class CreateMembersTable extends Migration
                 'lastname'=>'admin',
                 'avatar'=>null,
                 'mobile'=>'09381699949',
-                'username'=>'admin_panel',
+                'username'=>'admin',
                 'password'=>Hash::make('123456'),
-                'email'=>'email',
+                'email'=>'info@genebartar.com',
                 'age'=>'30',
                 'group'=>'admin',
                 'history'=>null,

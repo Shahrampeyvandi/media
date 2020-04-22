@@ -113,6 +113,12 @@
                  
                           <div class="row teacher-spec">
                             <div class="form-group col-md-6">
+                              <input type="text" placeholder="مدرک تحصیلی" class="form-control" name="user_certificate" id="user_certificate">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <input type="text" placeholder="مقطع تحصیلی" class="form-control" name="user_level" id="user_level">
+                            </div>
+                            <div class="form-group col-md-6">
                               <input type="text" placeholder="سابقه تدریس" class="form-control" name="user_history" id="user_history">
                             </div>
                             <div class="form-group col-md-6">
@@ -188,6 +194,16 @@
         required: function(element){
             return $("#teacher").val().length > 0;
         }
+      },
+      user_certificate:{
+        required: function(element){
+            return $("#teacher").val().length > 0;
+        }
+      },
+      user_level:{
+        required: function(element){
+            return $("#teacher").val().length > 0;
+        }
       }
 	
 		},
@@ -214,6 +230,9 @@
       user_role:"نقش خود را انتخاب کنید",
       user_history:{required:"سابقه تدریس الزامی میباشد"}
     ,user_sanavat:{required:"سابقه سنوات را وارد نمایید"}
+    ,user_certificate:{required:"لطفا مدرک تحصیلی را وارد نمایید"}
+    ,user_level:{required:"مقطع تحصیلی را وارد نمایید"}
+
 
 		}
 	});

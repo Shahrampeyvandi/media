@@ -96,7 +96,7 @@
             @case(1)
             <td>تایید شده</td>
             <td>
-             <a  data-id="{{$post->id}}" class="delete-post btn btn-danger btn-sm m-0">حذف</a>
+             <a  data-id="{{$post->id}}" class="delete-post btn btn-rounded btn-danger btn-sm m-0">حذف</a>
             </td>
             @break
             @case(2)

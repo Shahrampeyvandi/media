@@ -19,8 +19,9 @@ class CommentController extends Controller
         $comment->parent_id = $request->parent_id;
         $post=Posts::whereId($request->post_id)->first()->id;
         $comment->posts_id = $post;
+        $comment->confirmed = auth()->user()->is_admin() ? 1 : 0;
         $comment->save();
-        toastr()->success('پیام شما با موفقیت ثبت شد');
+        toastr()->success('نظر شما با موفقیت ثبت شد');
         return back();
     }  
 

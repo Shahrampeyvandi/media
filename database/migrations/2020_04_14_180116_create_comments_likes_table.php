@@ -16,9 +16,9 @@ class CreateCommentsLikesTable extends Migration
         Schema::create('comments_likes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('members_id')->nullable();
-            $table->foreign('members_id')->references('id')->on('members');
+            $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
             $table->unsignedBigInteger('comments_id')->nullable();
-            $table->foreign('comments_id')->references('id')->on('comments');
+            $table->foreign('comments_id')->references('id')->on('comments')->onDelete('cascade');
             $table->enum('score',['like','dislike']);
             $table->timestamps();
         });

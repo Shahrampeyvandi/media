@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/users', 'Panel\UserController@index')->name('UsersList');
     Route::get('/panel/myvideos/{content?}', 'Panel\PostsController@MyVideos')->name('MyVideos');
     Route::get('/panel/myaudios/{content?}', 'Panel\PostsController@MyAudios')->name('MyAudios');
+    
+    Route::get('/panel/mytutorials/{content?}', 'Panel\PostsController@MyTutorials')->name('MyTutorials');
+
     Route::get('/panel/unsubscribefiles', 'Panel\PostsController@UnsubscribeFiles')->name('UnsubscribeFiles');
     Route::get('/panel/myfavorites/{content?}', 'Panel\FavoritesController@index')->name('Panel.MyFavorites');
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');

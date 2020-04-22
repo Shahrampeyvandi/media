@@ -617,11 +617,13 @@
             e.preventDefault()
             $('.dropdown-content').fadeToggle(200)
         })
-        
-      
-    
 
-   
+        $(document).on('click',function(e){
+            if($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0){
+                $('.dropdown-content').fadeOut(200)
+            }
+        })
+        
    $('.button__').click(function(e){
        e.preventDefault()
        let parent_id = $(this).data('id')
@@ -643,9 +645,20 @@
     $('.overlay1').css({  'visibility': 'hidden',
         'opacity': '0','z-index': '0'
        })
+       $('.overlay2').css({  'visibility': 'hidden',
+        'opacity': '0','z-index': '0'
+       })
        $('.overlay.report').css({  'visibility': 'hidden',
         'opacity': '0','z-index': '0'
        })
+   })
+   $('#shareinmedia').click(function(e){
+       e.preventDefault()
+       let parent_id = $(this).data('id')
+     
+    $('.overlay2').css({  'visibility': 'visible',
+        'opacity': '1',
+        'z-index': '10',})
    })
    function ajaxlike(id,url){
       

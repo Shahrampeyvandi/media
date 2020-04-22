@@ -203,6 +203,8 @@ try{
         $member->history = $request->user_history;
         $member->books = $request->books;
         $member->years = $request->user_sanavat;
+        $member->certificate= $request->user_certificate;
+        $member->edu_level= $request->user_level;
         $member->active = 1;
         $member->group = $request->user_role;
         $member->ability = 'member';

@@ -91,7 +91,7 @@
             @case(1)
             <td>تایید شده</td>
             <td>
-                <a  data-id="{{$comment->id}}" class=" btn btn-warning btn-sm m-0">رد تایید</a>
+                <a  data-id="{{$comment->id}}" class="button__ btn btn-warning btn-sm m-0">رد تایید</a>
             </td>
             @break
             @case(2)
