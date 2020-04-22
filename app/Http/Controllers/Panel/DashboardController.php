@@ -88,8 +88,6 @@ class DashboardController extends Controller
     public function SubmitUploadFile(Request $request)
     {
         
-       
-      
       if ($request->type !== "6") {
         $validator = Validator::make($request->all(), [
             'file' => 'mimes:avi,mp4,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
@@ -369,7 +367,7 @@ class DashboardController extends Controller
         $message->message=$request->message;
         $message->save();
 
-
+        toastr()->success('نظر شما برای مدیریت ارسال گردید');
         return back();
     }
 
@@ -377,8 +375,18 @@ class DashboardController extends Controller
 
         $messages=Messages::all();
 
-        return back();
+        return view('Panel.AllMessages',compact('messages'));
+
     }
+
+    public function mymessages(){
+
+        $messages=Messages::where('members_id',auth()->user()->id)->get();
+
+
+        return view('Panel.MyMessages',compact('messages'));
+    }
+
 
     public function responsemessage(Request $request){
 
@@ -386,6 +394,7 @@ class DashboardController extends Controller
         $message->response=$request->response;
         $message->update();
 
+        toastr()->success('پاسخ با موفقیت برای کاربر ارسال شد');
         return back();
     }
 }

@@ -304,8 +304,22 @@
                                 </div>
                             </a>
                         </li>
-
-
+                        <li class="menu-item-link">
+                            <a href="{{route('Message.My')}}" aria-label=""><i
+                                    class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">پیام های من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                        <a href="{{route('Purchase.My')}}" aria-label=""><i
+                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">دوره های خریداری من</span>
+                            </div>
+                        </a>
+                    </li>
 
                     @if (auth()->user()->is_admin())
                     <li class="menu-item-link">
@@ -353,6 +367,22 @@
                                 class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">گزارش های تخلف</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Message.All')}}" aria-label=""><i
+                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">پیام های کاربران</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Purchase.All')}}" aria-label=""><i
+                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">دوره های خریداری شده</span>
                             </div>
                         </a>
                     </li>

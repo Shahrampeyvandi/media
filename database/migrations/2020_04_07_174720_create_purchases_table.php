@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePayesSubscribesTable extends Migration
+class CreatePurchasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreatePayesSubscribesTable extends Migration
      */
     public function up()
     {
-        Schema::create('payes_subscribes', function (Blueprint $table) {
+        Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('members_id');
             $table->foreign('members_id')->references('id')->on('members');
             $table->unsignedBigInteger('posts_id')->nullable();
-            $table->foreign('posts_id')->references('id')->on('members');
-            $table->unsignedBigInteger('episods_id')->nullable();
-            $table->foreign('episods_id')->references('id')->on('episodes');
-            $table->unsignedBigInteger('purchase_id');
-            $table->foreign('purchase_id')->references('id')->on('purchase');
-            $table->string('subscribe_type');
-            $table->dateTime('expires_date',0);
+            $table->foreign('posts_id')->references('id')->on('posts');
+            $table->integer('payedprice')->nullable();
+            $table->string('payinfo')->nullable();
+            $table->boolean('success')->default(0);
             $table->timestamps();
         });
     }
@@ -36,6 +33,6 @@ class CreatePayesSubscribesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payes_subscribes');
+        Schema::dropIfExists('purchase');
     }
 }

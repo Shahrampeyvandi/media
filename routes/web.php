@@ -68,15 +68,18 @@ Route::middleware('auth')->group(function () {
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
 
     // Channel Routes
-    Route::get('/{name}', 'Front\ProfileController@Show')->name('User.Videos');
-    Route::get('/{name}/about', 'Front\ProfileController@About')->name('User.About');
+    Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Videos');
+    Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
 
     Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
 
-    Route::post('/sendmessage', 'Front\ProfileController@Follow')->name('Message.Send');
+    Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
+    Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
 
 
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
+
+    Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
 
 });
 
@@ -104,6 +107,10 @@ Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name
 Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
 
 Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
+
+Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
+Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
+Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
 
 });
 
