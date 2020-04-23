@@ -20,7 +20,11 @@ class ProfileController extends Controller
 
        $followers=Follows::where('followed_id',$member->id)->count();
        $followings=Follows::where('follower_id',$member->id)->count();
+       if (auth()->check()) {
         $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
+       }else{
+           $checkfollow = 0;
+       }
        $moveis= Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
         return view('Main.channel.user',compact([
             'member',
