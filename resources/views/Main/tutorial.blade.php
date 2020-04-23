@@ -213,16 +213,18 @@
                             <div class="episodes_list--item ">
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem',['id'=>$content->id])}}">معرفی دوره</a></div>
+                                            href="{{route('ShowItem',['id'=>$id])}}">معرفی دوره</a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
-                                        @if ($content->members_id == auth()->user()->id)
-                                        <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
-                                                حذف </span></a>
-                                        <span class="btn btn-info btn-sm btn-rounded">
-                                            تعداد بازدیدها 1</span>
-                                        @endif
+                                    @if(auth()->user())
+                                       @if ($content->members_id == auth()->user()->id)
+                                       <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
+                                      حذف  </span></a>
+                                       <span class="btn btn-info btn-sm btn-rounded">
+                                       تعداد بازدیدها  1</span>
+                                       @endif
+                                       @endif
                                         <span class="detail-type">
                                             رایگان</span>
                                         <span class="detail-time">{{$content->duration}}
@@ -237,7 +239,7 @@
                                 <div class="section-right"><span
                                         class="episodes_list--number">{{$episode->number}}</span>
                                     <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem.Episode',['id'=>$content->id,'ep'=>$episode->number])}}">
+                                            href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
                                             {{$episode->title}}
                                         </a></div>
                                 </div>
