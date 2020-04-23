@@ -2,98 +2,68 @@
 
 @section('content')
 <div class="container-fluid boxShadow p-5">
-{{-- <div class="row">
-<div class="col-lg-6 col-xs-6 my-3">
-            <!-- small box -->
-            
-         @if (!is_null($mostlikedcomment))
-         <div class="small-box"
-         style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
-         <div class="inner ">
-             <h3 class="text-white">توسط : {{$mostlikedcomment->members->username}}</h3>
-             <h3 class="text-white">برای پست : <a href="{{route('ShowItem',$mostlikedcomment->posts->id)}}">  {{$mostlikedcomment->posts->title}} </a></h3>
-             <h3 class="text-white">با متن : {{$mostlikedcomment->text}}</h3>
 
-             <p class="text-white fs-1-5">محبوب ترین نظر</p>
-         </div>
-         <div class="fs-2">
-             <i class="fas fa-exclamation"></i>
-         </div>
-     </div>
-         @endif
-        </div>
-     @if (!is_null($mostdislikedcomment))
-     <div class="col-lg-6 col-xs-6 my-3">
-        <!-- small box -->
-        <div class="small-box"
-            style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
-            <div class="inner ">
-            <h3 class="text-white">توسط : {{$mostdislikedcomment->members->username}}</h3>
-            <h3 class="text-white">برای پست : <a href="{{route('ShowItem',$mostdislikedcomment->posts->id)}}">  {{$mostdislikedcomment->posts->title}} </a></h3>
-                <h3 class="text-white">با متن : {{$mostdislikedcomment->text}}</h3>
-                <p class="text-white fs-1-5">منفور ترین نظر</p>
-            </div>
-            <div class="fs-2">
-                <i class="fas fa-exclamation"></i>
-            </div>
-        </div>
-    </div>
-     @endif
-        </div> --}}
-    <div class="row">
-        <div class="col-lg-4 col-xs-6 my-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
-            <div class="small-box"
-                style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
-                <div class="inner ">
-                    <h3 class="text-white">{{$countfilms}}</h3>
-                    <p class="text-white fs-1-5">فیلم ها</p>
+            <a href="{{route('MyVideos')}}">
+                <div class="small-box"
+                    style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
+                    <div class="inner ">
+                        <h3 class="text-white">{{$countfilms}}</h3>
+                        <p class="text-white fs-1-5">فیلم ها</p>
+                    </div>
+                    <div class="fs-2">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
                 </div>
-                <div class="fs-2">
-                    <i class="fas fa-exclamation"></i>
-                </div>
-            </div>
+            </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-xs-6 my-3">
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
-            <div class="small-box" style="    padding: 20px;
+            <a href="{{route('MyVideos','animations')}}">
+                <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #71ec62 !important;
                     background: linear-gradient(-45deg,#2a9c05,#71ec62)!important;                    color: #fff;
                     border-radius: 7px;">
-                <div class="inner">
-                    <h3 style="color: white !important;">{{$countanimations}}<sup style="font-size: 20px"></sup>
-                    </h3>
-                    <p class="text-white fs-1-5">انیمیشن ها</p>
+                    <div class="inner">
+                        <h3 style="color: white !important;">{{$countanimations}}<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p class="text-white fs-1-5">انیمیشن ها</p>
+                    </div>
+                    <div class="fs-2">
+                        <i class="fas fa-cubes"></i>
+                    </div>
                 </div>
-                <div class="fs-2">
-                    <i class="fas fa-cubes"></i>
-                </div>
-            </div>
+            </a>
         </div>
         <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-4 col-xs-6 my-3">
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
-            <div class="small-box" style="    padding: 20px;
+            <a href="{{route('MyVideos','clips')}}">
+                <div class="small-box" style="    padding: 20px;
                    box-shadow: 0 6px 20px 0 #bb52e6!important;
     background: linear-gradient(-45deg,#70059c,#bb52e6)!important;
                     color: #fff;
                     border-radius: 7px;">
-                <div class="inner">
-                    <h3 style="color: white !important;">{{$countclips}}<sup style="font-size: 20px"></sup>
-                    </h3>
-                    <p class="text-white fs-1-5">کلیپ ها</p>
+                    <div class="inner">
+                        <h3 style="color: white !important;">{{$countclips}}<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p class="text-white fs-1-5">کلیپ ها</p>
+                    </div>
+                    <div class="fs-2">
+                        <i class="fas fa-cubes"></i>
+                    </div>
                 </div>
-                <div class="fs-2">
-                    <i class="fas fa-cubes"></i>
-                </div>
-            </div>
+            </a>
         </div>
         <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-4 col-xs-6 my-3">
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
+            <a href="{{route('MyAudios')}}">
             <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #f971a3 !important;
                     background: linear-gradient(-45deg,#9c054b,#f971a3)!important;                    color: #fff;
@@ -107,11 +77,13 @@
                     <i class="fas fa-cubes"></i>
                 </div>
             </div>
+            </a>
         </div>
         <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-4 col-xs-6 my-3">
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
+            <a href="{{route('MyAudios','podcasts')}}">
             <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 rgba(255, 53, 19, 0.5)!important;
                     background: linear-gradient(-45deg,#9c1405,#e91d26)!important;
@@ -126,11 +98,18 @@
                     <i class="fas fa-cubes"></i>
                 </div>
             </div>
+            </a>
         </div>
         <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-4 col-xs-6 my-3">
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->group !== "student")
+            <a href="{{route('MyTutorials')}}">
+            @else
+            <a href="#">
+            @endif
+           
             <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #f5e259 !important;
                     background: linear-gradient(-45deg,#b38400,#f5e259)!important;                    color: #fff;
@@ -144,10 +123,16 @@
                     <i class="fas fa-cubes"></i>
                 </div>
             </div>
+        </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-xs-6 my-3">
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->group == "admin")
+            <a href="{{route('Panel.Comments.All')}}">
+            @else
+            <a href="{{route('Panel.Comments')}}">
+            @endif
             <div class="small-box"
                 style="padding:20px; box-shadow: 0 6px 20px 0 rgba(29,233,182,.5)!important; background: linear-gradient(-45deg,#43a047,#1de9b6)!important; color: #fff;border-radius: 7px;">
                 <div class="inner">
@@ -159,8 +144,9 @@
                     <i class="fas fa-dice-d20"></i>
                 </div>
             </div>
+            </a>
         </div>
-        <div class="col-lg-4 col-xs-6 my-3">
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
             <div class="small-box"
                 style=" 
@@ -178,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-xs-6 my-3">
+        <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
             <div class="small-box" style="border-radius: 7px;
                             padding: 21px;
@@ -191,12 +177,13 @@
                     <p class="text-white fs-1-5">دنبال کننده ها</p>
                 </div>
                 <div class="fs-2 text-white">
-                    <i class="fas fa-building"></i>
+                    <i class="fas fa-users"></i>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@if (auth()->user()->group !== 'admin')
 <div class="container-fluid ">
     <div style="    box-shadow: 0px 11px 21px #DDD;
             padding: 7px;" class="col-md-12  m-auto col-md-offset-2">
@@ -226,7 +213,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group text-center" >
+                        <div class="form-group text-center">
                             <button type="submit" class="btn btn-sm btn-primary">ارسال</button>
                         </div>
                     </div>
@@ -236,5 +223,6 @@
         </div>
     </div>
 </div>
+@endif
 
 @endsection

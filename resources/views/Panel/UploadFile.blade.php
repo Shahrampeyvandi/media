@@ -19,9 +19,14 @@
                         <select name="type" id="type" class="form-control browser-default custom-select">
                             <option value="" selected>دسته بندی</option>
                             @if($member->group=='student')
-                            <option value="5">کلیپ</option>
+                            @forelse (\App\Models\Contents\Categories::where('id','!=',6)->latest()->get() as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
 
+                            @empty
+                            <option value="" selected>دسته بندی تعریف نشده است</option>
+                            @endforelse
 
+ 
                             @else
                             @forelse (\App\Models\Contents\Categories::latest()->get() as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -111,29 +116,32 @@
                         <textarea class="form-control" name="desc2" id="desc2" cols="30" rows="8"></textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <select name="price_type" id="price_type" class="form-control browser-default custom-select">
-                            <option value="free" selected>رایگان</option>
-                            <option value="money">پولی</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="number" class="form-control" name="price" id="price" placeholder="قیمت به ریال">
-                    </div>
-                </div>
+                
 
                 <div class="form-footer">
                     <div class="row fileform">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="desc">فایل: </label>
                             <input type="file" class="form-control" name="file" id="file" />
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="desc">افزودن زیرنویس: فایل زیرنویس باید با فرمت vtt باشد </label>
                             <input type="file" class="form-control" name="subtitle" id="subtitle" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{-- <div class="form-group col-md-6">
+                            <select name="price_type" id="price_type" class="form-control browser-default custom-select">
+                                <option value="free" selected>رایگان</option>
+                                <option value="money">پولی</option>
+    
+                            </select>
+                        </div> --}}
+                        <div class="form-group col-md-2">
+                            <label for="desc">قیمت:  </label>
+                            <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
+                            <span class="rial">ریال</span>
                         </div>
                     </div>
                     <div class="row">
@@ -142,6 +150,7 @@
                         </div>
                     </div>
                 </div>
+               
 
 
 

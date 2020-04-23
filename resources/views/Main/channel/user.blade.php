@@ -8,11 +8,7 @@
 <div class="row">
     <div class="col-md-12">
       @include('Includes.Channel.header')
-
         {{-- content --}}
-
-
-      
             <div class="content mt-5 px-2">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3 mr-2">
@@ -20,8 +16,6 @@
                             <span class="title__divider__wrapper text-success">آخرین ویدیو<span
                                     class="line brk-base-bg-gradient-right"></span>
                             </span></h2>
-
-
                     </div>
                 </div>
                 <div class="recent_content d-flex ">

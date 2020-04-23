@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>genebartar</title>
 </head>
-<body>
-    <h3>به ژن برتر خوش آمدید</h3>
+<body dir="rtl">
+    <h3 class="text-primary">به ژن برتر خوش آمدید</h3>
 
 <p>کد فعال سازی شما: {{$code}}</p>
     

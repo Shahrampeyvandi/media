@@ -1,9 +1,8 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div>
+
+        <div class="tab-wrapper">
             <a href="{{route('MyAudios')}}" @if (request()->path() == "panel/myaudios")
                 class="btn btn-info" @else class="btn btn-light"  @endif>موسیقی ها</a>
             <a href="{{route('MyAudios','podcasts')}}"  @if (request()->path() == "panel/myaudios/podcasts")
@@ -11,8 +10,7 @@
             <a href="#"></a>
         </div>
         <hr>
-    </div>
-</div>
+
 
 
 @if (request()->path() == "panel/myaudios")

@@ -42,17 +42,22 @@ class CreateSubjectsTable extends Migration
         );
         DB::table('subjects')->insert(
             array(
-                'name' => 'مهارت نوشتاری',
+                'name' => 'رایتینگ',
             )
         );
         DB::table('subjects')->insert(
             array(
-                'name' => 'مهارت متن خوانی',
+                'name' => 'ریدینگ',
             )
         );
         DB::table('subjects')->insert(
             array(
-                'name' => 'مهارت شنیداری',
+                'name' => 'سپیکینگ',
+            )
+        );
+        DB::table('subjects')->insert(
+            array(
+                'name' => 'آیلتس',
             )
         );
     }

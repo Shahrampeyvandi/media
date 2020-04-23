@@ -314,8 +314,9 @@
                
                 <div id="sizes" class="menu-item-link menu-wrapper refinement-group-wrapper">
                     <h3 class="menu-title">فیلتربندی</h3>
-                   <div class="col-10">
-                    <input type="text" class="form-control search-field" placeholder="جست و جوی عنوان">
+                   <div class="col-10 position-relative">
+                    <input type="text" class="form-control search-field">
+                    <span class="filter-search"><i class="fa fa-search"></i></span>
                    </div>
                     <div class="refinement-group mb-3 text-right pr-3">
 
@@ -419,7 +420,7 @@
                         </li>
 
                         <li class="menu-item-link">
-                            <a href="/official" aria-label="کانال های رسمی">
+                        <a href="{{route('Channels.List')}}" aria-label="کانال های رسمی">
                                 <div class="content">
                                     <span class="text">کانال های رسمی</span>
                                 </div>
@@ -450,6 +451,7 @@
 
 
 
+               
                 <ul class="side-function">
                     <li class="side-contact"><a href="javascript:;" rel="nofollow"><i
                                 class="fa fa-envelope fs-2"></i></a></li>
@@ -660,6 +662,32 @@
         'opacity': '1',
         'z-index': '10',})
    })
+
+   $('.follow-link').on('click',function(e){
+       e.preventDefault();
+       let id = $(this).data('id')
+       let thiss = $(this)
+       $.ajax({ 
+        url: '{{route('User.Follow')}}',
+        type: 'POST',
+        data:{id:id},
+        dataType: 'JSON', 
+        cache:false,
+        success: function(res) {
+            if(res == 'follow'){
+                thiss.text('دنبال میکنید')
+                thiss.addClass('followed')
+            }
+            if(res == 'unfollow'){
+                thiss.html(`<i class="fa fa-plus"></i> <span class="text">دنبال کردن</span>`)
+                thiss.removeClass('followed')
+            }
+           
+        }
+});
+   });
+
+
    function ajaxlike(id,url){
       
        $.ajax({ 

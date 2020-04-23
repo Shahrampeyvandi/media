@@ -118,12 +118,12 @@
                     <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
                         <div class="avatar">
                             @if ($content->members->avatar)
-                            <a href="#" class="picture user-avatar">
+                        <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture user-avatar">
                                 <img src="{{asset('members/1587120640.jpg')}}" alt="">
                             </a>
 
                             @else
-                            <a href="#" class="picture image"
+                            <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture image"
                                 style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
                                 <i class="fa fa-user  position-absolute fs-1-5 text-white"
                                     style="right: 12px;top: 7px;"></i>
@@ -132,14 +132,14 @@
 
 
                             <div class=" fs-0-8 mt-2 mr-1">
-                                <a id="" href="{{route('User.Videos',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
+                                <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
                                     <h3 class="title">
                                         <span class="name">{{$content->members->username}}</span>
                                     </h3>
                                 </a>
                             </div>
                         </div>
-                        <a href="#" title="" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
+                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
                                 کردن</span></a>
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
@@ -372,80 +372,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <aside id="secondary" class="secondary">
-                    <section id="recom" class="single-recom">
-                        <header class="recom-header">
-                            <h3 class="title">پست های مرتبط</h3>
-                        </header>
-                        <div class="recommended-list">
-                            <div class="inner">
-                                @foreach($relateds as $related)
-                                <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
-                                    <div class="w-40">
-                                        @if ($related->picture)
-                                        <a href="{{route('ShowItem',['id'=>$related->id])}}"> <img
-                                                src="{{route('BaseUrl')}}/{{$related->picture}}"
-                                                alt="{{$related->title}}" aria-label="{{$related->title}}"
-                                                class="thumb-image" style="min-height: 130px;"></a>
-                                        @else
-                                        <a href="{{route('ShowItem',['id'=>$related->id])}}">
-                                            <div class="d-flex justify-content-center align-items-center h-100 p-3"
-                                                style="    border: 1px solid gray;
-                                            border-radius: 4px;">
-                                                {{-- <img src="{{asset('assets/images/cinema.png')}}"
-                                                alt="{{$movie->title}}"
-                                                aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                                <i class="ti ti-video-camera text-black-50"
-                                                    style="font-size: 4rem;"></i>
-                                            </div>
-                                        </a>
-                                        @endif
-                                    </div>
-                                    <div class="thumb-details pr-2 pt-2 mb-3">
-                                        <h4 class="thumb-title">
-                                            <a href="{{route('ShowItem',['id'=>$related->id])}}"
-                                                title="{{$related->title}}"
-                                                class="title"><span>{{$related->title}}</span></a>
-                                        </h4>
-                                        <a href="{{route('Category',['slug'=>$related->categories->latin_name])}}"
-                                            title="{{$related->categories->name}}"
-                                            class="thumb-channel has-priority"><span
-                                                class="channel-name">{{$related->categories->name}}</span>
-                                            <span class="priority-brand" title="رسمی">
-                                                <svg class="icon icon-tick icon-priority" viewBox="0 0 24 24" 0="" 24=""
-                                                    24""="">
-                                                    <use xlink:href="#si_tick">
-                                                        <g id="si_tick" data-viewBox="0 0 24 24">
-                                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z">
-                                                            </path>
-                                                        </g>
-                                                    </use>
-                                                </svg> </span></a>
-                                        <ul class="meta-tags d-b w-100 mt-xs">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">زبان:
-                                                {{$related->languages->name}}
-                                            </li>
-                                        </ul>
-                                        <ul class="meta-tags d-b w-100">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">موضوع:
-                                                {{$related->subjects->name}}
-                                            </li>
-                                        </ul>
-                                        <ul class="meta-tags d-b w-100">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">سطح:
-                                                {{$related->levels->name}}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </section>
-                </aside>
-            </div>
+            @include('Includes.Main.relatedposts')
         </div>
     </div>
 </div>

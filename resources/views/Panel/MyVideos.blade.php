@@ -1,9 +1,8 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div>
+
+        <div class="tab-wrapper">
             <a href="{{route('MyVideos')}}"  @if (request()->path() == "panel/myvideos")
             class="btn btn-info" @else class="btn btn-light"  @endif >فیلم ها</a>
             <a href="{{route('MyVideos','clips')}}" @if (request()->path() == "panel/myvideos/clips")
@@ -16,8 +15,7 @@
             <a href="#"></a>
         </div>
         <hr>
-    </div>
-</div>
+
 
 
 @if (request()->path() == "panel/myvideos")
