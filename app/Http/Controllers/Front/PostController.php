@@ -40,10 +40,11 @@ class PostController extends Controller
        ->latest()->get();
 
         if($content->categories_id == 6){
-          
+         
             $episodes = Episodes::where('posts_id',$id)->orderBy('number', 'asc')->get();
 
             //dd($episodes);
+
             return view('Main.tutorial', compact(['id','content','comments','likes','favorite_status', 'relateds', 'categories', 'countcategoryposts','episodes']));
             
         }else{

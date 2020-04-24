@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Policies;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -16,8 +17,22 @@ class MainController extends Controller
         return view('Main.single');
     }
 
-    public function policies()
+    public function policies($slug = 's')
     {
-        return view('Main.policies');
+        if($slug == 's')
+        {
+            $policy = Policies::where('relatedto','students')->latest()->first();
+
+        }
+        if($slug == 't')
+        {
+            $policy = Policies::where('relatedto','teachers')->latest()->first();
+
+        }
+        $content = $policy !== null ? $policy->content : '';
+
+        return view('Main.policies',compact('content'));
     }
+
+  
 }

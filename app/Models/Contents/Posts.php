@@ -47,7 +47,23 @@ class Posts extends Model
     {
         return $this->belongsTo(Subjects::class);
     }
+
+    public function epizodes()
+    {
+        return $this->hasMany(Episodes::class);
+    }
+
+    public function getEpisodesTime()
+    {
+       $strtotime = 0;
+        foreach ($this->epizodes as $key => $epizode) {
+         $strtotime +=   strtotime($epizode->duration);
+
+        }
+        return date('H:i:s', $strtotime);
+    }
    
+
 
    
     public function setDescAttribute($value)

@@ -2,11 +2,9 @@
 
 @section('css')
 
-<link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+
 <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/style.css" />
-<link href="https://unpkg.com/@silvermine/videojs-quality-selector/dist/css/quality-selector.css" rel="stylesheet">
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
 @endsection
 @section('content')
@@ -19,26 +17,7 @@
                 <div class="pr-3">
                     <div id="primary" class="primary">
 
-                        <section id="play" class="mt-5">
-                            <video id="video_1" class="video-js mx-3 w-100" controls preload="auto" height="400"
-                                poster="{{route('BaseUrl')}}/{{$content->picture}}" data-setup="{}">
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="720p" />
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="480P" selected="true" />
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="360P">
-
-                                {{-- <track kind="captions" src="{{asset('files/record.vtt')}}" srclang="en"
-                                label="English" default> --}}
-                                <p class="vjs-no-js">
-                                    To view this video please enable JavaScript, and consider upgrading to a
-                                    web browser that
-                                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports
-                                        HTML5 video</a>
-                                </p>
-                            </video>
-                        </section>
+                       @include('Includes.Main.player')
                     </div>
 
                    
@@ -377,27 +356,16 @@
     </div>
 </div>
 </main>
-<script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
-<script src="https://unpkg.com/@silvermine/videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js">
-</script>
-<script>
-    var options, player;
-options = {
-   controlBar: {
-      children: [
-         'playToggle',
-         'progressControl',
-         'volumePanel',
-         'qualitySelector',
-         'fullscreenToggle',
-      ],
-   },
-};
 
-player = videojs('video_1', options);
-</script>
 @endsection
 
 @section('js')
 
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+<script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
+<script>
+    const player = new Plyr('#player',{
+        
+    });
+</script>
 @endsection

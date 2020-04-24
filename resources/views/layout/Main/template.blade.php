@@ -24,11 +24,34 @@
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/mdb.min.css">
     <link href="{{route('BaseUrl')}}/assets/css/swiper.min.css" rel="stylesheet">
     <script src="{{asset('assets/js/jquery-3.4.1.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simplebar.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simple-scrollbar.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/swiper.js"></script>
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/style.css" />
     @yield('css')
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: lightgray;
+        }
+
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
     <script>
         var isMobile = false;
     </script>
@@ -39,7 +62,61 @@
         <div class="spinner-border text-success"></div>
         <span>در حال بارگذاری ...</span>
     </div>
-    
+
+
+    {{-- <div id="popup2" class="overlay note">
+        <div class="popup" style="width:60%;">
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <div class="row">
+                    <div class="note-text" style="flex: 1.2;display: none;">
+                        <form id="" action="#" method="post">
+                            @csrf
+                            <div class="mt-3">
+                                <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> یادداشت ها
+                                </h5>
+                                <div class="form-group col-md-12">
+                                    <input type="hidden" id="parent_id" name="parent_id" value="0">
+                                    <input type="hidden" name="postid" value="">
+
+                                    <textarea type="text" placeholder=" " rows="7" class="form-control" name="info"
+                                        id="description"></textarea>
+                                </div>
+                            </div>
+                            {{-- <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-sm btn-primary">افزودن </button>
+        </div> 
+                        </form>
+                    </div>
+                    <div class="" style="margin: 0 20px;
+                            flex: 1;">
+                        <ul style="max-height: 235px;
+                            overflow: scroll;margin-top: 40px;">
+                            <li style="display: flex;
+                      justify-content: space-between;"><a class="note-list" href="" style="flex: 1.7;">dsf</a>
+                                <span style="flex:.3;" class="fs-0-8 text-black-50 ml-1">11 بهمن </span>
+                            </li>
+                            <li><a href="">sfsf</a></li>
+                            <li><a href="">sdf</a></li>
+                            <li><a href="">sdfsd</a></li>
+                            <li><a href="">sdfsf</a></li>
+                            <li><a href="">dsf</a></li>
+                            <li><a href="">sfsf</a></li>
+                            <li><a href="">sdf</a></li>
+                            <li><a href="">sdfsd</a></li>
+                            <li><a href="">sdfsf</a></li>
+                            <li><a href="">dsf</a></li>
+                            <li><a href="">sfsf</a></li>
+                            <li><a href="">sdf</a></li>
+                            <li><a href="">sdfsd</a></li>
+                            <li><a href="">sdfsf</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
     <main id="main" class="main" data-sidebar>
 
         @if (auth()->check())
@@ -50,8 +127,8 @@
                 <ul class="menu-list">
                     <li class="menu-item-link">
                         <a href="{{route('Panel.Dashboard',auth()->user()->path())}}" title="داشبورد"
-                            aria-label="داشبورد"><svg class="icon icon-dashboard" viewBox="0 0 24 24" 0="" 24=""
-                                24""="">
+                            aria-label="داشبورد">
+                            <svg class="icon icon-dashboard" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_dashboard">
 
                                     <g id="si_dashboard" data-viewBox="0 0 24 24">
@@ -69,8 +146,8 @@
                     </li>
 
                     <li class="menu-item-link">
-                        <a href="{{route('MyVideos')}}" title="ویدیوهای من" aria-label="ویدیوهای من"><svg
-                                class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="{{route('MyVideos')}}" title="ویدیوهای من" aria-label="ویدیوهای من">
+                            <svg class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_videos">
                                     <g id="si_videos" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -86,8 +163,8 @@
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a href="{{route('Panel.Comments')}}" title="دیدگاه‌ها" aria-label="دیدگاه‌ها"><svg
-                                class="icon icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="{{route('Panel.Comments')}}" title="دیدگاه‌ها" aria-label="دیدگاه‌ها">
+                            <svg class="icon icon-comments" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_comments">
                                     <g id="si_comments" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -106,8 +183,8 @@
 
 
                     <li class="menu-item-link">
-                        <a href="{{route('logout')}}" title="خروج از حساب کاربری" aria-label="خروج از حساب کاربری"><svg
-                                class="icon icon-logout" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="{{route('logout')}}" title="خروج از حساب کاربری" aria-label="خروج از حساب کاربری">
+                            <svg class="icon icon-logout" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_logout">
                                     <g id="si_logout" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -133,7 +210,7 @@
                         <div class="inline-flex sidebar-toggle">
                             <button type="button"
                                 class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
-                                <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_cats">
                                         <g id="si_cats" data-viewBox="0 0 24 24">
                                             <path d="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z"></path>
@@ -154,22 +231,17 @@
                                 <span class="text mr-1">بارگذاری فایل</span></a>
                         </div>
                         <div class="inline-flex live-button" data-responsive="mobile">
-                            <a href="/live" class="button button-gray button-medium button-hollow live-button"><svg
-                                    class="icon icon-live" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="/live" class="button button-gray button-medium button-hollow live-button">
+                                <svg class="icon icon-live" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_live"></use>
                                 </svg> <span class="text">55 </span></a>
                         </div>
 
 
-
-
-
-
-
                         <div class="inline-flex register-button">
                             @if (!auth()->check())
-                            <a href="{{route('Login')}}" class="button button-medium  signin-button"><svg
-                                    class="icon icon-user" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                            <a href="{{route('Login')}}" class="button button-medium  signin-button">
+                                <svg class="icon icon-user" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                     <use xlink:href="#si_user">
                                         <g id="si_user" data-viewBox="0 0 24 24">
                                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -199,7 +271,7 @@
                         </div>
                         <button type="submit" id=searchIcon
                             class="button button-small button-gray button-hollow button-circular end-icon search-icon">
-                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                 <use xlink:href="#si_search">
                                     <g id="si_search" data-viewBox="0 0 24 24">
                                         <path
@@ -215,11 +287,14 @@
 
                         <div id="suggestionContent" class="suggestion-content">
                             <div class="loading loading-aparat">
-                                <div class="inner"><svg class="icon icon-inner">
+                                <div class="inner">
+                                    <svg class="icon icon-inner">
                                         <use xlink:href="#si_loading-inner"></use>
-                                    </svg><svg class="icon icon-outer">
+                                    </svg>
+                                    <svg class="icon icon-outer">
                                         <use xlink:href="#si_loading-outer"></use>
-                                    </svg></div>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -236,16 +311,16 @@
                     <div class="toggle">
                         <button type="button"
                             class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
-                            <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                 <use xlink:href="#si_cats"></use>
                             </svg>
                         </button>
                     </div>
                     <div class="logo">
                         <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو"><svg
-                                class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
-                                viewBox="viewBox=" 0 0 90 31.89"">
+                            aria-label="آپارات - سرویس اشتراک ویدیو">
+                            <svg class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
+                                viewBox="viewBox=" 0 0 90 31.89 "">
                                 <use xlink:href="#si_logo-fa"></use>
                             </svg></a>
                     </div>
@@ -255,8 +330,8 @@
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
                         <li class="menu-item-link active">
-                            <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
-                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_home"></use>
                                 </svg>
                                 <div class="content">
@@ -265,7 +340,7 @@
                             </a>
                         </li>
                         {{-- <li class="menu-item-link ">
-                            <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
+                        <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
                             viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
                             <use xlink:href="#si_home"></use>
                         </svg>
@@ -275,8 +350,8 @@
                         </a>
                         </li> --}}
                         <li class="menu-item-link ">
-                            <a href="{{route('Panel.MyFavorites')}}" aria-label="علاقه مندی ها"><svg
-                                    class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="{{route('Panel.MyFavorites')}}" aria-label="علاقه مندی ها">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_home"></use>
                                 </svg>
                                 <div class="content">
@@ -292,8 +367,8 @@
                         @foreach($categories as $category)
                         <li class="menu-item-link">
                             <a href="{{route('Category',['slug'=>$category->latin_name])}}" onmousedown=""
-                                aria-label="{{$category->name}}"><svg class="icon icon-film" viewBox="0 0 24 24"
-                                    viewBox="viewBox=" 0 0 24 24"">
+                                aria-label="{{$category->name}}">
+                                <svg class="icon icon-film" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_film"></use>
                                 </svg>
                                 <div class="content">
@@ -303,21 +378,21 @@
                         </li>
                         @endforeach
                         <li class="menu-item-link menu-show-more">
-                            <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر"><svg class="icon icon-down"
-                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر">
+                                <svg class="icon icon-down" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_down"></use>
                                 </svg> <span class="content">نمایش بیشتر</span></a>
                         </li>
                     </ul>
                 </div>
                 @if (\Request::route()->getName() == "Category")
-               
+
                 <div id="sizes" class="menu-item-link menu-wrapper refinement-group-wrapper">
                     <h3 class="menu-title">فیلتربندی</h3>
-                   <div class="col-10 position-relative">
-                    <input type="text" class="form-control search-field">
-                    <span class="filter-search"><i class="fa fa-search"></i></span>
-                   </div>
+                    <div class="col-10 position-relative">
+                        <input type="text" class="form-control search-field">
+                        <span class="filter-search"><i class="fa fa-search"></i></span>
+                    </div>
                     <div class="refinement-group mb-3 text-right pr-3">
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample4"
@@ -330,8 +405,8 @@
                             <div class="form-group menu-title text-black-50">
                                 @foreach ($langs as $lang)
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="{{$lang->name}}" type="checkbox" class="custom-control-input" value="{{$lang->id}}"
-                                        name="lang[]" id="{{$lang->name}}">
+                                    <input data-name="{{$lang->name}}" type="checkbox" class="custom-control-input"
+                                        value="{{$lang->id}}" name="lang[]" id="{{$lang->name}}">
                                     <label class="custom-control-label" for="{{$lang->name}}">{{$lang->name}}</label>
                                 </div>
                                 @endforeach
@@ -352,8 +427,8 @@
                             <div class="form-group menu-title text-black-50">
                                 @foreach ($subjects as $subject)
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="{{$subject->name}}" type="checkbox" class="custom-control-input" value="{{$subject->id}}"
-                                        name="subject[]" id="{{$subject->name}}">
+                                    <input data-name="{{$subject->name}}" type="checkbox" class="custom-control-input"
+                                        value="{{$subject->id}}" name="subject[]" id="{{$subject->name}}">
                                     <label class="custom-control-label"
                                         for="{{$subject->name}}">{{$subject->name}}</label>
                                 </div>
@@ -377,12 +452,11 @@
                             <div class="form-group menu-title text-black-50">
                                 @foreach ($levels as $level)
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="{{$level->name}}" type="checkbox" class="custom-control-input" value="{{$level->id}}"
-                                        name="level[]" id="{{$level->name}}">
+                                    <input data-name="{{$level->name}}" type="checkbox" class="custom-control-input"
+                                        value="{{$level->id}}" name="level[]" id="{{$level->name}}">
                                     <label class="custom-control-label" for="{{$level->name}}">{{$level->name}}</label>
                                 </div>
                                 @endforeach
-
 
 
                             </div>
@@ -398,7 +472,7 @@
 
                     <ul class="menu-list-pages">
                         <li class="menu-item-link">
-                            <a href="{{route('Policies')}}" aria-label="قوانین">
+                            <a href="{{route('Policies','s')}}" aria-label="قوانین">
                                 <div class="content">
                                     <span class="text">قوانین</span>
                                 </div>
@@ -420,7 +494,7 @@
                         </li>
 
                         <li class="menu-item-link">
-                        <a href="{{route('Channels.List')}}" aria-label="کانال های رسمی">
+                            <a href="{{route('Channels.List')}}" aria-label="کانال های رسمی">
                                 <div class="content">
                                     <span class="text">کانال های رسمی</span>
                                 </div>
@@ -443,28 +517,28 @@
         </aside>
 
 
-
         <div id="" class="container">
             <div class="view">
-            
+
                 @yield('content')
 
 
+                <div class="">
+                    <ul class="side-function">
+                        <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
+                                    class="fa fa-pencil fs-2"></i></a>
 
-               
-                <ul class="side-function">
-                    <li class="side-contact"><a href="javascript:;" rel="nofollow"><i
-                                class="fa fa-envelope fs-2"></i></a></li>
+                        </li>
 
-                </ul>
+
+                    </ul>
+
+                </div>
             </div>
         </div>
-     
+
 
     </main>
-
-
-
 
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -478,321 +552,402 @@
         new WOW().init();
     </script>
     <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-        
-    var swiper = new Swiper('.swiper-container1', {
-            
+        $(document).ready(function () {
+        var checkauth = '{{auth()->user()}}';
+        $('.note-link').click(function(e){
+            e.preventDefault()
+       
+            // $('.overlay.note').css({
+            //     'visibility': 'visible',
+            //     'opacity': '1',
+            //     'z-index': '111',
+            // })
+
+            // $('.note-list').click(function(e){
+            //     e.preventDefault();
+            //     $('.note-text').toggle(200)
+            // })
+        })
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var swiper = new Swiper('.swiper-container1', {
+
             spaceBetween: 5,
             nextButton: '.swiper-p',
-           prevButton: '.swiper-n',
+            prevButton: '.swiper-n',
             breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-           
-        }
-           
-      
-    }); 
-    var swiper = new Swiper('.swiper-container2', {
-            
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+            }
+
+
+        });
+        var swiper = new Swiper('.swiper-container2', {
+
             spaceBetween: 5,
             nextButton: '.swiper-ani-p',
-           prevButton: '.swiper-ani-n',
+            prevButton: '.swiper-ani-n',
             breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-           
-        }
-           
-      
-    });
-    var learning_slider = new Swiper('.swiper-container-learning', {
-           
-           spaceBetween: 5,
-           pagination: '.swiper-pagination',
-       paginationClickable: true,
-       breakpoints: {
-           320: {
-               slidesPerView: 1,
-               spaceBetween: 10
-           },
-           640: {
-               slidesPerView: 1,
-               spaceBetween: 20
-           },
-           768: {
-               slidesPerView: 3,
-               spaceBetween: 10
-           },
-           1024: {
-               slidesPerView: 4,
-               spaceBetween: 20
-           },
-           1380: {
-               slidesPerView: 4,
-               spaceBetween: 40
-           },
-           
-          
-       }
-     
-   });
-    var music_slider = new Swiper('.swiper-container-music', {
-           
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+            }
+
+
+        });
+        var learning_slider = new Swiper('.swiper-container-learning', {
+
             spaceBetween: 5,
             pagination: '.swiper-pagination',
-        paginationClickable: true,
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-            
-           
-        }
-      
-    });
-    var baner_slider = new Swiper('.swiper-container-banner', {
-      spaceBetween: 30,
-      effect: 'fade',
-      autoplay: 2500,
-      autoplayDisableOnInteraction: false
-    });
-        $('.account-icon').click(function(e){
+            paginationClickable: true,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+
+            }
+
+        });
+        var music_slider = new Swiper('.swiper-container-music', {
+
+            spaceBetween: 5,
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+
+            }
+
+        });
+        var baner_slider = new Swiper('.swiper-container-banner', {
+            spaceBetween: 30,
+            effect: 'fade',
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+
+
+        $('.account-icon').click(function (e) {
             e.preventDefault()
             $('.dropdown-content').fadeToggle(200)
         })
 
-        $(document).on('click',function(e){
-            if($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0){
+        $(document).on('click', function (e) {
+            if ($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0) {
                 $('.dropdown-content').fadeOut(200)
             }
         })
-        
-   $('.button__').click(function(e){
-       e.preventDefault()
-       let parent_id = $(this).data('id')
-      $('#parent_id').attr('value',parent_id)
-    $('.overlay1').css({  'visibility': 'visible',
-        'opacity': '1',
-        'z-index': '10',})
-   })
-   $('.report-btn').click(function(e){
-       e.preventDefault()
-     
-      $('#parent_id').attr('value',parent_id)
-    $('.overlay.report').css({  'visibility': 'visible',
-        'opacity': '1',
-        'z-index': '10',})
-   })
-   $('.close').click(function(e){
-    e.preventDefault()
-    $('.overlay1').css({  'visibility': 'hidden',
-        'opacity': '0','z-index': '0'
-       })
-       $('.overlay2').css({  'visibility': 'hidden',
-        'opacity': '0','z-index': '0'
-       })
-       $('.overlay.report').css({  'visibility': 'hidden',
-        'opacity': '0','z-index': '0'
-       })
-   })
-   $('#shareinmedia').click(function(e){
-       e.preventDefault()
-       let parent_id = $(this).data('id')
-     
-    $('.overlay2').css({  'visibility': 'visible',
-        'opacity': '1',
-        'z-index': '10',})
-   })
 
-   $('.follow-link').on('click',function(e){
-       e.preventDefault();
-       let id = $(this).data('id')
-       let thiss = $(this)
-       $.ajax({ 
-        url: '{{route('User.Follow')}}',
-        type: 'POST',
-        data:{id:id},
-        dataType: 'JSON', 
-        cache:false,
-        success: function(res) {
-            if(res == 'follow'){
-                thiss.text('دنبال میکنید')
-                thiss.addClass('followed')
-            }
-            if(res == 'unfollow'){
-                thiss.html(`<i class="fa fa-plus"></i> <span class="text">دنبال کردن</span>`)
-                thiss.removeClass('followed')
-            }
-           
-        }
-});
-   });
-
-
-   function ajaxlike(id,url){
-      
-       $.ajax({ 
-        url: url,
-        type: 'POST',
-        data:{id:id},
-        dataType: 'JSON', 
-        cache:false,
-        success: function(res) {
-           $('#like-post span').text(res)
-        }
-});
-   }
-
-   $('#like-post').click(function(e){
-       e.preventDefault();
-       let url = '{{route("LikePost")}}';
-       let post_id = $(this).data('id')
-       ajaxlike(post_id,url);
-       
-   })
-
-   $('.favorite-post').click(function(e){
-       e.preventDefault();
-       let thiss = $(this)
-      
-       let url = '{{route("AddFavorite")}}';
-       let id = $(this).data('id')
-       $.ajax({ 
-        url: url,
-        type: 'POST',
-        data:{id:id},
-        dataType: 'JSON', 
-        cache:false,
-        success: function(res) {
-           if(res == 'add'){
-            thiss.find('svg').attr('fill','red')
-           }
-           if(res == 'remove'){
-            thiss.find('svg').attr('fill','gray')
-           }
-        }
-       
-   })
-})
-
-   $('.like-comment').click(function(e){
-       e.preventDefault();
-       var loggedIn = '{{ auth()->check()}}';
-       if (!loggedIn){ alert('برای ثبت دیدگاه باید وارد شوید!');}
-      else{
-        let thiss = $(this)
-        let url = '{{route("LikeComment")}}';;
-        let id = $(this).data('id')
-        $.ajax({ 
-                url: url,
-                type: 'POST',
-                dataType: 'JSON', 
-                cache:false,
-                data:{id:id},
-                dataType: 'JSON', 
-                cache:false,
-                success: function(res) {
-                    thiss.find('span').text(res)
-                }
-            
+        $('.button__').click(function (e) {
+            e.preventDefault()
+            let parent_id = $(this).data('id')
+            $('#parent_id').attr('value', parent_id)
+            $('.overlay1').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
         })
-      }
-       
-   })
-   $('.dislike-comment').click(function(e){
-        e.preventDefault();
-        var loggedIn = '{{ auth()->check()}}';
-        if (!loggedIn){ alert('برای ثبت دیدگاه باید وارد شوید!');}
-        else{
-        let thiss = $(this)
-        let url = '{{route("DisLikeComment")}}';;
-        let id = $(this).data('id')
-        $.ajax({ 
-                url: url,
-                type: 'POST',
-                dataType: 'JSON', 
-                cache:false,
-                data:{id:id},
-                dataType: 'JSON', 
-                cache:false,
-                success: function(res) {
-                    thiss.find('span').text(res)
-                }
-            
+        $('.report-btn').click(function (e) {
+            e.preventDefault()
+
+            $('#parent_id').attr('value', parent_id)
+            $('.overlay.report').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
         })
-      }
-       
-   })
+        $('.close').click(function (e) {
+            e.preventDefault()
+            $('.overlay1').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay2').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay.report').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay.note').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+        })
+        $('#shareinmedia').click(function (e) {
+            e.preventDefault()
+            let parent_id = $(this).data('id')
+
+            $('.overlay2').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
+        })
+
+        $('.follow-link').on('click', function (e) {
+            e.preventDefault();
+
+            if (checkauth) {
+                let id = $(this).data('id')
+                let thiss = $(this)
+                $.ajax({
+                    url: '{{route('User.Follow')}}',
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'follow') {
+                            thiss.text('دنبال میکنید')
+                            thiss.addClass('followed')
+                        }
+                        if (res == 'unfollow') {
+                            thiss.html(`<i class="fa fa-plus"></i> <span class="text">دنبال کردن</span>`)
+                            thiss.removeClass('followed')
+                        }
+
+                    }
+                });
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
+            }
+        });
 
 
+        function ajaxlike(id, url) {
+            if (checkauth) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        $('#like-post span').text(res)
+                    }
+                });
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
+            }
+        }
+
+        $('#like-post').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+                let url = '{{route("LikePost")}}';
+                let post_id = $(this).data('id')
+                ajaxlike(post_id, url);
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
+            }
+
+        })
+
+        $('.favorite-post').click(function (e) {
+            if (checkauth) {
+                e.preventDefault();
+                let thiss = $(this)
+
+                let url = '{{route("AddFavorite")}}';
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'add') {
+                            thiss.find('svg').attr('fill', 'red')
+                        }
+                        if (res == 'remove') {
+                            thiss.find('svg').attr('fill', 'gray')
+                        }
+                    }
+
+                });
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
+            }
+        })
+
+        $('.like-comment').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+                var loggedIn = '{{ auth()->check()}}';
+
+                let thiss = $(this)
+                let url = '{{route("LikeComment")}}';
+                ;
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    cache: false,
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        thiss.find('span').text(res)
+                    }
+
+                });
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
+
+            }
+
+        })
+        $('.dislike-comment').click(function (e) {
+            if (checkauth) {
+                e.preventDefault();
 
 
+                let thiss = $(this)
+                let url = '{{route("DisLikeComment")}}';
+                ;
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    cache: false,
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        thiss.find('span').text(res)
+                    }
 
-   })
+                })
+            } else {
+                swal("خطا"
+                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
+                    ,
+                    "error", {
+                        button: "باشه"
+                    });
 
-   
+            }
+
+        })
+
+
+    })
+
 
     </script>
-@yield('js')
+    @yield('js')
 </body>
 
 </html>

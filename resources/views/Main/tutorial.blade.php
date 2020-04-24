@@ -2,11 +2,9 @@
 
 @section('css')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
-<link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+
 <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/style.css" />
 
-<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
 @endsection
 @section('content')
@@ -19,27 +17,9 @@
                 <div class="pr-3">
                     <div id="primary" class="primary">
 
-                        <section id="play" class="mt-5">
-                            <video id="video_1" class="video-js mx-3 w-100" controls preload="auto" height="400"
-                                poster="{{route('BaseUrl')}}/{{$content->picture}}" data-setup="{}">
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="720p" />
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="480P" selected="true" />
-                                <source src="{{route('BaseUrl')}}/{{$content->content_link}}" type="video/mp4"
-                                    label="360P">
-
-                                {{-- <track kind="captions" src="{{asset('files/record.vtt')}}" srclang="en"
-                                label="English" default> --}}
-                                <p class="vjs-no-js">
-                                    To view this video please enable JavaScript, and consider upgrading to a
-                                    web browser that
-                                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports
-                                        HTML5 video</a>
-                                </p>
-                            </video>
-                        </section>
-                    </div>
+                        @include('Includes.Main.player')
+                     </div>
+ 
 
 
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
@@ -118,12 +98,12 @@
                     <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
                         <div class="avatar">
                             @if ($content->members->avatar)
-                            <a href="#" class="picture user-avatar">
+                        <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture user-avatar">
                                 <img src="{{asset('members/1587120640.jpg')}}" alt="">
                             </a>
 
                             @else
-                            <a href="#" class="picture image"
+                            <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture image"
                                 style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
                                 <i class="fa fa-user  position-absolute fs-1-5 text-white"
                                     style="right: 12px;top: 7px;"></i>
@@ -132,14 +112,14 @@
 
 
                             <div class=" fs-0-8 mt-2 mr-1">
-                                <a id="" href="/Digiato" title="دیجیاتو">
+                                <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
                                     <h3 class="title">
                                         <span class="name">{{$content->members->username}}</span>
                                     </h3>
                                 </a>
                             </div>
                         </div>
-                        <a href="#" title="" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
+                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
                                 کردن</span></a>
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
@@ -185,7 +165,7 @@
                         </div>
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مدت</div>
-                            <div class="d-tc py-xs">{{$content->duration}}</div>
+                            <div class="d-tc py-xs">{{$content->getEpisodesTime()}}</div>
                         </div>
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">زبان</div>
@@ -430,8 +410,15 @@
     </div>
 </div>
 </main>
-<script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
 @endsection
 @section('js')
+
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+<script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
+<script>
+    const player = new Plyr('#player',{
+        
+    });
+</script>
 @endsection
 

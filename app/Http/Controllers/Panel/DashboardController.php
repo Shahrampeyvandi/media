@@ -295,16 +295,22 @@ class DashboardController extends Controller
 
     public function ProfileSave(Request $request)
     {
-      
+        
+        $validatedData = $request->validate(
+            [
+                'user_email' => 'required', \Illuminate\Validation\Rule::unique('members')->ignore($request->id),
 
-        $validator = Validator::make($request->all(), [
-            'user_name' => 'required',
-            'user_family' => 'required',
-            'username' => 'required',
+                'user_name' => 'required', \Illuminate\Validation\Rule::unique('members')->ignore($request->id),
 
+            ],
+            [
+                'user_email.unique' => 'کاربری با این ایمیل از قبل وجود دارد',
+                'user_name.unique'    => 'کاربری با این نام کاربری از قبل وجود دارد',
 
-        ]);
-    
+            ]
+        );
+
+   
       
 
         // if($request->user_pass){
@@ -318,9 +324,9 @@ class DashboardController extends Controller
 
         // }
             
-        if ($validator->fails()) {
-            return back();
-        }
+        // if ($validator->fails()) {
+        //     return back();
+        // }
    
         //dd($request);
         $member = auth()->user();
@@ -346,22 +352,16 @@ class DashboardController extends Controller
         $member->lastname=$request->user_family;
 
         if($request->user_pass){
-
             $member->password= Hash::make($request->user_pass);
         }
-
         $member->email=$request->user_email;
-
         $member->username=$request->username;
-
         $member->age=$request->age;
-
         $member->years=$request->years;
         $member->history=$request->history;
         $member->books=$request->books;
-
         $member->update();
-
+        toastr()->success('ویرایش اطلاعات با موفقیت انجام شد');
         return back();
     }
 

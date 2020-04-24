@@ -26,17 +26,17 @@ Route::get('/', 'Front\IndexController@Index')->name('BaseUrl');
 
 Route::get('/1', 'Front\IndexController@index')->name('sfs');
 Route::get('/content/{id}', 'Front\PostController@index')->name('ShowItem');
-Route::get('/policies', 'MainController@policies')->name('Policies');
+Route::get('/policies/{slug?}', 'MainController@policies')->name('Policies');
 Route::get('/category/{slug}', 'Front\CategoryController@show')->name('Category');
 Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterData');
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
 Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
 
-   // Channel Routes
-   Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
-   Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
-   Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
-   Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
+// Channel Routes
+Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
+Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
+Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
+Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
 
 
 // routes where must login
@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/users', 'Panel\UserController@index')->name('UsersList');
     Route::get('/panel/myvideos/{content?}', 'Panel\PostsController@MyVideos')->name('MyVideos');
     Route::get('/panel/myaudios/{content?}', 'Panel\PostsController@MyAudios')->name('MyAudios');
-    
+
     Route::get('/panel/mytutorials/{content?}', 'Panel\PostsController@MyTutorials')->name('MyTutorials');
 
     Route::get('/panel/unsubscribefiles', 'Panel\PostsController@UnsubscribeFiles')->name('UnsubscribeFiles');
@@ -68,36 +68,37 @@ Route::middleware('auth')->group(function () {
     Route::post('upload/epizode', 'Panel\PostsController@UploadEpizode')->name('UploadEpizode');
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
- 
-   
+
+
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
-
 });
 
 // روت های مختص ادمین پنل
 Route::middleware('admin')->group(function () {
-Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
-Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
-Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
-Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
-Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
-Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
-Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
-Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
-Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
-Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
-Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
-Route::get('/panel/slideshow/', 'Panel\SlideshowController@Index')->name('Panel.SlideShow.All');
-Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SlideShow.Submit');
-Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
-Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
-Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
-Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
-Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
-Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
+    Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
+    Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
+    Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
+    Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
+    Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
+    Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
+    Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
+    Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
+    Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
+    Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
+    Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
+    Route::get('/panel/slideshow/', 'Panel\SlideshowController@Index')->name('Panel.SlideShow.All');
+    Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SlideShow.Submit');
+    Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
+    Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+    Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
+    Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
+    Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
+    Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
+    Route::get('panel/policies', 'Panel\ContentController@Policies')->name('Panel.Policies');
+    Route::post('panel/savepolicy', 'Panel\ContentController@SavePolicy')->name('Panel.SavaPolicy');
 
+    
 });
-

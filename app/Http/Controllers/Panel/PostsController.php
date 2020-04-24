@@ -291,7 +291,8 @@ class PostsController extends Controller
      
               // Uploading file to given path
               request()->file('upload')->move($destinationPath, $fileName); 
-                $url = $destinationPath . $fileName;
+                $url = '../'.$destinationPath . $fileName;
+                
             
             return "<script>window.parent.CKEDITOR.tools.callFunction(1,'{$url}','')</script>";
           }

@@ -40,7 +40,11 @@ class ProfileController extends Controller
     public function About($username)
     {
         $member = Members::whereUsername($username)->first();
-        $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
+        if (auth()->check()) {
+            $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
+           }else{
+               $checkfollow = 0;
+           }
         $followers=Follows::where('followed_id',$member->id)->count();
         $followings=Follows::where('follower_id',$member->id)->count();
 

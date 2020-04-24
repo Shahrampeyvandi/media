@@ -334,10 +334,10 @@
                                                 </use>
                                             </svg> </span>
                                         <span class="badge-rate"><span>
-                                            @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1) == '0')
-                                            {{substr($movie->duration,3)}}
+                                            @if (substr($movie->getEpisodesTime(),0,1) == '0' && substr($movie->getEpisodesTime(),1,1) == '0')
+                                            {{substr($movie->getEpisodesTime(),3)}}
                                             @else
-                                            {{$movie->duration}}
+                                            {{$movie->getEpisodesTime()}}
                                             @endif
                                             </span>
                                             <i class="fa fa-clock-o pl-1"></i>
@@ -349,6 +349,12 @@
                     
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+                                    <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
+                                       
+                                      
+                                        {{$movie->epizodes->count()}}
+                                       
+                                    </span></p>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
                                         
@@ -546,6 +552,21 @@
 </section>
 
 @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="" style="padding: 100px;">
     <div class="row align-items-center justify-content-center">
         <div class="wpb_wrapper py-3">

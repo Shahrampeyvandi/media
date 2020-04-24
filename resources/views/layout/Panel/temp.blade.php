@@ -285,6 +285,14 @@
                             </div>
                         </a>
                     </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Panel.Policies')}}" aria-label=""><i
+                                class="ti ti-layout-menu-v fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">قوانین</span>
+                            </div>
+                        </a>
+                    </li>
                     @endif
                        
                        @if (auth()->user()->group == 'teacher' || auth()->user()->group == 'student')
