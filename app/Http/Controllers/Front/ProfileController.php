@@ -16,35 +16,49 @@ class ProfileController extends Controller
         
        $category = Categories::where('latin_name',$slug)->first();
        $member = Members::whereUsername($username)->first();
-       $posts=$member->posts->where('categories_id',$category->id)->where('confirmed',1)->take(10);
 
-       $followers=Follows::where('followed_id',$member->id)->count();
-       $followings=Follows::where('follower_id',$member->id)->count();
-       if (auth()->check()) {
+       $lastpost=$member->posts->where('confirmed',1)->first();
+
+       $postsloghat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',1)->where('confirmed',1)->take(10);
+       $postsgrammer=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',2)->where('confirmed',1)->take(10);
+       $postsestelahat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',3)->where('confirmed',1)->take(10);
+       $postsconversaion=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',4)->where('confirmed',1)->take(10);
+       $postswriting=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',5)->where('confirmed',1)->take(10);
+       $postsreading=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',6)->where('confirmed',1)->take(10);
+       $postslessening=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',7)->where('confirmed',1)->take(10);
+
+
+
+
+       $checkfollow=0;
+       if(auth()->user()){
         $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
-       }else{
-           $checkfollow = 0;
        }
-       $moveis= Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
+        $moveis= Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
         return view('Main.channel.user',compact([
             'member',
             'category',
             'moveis',
-            'followers',
-            'followings',
-            'posts',
-            'checkfollow'
+            'checkfollow',
+            'lastpost',
+            'postsloghat',
+            'postsgrammer',
+            'postsestelahat',
+            'postsconversaion',
+            'postswriting',
+            'postsreading',
+            'postslessening'
+
             ]));
     }
 
     public function About($username)
     {
         $member = Members::whereUsername($username)->first();
-        if (auth()->check()) {
-            $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
-           }else{
-               $checkfollow = 0;
-           }
+        $checkfollow=0;
+        if(auth()->user()){
+        $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
+        }
         $followers=Follows::where('followed_id',$member->id)->count();
         $followings=Follows::where('follower_id',$member->id)->count();
 

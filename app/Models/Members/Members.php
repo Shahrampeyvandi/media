@@ -40,8 +40,15 @@ class Members extends Model  implements Authenticatable
         return $this->hasMany(Favorites::class);
     }
 
+    public function followers()
+    {
+        return $this->hasMany(Follows::class,'followed_id');
+    }
 
-
+    public function followings()
+    {
+        return $this->hasMany(Follows::class,'follower_id');
+    }
 
 
     public function path()

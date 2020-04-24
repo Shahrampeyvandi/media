@@ -193,21 +193,20 @@
                             <div class="episodes_list--item ">
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem',['id'=>$id])}}">معرفی دوره</a></div>
+                                            href="{{route('ShowItem',['id'=>$post->id])}}">معرفی دوره</a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
                                     @if(auth()->user())
                                        @if ($content->members_id == auth()->user()->id)
-                                       <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
-                                      حذف  </span></a>
+                            
                                        <span class="btn btn-info btn-sm btn-rounded">
-                                       تعداد بازدیدها  1</span>
+                                       تعداد بازدیدها  {{$post->views}}</span>
                                        @endif
                                        @endif
                                         <span class="detail-type">
                                             رایگان</span>
-                                        <span class="detail-time">{{$content->duration}}
+                                        <span class="detail-time">{{$post->duration}}
                                         </span>
 
                                     </div>
@@ -224,7 +223,16 @@
                                         </a></div>
                                 </div>
                                 <div class="section-left">
-                                    <div class="episodes_list--details"> <span
+                                    <div class="episodes_list--details">
+                                    @if(auth()->user())
+                                       @if ($content->members_id == auth()->user()->id)
+                                       <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
+                                      حذف  </span></a>
+                                       <span class="btn btn-info btn-sm btn-rounded">
+                                       تعداد بازدیدها  {{$episode->views}}</span>
+                                       @endif
+                                       @endif
+                                        <span
                                             class="detail-time">{{$episode->duration}}</span></div>
                                 </div>
                             </div>

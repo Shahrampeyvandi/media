@@ -154,7 +154,7 @@
                     </h5>
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
-                        <input type="hidden" name="postid" value="{{$content->id}}">
+                        <input type="hidden" name="postid" value="{{$id}}">
 
                         <textarea type="text" placeholder="توضیح " rows="4" class="form-control"
                             name="info" id="description"></textarea>
