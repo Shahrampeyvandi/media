@@ -22,7 +22,7 @@
               <textarea type="text" class="form-control" rows="3" name="response" id="response"></textarea>
                 </div>
                
-                <div class="form-group  float-left mt-1 ">
+                <div class="form-group   mt-1 ">
 
                     <button type="submit" class="btn btn-sm btn-danger "> ارسال </button>
                 </div>

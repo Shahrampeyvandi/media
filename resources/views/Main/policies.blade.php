@@ -14,12 +14,9 @@
             <div id="staticContainer">
                 <div class="rules-section  grey lighten-4  p-3">
                    {!! $content !!}
-                </div>
-             
-    
+                </div>    
             </div>
         </div>
-      
     </div>
 </div>
 @endsection

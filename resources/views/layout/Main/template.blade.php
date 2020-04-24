@@ -13,13 +13,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/themify/themify-icons.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/animate.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/toastr.css">
-
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/stylemusic.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/mdb.min.css">
     <link href="{{route('BaseUrl')}}/assets/css/swiper.min.css" rel="stylesheet">
@@ -793,18 +791,13 @@
                     }
                 });
             } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
+                window.location.href = "{{route("login")}}"
             }
         });
 
 
         function ajaxlike(id, url) {
-            if (checkauth) {
+          
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -815,14 +808,7 @@
                         $('#like-post span').text(res)
                     }
                 });
-            } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
-            }
+           
         }
 
         $('#like-post').click(function (e) {
@@ -832,19 +818,15 @@
                 let post_id = $(this).data('id')
                 ajaxlike(post_id, url);
             } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
+                window.location.href = "{{route("login")}}"
             }
 
         })
 
         $('.favorite-post').click(function (e) {
+            e.preventDefault();
             if (checkauth) {
-                e.preventDefault();
+                
                 let thiss = $(this)
 
                 let url = '{{route("AddFavorite")}}';
@@ -866,19 +848,14 @@
 
                 });
             } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
+                window.location.href = "{{route("login")}}"
             }
         })
 
         $('.like-comment').click(function (e) {
             e.preventDefault();
             if (checkauth) {
-                var loggedIn = '{{ auth()->check()}}';
+               
 
                 let thiss = $(this)
                 let url = '{{route("LikeComment")}}';
@@ -898,19 +875,15 @@
 
                 });
             } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
+                window.location.href = "{{route("login")}}"
 
             }
 
         })
         $('.dislike-comment').click(function (e) {
+            e.preventDefault();
             if (checkauth) {
-                e.preventDefault();
+              
 
 
                 let thiss = $(this)
@@ -931,12 +904,7 @@
 
                 })
             } else {
-                swal("خطا"
-                    , 'برای انجام این کار ابتدا باید ثبت نام کنید'
-                    ,
-                    "error", {
-                        button: "باشه"
-                    });
+                window.location.href = "{{route("login")}}"
 
             }
 

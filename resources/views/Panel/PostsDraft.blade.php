@@ -27,7 +27,7 @@
                         </select>
                     </div>               
                 </div>
-                <div class="form-group  float-left mt-1 ">
+                <div class="form-group  mt-1 ">
                     <button type="submit" class="btn btn-sm btn-danger ">عدم تایید </button>
                 </div>
             </form>

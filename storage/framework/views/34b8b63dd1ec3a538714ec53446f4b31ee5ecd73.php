@@ -29,6 +29,8 @@
             </div>
             <form id="upload-file" method="post" action="<?php echo e(route('Panel.Posts.Confirm.Submit')); ?>" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
+                <input type="hidden" class="" name="id" id="id" value="<?php echo e($post->id); ?>">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <select name="type" id="type" class="form-control browser-default custom-select">
@@ -42,8 +44,6 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <option value="" selected>دسته بندی تعریف نشده است</option>
                             <?php endif; ?>
-
-                          
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -103,16 +103,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <div class="form-row">
-                            <div class="col-md-3">
-                                <label for="">تصویر فایل</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="file" class="form-control" name="pic">
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" name="url" placeholder="آدرس یکتا">
                     </div>
@@ -131,20 +122,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <select name="price_type" id="price_type" class="form-control browser-default custom-select">
-                            <option <?php if($post->type    == "free"): ?>
-                                selected
-                            <?php endif; ?> value="free" selected>رایگان</option>
-                            <option <?php if($post->type    == "money"): ?>
-                                selected
-                            <?php endif; ?> value="money">پولی</option>
-
-                        </select>
+                    
+                    <div class="form-group col-md-2">
+                        <label for="desc">قیمت:  </label>
+                        <input type="number" class="form-control" value="<?php echo e($post->price); ?>" name="price" id="price" placeholder="">
+                        <span class="rial">ریال</span>
                     </div>
-                    <div class="form-group col-md-6">
-                    <input type="number" class="form-control" name="price" id="price" value="<?php echo e($post->price); ?>" placeholder="قیمت به ریال">
-                    </div>
+            
+                    
+                   
                 </div>
 
                 <div class="form-footer">
@@ -208,47 +194,18 @@
                 </div>
             </div>
         </form>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                style="width: 0%">
-                0%
-            </div>
-        </div>
+        
         <br />
-        <div id="success">
-
-        </div>
+        
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-</div>
-<div class="row">
-    <div class="col-md-12 mt-3 mb-5">
-        <div class="sc-gZMcBi ePNtwd"><span>پسوند های مجاز فایل </span>
-            <div class="sc-gqjmRU CZXVf">؟</div>
-
-        </div>
-        <div class="sc-VigVT hESCWV">
-            <p>avi,mp4,mp3,mpga,mkv,3gp
-            </p>
-        </div>
-    </div>
-</div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('css'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
 <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
-<link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/style.css" />
+
 
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -257,13 +214,10 @@
 
 <?php $__env->startSection('js'); ?>
 
-
-
-<!-- begin::input mask -->
 <script src="<?php echo e(asset('Panel/vendor/input-mask/jquery.mask.js')); ?>"></script>
 <script src="<?php echo e(asset('Panel/assets/js/input-mask.js')); ?>"></script>
 <!-- end::input mask -->
-<script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script src="<?php echo e(asset('Panel/vendor/ckeditor/ckeditor.js')); ?>"></script>
 <script>
     $(document).ready(function(){
@@ -273,11 +227,6 @@
         });
         CKEDITOR.replace('desc2');
         CKEDITOR.replace('epizode_desc');
-
-
-
-
-
         $(document).on('change','#type',function(){
             if($(this).val() == '6'){
                 $('.btn--wrapper input').val('ارسال')
@@ -289,25 +238,6 @@
                 $('.epizode').hide()
             }
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $("#upload-file").validate({
 		rules: {
             title:"required",
@@ -318,105 +248,16 @@
             desc:"required",
 		},
 		messages: {
-			
             title: {
             required: "لطفا عنوان فایل را وارد نمایید",
-            
-
             },
             type:"محتوای فایل را انتخاب کنید",
             lang:"زبان فایل را انتخاب کنید",
             level:"سطح علمی فایل را انتخاب کنید",
             subject:"موضوع مورد نظر خود را انتخاب کنید",
             desc:"توضیحات برای فایل الزامی است",
-
-           
 			},
-        
 	});
-    $('form').ajaxForm({
-        beforeSerialize:function($Form, options){
-        /* Before serialize */
-        for ( instance in CKEDITOR.instances ) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-        return true; 
-    },
-      beforeSend:function(){
-        $('#success').empty();
-        
-      },
-      uploadProgress:function(event, position, total, percentComplete)
-      {
-       if ($('#type').val() != '6') {
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال بارگذاری ...
-                </button>`)
-        $('.progress-bar').text(percentComplete + '%');
-        $('.progress-bar').css('width', percentComplete + '%');
-       }else{
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال ارسال...
-                </button>`)
-       }
-      
-      },
-     
-      success:function(data)
-      {
-        if ($('#type').val() != '6') {
-
-          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-        }else{
-            $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
-
-        }
-        if(data.errors)
-        {
-            swal("خطا"
-            , data.errors
-            ,
-             "error", {
-			button: "باشه"
-		});
-          $('.progress-bar').text('0%');
-          $('.progress-bar').css('width', '0%');
-        }
-        if(data.success)
-        {
-        if ($('#type').val() != '6') {
-            swal("موفق"
-            , "فایل با موفقیت آپلود شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-
-          $('.progress-bar').text('انجام شد');
-          $('.progress-bar').css('width', '100%');
-          }else{
-            swal("موفق"
-            , "ارسال با موفقیت انجام شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-          }
-          $('#success').append(data.image);
-
-          var form = $('#upload-file')
-            form.find('input[type="text"]').val('')
-           
-            form.find('input[type="file"]').val('')
-           
-            form.find('textarea').val('')
-          
-        }
-      }
-    });
-
 });
 </script>
 <?php $__env->stopSection(); ?>

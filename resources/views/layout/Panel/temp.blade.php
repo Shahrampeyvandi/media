@@ -295,12 +295,26 @@
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Message.All')}}" aria-label="">
+                                    <a href="{{route('Panel.Policies')}}" aria-label="">
                                         <div class="content">
                                             <span class="text">قوانین</span>
                                         </div>
                                     </a>
                                 </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.ContactUs')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">تماس با ما</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                {{-- <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.ContactUs')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">درآمدزایی</span>
+                                        </div>
+                                    </a>
+                                </li> --}}
                             </ul>
                         </li>
 

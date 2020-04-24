@@ -38,9 +38,9 @@ class Episodes extends Model
         return $this->belongsTo(Subjects::class);
     }
 
-    public function timeEpizodes()
+    public function getEpisodesTime()
     {
-        dd('sf');
+        return $this->duration;
     }
    
 }

@@ -97,8 +97,18 @@ Route::middleware('admin')->group(function () {
     Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
     Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
     Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
-    Route::get('panel/policies', 'Panel\ContentController@Policies')->name('Panel.Policies');
+    Route::get('panel/policies/{type?}', 'Panel\ContentController@Policies')->name('Panel.Policies');
+    Route::get('panel/policies/{type?}/edit', 'Panel\ContentController@EditPolicies')->name('Panel.EditPolicies');
+
     Route::post('panel/savepolicy', 'Panel\ContentController@SavePolicy')->name('Panel.SavaPolicy');
+      
+    Route::post('panel/saveditpolicy', 'Panel\ContentController@SaveEditPolicy')->name('Panel.SaveEditPolicy');
+
+    Route::get('panel/contactus', 'Panel\ContentController@ContactUs')->name('Panel.ContactUs');
+    Route::get('panel/contactus/edit', 'Panel\ContentController@EditContactUs')->name('Panel.EditContactUs');
+    Route::post('panel/savecontactus', 'Panel\ContentController@SaveContactUs')->name('Panel.SaveContactUs');
+    Route::post('panel/saveditcontactus', 'Panel\ContentController@SaveEditContactUs')->name('Panel.SaveEditContactUs');
+    Route::get('panel/income', 'Panel\ContentController@Income')->name('Panel.Income');
 
     
 });

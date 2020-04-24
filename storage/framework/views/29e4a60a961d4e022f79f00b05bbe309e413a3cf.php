@@ -24,11 +24,34 @@
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/mdb.min.css">
     <link href="<?php echo e(route('BaseUrl')); ?>/assets/css/swiper.min.css" rel="stylesheet">
     <script src="<?php echo e(asset('assets/js/jquery-3.4.1.js')); ?>"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/simplebar.min.js"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/simple-scrollbar.min.js"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/swiper.js"></script>
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/style.css" />
     <?php echo $__env->yieldContent('css'); ?>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: lightgray;
+        }
+
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
     <script>
         var isMobile = false;
     </script>
@@ -39,7 +62,10 @@
         <div class="spinner-border text-success"></div>
         <span>در حال بارگذاری ...</span>
     </div>
+
+
     
+
     <main id="main" class="main" data-sidebar>
 
         <?php if(auth()->check()): ?>
@@ -50,8 +76,8 @@
                 <ul class="menu-list">
                     <li class="menu-item-link">
                         <a href="<?php echo e(route('Panel.Dashboard',auth()->user()->path())); ?>" title="داشبورد"
-                            aria-label="داشبورد"><svg class="icon icon-dashboard" viewBox="0 0 24 24" 0="" 24=""
-                                24""="">
+                            aria-label="داشبورد">
+                            <svg class="icon icon-dashboard" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_dashboard">
 
                                     <g id="si_dashboard" data-viewBox="0 0 24 24">
@@ -69,8 +95,8 @@
                     </li>
 
                     <li class="menu-item-link">
-                        <a href="<?php echo e(route('MyVideos')); ?>" title="ویدیوهای من" aria-label="ویدیوهای من"><svg
-                                class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="<?php echo e(route('MyVideos')); ?>" title="ویدیوهای من" aria-label="ویدیوهای من">
+                            <svg class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_videos">
                                     <g id="si_videos" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -86,8 +112,8 @@
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a href="<?php echo e(route('Panel.Comments')); ?>" title="دیدگاه‌ها" aria-label="دیدگاه‌ها"><svg
-                                class="icon icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="<?php echo e(route('Panel.Comments')); ?>" title="دیدگاه‌ها" aria-label="دیدگاه‌ها">
+                            <svg class="icon icon-comments" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_comments">
                                     <g id="si_comments" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -106,8 +132,8 @@
 
 
                     <li class="menu-item-link">
-                        <a href="<?php echo e(route('logout')); ?>" title="خروج از حساب کاربری" aria-label="خروج از حساب کاربری"><svg
-                                class="icon icon-logout" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                        <a href="<?php echo e(route('logout')); ?>" title="خروج از حساب کاربری" aria-label="خروج از حساب کاربری">
+                            <svg class="icon icon-logout" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                 <use xlink:href="#si_logout">
                                     <g id="si_logout" data-viewBox="0 0 24 24">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -133,7 +159,7 @@
                         <div class="inline-flex sidebar-toggle">
                             <button type="button"
                                 class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
-                                <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_cats">
                                         <g id="si_cats" data-viewBox="0 0 24 24">
                                             <path d="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z"></path>
@@ -154,22 +180,17 @@
                                 <span class="text mr-1">بارگذاری فایل</span></a>
                         </div>
                         <div class="inline-flex live-button" data-responsive="mobile">
-                            <a href="/live" class="button button-gray button-medium button-hollow live-button"><svg
-                                    class="icon icon-live" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="/live" class="button button-gray button-medium button-hollow live-button">
+                                <svg class="icon icon-live" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_live"></use>
                                 </svg> <span class="text">55 </span></a>
                         </div>
 
 
-
-
-
-
-
                         <div class="inline-flex register-button">
                             <?php if(!auth()->check()): ?>
-                            <a href="<?php echo e(route('Login')); ?>" class="button button-medium  signin-button"><svg
-                                    class="icon icon-user" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                            <a href="<?php echo e(route('Login')); ?>" class="button button-medium  signin-button">
+                                <svg class="icon icon-user" viewBox="0 0 24 24" 0="" 24="" 24 ""="">
                                     <use xlink:href="#si_user">
                                         <g id="si_user" data-viewBox="0 0 24 24">
                                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -199,7 +220,7 @@
                         </div>
                         <button type="submit" id=searchIcon
                             class="button button-small button-gray button-hollow button-circular end-icon search-icon">
-                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                 <use xlink:href="#si_search">
                                     <g id="si_search" data-viewBox="0 0 24 24">
                                         <path
@@ -215,11 +236,14 @@
 
                         <div id="suggestionContent" class="suggestion-content">
                             <div class="loading loading-aparat">
-                                <div class="inner"><svg class="icon icon-inner">
+                                <div class="inner">
+                                    <svg class="icon icon-inner">
                                         <use xlink:href="#si_loading-inner"></use>
-                                    </svg><svg class="icon icon-outer">
+                                    </svg>
+                                    <svg class="icon icon-outer">
                                         <use xlink:href="#si_loading-outer"></use>
-                                    </svg></div>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -236,16 +260,16 @@
                     <div class="toggle">
                         <button type="button"
                             class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
-                            <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <svg class="icon icon-cats" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                 <use xlink:href="#si_cats"></use>
                             </svg>
                         </button>
                     </div>
                     <div class="logo">
                         <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو"><svg
-                                class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
-                                viewBox="viewBox=" 0 0 90 31.89"">
+                            aria-label="آپارات - سرویس اشتراک ویدیو">
+                            <svg class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
+                                viewBox="viewBox=" 0 0 90 31.89 "">
                                 <use xlink:href="#si_logo-fa"></use>
                             </svg></a>
                     </div>
@@ -255,8 +279,8 @@
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
                         <li class="menu-item-link active">
-                            <a href="<?php echo e(route('BaseUrl')); ?>" aria-label="صفحه نخست"><svg class="icon icon-home"
-                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="<?php echo e(route('BaseUrl')); ?>" aria-label="صفحه نخست">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_home"></use>
                                 </svg>
                                 <div class="content">
@@ -266,8 +290,8 @@
                         </li>
                         
                         <li class="menu-item-link ">
-                            <a href="<?php echo e(route('Panel.MyFavorites')); ?>" aria-label="علاقه مندی ها"><svg
-                                    class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="<?php echo e(route('Panel.MyFavorites')); ?>" aria-label="علاقه مندی ها">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_home"></use>
                                 </svg>
                                 <div class="content">
@@ -283,8 +307,8 @@
                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="menu-item-link">
                             <a href="<?php echo e(route('Category',['slug'=>$category->latin_name])); ?>" onmousedown=""
-                                aria-label="<?php echo e($category->name); ?>"><svg class="icon icon-film" viewBox="0 0 24 24"
-                                    viewBox="viewBox=" 0 0 24 24"">
+                                aria-label="<?php echo e($category->name); ?>">
+                                <svg class="icon icon-film" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_film"></use>
                                 </svg>
                                 <div class="content">
@@ -294,22 +318,26 @@
                         </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <li class="menu-item-link menu-show-more">
-                            <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر"><svg class="icon icon-down"
-                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                            <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر">
+                                <svg class="icon icon-down" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_down"></use>
                                 </svg> <span class="content">نمایش بیشتر</span></a>
                         </li>
                     </ul>
                 </div>
                 <?php if(\Request::route()->getName() == "Category"): ?>
-               
+
                 <div id="sizes" class="menu-item-link menu-wrapper refinement-group-wrapper">
                     <h3 class="menu-title">فیلتربندی</h3>
+                    <div class="col-10 position-relative">
+                        <input type="text" class="form-control search-field">
+                        <span class="filter-search"><i class="fa fa-search"></i></span>
+                    </div>
                     <div class="refinement-group mb-3 text-right pr-3">
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample4"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> زبان</span>
                         </a>
@@ -317,8 +345,8 @@
                             <div class="form-group menu-title text-black-50">
                                 <?php $__currentLoopData = $langs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="<?php echo e($lang->name); ?>" type="checkbox" class="custom-control-input" value="<?php echo e($lang->id); ?>"
-                                        name="lang[]" id="<?php echo e($lang->name); ?>">
+                                    <input data-name="<?php echo e($lang->name); ?>" type="checkbox" class="custom-control-input"
+                                        value="<?php echo e($lang->id); ?>" name="lang[]" id="<?php echo e($lang->name); ?>">
                                     <label class="custom-control-label" for="<?php echo e($lang->name); ?>"><?php echo e($lang->name); ?></label>
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -331,7 +359,7 @@
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample3"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa  fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> موضوع</span>
                         </a>
@@ -339,8 +367,8 @@
                             <div class="form-group menu-title text-black-50">
                                 <?php $__currentLoopData = $subjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subject): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="<?php echo e($subject->name); ?>" type="checkbox" class="custom-control-input" value="<?php echo e($subject->id); ?>"
-                                        name="subject[]" id="<?php echo e($subject->name); ?>">
+                                    <input data-name="<?php echo e($subject->name); ?>" type="checkbox" class="custom-control-input"
+                                        value="<?php echo e($subject->id); ?>" name="subject[]" id="<?php echo e($subject->name); ?>">
                                     <label class="custom-control-label"
                                         for="<?php echo e($subject->name); ?>"><?php echo e($subject->name); ?></label>
                                 </div>
@@ -356,7 +384,7 @@
 
                         <a class="d-block" type="" data-toggle="collapse" data-target="#collapseExample5"
                             aria-expanded="true" aria-controls="collapseExample">
-                            <i class=" ml-1 fas  fa-angle-down position-absolute  " style="left: 5%;"></i>
+                            <i class=" ml-1 fa fa-caret-down position-absolute  " style="left: 5%;"></i>
 
                             <span class="menu-title text-dark"> سطح علمی</span>
                         </a>
@@ -364,12 +392,11 @@
                             <div class="form-group menu-title text-black-50">
                                 <?php $__currentLoopData = $levels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="custom-control custom-checkbox">
-                                    <input data-name="<?php echo e($level->name); ?>" type="checkbox" class="custom-control-input" value="<?php echo e($level->id); ?>"
-                                        name="level[]" id="<?php echo e($level->name); ?>">
+                                    <input data-name="<?php echo e($level->name); ?>" type="checkbox" class="custom-control-input"
+                                        value="<?php echo e($level->id); ?>" name="level[]" id="<?php echo e($level->name); ?>">
                                     <label class="custom-control-label" for="<?php echo e($level->name); ?>"><?php echo e($level->name); ?></label>
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
 
 
                             </div>
@@ -385,7 +412,7 @@
 
                     <ul class="menu-list-pages">
                         <li class="menu-item-link">
-                            <a href="<?php echo e(route('Policies')); ?>" aria-label="قوانین">
+                            <a href="<?php echo e(route('Policies','s')); ?>" aria-label="قوانین">
                                 <div class="content">
                                     <span class="text">قوانین</span>
                                 </div>
@@ -407,7 +434,7 @@
                         </li>
 
                         <li class="menu-item-link">
-                            <a href="/official" aria-label="کانال های رسمی">
+                            <a href="<?php echo e(route('Channels.List')); ?>" aria-label="کانال های رسمی">
                                 <div class="content">
                                     <span class="text">کانال های رسمی</span>
                                 </div>
@@ -430,27 +457,28 @@
         </aside>
 
 
-
         <div id="" class="container">
             <div class="view">
-            
+
                 <?php echo $__env->yieldContent('content'); ?>
 
 
+                <div class="">
+                    <ul class="side-function">
+                        <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
+                                    class="fa fa-pencil fs-2"></i></a>
 
-                <ul class="side-function">
-                    <li class="side-contact"><a href="javascript:;" rel="nofollow"><i
-                                class="fa fa-envelope fs-2"></i></a></li>
+                        </li>
 
-                </ul>
+
+                    </ul>
+
+                </div>
             </div>
         </div>
-     
+
 
     </main>
-
-
-
 
 
     <script src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
@@ -464,251 +492,372 @@
         new WOW().init();
     </script>
     <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-        
-    var swiper = new Swiper('.swiper-container1', {
-            
+        $(document).ready(function () {
+        var checkauth = '<?php echo e(auth()->user()); ?>';
+        $('.note-link').click(function(e){
+            e.preventDefault()
+       
+            // $('.overlay.note').css({
+            //     'visibility': 'visible',
+            //     'opacity': '1',
+            //     'z-index': '111',
+            // })
+
+            // $('.note-list').click(function(e){
+            //     e.preventDefault();
+            //     $('.note-text').toggle(200)
+            // })
+        })
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var swiper = new Swiper('.swiper-container1', {
+
             spaceBetween: 5,
             nextButton: '.swiper-p',
-           prevButton: '.swiper-n',
+            prevButton: '.swiper-n',
             breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-           
-        }
-           
-      
-    }); 
-    var swiper = new Swiper('.swiper-container2', {
-            
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+            }
+
+
+        });
+        var swiper = new Swiper('.swiper-container2', {
+
             spaceBetween: 5,
             nextButton: '.swiper-ani-p',
-           prevButton: '.swiper-ani-n',
+            prevButton: '.swiper-ani-n',
             breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-           
-        }
-           
-      
-    });
-    var music_slider = new Swiper('.swiper-container-music', {
-           
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+            }
+
+
+        });
+        var learning_slider = new Swiper('.swiper-container-learning', {
+
             spaceBetween: 5,
             pagination: '.swiper-pagination',
-        paginationClickable: true,
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20
-            },
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 10
-            },
-            1024: {
-                slidesPerView: 4,
-                spaceBetween: 20
-            },
-            1380: {
-                slidesPerView: 4,
-                spaceBetween: 40
-            },
-            
-           
-        }
-      
-    });
-    var baner_slider = new Swiper('.swiper-container-banner', {
-      spaceBetween: 30,
-      effect: 'fade',
-      autoplay: 2500,
-      autoplayDisableOnInteraction: false
-    });
-        $('.account-icon').click(function(e){
+            paginationClickable: true,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+
+            }
+
+        });
+        var music_slider = new Swiper('.swiper-container-music', {
+
+            spaceBetween: 5,
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1380: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+
+
+            }
+
+        });
+        var baner_slider = new Swiper('.swiper-container-banner', {
+            spaceBetween: 30,
+            effect: 'fade',
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+
+
+        $('.account-icon').click(function (e) {
             e.preventDefault()
             $('.dropdown-content').fadeToggle(200)
         })
-        
-      
-    
 
-   
-   $('.button__').click(function(e){
-       e.preventDefault()
-       let parent_id = $(this).data('id')
-      $('#parent_id').attr('value',parent_id)
-    $('.overlay1').css({  'visibility': 'visible',
-        'opacity': '1',
-        'z-index': '10',})
-   })
-   $('.report-btn').click(function(e){
-       e.preventDefault()
-     
-      $('#parent_id').attr('value',parent_id)
-    $('.overlay.report').css({  'visibility': 'visible',
-        'opacity': '1',
-        'z-index': '10',})
-   })
-   $('.close').click(function(e){
-    e.preventDefault()
-    $('.overlay1').css({  'visibility': 'hidden',
-        'opacity': '0','z-index': '0'
-       })
-       $('.overlay.report').css({  'visibility': 'hidden',
-        'opacity': '0','z-index': '0'
-       })
-   })
-   function ajaxlike(id,url){
-      
-       $.ajax({ 
-        url: url,
-        type: 'POST',
-        data:{id:id},
-        dataType: 'JSON', 
-        cache:false,
-        success: function(res) {
-           $('#like-post span').text(res)
-        }
-});
-   }
-
-   $('#like-post').click(function(e){
-       e.preventDefault();
-       let url = '<?php echo e(route("LikePost")); ?>';
-       let post_id = $(this).data('id')
-       ajaxlike(post_id,url);
-       
-   })
-
-   $('.favorite-post').click(function(e){
-       e.preventDefault();
-       let thiss = $(this)
-      
-       let url = '<?php echo e(route("AddFavorite")); ?>';
-       let id = $(this).data('id')
-       $.ajax({ 
-        url: url,
-        type: 'POST',
-        data:{id:id},
-        dataType: 'JSON', 
-        cache:false,
-        success: function(res) {
-           if(res == 'add'){
-            thiss.find('svg').attr('fill','red')
-           }
-           if(res == 'remove'){
-            thiss.find('svg').attr('fill','gray')
-           }
-        }
-       
-   })
-})
-
-   $('.like-comment').click(function(e){
-       e.preventDefault();
-       var loggedIn = '<?php echo e(auth()->check()); ?>';
-       if (!loggedIn){ alert('برای ثبت دیدگاه باید وارد شوید!');}
-      else{
-        let thiss = $(this)
-        let url = '<?php echo e(route("LikeComment")); ?>';;
-        let id = $(this).data('id')
-        $.ajax({ 
-                url: url,
-                type: 'POST',
-                dataType: 'JSON', 
-                cache:false,
-                data:{id:id},
-                dataType: 'JSON', 
-                cache:false,
-                success: function(res) {
-                    thiss.find('span').text(res)
-                }
-            
+        $(document).on('click', function (e) {
+            if ($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0) {
+                $('.dropdown-content').fadeOut(200)
+            }
         })
-      }
-       
-   })
-   $('.dislike-comment').click(function(e){
-        e.preventDefault();
-        var loggedIn = '<?php echo e(auth()->check()); ?>';
-        if (!loggedIn){ alert('برای ثبت دیدگاه باید وارد شوید!');}
-        else{
-        let thiss = $(this)
-        let url = '<?php echo e(route("DisLikeComment")); ?>';;
-        let id = $(this).data('id')
-        $.ajax({ 
-                url: url,
-                type: 'POST',
-                dataType: 'JSON', 
-                cache:false,
-                data:{id:id},
-                dataType: 'JSON', 
-                cache:false,
-                success: function(res) {
-                    thiss.find('span').text(res)
-                }
-            
+
+        $('.button__').click(function (e) {
+            e.preventDefault()
+            let parent_id = $(this).data('id')
+            $('#parent_id').attr('value', parent_id)
+            $('.overlay1').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
         })
-      }
-       
-   })
+        $('.report-btn').click(function (e) {
+            e.preventDefault()
+
+            $('#parent_id').attr('value', parent_id)
+            $('.overlay.report').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
+        })
+        $('.close').click(function (e) {
+            e.preventDefault()
+            $('.overlay1').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay2').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay.report').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+            $('.overlay.note').css({
+                'visibility': 'hidden',
+                'opacity': '0', 'z-index': '0'
+            })
+        })
+        $('#shareinmedia').click(function (e) {
+            e.preventDefault()
+            let parent_id = $(this).data('id')
+
+            $('.overlay2').css({
+                'visibility': 'visible',
+                'opacity': '1',
+                'z-index': '10',
+            })
+        })
+
+        $('.follow-link').on('click', function (e) {
+            e.preventDefault();
+
+            if (checkauth) {
+                let id = $(this).data('id')
+                let thiss = $(this)
+                $.ajax({
+                    url: '<?php echo e(route('User.Follow')); ?>',
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'follow') {
+                            thiss.text('دنبال میکنید')
+                            thiss.addClass('followed')
+                        }
+                        if (res == 'unfollow') {
+                            thiss.html(`<i class="fa fa-plus"></i> <span class="text">دنبال کردن</span>`)
+                            thiss.removeClass('followed')
+                        }
+
+                    }
+                });
+            } else {
+                window.location.href = "<?php echo e(route("login")); ?>"
+            }
+        });
 
 
+        function ajaxlike(id, url) {
+          
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        $('#like-post span').text(res)
+                    }
+                });
+           
+        }
+
+        $('#like-post').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+                let url = '<?php echo e(route("LikePost")); ?>';
+                let post_id = $(this).data('id')
+                ajaxlike(post_id, url);
+            } else {
+                window.location.href = "<?php echo e(route("login")); ?>"
+            }
+
+        })
+
+        $('.favorite-post').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+                
+                let thiss = $(this)
+
+                let url = '<?php echo e(route("AddFavorite")); ?>';
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'add') {
+                            thiss.find('svg').attr('fill', 'red')
+                        }
+                        if (res == 'remove') {
+                            thiss.find('svg').attr('fill', 'gray')
+                        }
+                    }
+
+                });
+            } else {
+                window.location.href = "<?php echo e(route("login")); ?>"
+            }
+        })
+
+        $('.like-comment').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+               
+
+                let thiss = $(this)
+                let url = '<?php echo e(route("LikeComment")); ?>';
+                ;
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    cache: false,
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        thiss.find('span').text(res)
+                    }
+
+                });
+            } else {
+                window.location.href = "<?php echo e(route("login")); ?>"
+
+            }
+
+        })
+        $('.dislike-comment').click(function (e) {
+            e.preventDefault();
+            if (checkauth) {
+              
 
 
+                let thiss = $(this)
+                let url = '<?php echo e(route("DisLikeComment")); ?>';
+                ;
+                let id = $(this).data('id')
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    cache: false,
+                    data: {id: id},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                        thiss.find('span').text(res)
+                    }
 
-   })
+                })
+            } else {
+                window.location.href = "<?php echo e(route("login")); ?>"
 
-   
+            }
+
+        })
+
+
+    })
+
 
     </script>
-<?php echo $__env->yieldContent('js'); ?>
+    <?php echo $__env->yieldContent('js'); ?>
 </body>
 
 </html><?php /**PATH C:\xampp\htdocs\media\resources\views/layout/Main/template.blade.php ENDPATH**/ ?>

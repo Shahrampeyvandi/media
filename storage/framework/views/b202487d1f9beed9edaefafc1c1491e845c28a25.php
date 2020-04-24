@@ -19,9 +19,14 @@
                         <select name="type" id="type" class="form-control browser-default custom-select">
                             <option value="" selected>دسته بندی</option>
                             <?php if($member->group=='student'): ?>
-                            <option value="5">کلیپ</option>
+                            <?php $__empty_1 = true; $__currentLoopData = \App\Models\Contents\Categories::where('id','!=',6)->latest()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                            <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
 
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                            <option value="" selected>دسته بندی تعریف نشده است</option>
+                            <?php endif; ?>
 
+ 
                             <?php else: ?>
                             <?php $__empty_1 = true; $__currentLoopData = \App\Models\Contents\Categories::latest()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
@@ -111,29 +116,26 @@
                         <textarea class="form-control" name="desc2" id="desc2" cols="30" rows="8"></textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <select name="price_type" id="price_type" class="form-control browser-default custom-select">
-                            <option value="free" selected>رایگان</option>
-                            <option value="money">پولی</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="number" class="form-control" name="price" id="price" placeholder="قیمت به ریال">
-                    </div>
-                </div>
+                
 
                 <div class="form-footer">
                     <div class="row fileform">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="desc">فایل: </label>
                             <input type="file" class="form-control" name="file" id="file" />
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="desc">افزودن زیرنویس: فایل زیرنویس باید با فرمت vtt باشد </label>
                             <input type="file" class="form-control" name="subtitle" id="subtitle" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="form-group col-md-2">
+                            <label for="desc">قیمت:  </label>
+                            <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
+                            <span class="rial">ریال</span>
                         </div>
                     </div>
                     <div class="row">
@@ -142,6 +144,7 @@
                         </div>
                     </div>
                 </div>
+               
 
 
 
@@ -190,7 +193,7 @@
               
                 <div class="row">
                     <div class="col-md-3 my-2 ">
-                        <input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />
+                        <input type="submit" id="upload" name="upload" value="آپلود" class="btn btn-sm btn-success" />
                     </div>
                 </div>
             </div>
@@ -207,15 +210,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 </div>
 <div class="row">
@@ -245,11 +239,20 @@
 <script>
     $(document).ready(function(){
         CKEDITOR.replace('desc',{
-            filebrowserUploadUrl : '<?php echo e(route('UploadImage')); ?>',
-            filebrowserImageUploadUrl : '<?php echo e(route('UploadImage')); ?>'
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=file',
+            imageUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=image'
         });
-    CKEDITOR.replace('desc2');
-        CKEDITOR.replace('epizode_desc');
+    CKEDITOR.replace('desc2',{
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=file',
+            imageUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=image'
+        });
+        CKEDITOR.replace('epizode_desc',{
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=file',
+            imageUploadUrl: '<?php echo e(route('UploadImage')); ?>?type=image'
+        });
 
 
 
@@ -258,30 +261,14 @@
         $(document).on('change','#type',function(){
             if($(this).val() == '6'){
                 $('.btn--wrapper input').val('ارسال')
-                $('.fileform').hide()
+               
                 $('.epizode').show()
             }else{
                 $('.btn--wrapper input').val('آپلود')
-                $('.fileform').show()
+                
                 $('.epizode').hide()
             }
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -311,88 +298,97 @@
 			},
         
 	});
-    $('form').ajaxForm({
-        beforeSerialize:function($Form, options){
-        /* Before serialize */
-        for ( instance in CKEDITOR.instances ) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-        return true; 
-    },
-      beforeSend:function(){
-        $('#success').empty();
+    // $('form').ajaxForm({
+    //     beforeSerialize:function($Form, options){
+    //     /* Before serialize */
+    //     for ( instance in CKEDITOR.instances ) {
+    //         CKEDITOR.instances[instance].updateElement();
+    //     }
+    //     return true; 
+    // },
+    //   beforeSend:function(){
+    //     $('#success').empty();
         
-      },
-      uploadProgress:function(event, position, total, percentComplete)
-      {
-       if ($('#type').val() != '6') {
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال بارگذاری ...
-                </button>`)
-        $('.progress-bar').text(percentComplete + '%');
-        $('.progress-bar').css('width', percentComplete + '%');
-       }else{
-        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-                    در حال ارسال...
-                </button>`)
-       }
+    //   },
+    //   uploadProgress:function(event, position, total, percentComplete)
+    //   {
+    //    if ($('#type').val() != '6') {
+    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+    //                 در حال بارگذاری ...
+    //             </button>`)
+    //     $('.progress-bar').text(percentComplete + '%');
+    //     $('.progress-bar').css('width', percentComplete + '%');
+    //    }else{
+    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+    //                 در حال ارسال...
+    //             </button>`)
+    //    }
       
-      },
+    //   },
      
-      success:function(data)
-      {
-        if ($('#type').val() != '6') {
+    //   success:function(data)
+    //   {
+    //     if ($('#type').val() != '6') {
 
-          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-        }else{
-            $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
+    //       $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
+    //     }else{
+    //         $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
 
-        }
-        if(data.errors)
-        {
-            swal("خطا"
-            , data.errors
-            ,
-             "error", {
-			button: "باشه"
-		});
-          $('.progress-bar').text('0%');
-          $('.progress-bar').css('width', '0%');
-        }
-        if(data.success)
-        {
-        if ($('#type').val() != '6') {
-            swal("موفق"
-            , "فایل با موفقیت آپلود شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
+    //     }
+    //     if(data.errors)
+    //     {
+    //         swal("خطا"
+    //         , data.errors
+    //         ,
+    //          "error", {
+	// 		button: "باشه"
+	// 	});
+    //       $('.progress-bar').text('0%');
+    //       $('.progress-bar').css('width', '0%');
+    //     }
+    //     if(data.success)
+    //     {
+    //     if ($('#type').val() != '6') {
+    //         swal("موفق"
+    //         , "فایل با موفقیت آپلود شد"
+    //         ,
+    //          "success", {
+	// 		button: "باشه"
+	// 	});
 
-          $('.progress-bar').text('انجام شد');
-          $('.progress-bar').css('width', '100%');
-          }else{
-            swal("موفق"
-            , "ارسال با موفقیت انجام شد"
-            ,
-             "success", {
-			button: "باشه"
-		});
-          }
-          $('#success').append(data.image);
+    //       $('.progress-bar').text('انجام شد');
+    //       $('.progress-bar').css('width', '100%');
+    //       }else{
+    //         swal("موفق"
+    //         , "ارسال با موفقیت انجام شد"
+    //         ,
+    //          "success", {
+	// 		button: "باشه"
+	// 	});
+    //       }
+    //       $('#success').append(data.image);
 
-          var form = $('#upload-file')
-            form.find('input[type="text"]').val('')
+    //       var form = $('#upload-file')
+    //         form.find('input[type="text"]').val('')
            
-            form.find('input[type="file"]').val('')
+    //         form.find('input[type="file"]').val('')
            
-            form.find('textarea').val('')
+    //         form.find('textarea').val('')
           
-        }
-      }
-    });
+    //     }
+    //   },
+
+    //   error:function(data){
+    //     swal("خطا"
+    //         , 'آپلود ناموفق بود'
+    //         ,
+    //          "error", {
+	// 		button: "باشه"
+	// 	});
+    //   }
+    // });
 
 });
 </script>

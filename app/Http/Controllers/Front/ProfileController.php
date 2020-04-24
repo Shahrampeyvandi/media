@@ -73,16 +73,11 @@ class ProfileController extends Controller
         return response()->json(
             'unfollow'
             , 200);
-        
     }else{
-
       $follows=new Follows;
       $follows->followed_id=$request->id;
       $follows->follower_id=auth()->user()->id;
-
       $follows->save();
-      
-
       return response()->json(
         'follow'
         , 200);

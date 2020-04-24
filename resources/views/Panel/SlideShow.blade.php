@@ -8,32 +8,17 @@
         <div class="content">
             <form id="" action="{{route('Panel.SlideShow.Submit')}}" method="post" enctype="multipart/form-data">
                 @csrf
-               
                 <div class="mt-5 pr-2">
                     <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">افزودن تصویر جدید</h5>
                     <div class="form-group col-md-12">
-
                     <label for="title" class="col-form-label"><span class="text-danger">*</span> تیتر: </label>
                     <input type="text" name="title" id="title" class="form-control">
-
                     <label for="pic" class="col-form-label"><span class="text-danger">*</span> تصویر: </label>
                     <input type="file" class="form-control" name="pic" id="pic" />
-
                     <label for="link" class="col-form-label"><span class="text-danger">*</span> لینک: </label>
                     <input type="link" name="link" id="link" class="form-control">
-
-
-
-                      
-                       
-                    </div>
-                
-              
-                </div>
-               
-                <div class="form-group  float-left offset-md-10">
-
                     <button type="submit" class="btn btn-sm btn-danger ">افزودن</button>
+                    </div>
                 </div>
             </form>
         </div>

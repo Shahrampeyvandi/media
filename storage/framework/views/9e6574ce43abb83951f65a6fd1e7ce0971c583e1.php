@@ -1,63 +1,26 @@
 
 
 <?php $__env->startSection('css'); ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
-<link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
-<link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/style.css" />
 
+
+<link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/style.css" />
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-
+<?php echo $__env->make('Includes.Main.popups', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <div id="container" class="container">
     <div class="view">
-
-
         <div class="row">
             <div class="col-md-9">
                 <div class="pr-3">
                     <div id="primary" class="primary">
 
-                        <section id="play" class="mt-3">
-                            <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                                poster="<?php echo e(route('BaseUrl')); ?>/<?php echo e($content->picture); ?>" data-setup="{}">
-                                <source src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($content->content_link); ?>" type="video/mp4" />
-                                <source src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($content->content_link); ?>" type="video/webm" />
-                                
-                                <p class="vjs-no-js">
-                                    To view this video please enable JavaScript, and consider upgrading to a
-                                    web browser that
-                                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports
-                                        HTML5 video</a>
-                                </p>
-                            </video>
-                        </section>
+                       <?php echo $__env->make('Includes.Main.player', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
-                    <div id="popup1" class="overlay">
-                        <div class="popup">
-                            <a class="close" href="#">&times;</a>
-                            <div class="content">
-                                <form id="" action="<?php echo e(route('AddComment')); ?>" method="post">
-                                    <?php echo csrf_field(); ?>
-                                    <div class="mt-3">
-                                        <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> افزودن دیدگاه</h5>
-                                        <div class="form-group col-md-12">
-                                            <input type="hidden" id="parent_id" name="parent_id" value="0">
-                                            <input type="hidden" name="post_id" value="<?php echo e($content->id); ?>">
-                                            <textarea type="text" rows="4" class="form-control" name="comment"
-                                                id="comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-sm btn-primary">ارسال </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+
+                   
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
                         <div class="genre mb-md">
                             <?php $__currentLoopData = $content->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -65,10 +28,21 @@
                                     class="text">#<?php echo e($tag->name); ?></span></a>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center col-11">
+                        <div class="d-flex justify-content-between align-items-center col-12">
                             <h1 class="title fs-1-4 fw-300"> <?php echo e($content->title); ?></h1>
                             <div class="d-flex align-items-center">
-
+                                <a id="shareinmedia" href="#"
+                                    class="button button-medium button-gray button-hollow "><svg class="icon icon-share"
+                                        viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                        <use xlink:href="#si_share">
+                                            <g id="si_share" data-viewBox="0 0 24 24">
+                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M18 16.08a2.912 2.912 0 0 0-1.96.77L8.91 12.7A3.274 3.274 0 0 0 9 12a3.274 3.274 0 0 0-.09-.7l7.05-4.11A2.993 2.993 0 1 0 15 5a3.274 3.274 0 0 0 .09.7L8.04 9.81a3 3 0 1 0 0 4.38l7.12 4.16a2.821 2.821 0 0 0-.08.65A2.92 2.92 0 1 0 18 16.08zM18 4a1 1 0 0 1 1 1l.063-1-1.83-.656C16.683 3.344 17 5.55 17 5a1 1 0 0 1 1-1zM6 13c-.55 0 .672.847.672.3S5.45 13.219 6 13.219s0-.019 0 .531.55-.75 0-.75zm12 7.02c-.55 0-.234 1.046-.234.5s-.237-.172.313-.172.172-.55.172 0 .299-.328-.251-.328z">
+                                                </path>
+                                            </g>
+                                        </use>
+                                    </svg></a>
                                 <a href="#" id="like-post" data-id="<?php echo e($content->id); ?>"> <span class="text-success">
                                         <?php echo e($likes); ?>
 
@@ -87,9 +61,8 @@
                                         </use>
                                     </svg> </a>
                                 <a href="#" data-id="<?php echo e($content->id); ?>" class="favorite-post pt-2 mx-2">
-                                    <svg class="icon icon-favorite" <?php if($favorite_status): ?>
-                                        fill="red" <?php else: ?> fill="gray"
-                                    <?php endif; ?>  viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <svg class="icon icon-favorite" <?php if($favorite_status): ?> fill="red" <?php else: ?> fill="gray"
+                                        <?php endif; ?> viewBox="0 0 24 24" 0="" 24="" 24""="">
                                         <use xlink:href="#si_favorite">
                                             <g id="si_favorite" data-viewBox="0 0 24 24">
                                                 <path d="M0 0h24v24H0z" fill="none"></path>
@@ -101,30 +74,63 @@
                                     </svg>
 
                                 </a>
-                                   <?php if(auth()->check()): ?>
-                                   <a data-id="0" class="button__ mdb-color lighten-1 p-1 text-white mr-2 fs-0-8 radius-5">
+                                <?php if(auth()->check()): ?>
+                                <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
-                                   افزودن دیدگاه 
+                                    گزارش تخلف 
                                 </a>
-                                   <?php else: ?>
-                                   <a data-id="0" class="button__ mdb-color lighten-1 p-1 text-white mr-2 fs-0-8 radius-5">
+                                <?php endif; ?>
 
-                                       برای ثبت نظر لطفا وارد شوید
-                                 </a>
-                                   <?php endif; ?>
+                                <?php if(auth()->check()): ?>
+                                <a data-id="0" class="button__  p-1 text-primary mr-2 fs-0-8 radius-5 border-1 bc-blue">
+
+                                    افزودن دیدگاه
+                                </a>
+
+                                <?php endif; ?>
+
                             </div>
                         </div>
 
                     </div>
+
+
+                    <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
+                        <div class="avatar">
+                            <?php if($content->members->avatar): ?>
+                        <a href="<?php echo e(route('User.Show',['name'=>$content->members->username])); ?>" class="picture user-avatar">
+                                <img src="<?php echo e(asset('members/1587120640.jpg')); ?>" alt="">
+                            </a>
+
+                            <?php else: ?>
+                            <a href="<?php echo e(route('User.Show',['name'=>$content->members->username])); ?>" class="picture image"
+                                style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
+                                <i class="fa fa-user  position-absolute fs-1-5 text-white"
+                                    style="right: 12px;top: 7px;"></i>
+                            </a>
+                            <?php endif; ?>
+
+
+                            <div class=" fs-0-8 mt-2 mr-1">
+                                <a id="" href="<?php echo e(route('User.Show',['name'=>$content->members->username])); ?>" title="<?php echo e($content->members->username); ?>">
+                                    <h3 class="title">
+                                        <span class="name"><?php echo e($content->members->username); ?></span>
+                                    </h3>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="#" title="" data-id="<?php echo e($content->members->id); ?>" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
+                                کردن</span></a>
+                    </div>
                     <div class="channel rel w-100 put-right py-xl">
                         <div class="avatar">
-                            <a href="#" title="<?php echo e($content->categories->name); ?>" class="picture"><svg
+                            <a href="<?php echo e(route('Category',['slug'=>$content->categories->latin_name])); ?>" title="<?php echo e($content->categories->name); ?>" class="picture"><svg
                                     class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                     <use xlink:href="#si_videos"></use>
                                 </svg></a>
 
                             <div class="details">
-                                <a href="/movies" title="<?php echo e($content->categories->name); ?>" class="title">دسته بندی:
+                                <a href="<?php echo e(route('Category',['slug'=>$content->categories->latin_name])); ?>" title="<?php echo e($content->categories->name); ?>" class="title">دسته بندی:
                                     <?php echo e($content->categories->name); ?></a>
                                 <span class="caption"><?php echo e($countcategoryposts); ?>
 
@@ -132,21 +138,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="description w-100 put-right">
+
+                    <div class="description w-100 put-right pr-2">
                         <h3 class="fs-0-9 mb-xs">توضیحات</h3>
                         <p class="paragraph mb-lg text-black-50">
                             <?php echo $content->desc; ?>
 
                         </p>
                     </div>
-                    <div class="description w-100 put-right">
+                    <div class="description w-100 put-right pr-2">
                         <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
                         <p class="paragraph mb-lg text-black-50">
                             <?php echo $content->otheroninformation; ?>
 
                         </p>
                     </div>
-                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5">
+                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2">
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مربوط به</div>
                             <div class="d-tc py-xs">
@@ -182,21 +189,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-100 information put-right mt-2 mb-5 pl-3 grey lighten-2 radius-5">
+                    <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
 
-                        <h3 class="mb-2 pr-2 pt-3 text-white">نظرهای شما</h3>
+                        <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
                         <?php if(count($comments)): ?>
                         <?php $__currentLoopData = $comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="row mr-2 ml-5 mb-2" style="   background: #fbfbfc;
+                        <div class="row mr-2 ml-5 mb-2" style="   background: #e9e9ff;
                                 border-radius: 5px;
                                 padding: 10px;">
-                            <div class="col-4 col-md-1 pl-0">
+                            <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="<?php echo e(asset('assets/images/avatar.png')); ?>"
                                         alt="">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-11 pl-3">
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
                                 <div class="mt-3">
                                     <div class=" d-flex justify-content-between mb-2">
                                         <h3><?php echo e($comment->members->firstname .' '.$comment->members->lastname); ?></h3>
@@ -213,17 +220,23 @@
                                         <div class="d-flex justify-content-end">
 
                                             <div>
-                                                <a data-id="<?php echo e($comment->id); ?>" class="like-comment border-1 radius-5 pr-2 text-success" href="#"> <span
+                                                <a data-id="<?php echo e($comment->id); ?>"
+                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
+                                                    <span
                                                         class="text-success pl-3"><?php echo e(\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','like')->count()); ?></span>
                                                     <i class="fa fa-plus-square"></i>
-                                                    </a>
-                                                    <a data-id="<?php echo e($comment->id); ?>" class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2" href="#"> <span
+                                                </a>
+                                                <a data-id="<?php echo e($comment->id); ?>"
+                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
+                                                    href="#"> <span
                                                         class="text-success pl-3"><?php echo e(\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','dislike')->count()); ?></span>
-                                                        <i class="fa fa-plus-square pl-1"></i>
-                                                     </a>
+                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                </a>
                                             </div>
                                             <div class="text-info mr-2">
-                                            <a href="#" data-name="<?php echo e($comment->members->firstname .' '.$comment->members->lastname); ?>" data-id="<?php echo e($comment->id); ?>" class="button__"> پاسخ
+                                                <a href="#"
+                                                    data-name="<?php echo e($comment->members->firstname .' '.$comment->members->lastname); ?>"
+                                                    data-id="<?php echo e($comment->id); ?>" class="button__"> پاسخ
                                                     <i class="fa fa-reply"></i></a>
                                             </div>
                                         </div>
@@ -232,16 +245,16 @@
                             </div>
                         </div>
                         <?php $__currentLoopData = \App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment_l2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="row mr-3 ml-2 mb-2" style="   background: #fbfbfc;
+                        <div class="row mr-3 ml-2 mb-2" style="   background: #e9e9ff;
                                                        border-radius: 5px;
                                                        padding: 10px;">
-                            <div class="col-4 col-md-1 pl-0">
+                            <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="<?php echo e(asset('assets/images/avatar.png')); ?>"
                                         alt="">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-11 pl-3">
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
                                 <div class="mt-3">
                                     <div class=" d-flex justify-content-between mb-2">
                                         <h3><?php echo e($comment_l2->members->firstname .' '.$comment_l2->members->lastname); ?>
@@ -261,14 +274,18 @@
                                         <div class="d-flex justify-content-end">
 
                                             <div>
-                                            <a data-id="<?php echo e($comment_l2->id); ?>" class="like-comment border-1 radius-5 pr-2 text-success" href="#"> <span
+                                                <a data-id="<?php echo e($comment_l2->id); ?>"
+                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
+                                                    <span
                                                         class="text-success pl-3"><?php echo e(\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','like')->count()); ?></span>
-                                                        <i class="fa fa-plus-square"></i>
-                                                    </a>
-                                                    <a data-id="<?php echo e($comment_l2->id); ?>" class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2" href="#"> <span
+                                                    <i class="fa fa-plus-square"></i>
+                                                </a>
+                                                <a data-id="<?php echo e($comment_l2->id); ?>"
+                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
+                                                    href="#"> <span
                                                         class="text-success pl-3"><?php echo e(\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','dislike')->count()); ?></span>
-                                                        <i class="fa fa-plus-square pl-1"></i>
-                                                     </a>
+                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                </a>
                                             </div>
                                             <div class="text-info mr-2">
                                                 <a href="#" data-id="<?php echo e($comment_l2->id); ?>" class="button__"> پاسخ
@@ -280,16 +297,16 @@
                             </div>
                         </div>
                         <?php $__currentLoopData = \App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment_l3): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="row mr-5 ml-2 mb-2" style="   background: #fbfbfc;
+                        <div class="row mr-5 ml-2 mb-2" style="   background: #e9e9ff;
                             border-radius: 5px;
                             padding: 10px;">
-                            <div class="col-4 col-md-1 pl-0">
+                            <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="<?php echo e(asset('assets/images/avatar.png')); ?>"
                                         alt="">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-11 pl-3">
+                            <div class="col-12 col-md-11 pl-3 comment-user-name">
                                 <div class="mt-3">
                                     <div class=" d-flex justify-content-between mb-2">
                                         <h3><?php echo e($comment_l3->members->firstname .' '.$comment_l3->members->lastname); ?>
@@ -343,88 +360,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <aside id="secondary" class="secondary">
-                    <section id="recom" class="single-recom">
-                        <header class="recom-header">
-                            <h3 class="title">پست های مرتبط</h3>
-                        </header>
-                        <div class="recommended-list">
-                            <div class="inner">
-                                <?php $__currentLoopData = $relateds; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
-                                    <div class="w-40">
-                                        <?php if($related->picture): ?>
-                                      <a href="<?php echo e(route('ShowItem',['id'=>$related->id])); ?>">  <img src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($related->picture); ?>" alt="<?php echo e($related->title); ?>"
-                                        aria-label="<?php echo e($related->title); ?>" class="thumb-image"
-                                        style="min-height: 130px;"></a>
-                                        <?php else: ?>
-                                        <a href="<?php echo e(route('ShowItem',['id'=>$related->id])); ?>"><div class="d-flex justify-content-center align-items-center h-100 p-3" style="    border: 1px solid gray;
-                                            border-radius: 4px;">
-                                                
-                                                <i class="ti ti-video-camera text-black-50" style="font-size: 4rem;"></i>
-                                            </div></a>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="thumb-details pr-2 pt-2 mb-3">
-                                        <h4 class="thumb-title">
-                                            <a href="<?php echo e(route('ShowItem',['id'=>$related->id])); ?>"
-                                                title="<?php echo e($related->title); ?>"
-                                                class="title"><span><?php echo e($related->title); ?></span></a>
-                                        </h4>
-                                        <a href="<?php echo e(route('Category',['slug'=>$related->categories->latin_name])); ?>"
-                                            title="<?php echo e($related->categories->name); ?>"
-                                            class="thumb-channel has-priority"><span
-                                                class="channel-name"><?php echo e($related->categories->name); ?></span>
-                                            <span class="priority-brand" title="رسمی">
-                                                <svg class="icon icon-tick icon-priority" viewBox="0 0 24 24" 0="" 24=""
-                                                    24""="">
-                                                    <use xlink:href="#si_tick">
-                                                        <g id="si_tick" data-viewBox="0 0 24 24">
-                                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z">
-                                                            </path>
-                                                        </g>
-                                                    </use>
-                                                </svg> </span></a>
-                                        <ul class="meta-tags d-b w-100 mt-xs">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">زبان:
-                                                <?php echo e($related->languages->name); ?>
-
-                                            </li>
-                                        </ul>
-                                        <ul class="meta-tags d-b w-100">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">موضوع:
-                                                <?php echo e($related->subjects->name); ?>
-
-                                            </li>
-                                        </ul>
-                                        <ul class="meta-tags d-b w-100">
-                                            <li class="meta d-in light-60 dark-110 fs-0-8">سطح:
-                                                <?php echo e($related->levels->name); ?>
-
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-                        </div>
-                    </section>
-                </aside>
-            </div>
+            <?php echo $__env->make('Includes.Main.relatedposts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
 </div>
 </main>
 
-
-<script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
-
-
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
 
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+<script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
+<script>
+    const player = new Plyr('#player',{
+        
+    });
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.Main.template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\media\resources\views/Main/single.blade.php ENDPATH**/ ?>

@@ -3101,6 +3101,17 @@ img {
 .v-m {
   vertical-align: middle;
 }
+.float-left {
+  float: left!important
+ }
+ 
+ .float-right {
+  float: right!important
+ }
+ 
+ .float-none {
+  float: none!important
+ }
 .flex-column {
   -ms-flex-direction: column!important;
   flex-direction: column!important
@@ -14040,7 +14051,7 @@ br {display:block}
 
 .popup {
   margin: 70px auto;
-  padding: 20px;
+  padding: 20px 20px 30px 20px;
   background: #fff;
   border-radius: 5px;
   width: 45%;

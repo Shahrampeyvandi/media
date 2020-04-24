@@ -18,7 +18,7 @@
                     </div>
                     <p>آیا برای حذف مورد مطمئن هستید؟</p>
                 </div>
-                <div class="form-group  float-left offset-md-10">
+                <div class="form-group   offset-md-10">
 
                     <button type="submit" class="btn btn-sm btn-danger ">حذف </button>
                 </div>
