@@ -65,6 +65,7 @@
                 <th > نام پست</th>
                 <th>بازدید ها</th>
                 <th>لایک ها</th>
+                <th>گزارشات تخلف</th>
                 <th>دسته بندی</th>
                 <th>زبان</th>
                 <th>سطح</th>
@@ -86,6 +87,7 @@
             </td>
             <td>{{$post->views}}</td>
             <td class="text-success">{{$post->likes->count()}}</td>
+            <td class="text-danger">{{$post->violations->count()}}</td>
             <td>{{$post->categories->name}}</td>
             <td>{{$post->languages->name}}</td>
             <td>{{$post->levels->name}}</td>

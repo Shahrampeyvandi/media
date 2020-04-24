@@ -315,7 +315,9 @@ class PostsController extends Controller
 
     public function report(Request $request)
     {
+      
         $member = auth()->user()->id;
+        $post = Posts::whereId($request->postid)->first();
         if(ViolationReports::where(['posts_id'=>$request->postid,'members_id'=>$member])->count())
         {
             toastr()->warning('شما تنها یک بار میتوانید گزارش تخلف ثبت کنید');
@@ -327,6 +329,16 @@ class PostsController extends Controller
         $report->members_id=$member;
         $report->posts_id=$request->postid;
         $report->save();
+
+foreach (Members::where('group','admin')->get() as $key => $admin) {
+    $notification = new Notifications;
+    $notification->members_id = $admin->id;
+    $notification->title = 'گزارش تخلف پست';
+    $notification->text = 'یک گزارش تخلف برای پست با نام '.'<a class="text-primary" href="'.route('ShowItem',$post->id).'">'.$post->title.'</a>'.' ثبت شد';
+    $notification->save();
+}
+       
+
 
         toastr()->success('گزارش شما با موفقیت ثبت شد');
        return back();

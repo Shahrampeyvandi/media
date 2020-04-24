@@ -33,7 +33,7 @@
 </head>
 
 <body class="device-desktop theme-light">
-    
+
     <div class="load-progress hidden">
         <div class="bar"></div>
     </div>
@@ -55,7 +55,6 @@
                                 </svg>
                             </button>
                         </div>
-
                     </div>
                     <div class="item">
                         <div class="inline-flex upload-button">
@@ -65,10 +64,9 @@
                                 <i class="fa fa-plus"></i>
                                 <span class="text mr-1">بارگذاری فایل</span></a>
                         </div>
-
                         <div class="inline-flex ">
                             <div id="" class="dropdown">
-                                <div class="dropdown-toggle"><a  href="#" style="z-index: 2"
+                                <div class="dropdown-toggle"><a href="#" style="z-index: 2"
                                         class="button button-gray button-medium button-hollow button-circular notif-link"><svg
                                             class="icon icon-notifications" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                             <use xlink:href="#si_notifications">
@@ -81,32 +79,33 @@
                                             </use>
                                         </svg>
                                     </a>
-@if ($notystatus)
-<span class="position-absolute noty-icon"> <i class="fa fa-exclamation-circle text-danger"></i></span>
-
-@endif                                    
-                                    </div>
-                                <div class="dropdown-content mdb-color lighten-1">
+                                    @if ($notystatus)
+                                        <span class="position-absolute noty-icon"> <i
+                                            class="fa fa-exclamation-circle text-danger"></i>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="dropdown-content">
                                     <div id="notification " class="d-b  pt-2">
                                         <ul>
-                                        
                                             @foreach ($notifications as $notification)
-                                        <li><div  class=" text-white d-flex flex-column flex-sm-wrap mb-2">
-                                                <span class="mr-1 fs-0-8 d-flex justify-content-between">
-                                                   
-                                                    <span class="text-info">{{$notification->title}}
+                                            <li>
+                                                <div class="  d-flex flex-column flex-sm-wrap mb-2">
+                                                    <span class="mr-1 fs-0-8 d-flex justify-content-between">
+                                                        <span class="text-info">{{$notification->title}}
+                                                        </span>
+                                                    <span>{{\Morilog\Jalali\Jalalian::forge($notification->created_at)->format('%d %B %Y')}}</span>
+                                                        @if ($notification->read == 0)
+                                                        <a href="#" data-id="{{$notification->id}}"
+                                                            class="noty-link text-white mdb-color lighten-2 px-1 radius-5 ml-1">فهمیدم</a>
+                                                        @endif
                                                     </span>
-                                                    @if ($notification->read == 0)
-                                                    <a  href="#" data-id="{{$notification->id}}" class="noty-link text-white mdb-color lighten-2 px-1 radius-5 ml-1">فهمیدم</a>
-                                                    @endif
-                                                </span>
-                                                <span class="mr-1 fs-0-8 ">
-                                                    <span>{!!$notification->text!!}</span>
-                                                    
-                                                </span>
-                                            
-                                            </div></li>
-                                            @endforeach                                                                          
+                                                    <span class="mr-1 fs-0-8 ">
+                                                        <span>{!!$notification->text!!}</span>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -185,13 +184,13 @@
                             <div class=" avatar-img"
                                 style="background-image: url({{route('BaseUrl')}}/{{auth()->user()->avatar}})">
                             </div>
-                        </a>   
-                        @else 
+                        </a>
+                        @else
                         <a href="#" class="picture image">
                             <div class=" avatar-img"
                                 style="background-image: url({{asset('assets/images/avatar.png')}})">
                             </div>
-                        </a>   
+                        </a>
                         @endif
 
 
@@ -219,167 +218,197 @@
                                 </div>
                             </a>
                         </li>
-                        
-                    @if (auth()->user()->is_admin())
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.Posts.All')}}" aria-label=""><i
-                                class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">پست ها</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.Posts.Unconfirmed')}}" aria-label=""><i
-                                class="ti ti-file fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">پست های پیش نویس</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.Members')}}" aria-label=""><i
-                                class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">کاربران</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.Comments.All')}}" aria-label=""><i
-                                class="ti ti-comments fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">نظرات</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.SlideShow.All')}}" aria-label=""><i
-                                class="ti ti-layout-slider fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">اسلایدشو</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Post.Report.All')}}" aria-label=""><i
-                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">گزارش های تخلف</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Message.All')}}" aria-label=""><i
-                                class="ti ti-headphone-alt fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">پیام های کاربران</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Purchase.All')}}" aria-label=""><i
-                                class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">دوره های خریداری شده</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.Policies')}}" aria-label=""><i
-                                class="ti ti-layout-menu-v fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">قوانین</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endif
-                       
-                       @if (auth()->user()->group == 'teacher' || auth()->user()->group == 'student')
-                       <li class="menu-item-link">
-                        <a href="{{route('MyVideos')}}" aria-label="کارتون"><svg class="icon icon-videos"
-                                viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                <use xlink:href="#si_videos">
-                                    <g id="si_videos" data-viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path
-                                            d="M4 6.47L5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-1.99 2L2 18a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V4z">
-                                        </path>
-                                    </g>
-                                </use>
-                            </svg>
-                            <div class="content">
-                                <span class="text">فایل های ویدیویی من</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('MyAudios')}}" aria-label=""><i
-                                class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">فایل های صوتی من</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('MyTutorials')}}" aria-label=""><i
-                                class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">دوره های آموزشی من</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('UnsubscribeFiles')}}" aria-label=""><i
-                                class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">فایل های منتشر نشده</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href=" {{route('Panel.Comments')}} " aria-label="گیم"><svg class="icon icon-comments"
-                                viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                <use xlink:href="#si_comments">
-                                    <g id="si_comments" data-viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path
-                                            d="M4 4h16v12H5.17L4 17.17V4m0-2a2 2 0 0 0-1.99 2L2 22l4-4h14a2.006 2.006 0 0 0 2-2V4a2.006 2.006 0 0 0-2-2z">
-                                        </path>
-                                        <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
-                                    </g>
-                                </use>
-                            </svg>
-                            <div class="content">
-                                <span class="text">دیدگاه‌های من</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Panel.MyFavorites')}} " aria-label="">
-                            <div class="content d-flex align-items-center"><i
-                                    class="ti ti-tag fs-1-5 text-black-50 ml-3"></i>
-                                <span class="text">علاقه مندی ها</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('Message.My')}}" aria-label=""><i
-                                class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">پیام های من</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-item-link">
-                      <a href="{{route('Purchase.My')}}" aria-label=""><i
-                            class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                            <span class="text">دوره های خریداری من</span>
-                            </div>
-                      </a>
-                  </li>
-                       @endif
+
+                        @if (auth()->user()->is_admin())
+                        <li class="menu-item-link d-flex flex-column">
+                            <a class="menu-link position-relative" aria-label=""><i
+                                    class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">پست ها</span>
+                                </div>
+                                <i class="sub-menu-arrow ti-angle-left "></i>
+                            </a>
+                            <ul style="display:none;">
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Posts.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">لیست پست ها</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Posts.Unconfirmed')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">پست های پیش نویس</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Comments.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">کامنت ها</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-item-link d-flex flex-column">
+                            <a class="menu-link position-relative" href="#" aria-label=""><i
+                                    class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">کاربران</span>
+                                </div>
+                                <i class="sub-menu-arrow ti-angle-left "></i>
+                            </a>
+                            <ul style="display: none;">
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Members')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">لیست کاربران</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Message.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">پیام های کاربران</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-link d-flex flex-column">
+                            <a class="menu-link position-relative" href="#" aria-label=""><i
+                                    class="ti ti-list fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">محتوا</span>
+                                </div>
+                                <i class="sub-menu-arrow ti-angle-left "></i>
+                            </a>
+                            <ul style="display: none;">
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.SlideShow.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">اسلایدشو</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Message.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">قوانین</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-item-link">
+                            <a href="{{route('Post.Report.All')}}" aria-label=""><i
+                                    class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">گزارش های تخلف</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item-link">
+                            <a href="{{route('Purchase.All')}}" aria-label=""><i
+                                    class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">دوره های خریداری شده</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        @endif
+
+                        @if (auth()->user()->group == 'teacher' || auth()->user()->group == 'student')
+                        <li class="menu-item-link">
+                            <a href="{{route('MyVideos')}}" aria-label="کارتون"><svg class="icon icon-videos"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_videos">
+                                        <g id="si_videos" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 6.47L5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-1.99 2L2 18a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V4z">
+                                            </path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">فایل های ویدیویی من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('MyAudios')}}" aria-label=""><i
+                                    class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">فایل های صوتی من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('MyTutorials')}}" aria-label=""><i
+                                    class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">دوره های آموزشی من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('UnsubscribeFiles')}}" aria-label=""><i
+                                    class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">فایل های منتشر نشده</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href=" {{route('Panel.Comments')}} " aria-label="گیم"><svg class="icon icon-comments"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_comments">
+                                        <g id="si_comments" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 4h16v12H5.17L4 17.17V4m0-2a2 2 0 0 0-1.99 2L2 22l4-4h14a2.006 2.006 0 0 0 2-2V4a2.006 2.006 0 0 0-2-2z">
+                                            </path>
+                                            <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
+                                        </g>
+                                    </use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">دیدگاه‌های من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('Panel.MyFavorites')}} " aria-label="">
+                                <div class="content d-flex align-items-center"><i
+                                        class="ti ti-tag fs-1-5 text-black-50 ml-3"></i>
+                                    <span class="text">علاقه مندی ها</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('Message.My')}}" aria-label=""><i
+                                    class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">پیام های من</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item-link">
+                            <a href="{{route('Purchase.My')}}" aria-label=""><i
+                                    class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">دوره های خریداری من</span>
+                                </div>
+                            </a>
+                        </li>
+                        @endif
                         <li class="menu-item-link">
                             <a href="{{route('Panel.MyFollowers')}}" aria-label="گیم"><svg class="icon icon-gamepad"
                                     viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
@@ -390,7 +419,7 @@
                                 </div>
                             </a>
                         </li>
-                       
+
                         <li class="menu-item-link">
                             <a href="{{route('Profile')}}" aria-label=""><i
                                     class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
@@ -399,7 +428,7 @@
                                 </div>
                             </a>
                         </li>
-                     
+
 
                         <li class="menu-item-link">
                             <a href="{{route('logout')}}" aria-label=""><svg class="icon icon-logout"
@@ -450,8 +479,7 @@
     @toastr_render
     <script src="{{asset('Panel/assets/js/custom.js')}}"></script>
     <script>
-
-          $('.noty-link').click(function(e){
+        $('.noty-link').click(function(e){
         e.preventDefault()
       
         let id = $(this).data('id')
@@ -474,7 +502,18 @@
                 $('.dropdown-content').removeClass('lighten-1').addClass('lighten-2')
             }
     });
+
+
+   
     })
+    $('.menu-link').click(function(e){
+        e.preventDefault();
+        $(this).next('ul').slideToggle()
+        $(this).find('i').toggleClass('rotate-in')
+
+    })
+
+    
     </script>
     @yield('js')
 </body>

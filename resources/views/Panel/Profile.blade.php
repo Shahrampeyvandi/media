@@ -54,8 +54,8 @@
           </div>
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="user_email" class="col-form-label">ایمیل:</label>
-              <input type="text" class="form-control" name="user_email" id="user_email" value="{{$member->email}}">
+              <label for="user_email" class="col-form-label" >ایمیل:</label>
+              <input type="text" disabled class="form-control" name="user_email" id="user_email" value="{{$member->email}}">
             </div>
             <div class="form-group col-md-6">
               <label for="username" class="col-form-label"><span class="text-danger">*</span> نام کاربری:</label>
