@@ -10,12 +10,12 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered text-center">
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th style="width: 600px"> نام کاربری</th>
-
+                <th style=""> نام کاربری</th>
+                <th style=""> تصویر</th>
             </tr>
             </thead>
 
@@ -24,6 +24,14 @@
             <tr>
             <td>{{$key+1}}</td>
             <td>{{$follower->username}}</td>
+            <td>
+                @if ($follower->avatar)
+                    
+                <img class="d-inline" style="width:45px;" src="{{$follower->avatar}}" alt="">
+                @else
+                <img class="d-inline" style="width:45px;" src="{{asset('assets/images/avatar.png')}}" alt="">
+                @endif
+            </td>
            </tr>
             @endforeach
          

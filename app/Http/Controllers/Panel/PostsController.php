@@ -269,32 +269,73 @@ class PostsController extends Controller
     {
         if(request()->hasFile('upload')) {
 
-            // Upload path
-            $destinationPath = 'files/images/';
-     
-            // Create directory if not exists
-            if (!file_exists($destinationPath)) {
-               mkdir($destinationPath, 0755, true);
+            $tmpName  	   = $_FILES['upload']['tmp_name'];
+            $filename 	   = $_FILES['upload']['name'];
+            $size 		   = $_FILES['upload']['size'];
+            $filePath      = "files/images/" . date('d-m-Y-H-i-s').'-'.$filename;
+            $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+            $type 		   = $_GET['type'];
+            $funcNum 	   = isset($_GET['CKEditorFuncNum']) ? $_GET['CKEditorFuncNum']: null;
+        
+            if ($type == 'image') {
+                $allowedfileExtensions = array('jpg', 'jpeg', 'gif', 'png');
+            } else {
+                //file
+                $allowedfileExtensions = array('jpg', 'jpeg', 'gif', 'png', 'pdf', 'doc', 'docx');
             }
-     
-            // Get file extension
-            $extension = request()->file('upload')->getClientOriginalExtension();
-     
-            // Valid extensions
-            $validextensions = array("jpeg","jpg","png");
-     
-            // Check extension
-          
-     
-              // Rename file 
-              $fileName =time() .'.' . $extension;
-     
-              // Uploading file to given path
-              request()->file('upload')->move($destinationPath, $fileName); 
-                $url = '../'.$destinationPath . $fileName;
-                
-            
-            return "<script>window.parent.CKEDITOR.tools.callFunction(1,'{$url}','')</script>";
+        
+	//contrinue only if file is allowed
+	if (in_array($fileExtension, $allowedfileExtensions)) {
+
+	
+
+			if (move_uploaded_file($tmpName, $filePath)) {
+
+				// $filePath = str_replace('../', 'http://filemanager.localhost/elfinder/', $filePath);
+			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $filePath];
+
+			    if ($type == 'file') {
+
+					return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath','');</script>";
+					
+				}
+
+			} else {
+
+			    $error = 'There has been an error, please contact support.';
+
+			    if ($type == 'file') {
+					$message = $error;
+
+					return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
+					
+				}
+
+			    $data = array('uploaded' => 0, 'error' => array('message' => $error));
+
+			}
+
+	
+
+	} else {
+
+		$error = 'The file type uploaded is not allowed.';
+
+		if ($type == 'file') {
+			$funcNum = $_GET['CKEditorFuncNum'];
+			$message = $error;
+
+			return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
+			
+		}
+
+	    
+	    $data = array('uploaded' => 0, 'error' => array('message' => $error));
+
+	}
+
+	//return response
+	     return json_encode($data);
           }
 
 

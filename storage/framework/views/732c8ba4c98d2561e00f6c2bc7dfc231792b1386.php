@@ -287,6 +287,121 @@
     </div>
 </section>
 
+<?php if(count($learning)): ?>
+<section id="" style="padding: 40px 0;" class="list-item li" data-list="slider">
+    <div class="list-wrapper">
+        <div class="wpb_wrapper py-3">
+            <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
+                style="margin-right: 0px;"><span class="title__divider__wrapper text-header">دوره های آموزشی<span
+                        class="line brk-base-bg-gradient-right"></span>
+                </span></h2>
+
+            <a href="<?php echo e(route('Category',['slug'=>'tutorial'])); ?>">
+                <span class="title--more">نمایش همه <i class="ti ti-angle-left fs-0-5"></i></span>
+            </a>
+        </div>
+
+
+        <section class="list-content">
+            <div id="" class="carousel carousel-movie swiper-container-learning" dir="rtl">
+                <div class="swiper-wrapper">
+                    <?php $__currentLoopData = $learning; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="item carousel-item swiper-slide">
+                        <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
+                            <div class="thumb-wrapper">
+                                <a class="thumb" href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>">
+                                    <div class="abs-fit">
+                                       <?php if($movie->picture): ?>
+                                       <img src="<?php echo e(asset("$movie->picture")); ?>" alt="<?php echo e($movie->title); ?>"
+                                       aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
+                                       <?php else: ?> 
+                                      <div class="d-flex justify-content-center align-items-center h-100">
+                                        
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    </div>
+                                       <?php endif; ?> 
+                                       
+                                    </div>
+                                    <div class="tools">
+                                        <span class="badge-rate">
+                                            <span><?php echo e(count($movie->likes)); ?></span>
+                                            <svg class="icon icon-thumb-up d-in v-m g-20 fs-1-2 ml-xxs"
+                                                viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                                <use xlink:href="#si_thumb-up">
+                                                    <g id="si_thumb-up" data-viewBox="0 0 24 24">
+                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path
+                                                            d="M9 21h9a1.987 1.987 0 0 0 1.84-1.22l3.02-7.05A1.976 1.976 0 0 0 23 12v-2a2.006 2.006 0 0 0-2-2h-6.31l.95-4.57.03-.32a1.505 1.505 0 0 0-.44-1.06L14.17 1 7.58 7.59A1.987 1.987 0 0 0 7 9v10a2.006 2.006 0 0 0 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9z">
+                                                        </path>
+                                                        <path transform="translate(1 9)" d="M0 0h4v12H0z"></path>
+                                                    </g>
+                                                </use>
+                                            </svg> </span>
+                                        <span class="badge-rate"><span>
+                                            <?php if(substr($movie->getEpisodesTime(),0,1) == '0' && substr($movie->getEpisodesTime(),1,1) == '0'): ?>
+                                            <?php echo e(substr($movie->getEpisodesTime(),3)); ?>
+
+                                            <?php else: ?>
+                                            <?php echo e($movie->getEpisodesTime()); ?>
+
+                                            <?php endif; ?>
+                                            </span>
+                                            <i class="fa fa-clock-o pl-1"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="position-relative px-2 pt-3">
+                    
+                                <a href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>" title="<?php echo e($movie->title); ?>"
+                                    class="title title d-block mb-2"><span><?php echo e($movie->title); ?></span></a>
+                                    <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
+                                       
+                                      
+                                        <?php echo e($movie->epizodes->count()); ?>
+
+                                       
+                                    </span></p>
+                                    <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+                                        <?php if($movie->subjects): ?>
+                                        
+                                        <?php echo e($movie->subjects->name); ?>
+
+                                        <?php endif; ?>
+                                    </span></p>
+                                    <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+                                        <?php if($movie->languages): ?>
+                                        <?php echo e($movie->languages->name); ?>
+
+                                        <?php endif; ?>
+                                    </span></p>
+                                    <p class=""><span class="fs-0-9">سطح: <?php echo e($movie->levels->name); ?></span></p>
+                    
+                                <ul class="meta-tags d-b w-100 mt-xs  pb-2">
+                                    <li class="meta d-in light-60 dark-110"><?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
+                               
+                                </ul>
+                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+
+                </div>
+            </div>
+
+            <div class="swiper-button-next swiper-n "></div>
+            <div class="swiper-button-prev swiper-p"></div>
+        </section>
+
+    </div>
+</section>
+<?php endif; ?>
+
 <?php if(count($musics)): ?>
     
 <section id="" style="    padding: 40px 0;" class="list-item li" data-list="slider">
@@ -315,7 +430,7 @@
                                             class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
                                     <div class="center text-center m-t-n"> <a href="<?php echo e(route('ShowItem',['id'=>$music->id])); ?>"><i
                                                 class="ti ti-control-play fs-2"></i></a> </div>
-                                    <div class="bottom padder m-b-sm"> <a href="#" class="ml-2"> <span
+                                    <div class="bottom padder m-b-sm"> <a href="<?php echo e(route('ShowItem',['id'=>$music->id])); ?>" class="ml-2"> <span
                                                 class="text-info"> <?php echo e(count($music->comments)); ?></span><svg
                                                 class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                                 <use xlink:href="#si_comments">
@@ -327,7 +442,7 @@
                                                         <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
                                                     </g>
                                                 </use>
-                                            </svg> </a> <a href="#"> <span class="text-success"><?php echo e(\App\Models\Contents\Likes::where('posts_id',$music->id)->count()); ?></span>
+                                            </svg> </a> <a href="<?php echo e(route('ShowItem',['id'=>$music->id])); ?>"> <span class="text-success"><?php echo e(\App\Models\Contents\Likes::where('posts_id',$music->id)->count()); ?></span>
                                             <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                                 0="" 24="" 24""="">
                                                 <use xlink:href="#si_thumb-up">
@@ -346,7 +461,7 @@
                                         </a> </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
-                                            class="fa fa-bookmark i-lg"></i> </span> </div> <a href="#"
+                                            class="fa fa-bookmark i-lg"></i> </span> </div> <a href="<?php echo e(route('ShowItem',['id'=>$music->id])); ?>"
                                     class="music-img">
                                    <?php if($music->picture): ?>
                                     <img src="<?php echo e(asset($music->picture)); ?>" width="100%;" style="height: 230px;" alt="" class="r r-2x img-full">
@@ -356,7 +471,7 @@
                                     <?php endif; ?>
                                 </a>
                             </div>
-                            <div class="padder-v px-2"> <a href="#" class="text-ellipsis"><?php echo e($music->title); ?></a>
+                            <div class="padder-v px-2"> <a href="<?php echo e(route('ShowItem',['id'=>$music->id])); ?>" class="text-ellipsis"><?php echo e($music->title); ?></a>
                                 <p href="#" class="text-ellipsis text-black-50">سطح: <?php echo e($music->levels->name); ?></p>
                                 <a href="#"
                                     class="text-ellipsis text-xs text-muted">
@@ -432,7 +547,7 @@
                         </div>
                         <div class="pr-3">
                             <div class="card__author">
-                                <a href="#" class="fs-0-8"> زبان: <?php echo e($movie->languages->name); ?></a>
+                                <a class="fs-0-8"> زبان: <?php echo e($movie->languages->name); ?></a>
                                 <p class="">سطح:  <?php echo e($podcast->levels->name); ?></p>
                             </div>
                         </div>
@@ -449,6 +564,21 @@
 </section>
 
 <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="" style="padding: 100px;">
     <div class="row align-items-center justify-content-center">
         <div class="wpb_wrapper py-3">

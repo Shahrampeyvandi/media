@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Policies;
+use App\Models\Contents\Policies;
 use Illuminate\Http\Request;
 
 class MainController extends Controller

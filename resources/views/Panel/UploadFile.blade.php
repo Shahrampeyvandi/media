@@ -223,15 +223,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
 </div>
 <div class="row">
     <div class="col-md-12 mt-3 mb-5">
@@ -260,11 +251,20 @@
 <script>
     $(document).ready(function(){
         CKEDITOR.replace('desc',{
-            filebrowserUploadUrl : '{{route('UploadImage')}}',
-            filebrowserImageUploadUrl : '{{route('UploadImage')}}'
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
+            imageUploadUrl: '{{route('UploadImage')}}?type=image'
         });
-    CKEDITOR.replace('desc2');
-        CKEDITOR.replace('epizode_desc');
+    CKEDITOR.replace('desc2',{
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
+            imageUploadUrl: '{{route('UploadImage')}}?type=image'
+        });
+        CKEDITOR.replace('epizode_desc',{
+            extraPlugins: 'uploadimage',
+            filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
+            imageUploadUrl: '{{route('UploadImage')}}?type=image'
+        });
 
 
 
