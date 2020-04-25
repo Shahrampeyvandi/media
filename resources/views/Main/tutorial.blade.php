@@ -217,8 +217,10 @@
                             <div class="episodes_list--item lock">
                                 <div class="section-right"><span
                                         class="episodes_list--number">{{$episode->number}}</span>
-                                    <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
+                                    <div class="episodes_list--title">
+                                   @if($isbuyedit==true)
+                                    <a href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
+                                    @endif
                                             {{$episode->title}}
                                         </a></div>
                                 </div>

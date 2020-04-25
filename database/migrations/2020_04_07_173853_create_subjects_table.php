@@ -52,7 +52,7 @@ class CreateSubjectsTable extends Migration
         );
         DB::table('subjects')->insert(
             array(
-                'name' => 'سپیکینگ',
+                'name' => 'اسپیکینگ',
             )
         );
         DB::table('subjects')->insert(

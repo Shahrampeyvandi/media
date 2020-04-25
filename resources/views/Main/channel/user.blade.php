@@ -10,7 +10,7 @@
             <div class="list-wrapper">
                 <div class="wpb_wrapper py-3 mr-2">
                     <h2 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider " style="margin-right: 0px;">
-                        <span class="title__divider__wrapper text-success">آخرین ویدیو<span
+                        <span class="title__divider__wrapper text-success">آخرین مطلب<span
                                 class="line brk-base-bg-gradient-right"></span>
                         </span></h2>
                 </div>

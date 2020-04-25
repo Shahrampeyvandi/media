@@ -16,7 +16,7 @@ class ProfileController extends Controller
     
        $category = Categories::where('latin_name',$slug)->first();
        $member = Members::whereUsername($username)->first();
-       $lastpost=$member->posts->where('confirmed',1)->first();
+       $lastpost=$member->posts->where('confirmed',1)->where('categories_id',$category->id)->first();
 
       if(!is_null($lastpost)){
         $postsloghat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',1)->where('confirmed',1)->take(10);

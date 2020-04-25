@@ -149,7 +149,7 @@ class DashboardController extends Controller
           // Valid extensions
   
           $fileNamevideo = 'file_' . time() . '.' . $extension;
-          $request->file('file')->move($destinationPath, $fileName);
+          $request->file('file')->move($destinationPath, $fileNamevideo);
           $filePath = "files/posts/$request->title/$fileNamevideo";
        }else{
            $filePath=null;
