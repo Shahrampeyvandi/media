@@ -9,6 +9,8 @@ use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
 use App\Models\Members\Messages;
+use App\Jobs\ConvertVideoForDownloading;
+use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Notifications\Notifications;
@@ -88,7 +90,7 @@ class DashboardController extends Controller
     public function SubmitUploadFile(Request $request)
     {
         
-        
+        $fileNamevideo='1';
       if ($request->type !== "6") {
         $validator = Validator::make($request->all(), [
             'file' => 'mimes:avi,x-m4v,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
@@ -118,9 +120,12 @@ class DashboardController extends Controller
           $extension = $request->file('file')->getClientOriginalExtension();
           // Valid extensions
   
-          $fileName = 'file_' . time() . '.' . $extension;
+          $fileNamevideo = 'file_' . time() . '.' . $extension;
           $request->file('file')->move($destinationPath, $fileName);
-          $filePath = "files/posts/$request->title/$fileName";
+          //$path = $request->file('file')->storeAs(
+          // 'uploads', $fileNamevideo
+          //  );
+          $filePath = "files/posts/$request->title/$fileNamevideo";
        }else{
            $filePath=null;
        }
@@ -151,6 +156,8 @@ class DashboardController extends Controller
           }
           $getID3 = new \getID3;
           $file = $getID3->analyze($filePath);
+
+
           $duration = date('H:i:s', $file['playtime_seconds']);
          
   
@@ -158,13 +165,14 @@ class DashboardController extends Controller
           $post->title = $request->title;
           $post->desc = $request->desc;
           $post->picture = $picPath;
-          $post->content_link = $filePath;
+          $post->content_name = $fileNamevideo;
+          $post->content_link = $path;
           $post->categories_id = $request->type;
           $post->languages_id = $request->lang;
           $post->subjects_id = $request->subject;
           $post->levels_id = $request->level;
           $post->media = $media;
-          $post->duration = $duration;
+          $post->duration = '22';
   
           if($request->price !== "0" || $request->price !== null){
               $post->type = 'money';
@@ -255,6 +263,9 @@ class DashboardController extends Controller
               }
   
           }
+
+          //$this->dispatch(new ConvertVideoForDownloading($post));
+          //$this->dispatch(new ConvertVideoForStreaming($video));
   
           // notification for user
         
@@ -279,8 +290,8 @@ class DashboardController extends Controller
       } catch (\Throwable $th) {
           
         toastr()->error('آپلود ناموفق');
-        return back();
-      }
+     return back();
+     }
        
     }
 
