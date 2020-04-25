@@ -101,10 +101,10 @@ class PostController extends Controller
         }else{
             $isbuyedit=false;
 
-            return 'امکان مشاهده قسمت غیر رایگان دوره آموزشی برای افرادی که هزینه پرداخت نکرده اند وجود ندارد';
+            return back();
         }
     }else{
-        return 'امکان مشاهده قسمت غیر رایگان دوره آموزشی برای افراد غیر عضو وجود ندارد';
+        return back();
 
     }
        }
