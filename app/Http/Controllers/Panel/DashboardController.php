@@ -9,8 +9,6 @@ use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
 use App\Models\Members\Messages;
-use App\Jobs\ConvertVideoForDownloading;
-use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Contents\Categories;
@@ -152,9 +150,6 @@ class DashboardController extends Controller
   
           $fileNamevideo = 'file_' . time() . '.' . $extension;
           $request->file('file')->move($destinationPath, $fileName);
-          //$path = $request->file('file')->storeAs(
-          // 'uploads', $fileNamevideo
-          //  );
           $filePath = "files/posts/$request->title/$fileNamevideo";
        }else{
            $filePath=null;
@@ -195,14 +190,13 @@ class DashboardController extends Controller
           $post->title = $request->title;
           $post->desc = $request->desc;
           $post->picture = $picPath;
-          $post->content_name = $fileNamevideo;
-          $post->content_link = $path;
+          $post->content_link = $filePath;
           $post->categories_id = $request->type;
           $post->languages_id = $request->lang;
           $post->subjects_id = $request->subject;
           $post->levels_id = $request->level;
           $post->media = $media;
-          $post->duration = '22';
+          $post->duration = $duration;
   
           if($request->price !== "0" || $request->price !== null){
               $post->type = 'money';
@@ -294,9 +288,6 @@ class DashboardController extends Controller
   
           }
 
-          //$this->dispatch(new ConvertVideoForDownloading($post));
-          //$this->dispatch(new ConvertVideoForStreaming($video));
-  
           // notification for user
         
          if (!auth()->user()->is_admin() && !auth()->user()->is_mid_admin()) {
@@ -321,10 +312,9 @@ class DashboardController extends Controller
           
         toastr()->error('آپلود ناموفق');
      return back();
-     }
-       
+      }
     }
-
+    }
     public function Profile()
     {
 

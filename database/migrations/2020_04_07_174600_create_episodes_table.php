@@ -29,7 +29,6 @@ class CreateEpisodesTable extends Migration
             $table->string('title');
             $table->text('desc');
             $table->string('picture')->nullable();
-            $table->string('content_name')->nullable();
             $table->string('content_link')->nullable();
             $table->string('content_link_low')->nullable();
             $table->string('duration')->nullable();
