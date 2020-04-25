@@ -484,7 +484,7 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="/contact" aria-label="تماس با ما">
+                        <a href="{{route('ContactUs')}}" aria-label="تماس با ما">
                                 <div class="content">
                                     <span class="text">تماس با ما</span>
                                 </div>

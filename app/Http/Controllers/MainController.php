@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contents\ContactUs;
 use App\Models\Contents\Policies;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,7 @@ class MainController extends Controller
 {
     public function Index()
     {
+
         return view('Main.index');
     }
 
@@ -32,6 +34,18 @@ class MainController extends Controller
         $content = $policy !== null ? $policy->content : '';
 
         return view('Main.policies',compact('content'));
+    }
+
+    public function ContactUs()
+    {
+
+       $contact_us =  ContactUs::latest()->get();
+       if(!is_null($contact_us)){
+        $content = $contact_us->content;
+       }else{
+           $content = '';
+       }
+        return view('Main.contactus',compact('content'));
     }
 
   

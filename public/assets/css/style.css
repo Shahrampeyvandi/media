@@ -14841,7 +14841,7 @@ br {display:block}
 }
 .sub-menu-arrow{
      position: absolute;
-    left: 10px;
+    left: 15px;
     color: gray;
     font-size: 10px;
 }
@@ -14856,4 +14856,11 @@ br {display:block}
 
 .mr-35{
   margin-right: 35px;
+}
+
+.chart{
+    display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
 }

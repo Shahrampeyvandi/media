@@ -9,7 +9,7 @@
 @endif
 @if ($errors->any())
 @foreach ($errors->all() as $error)
-<div class="alert alert-danger fs-0-8">{{$error}}</div>
+<div class="alert alert-danger fs-0-8 p-2">{{$error}}</div>
 @endforeach
 @endif
 

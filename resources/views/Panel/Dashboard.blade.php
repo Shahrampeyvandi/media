@@ -64,19 +64,19 @@
         <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
             <a href="{{route('MyAudios')}}">
-            <div class="small-box" style="    padding: 20px;
+                <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #f971a3 !important;
-                    background: linear-gradient(-45deg,#9c054b,#f971a3)!important;                    color: #fff;
+                    background: linear-gradient(-45deg,#de0067,#f1689a)!important;                   color: #fff;
                     border-radius: 7px;">
-                <div class="inner">
-                    <h3 style="color: white !important;">{{$countmusics}}<sup style="font-size: 20px"></sup>
-                    </h3>
-                    <p class="text-white fs-1-5">موسیقی ها</p>
+                    <div class="inner">
+                        <h3 style="color: white !important;">{{$countmusics}}<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p class="text-white fs-1-5">موسیقی ها</p>
+                    </div>
+                    <div class="fs-2">
+                        <i class="fas fa-cubes"></i>
+                    </div>
                 </div>
-                <div class="fs-2">
-                    <i class="fas fa-cubes"></i>
-                </div>
-            </div>
             </a>
         </div>
         <!-- ./col -->
@@ -84,20 +84,20 @@
         <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
             <a href="{{route('MyAudios','podcasts')}}">
-            <div class="small-box" style="    padding: 20px;
+                <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 rgba(255, 53, 19, 0.5)!important;
                     background: linear-gradient(-45deg,#9c1405,#e91d26)!important;
                     color: #fff;
                     border-radius: 7px;">
-                <div class="inner">
-                    <h3 style="color: white !important;">{{$countpodcasts}}<sup style="font-size: 20px"></sup>
-                    </h3>
-                    <p class="text-white fs-1-5">پادکست ها</p>
+                    <div class="inner">
+                        <h3 style="color: white !important;">{{$countpodcasts}}<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p class="text-white fs-1-5">پادکست ها</p>
+                    </div>
+                    <div class="fs-2">
+                        <i class="fas fa-cubes"></i>
+                    </div>
                 </div>
-                <div class="fs-2">
-                    <i class="fas fa-cubes"></i>
-                </div>
-            </div>
             </a>
         </div>
         <!-- ./col -->
@@ -106,45 +106,45 @@
             <!-- small box -->
             @if (auth()->user()->group !== "student")
             <a href="{{route('MyTutorials')}}">
-            @else
-            <a href="#">
-            @endif
-           
-            <div class="small-box" style="    padding: 20px;
-                    box-shadow: 0 6px 20px 0 #f5e259 !important;
-                    background: linear-gradient(-45deg,#b38400,#f5e259)!important;                    color: #fff;
+                @else
+                <a href="#">
+                    @endif
+
+                    <div class="small-box" style="    padding: 20px;
+                      box-shadow: 0 6px 20px 0 #ff88e0!important;
+                      background: linear-gradient(-45deg,#bb057b,#ff88e0)!important;                   color: #fff;
                     border-radius: 7px;">
-                <div class="inner">
-                    <h3 style="color: white !important;">{{$countlearnings}}<sup style="font-size: 20px"></sup>
-                    </h3>
-                    <p class="text-white fs-1-5">دوره های آموزشی</p>
-                </div>
-                <div class="fs-2">
-                    <i class="fas fa-cubes"></i>
-                </div>
-            </div>
-        </a>
+                        <div class="inner">
+                            <h3 style="color: white !important;">{{$countlearnings}}<sup style="font-size: 20px"></sup>
+                            </h3>
+                            <p class="text-white fs-1-5">دوره های آموزشی</p>
+                        </div>
+                        <div class="fs-2">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                    </div>
+                </a>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
             @if (auth()->user()->group == "admin")
             <a href="{{route('Panel.Comments.All')}}">
-            @else
-            <a href="{{route('Panel.Comments')}}">
-            @endif
-            <div class="small-box"
-                style="padding:20px; box-shadow: 0 6px 20px 0 rgba(29,233,182,.5)!important; background: linear-gradient(-45deg,#43a047,#1de9b6)!important; color: #fff;border-radius: 7px;">
-                <div class="inner">
-                    <h3>{{$countcomments}}</h3>
+                @else
+                <a href="{{route('Panel.Comments')}}">
+                    @endif
+                    <div class="small-box"
+                        style="padding:20px; box-shadow: 0 6px 20px 0 rgba(29,233,182,.5)!important; background: linear-gradient(-45deg,#43a047,#1de9b6)!important; color: #fff;border-radius: 7px;">
+                        <div class="inner">
+                            <h3>{{$countcomments}}</h3>
 
-                    <p class="text-white fs-1-5">دیدگاه ها</p>
-                </div>
-                <div class="fs-2">
-                    <i class="fas fa-dice-d20"></i>
-                </div>
-            </div>
-            </a>
+                            <p class="text-white fs-1-5">دیدگاه ها</p>
+                        </div>
+                        <div class="fs-2">
+                            <i class="fas fa-dice-d20"></i>
+                        </div>
+                    </div>
+                </a>
         </div>
         <div class="col-lg-3 col-xs-6 my-3">
             <!-- small box -->
@@ -182,6 +182,24 @@
             </div>
         </div>
     </div>
+ @if (auth()->user()->group == 'admin')
+ <div class="row mt-5">
+    <div class="col-md-6 offset-md-3">
+        <canvas id="visits" width="400" height="400"></canvas>
+
+    </div>
+</div>
+ @endif
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <canvas id="fileschart" width="400" height="400"></canvas>
+
+        </div>
+    </div>
+
+
+
+
 </div>
 @if (auth()->user()->group !== 'admin')
 <div class="container-fluid ">
@@ -225,4 +243,78 @@
 </div>
 @endif
 
+@endsection
+@section('js')
+<script src="{{asset('Panel/vendor/chartjs/Chart.min.js')}}"></script>
+<script>
+    var ctx = document.getElementById('visits');
+    var ctx1 = document.getElementById('fileschart');
+
+    window.chartColors = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+    var details = {
+                steppedLine: false,
+				label: 'بازدیدهای سایت در یک هفته اخیر',
+                color: window.chartColors.red
+            }
+            var myChart = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+        labels: <?php echo $cats_json ?>,
+        datasets: [{
+            label: <?php echo json_encode($label) ?>,
+            data: <?php echo $counts_json ?>,
+            backgroundColor: [
+                window.chartColors.blue,
+                window.chartColors.blue,
+                window.chartColors.blue,
+                window.chartColors.blue,
+                window.chartColors.blue,
+                window.chartColors.blue
+            ],
+           
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+				data: {
+					labels: <?php echo $day_json ?>,
+					datasets: [{
+						label: 'تعداد بازدیدها: ',
+						steppedLine: details.steppedLine,
+						data:<?php echo $visits_json ?>,
+						borderColor: details.color,
+						fill: false,
+					}]
+				},
+                options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: details.label,
+					}
+				}
+    });
+
+ 
+</script>
 @endsection
