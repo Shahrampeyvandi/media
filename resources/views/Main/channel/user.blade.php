@@ -1,49 +1,38 @@
 @extends('layout.Main.template')
 
 @section('content')
-@php
-
-
-@endphp
 <div class="row">
     <div class="col-md-12">
-      @include('Includes.Channel.header')
+        @include('Includes.Channel.header')
         {{-- content --}}
-            <div class="content mt-5 px-2">
-                <div class="list-wrapper">
-                    <div class="wpb_wrapper py-3 mr-2">
-                        <h2 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider " style="margin-right: 0px;">
-                            <span class="title__divider__wrapper text-success">آخرین ویدیو<span
-                                    class="line brk-base-bg-gradient-right"></span>
-                            </span></h2>
-                    </div>
-                </div>
-                <div class="recent_content d-flex ">
-                    <a href="{{route('ShowItem',['id'=>$lastpost->id])}}" class="image">
-                        <img src="{{asset("$lastpost->picture")}}" height="100%" width="100%" alt="">
-                    </a>
-                    <div class="d-flex  flex-column pr-5">
-                        <h3>{{$lastpost->title}}</h3>
-                        <p>{{$lastpost->subjects->name}}</p>
-                        <div>
-                            <span class="fs-0-8 text-black-50 mt-2 ml-3"> {{\Morilog\Jalali\Jalalian::forge($lastpost->created_at)->format('%B %Y')}}</span>
-                            <span class="fs-0-8 text-black-50 mt-2">{{$lastpost->views}} بازدید</span>
-
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                {{-- <div class="wpb_wrapper py-3">
-                    <h2 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider "
-                        style="margin-right: 0px;"><span class="title__divider__wrapper text-success">ریدینگ<span
+        <div class="content mt-5 px-2">
+            @if (!is_null($lastpost))
+            <div class="list-wrapper">
+                <div class="wpb_wrapper py-3 mr-2">
+                    <h2 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider " style="margin-right: 0px;">
+                        <span class="title__divider__wrapper text-success">آخرین ویدیو<span
                                 class="line brk-base-bg-gradient-right"></span>
                         </span></h2>
-        
-                    <a href="{{route('Category',['slug'=>'videos'])}}">
-                <span class="title--more">نمایش همه <i class="ti ti-angle-left fs-0-5"></i></span>
+                </div>
+            </div>
+           
+            <div class="recent_content d-flex ">
+                <a href="{{route('ShowItem',['id'=>$lastpost->id])}}" class="image">
+                    <img src="{{asset("$lastpost->picture")}}" height="100%" width="100%" alt="">
                 </a>
-            </div> --}}
-
+                <div class="d-flex  flex-column pr-5">
+                    <h3>{{$lastpost->title}}</h3>
+                    <p>{{$lastpost->subjects->name}}</p>
+                    <div>
+                        <span class="fs-0-8 text-black-50 mt-2 ml-3">
+                            {{\Morilog\Jalali\Jalalian::forge($lastpost->created_at)->format('%B %Y')}}</span>
+                        <span class="fs-0-8 text-black-50 mt-2">{{$lastpost->views}} بازدید</span>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <hr>
+            @if (count($postsloghat))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -51,76 +40,53 @@
                             <span class="title__divider__wrapper text-success">لغت<span
                                     class="line brk-base-bg-gradient-right"></span>
                             </span></h2>
-
-                        <a href="{{route('Category',['slug'=>'videos'])}}">
+                        <a
+                            href="{{route('Channel.Category.ShowAll',['name'=>auth()->user()->username,'category'=>$category->latin_name,'subject'=>'لغت'])}}">
                             <span class="title--more">نمایش همه <i class="ti ti-angle-left fs-0-5"></i></span>
                         </a>
                     </div>
-
-
                     <section class="list-content">
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
-
-                            @foreach($postsloghat as $post)
-
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
-
-
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
-
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
-
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-@endforeach
-
-
-
+                                @foreach($postsloghat as $post)
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
-
                         <div class="swiper-button-next swiper-channel2-one "></div>
                         <div class="swiper-button-prev swiper-channel2-two"></div>
                     </section>
-
                 </div>
             </section>
-
-
-
-
-
-
-
+            @endif
+            @if (count($postsgrammer))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -128,60 +94,48 @@
                             <span class="title__divider__wrapper text-success">گرامر<span
                                     class="line brk-base-bg-gradient-right"></span>
                             </span></h2>
-
                         <a href="{{route('Category',['slug'=>'videos'])}}">
                             <span class="title--more">نمایش همه <i class="ti ti-angle-left fs-0-5"></i></span>
                         </a>
                     </div>
-
-
                     <section class="list-content">
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
-
-                            @foreach($postsgrammer as $post)
-
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
+                                @foreach($postsgrammer as $post)
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
 
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
 
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
 
-        </div>
-    </div>
-</div>
-
-@endforeach
-
-
-
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
 
@@ -191,18 +145,8 @@
 
                 </div>
             </section>
-
-
-
-
-
-
-
-
-
-
-
-
+            @endif
+            @if (count($postsestelahat))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -221,46 +165,43 @@
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
 
-                            @foreach($postsestelahat as $post)
+                                @foreach($postsestelahat as $post)
 
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
 
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
 
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
 
-        </div>
-    </div>
-</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-@endforeach
+                                @endforeach
 
 
 
@@ -273,10 +214,8 @@
 
                 </div>
             </section>
-
-
-
-
+            @endif
+            @if (count($postsconversaion))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -295,46 +234,43 @@
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
 
-                            @foreach($postsconversaion as $post)
+                                @foreach($postsconversaion as $post)
 
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
 
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
 
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
 
-        </div>
-    </div>
-</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-@endforeach
+                                @endforeach
 
 
 
@@ -347,9 +283,8 @@
 
                 </div>
             </section>
-
-
-
+            @endif
+            @if (count($postswriting))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -368,46 +303,43 @@
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
 
-                            @foreach($postswriting as $post)
+                                @foreach($postswriting as $post)
 
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
 
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
 
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
 
-        </div>
-    </div>
-</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-@endforeach
+                                @endforeach
 
 
 
@@ -421,15 +353,8 @@
                 </div>
             </section>
 
-
-
-
-
-
-
-
-
-
+            @endif
+            @if (count($postsreading))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -451,36 +376,33 @@
                                 @foreach($postsreading as $post)
 
                                 <div class="item carousel-item swiper-slide">
-                                    <div id="" class="thumbnail-video" data-uid=""
-                                        data-duration="" data-recommendation="other"
-                                        >
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                                                    class=" thumb-image">
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
                                                 <div class="tools">
                                                     <span class="duration">{{$post->duration}}</span>
                                                 </div>
-                                                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
                                                 {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
                                             </a>
                                         </div>
                                         <div class="thumb-details">
 
                                             <h2 class="thumb-title">
-                                                <a href=""
-                                                    
-                                                    title="{{$post->title}}"
+                                                <a href="" title="{{$post->title}}"
                                                     class="title"><span>{{$post->title}}</span></a>
                                             </h2>
 
                                             <div class="thumb-view-date">
                                                 <span>{{$post->views}} بازدید</span>
-                                                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
                                             </div>
 
                                         </div>
@@ -501,6 +423,8 @@
                 </div>
             </section>
 
+            @endif
+            @if (count($postslessening))
             <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
                 <div class="list-wrapper">
                     <div class="wpb_wrapper py-3">
@@ -519,46 +443,43 @@
                         <div id="" class="carousel carousel-movie swiper-container-channel2">
                             <div class="swiper-wrapper">
 
-                            @foreach($postslessening as $post)
+                                @foreach($postslessening as $post)
 
-<div class="item carousel-item swiper-slide">
-    <div id="" class="thumbnail-video" data-uid=""
-        data-duration="" data-recommendation="other"
-        >
-        <div class="thumb-wrapper">
-            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}" 
-                class="thumb thumb-preview"
-                data-poster="{{asset("$post->picture")}}"><img
-                                                    src="{{asset("$post->picture")}}"
-                    class=" thumb-image">
+                                <div class="item carousel-item swiper-slide">
+                                    <div id="" class="thumbnail-video" data-uid="" data-duration=""
+                                        data-recommendation="other">
+                                        <div class="thumb-wrapper">
+                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                                class="thumb thumb-preview"
+                                                data-poster="{{asset("$post->picture")}}"><img
+                                                    src="{{asset("$post->picture")}}" class=" thumb-image">
 
 
-                <div class="tools">
-                    <span class="duration">{{$post->duration}}</span>
-                </div>
-                  {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
-                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
-            </a>
-        </div>
-        <div class="thumb-details">
+                                                <div class="tools">
+                                                    <span class="duration">{{$post->duration}}</span>
+                                                </div>
+                                                {{-- وقتی موس روی تصویر میرود فیلم زیر به حالت پیش نمایش می آید --}}
+                                                {{-- <video class="preview" poster="https://static.cdn.asset.aparat.com/avt/21369543-9445__2874.jpg" src="https://static.cdn.asset.aparat.com/avt/21369543_15s.mp4" muted="" autoplay="" style="opacity: 0;"></video> --}}
+                                            </a>
+                                        </div>
+                                        <div class="thumb-details">
 
-            <h2 class="thumb-title">
-                <a href=""
-                    
-                    title="{{$post->title}}"
-                    class="title"><span>{{$post->title}}</span></a>
-            </h2>
+                                            <h2 class="thumb-title">
+                                                <a href="" title="{{$post->title}}"
+                                                    class="title"><span>{{$post->title}}</span></a>
+                                            </h2>
 
-            <div class="thumb-view-date">
-                <span>{{$post->views}} بازدید</span>
-                <span class="dot"></span><span class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
-            </div>
+                                            <div class="thumb-view-date">
+                                                <span>{{$post->views}} بازدید</span>
+                                                <span class="dot"></span><span
+                                                    class="date">{{\Morilog\Jalali\Jalalian::forge($post->created_at)->format('%B %Y')}}</span>
+                                            </div>
 
-        </div>
-    </div>
-</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-@endforeach
+                                @endforeach
 
 
 
@@ -571,28 +492,14 @@
 
                 </div>
             </section>
-
-
-
-
-          
+            @endif
+        </div>
     </div>
-
-    
-
 </div>
-</div>
-
-
-
-
-
 @endsection
 @section('css')
 <link rel="stylesheet" href=" {{asset('assets/css/channel.css')}} ">
-
 @endsection
-
 @section('js')
 <script>
     var swiper = new Swiper('.swiper-container-channel', {

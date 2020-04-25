@@ -39,7 +39,7 @@ class MainController extends Controller
     public function ContactUs()
     {
 
-       $contact_us =  ContactUs::latest()->get();
+       $contact_us =  ContactUs::latest()->first();
        if(!is_null($contact_us)){
         $content = $contact_us->content;
        }else{

@@ -13,23 +13,30 @@ class ProfileController extends Controller
 {
     public function Show($username,$slug='videos')
     {    
-        
+    
        $category = Categories::where('latin_name',$slug)->first();
        $member = Members::whereUsername($username)->first();
-
        $lastpost=$member->posts->where('confirmed',1)->first();
 
-       $postsloghat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',1)->where('confirmed',1)->take(10);
-       $postsgrammer=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',2)->where('confirmed',1)->take(10);
-       $postsestelahat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',3)->where('confirmed',1)->take(10);
-       $postsconversaion=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',4)->where('confirmed',1)->take(10);
-       $postswriting=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',5)->where('confirmed',1)->take(10);
-       $postsreading=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',6)->where('confirmed',1)->take(10);
-       $postslessening=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',7)->where('confirmed',1)->take(10);
-
-
-
-
+      if(!is_null($lastpost)){
+        $postsloghat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',1)->where('confirmed',1)->take(10);
+        $postsgrammer=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',2)->where('confirmed',1)->take(10);
+        $postsestelahat=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',3)->where('confirmed',1)->take(10);
+        $postsconversaion=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',4)->where('confirmed',1)->take(10);
+        $postswriting=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',5)->where('confirmed',1)->take(10);
+        $postsreading=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',6)->where('confirmed',1)->take(10);
+        $postslessening=$member->posts->where('id','!=',$lastpost->id)->where('categories_id',$category->id)->where('subjects_id',7)->where('confirmed',1)->take(10);
+ 
+      }else{
+        $postsloghat=[];
+        $postsgrammer=[];
+        $postsestelahat=[];
+        $postsconversaion=[];
+        $postswriting=[];
+        $postsreading=[];
+        $postslessening=[];
+ 
+      }
        $checkfollow=0;
        if(auth()->user()){
         $checkfollow = Follows::where('followed_id',$member->id)->where('follower_id',auth()->user()->id)->count();
