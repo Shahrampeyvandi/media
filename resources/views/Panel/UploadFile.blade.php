@@ -166,50 +166,7 @@
                 <h3>آپلود قسمت های دوره: </h3>
             </div> --}}
         <hr>
-        <form action="{{route('UploadEpizode')}}" method="post">
-            @csrf
-            <div class="card epizode p-3" style="display:none;">
-                <h3 class="mb-2">آپلود قسمت های دوره: </h3>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <input type="number" class="form-control" name="epizode_number" id="epizode_number"
-                            placeholder="شماره قسمت">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="epizode_title" id="epizode_title" placeholder="عنوان">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="desc">تصویر: </label>
-                        <input type="file" class="form-control" name="epizode_pic" id="epizode_pic" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label for="desc">فایل: </label>
-                        <input type="file" class="form-control" name="epizode_file" id="epizode_file" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label for="epizode_desc">توضیحات : </label>
-                        <textarea class="form-control" name="epizode_desc" id="epizode_desc" cols="30"
-                            rows="8"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label for="desc">افزودن زیرنویس: فایل زیرنویس باید با فرمت vtt باشد </label>
-                        <input type="file" class="form-control" name="epizode_subtitle" id="epizode_subtitle" />
-                    </div>
-                </div>
-              
-                <div class="row">
-                    <div class="col-md-3 my-2 ">
-                        <input type="submit" id="upload" name="upload" value="آپلود" class="btn btn-sm btn-success" />
-                    </div>
-                </div>
-            </div>
-        </form>
+       
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
                 style="width: 0%">

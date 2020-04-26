@@ -554,27 +554,13 @@
         var checkauth = '{{auth()->user()}}';
         $('.note-link').click(function(e){
             e.preventDefault()
-       
-            // $('.overlay.note').css({
-            //     'visibility': 'visible',
-            //     'opacity': '1',
-            //     'z-index': '111',
-            // })
-
-            // $('.note-list').click(function(e){
-            //     e.preventDefault();
-            //     $('.note-text').toggle(200)
-            // })
         })
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var swiper = new Swiper('.swiper-container1', {
-
             spaceBetween: 5,
             nextButton: '.swiper-p',
             prevButton: '.swiper-n',
@@ -599,10 +585,7 @@
                     slidesPerView: 4,
                     spaceBetween: 40
                 },
-
             }
-
-
         });
         var swiper = new Swiper('.swiper-container2', {
 

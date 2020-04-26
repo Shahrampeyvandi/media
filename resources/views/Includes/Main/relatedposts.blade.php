@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <aside id="secondary" class="secondary">
-        <section id="recom" class="single-recom">
+        <section id="recom" class="single-recom mt-4">
             <header class="recom-header">
                 <h3 class="title mr-3 mr-md-0">پست های مرتبط</h3>
             </header>
@@ -8,7 +8,7 @@
                 <div class="inner">
                     @foreach($relateds as $related)
                     <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
-                        <div class="w-40">
+                        <div class="w-50">
                             @if ($related->picture)
                             <a href="{{route('ShowItem',['id'=>$related->id])}}"> <img
                                     src="{{route('BaseUrl')}}/{{$related->picture}}"
@@ -32,7 +32,7 @@
                             <h4 class="thumb-title">
                                 <a href="{{route('ShowItem',['id'=>$related->id])}}"
                                     title="{{$related->title}}"
-                                    class="title"><span>{{$related->title}}</span></a>
+                                    class="title"><span>{{Illuminate\Support\Str::limit($related->title,12)}}</span></a>
                             </h4>
                             <a href="{{route('Category',['slug'=>$related->categories->latin_name])}}"
                                 title="{{$related->categories->name}}"
