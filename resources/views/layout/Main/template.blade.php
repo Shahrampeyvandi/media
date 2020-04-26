@@ -327,6 +327,7 @@
 
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
+                      
                         <li class="menu-item-link active">
                             <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
@@ -337,6 +338,18 @@
                                 </div>
                             </a>
                         </li>
+                        @if (auth()->check())
+                        <li class="menu-item-link ">
+                         <a href="{{route('User.Show',auth()->user()->username)}}" aria-label="پروفایل من">
+                             <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
+                                 <use xlink:href="#si_home"></use>
+                             </svg>
+                             <div class="content">
+                                 <span class="text">پروفایل من</span>
+                             </div>
+                         </a>
+                     </li>
+                        @endif
                         {{-- <li class="menu-item-link ">
                         <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
                             viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
