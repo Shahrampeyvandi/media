@@ -9,6 +9,8 @@ use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
 use App\Models\Members\Messages;
+use App\Jobs\ConvertVideoForDownloading;
+use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Contents\Categories;
@@ -119,18 +121,17 @@ class DashboardController extends Controller
 
     public function SubmitUploadFile(Request $request)
     {
-
-
-        if ($request->type !== "6") {
-            $validator = Validator::make($request->all(), [
-                'file' => 'mimes:avi,x-m4v,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
-                'pic' => 'nullable|mimes:jpeg,png,jpg',
-
-            ]);
-            if ($validator->fails()) {
-                toastr()->error('فایل دارای فرمت نامعتبر می باشد');
-                return back();
-            }
+        
+        $fileNamevideo='1';
+      if ($request->type !== "6") {
+        $validator = Validator::make($request->all(), [
+            'file' => 'mimes:avi,x-m4v,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
+            'pic' => 'nullable|mimes:jpeg,png,jpg',
+          
+        ]);
+        if ($validator->fails()) {
+            toastr()->error('فایل دارای فرمت نامعتبر می باشد');
+        return back();
         }
 
         if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
@@ -141,170 +142,187 @@ class DashboardController extends Controller
         try {
 
             // Upload path
-            $destinationPath = "files/posts/$request->title";
-            if ($request->file !== null) {
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0755, true);
-                }
-                $extension = $request->file('file')->getClientOriginalExtension();
-                // Valid extensions
-
-                $fileName = 'file_' . time() . '.' . $extension;
-                $request->file('file')->move($destinationPath, $fileName);
-                $filePath = "files/posts/$request->title/$fileName";
-            } else {
-                $filePath = null;
-            }
-            if ($request->hasFile('pic')) {
-
-                $picextension = $request->file('pic')->getClientOriginalExtension();
-                $fileName = 'pic_' . time() . '.' . $picextension;
-                $request->file('pic')->move($destinationPath, $fileName);
-                $picPath = "files/posts/$request->title/$fileName";
-            } else {
-                $picPath = '';
-            }
-            if ($request->hasFile('subtitle')) {
-
-                $picextension = $request->file('subtitle')->getClientOriginalExtension();
-                $fileName = 'subtitle_' . time() . '.' . $picextension;
-                $request->file('subtitle')->move($destinationPath, $fileName);
-                $subTitle = "files/posts/$request->title/$fileName";
-            } else {
-                $subTitle = '';
-            }
-            if ($request->type == 4 || $request->type == 5) {
-
-                $media = 'audio';
-            } else {
-                $media = 'video';
-            }
-            $getID3 = new \getID3;
-            $file = $getID3->analyze($filePath);
-            $duration = date('H:i:s', $file['playtime_seconds']);
-
-
-            $post = new Posts();
-            $post->title = $request->title;
-            $post->desc = $request->desc;
-            $post->picture = $picPath;
-            $post->content_link = $filePath;
-            $post->categories_id = $request->type;
-            $post->languages_id = $request->lang;
-            $post->subjects_id = $request->subject;
-            $post->levels_id = $request->level;
-            $post->media = $media;
-            $post->duration = $duration;
-
-            if ($request->price !== "0" || $request->price !== null) {
-                $post->type = 'money';
-                $post->price = $request->price;
-            } else {
-                $post->type = $request->price_type;
-                $post->price = 0;
-            }
-            $post->members_id = auth()->user()->id;
-            $post->subtitle = $subTitle;
-            $post->otheroninformation = $request->desc2;
-            $post->views = 0;
-            if (auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin') {
-                $post->confirmed = 1;
-            }
+        $destinationPath = "files/posts/$request->title";
+        if($request->file !== null) {
+          if (!file_exists($destinationPath)) {
+              mkdir($destinationPath, 0755, true);
+          }
+          $extension = $request->file('file')->getClientOriginalExtension();
+          // Valid extensions
+  
+          $fileNamevideo = 'file_' . time() . '.' . $extension;
+          $request->file('file')->move($destinationPath, $fileName);
+          //$path = $request->file('file')->storeAs(
+          // 'uploads', $fileNamevideo
+          //  );
+          $filePath = "files/posts/$request->title/$fileNamevideo";
+       }else{
+           $filePath=null;
+       }
+          if ($request->hasFile('pic')) {
+              
+              $picextension = $request->file('pic')->getClientOriginalExtension();
+              $fileName = 'pic_' . time() . '.' . $picextension;
+              $request->file('pic')->move($destinationPath, $fileName);
+              $picPath = "files/posts/$request->title/$fileName";
+          }else{
+              $picPath='';
+          }
+          if ($request->hasFile('subtitle')) {
+              
+              $picextension = $request->file('subtitle')->getClientOriginalExtension();
+              $fileName = 'subtitle_' . time() . '.' . $picextension;
+              $request->file('subtitle')->move($destinationPath, $fileName);
+              $subTitle = "files/posts/$request->title/$fileName";
+          }else{
+              $subTitle='';
+          }
+          if($request->type == 4 || $request->type==5){
+  
+              $media='audio';
+          }else{
+              $media='video';
+  
+          }
+          $getID3 = new \getID3;
+          $file = $getID3->analyze($filePath);
 
 
-            $post->save();
+          $duration = date('H:i:s', $file['playtime_seconds']);
+         
+  
+          $post = new Posts();
+          $post->title = $request->title;
+          $post->desc = $request->desc;
+          $post->picture = $picPath;
+          $post->content_name = $fileNamevideo;
+          $post->content_link = $path;
+          $post->categories_id = $request->type;
+          $post->languages_id = $request->lang;
+          $post->subjects_id = $request->subject;
+          $post->levels_id = $request->level;
+          $post->media = $media;
+          $post->duration = '22';
+  
+          if($request->price !== "0" || $request->price !== null){
+              $post->type = 'money';
+              $post->price = $request->price;
+          }else{
+          $post->type = $request->price_type;
+          $post->price =0;
+          }
+          $post->members_id = auth()->user()->id;
+          $post->subtitle = $subTitle;
+          $post->otheroninformation = $request->desc2;
+          $post->views = 0;
+          if(auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin'){
+              $post->confirmed = 1;
+          }
+        
+          
+          $post->save();
+  
+          if($request->episoodes){
+  
+              foreach($request->episoodes as $key=>$episode){
+  
+                  if ($episode->file !== null) {
+                      if (!file_exists($destinationPath)) {
+                          mkdir($destinationPath, 0755, true);
+                      }
+                      $extension = $episode->file('file')->getClientOriginalExtension();
+                      // Valid extensions
+              
+                      $fileName = 'file_' . time() . '.' . $extension;
+                      $episode->file('file')->move($destinationPath, $fileName);
+                      $filePathepisode = "$filePath/$fileName";
+                   }else{
+                       $filePath=null;
+                   }
+                      if ($episode->hasFile('pic')) {
+                          
+                          $picextension = $episode->file('pic')->getClientOriginalExtension();
+                          $fileName = 'pic_' . time() . '.' . $picextension;
+                          $request->file('pic')->move($destinationPath, $fileName);
+                          $picPath = "$filePath/$fileName";
+                      }else{
+                          $picPath='';
+                      }
+                      if ($$filePath->hasFile('subtitle')) {
+                          
+                          $picextension = $episode->file('subtitle')->getClientOriginalExtension();
+                          $fileName = 'subtitle_' . time() . '.' . $picextension;
+                          $episode->file('subtitle')->move($destinationPath, $fileName);
+                          $subTitle = "$filePath/$fileName";
+                      }else{
+                          $subTitle='';
+                      }
+                      if($request->type == 4 || $request->type==5){
+              
+                          $media='audio';
+                      }else{
+                          $media='video';
+              
+                      }
+                      $getID3 = new \getID3;
+                      $file = $getID3->analyze($filePath);
+                      $duration = date('H:i:s', $file['playtime_seconds']);
+              
+                      $newepisode=new Episodes();
+                      $newepisode->posts_id=$post->id;
+                      $newepisode->title=$episode->title;
+                      $newepisode->desc=$episode->desc;
+                      $newepisode->picture=$picPath;
+                      $newepisode->content_link=$filePathepisode;
+                      $newepisode->duration=$duration;
+                      $newepisode->type='free';
+                      $newepisode->price=0;
+                      $newepisode->members_id=auth()->user()->id;
+  
+                     
+                      if(auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin'){
+                          $newepisode->confirmed = 1;
+                      }
+                    
+                      
+                      $newepisode->save();
+  
+  
+  
+  
+              }
+  
+          }
 
-            if ($request->episoodes) {
-
-                foreach ($request->episoodes as $key => $episode) {
-
-                    if ($episode->file !== null) {
-                        if (!file_exists($destinationPath)) {
-                            mkdir($destinationPath, 0755, true);
-                        }
-                        $extension = $episode->file('file')->getClientOriginalExtension();
-                        // Valid extensions
-
-                        $fileName = 'file_' . time() . '.' . $extension;
-                        $episode->file('file')->move($destinationPath, $fileName);
-                        $filePathepisode = "$filePath/$fileName";
-                    } else {
-                        $filePath = null;
-                    }
-                    if ($episode->hasFile('pic')) {
-
-                        $picextension = $episode->file('pic')->getClientOriginalExtension();
-                        $fileName = 'pic_' . time() . '.' . $picextension;
-                        $request->file('pic')->move($destinationPath, $fileName);
-                        $picPath = "$filePath/$fileName";
-                    } else {
-                        $picPath = '';
-                    }
-                    if ($$filePath->hasFile('subtitle')) {
-
-                        $picextension = $episode->file('subtitle')->getClientOriginalExtension();
-                        $fileName = 'subtitle_' . time() . '.' . $picextension;
-                        $episode->file('subtitle')->move($destinationPath, $fileName);
-                        $subTitle = "$filePath/$fileName";
-                    } else {
-                        $subTitle = '';
-                    }
-                    if ($request->type == 4 || $request->type == 5) {
-
-                        $media = 'audio';
-                    } else {
-                        $media = 'video';
-                    }
-                    $getID3 = new \getID3;
-                    $file = $getID3->analyze($filePath);
-                    $duration = date('H:i:s', $file['playtime_seconds']);
-
-                    $newepisode = new Episodes();
-                    $newepisode->posts_id = $post->id;
-                    $newepisode->title = $episode->title;
-                    $newepisode->desc = $episode->desc;
-                    $newepisode->picture = $picPath;
-                    $newepisode->content_link = $filePathepisode;
-                    $newepisode->duration = $duration;
-                    $newepisode->type = 'free';
-                    $newepisode->price = 0;
-                    $newepisode->members_id = auth()->user()->id;
-
-
-                    if (auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin') {
-                        $newepisode->confirmed = 1;
-                    }
-
-
-                    $newepisode->save();
-                }
-            }
-
-            // notification for user
-
-            if (!auth()->user()->is_admin() && !auth()->user()->is_mid_admin()) {
-                $notification = new Notifications;
-                $notification->members_id = auth()->user()->id;
-                $notification->title = 'پست شما در انتظار تایید میباشد';
-                $notification->text = 'عنوان: ' . $post->title . '<br/>دسته بندی: ' . $post->categories->name . '';
-                $notification->posts_id = $post->id;
-                $notification->save();
-            }
-
-
-            if ($request->type !== "6") {
-                toastr()->success('فایل با موفقیت آپلود شد');
-                return back();
-            }
-            if ($request->type == "6") {
-                toastr()->success('دوره آموزشی با موفقیت آپلود شد');
-                return back();
-            }
-        } catch (\Throwable $th) {
-
-            toastr()->error('آپلود ناموفق');
-            return back();
-        }
+          //$this->dispatch(new ConvertVideoForDownloading($post));
+          //$this->dispatch(new ConvertVideoForStreaming($video));
+  
+          // notification for user
+        
+         if (!auth()->user()->is_admin() && !auth()->user()->is_mid_admin()) {
+          $notification=new Notifications;
+          $notification->members_id=auth()->user()->id;
+          $notification->title='پست شما در انتظار تایید میباشد';
+          $notification->text='عنوان: '.$post->title.'<br/>دسته بندی: '.$post->categories->name.'';
+          $notification->posts_id=$post->id;
+          $notification->save();
+         }
+  
+  
+         if($request->type !== "6"){
+          toastr()->success('فایل با موفقیت آپلود شد');
+          return back();
+         }
+          if($request->type == "6"){
+              toastr()->success('دوره آموزشی با موفقیت آپلود شد');
+              return back();
+         }
+      } catch (\Throwable $th) {
+          
+        toastr()->error('آپلود ناموفق');
+     return back();
+     }
+       
     }
 
     public function Profile()
