@@ -9,8 +9,6 @@ use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
 use App\Models\Members\Messages;
-use App\Jobs\ConvertVideoForDownloading;
-use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Contents\Categories;
@@ -247,7 +245,6 @@ class DashboardController extends Controller
         
         return view('Panel.UploadEpisode',compact(['id','number']));
     }
-
     public function Profile()
     {
 
