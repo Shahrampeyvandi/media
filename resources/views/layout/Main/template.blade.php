@@ -477,7 +477,7 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="/advert" aria-label="تبلیغات">
+                            <a href="#" aria-label="تبلیغات">
                                 <div class="content">
                                     <span class="text">تبلیغات</span>
                                 </div>
@@ -501,7 +501,7 @@
 
 
                         <li class="menu-item-link">
-                            <a href="https://help.aparat.com" aria-label="سوالات متداول">
+                            <a href="#" aria-label="سوالات متداول">
                                 <div class="content">
                                     <span class="text">سوالات متداول</span>
                                 </div>

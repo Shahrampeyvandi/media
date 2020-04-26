@@ -9,11 +9,11 @@
         bottom: -110px;
         width: 100%;
     ">
-            <img src="http://localhost/media/public/assets/images/untitled1.png" alt="" style="
+            <img src="{{asset('assets/images/untitled1.png')}}" alt="" style="
         width: 100%;
     ">
         </div>
-        <div class="row justify-content-center">
+        {{-- <div class="row justify-content-center">
             <div class="col-sm-8 mx-2 mx-md-0">
                 
                 <div id="slider">
@@ -29,6 +29,18 @@
                     
                   </div>
                 
+            </div>
+        </div> --}}
+        <div class="row justify-content-center">
+            <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
+                <div class="item single-client" style="height: 15rem;">
+                    <img src="{{asset('assets/images/baner22.jpg')}}" alt="client logo" class="client-img">
+                </div>
+                <div class="item single-client" style="height: 15rem;">
+                    <img src="{{asset('assets/images/baner33.jpg')}}" alt="client logo" class="client-img">
+                </div>
+                
+    
             </div>
         </div>
 

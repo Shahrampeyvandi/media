@@ -38,6 +38,7 @@ Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->na
 Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
 Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
 Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
+Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
 
 
 // routes where must login
