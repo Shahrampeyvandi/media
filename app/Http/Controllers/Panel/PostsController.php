@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
+use App\Models\Contents\Episodes;
 use App\Models\Members\Members;
 use App\Models\Notifications\Notifications;
 use App\Models\Contents\Posts;
@@ -270,9 +271,14 @@ class PostsController extends Controller
         if(request()->hasFile('upload')) {
 
             $tmpName  	   = $_FILES['upload']['tmp_name'];
-            $filename 	   = $_FILES['upload']['name'];
+          
             $size 		   = $_FILES['upload']['size'];
-            $filePath      = "files/images/" . date('d-m-Y-H-i-s').'-'.$filename;
+            $filePath      = "files/images/" . date('d-m-Y-H-i-s');
+            $filename = request()->file('upload')->getClientOriginalName();
+           
+            if (!file_exists($filePath)) {
+                mkdir($filePath, 0755, true);
+            }
             $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
             $type 		   = $_GET['type'];
             $funcNum 	   = isset($_GET['CKEditorFuncNum']) ? $_GET['CKEditorFuncNum']: null;
@@ -288,11 +294,11 @@ class PostsController extends Controller
 	if (in_array($fileExtension, $allowedfileExtensions)) {
 
 	
-
-			if (move_uploaded_file($tmpName, $filePath)) {
-
+        if(request()->file('upload')->move(public_path($filePath),$filename)){
+			// if (move_uploaded_file($tmpName, $filePath)) {
+                $file = "$filePath/$filename";
 				// $filePath = str_replace('../', 'http://filemanager.localhost/elfinder/', $filePath);
-			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $filePath];
+			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $file];
 
 			    if ($type == 'file') {
 
@@ -343,7 +349,69 @@ class PostsController extends Controller
 
     public function UploadEpizode(Request $request)
     {
-        dd($request->all());
+        $post = Posts::whereId($request->post_id)->first();
+        if ($request->file !== null) {
+            $destinationPath = "files/posts/$request->title/episodes";
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Valid extensions
+            $fileName = 'file_' . time() . '.' . $extension;
+            $request->file('file')->move($destinationPath, $fileName);
+            $filePathepisode = "$destinationPath/$fileName";
+        } else {
+            $filePathepisode = null;
+        }
+        if ($request->hasFile('episode_pic')) {
+
+            $picextension = $request->file('episode_pic')->getClientOriginalExtension();
+            $fileName = 'pic_' . time() . '.' . $picextension;
+            $request->file('pic')->move($destinationPath, $fileName);
+            $picPath = "$destinationPath/$fileName";
+        } else {
+            $picPath = '';
+        }
+        if ($request->hasFile('episode_subtitle')) {
+
+            $picextension = $request->file('episode_subtitle')->getClientOriginalExtension();
+            $fileName = 'subtitle_' . time() . '.' . $picextension;
+            $request->file('subtitle')->move($destinationPath, $fileName);
+            $subTitle = "$destinationPath/$fileName";
+        } else {
+            $subTitle = '';
+        }
+        if ($request->type == 4 || $request->type == 5) {
+
+            $media = 'audio';
+        } else {
+            $media = 'video';
+        }
+        $getID3 = new \getID3;
+        $file = $getID3->analyze($filePathepisode);
+        $duration = date('H:i:s', $file['playtime_seconds']);
+
+        $newepisode = new Episodes();
+        $newepisode->posts_id = $request->post_id;
+        $newepisode->title = $request->epizode_title;
+        $newepisode->number = $request->epizode_number;
+        $newepisode->desc = $request->epizode_desc;
+        $newepisode->categories_id = $post->categories_id;
+        $newepisode->languages_id = $post->languages_id;
+        $newepisode->subjects_id = $post->subjects_id;
+        $newepisode->levels_id = $post->levels_id;
+        $newepisode->picture = $picPath;
+        $newepisode->content_link = $filePathepisode;
+        $newepisode->duration = $duration;
+        $newepisode->type = 'free';
+        $newepisode->price = 0;
+        $newepisode->members_id = auth()->user()->id;
+        if (auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin') {
+            $newepisode->confirmed = 1;
+        }
+        $newepisode->save();
+        toastr()->success('فایل با موفقیت آپلود شد');
+        return back();
     }
 
     public function CheckPost()

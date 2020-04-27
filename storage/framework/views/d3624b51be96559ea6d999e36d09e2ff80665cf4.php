@@ -222,8 +222,10 @@
                             <div class="episodes_list--item lock">
                                 <div class="section-right"><span
                                         class="episodes_list--number"><?php echo e($episode->number); ?></span>
-                                    <div class="episodes_list--title"><a
-                                            href="<?php echo e(route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])); ?>">
+                                    <div class="episodes_list--title">
+                                   <?php if($isbuyedit==true): ?>
+                                    <a href="<?php echo e(route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])); ?>">
+                                    <?php endif; ?>
                                             <?php echo e($episode->title); ?>
 
                                         </a></div>

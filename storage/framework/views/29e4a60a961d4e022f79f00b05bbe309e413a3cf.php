@@ -13,13 +13,11 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Panel/vendor/themify/themify-icons.css">
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/animate.css">
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/toastr.css">
-
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/stylemusic.css">
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/mdb.min.css">
     <link href="<?php echo e(route('BaseUrl')); ?>/assets/css/swiper.min.css" rel="stylesheet">
@@ -278,6 +276,7 @@
 
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
+                      
                         <li class="menu-item-link active">
                             <a href="<?php echo e(route('BaseUrl')); ?>" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
@@ -288,6 +287,18 @@
                                 </div>
                             </a>
                         </li>
+                        <?php if(auth()->check()): ?>
+                        <li class="menu-item-link ">
+                         <a href="<?php echo e(route('User.Show',auth()->user()->username)); ?>" aria-label="پروفایل من">
+                             <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
+                                 <use xlink:href="#si_home"></use>
+                             </svg>
+                             <div class="content">
+                                 <span class="text">پروفایل من</span>
+                             </div>
+                         </a>
+                     </li>
+                        <?php endif; ?>
                         
                         <li class="menu-item-link ">
                             <a href="<?php echo e(route('Panel.MyFavorites')); ?>" aria-label="علاقه مندی ها">
@@ -419,14 +430,14 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="/advert" aria-label="تبلیغات">
+                            <a href="#" aria-label="تبلیغات">
                                 <div class="content">
                                     <span class="text">تبلیغات</span>
                                 </div>
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="/contact" aria-label="تماس با ما">
+                        <a href="<?php echo e(route('ContactUs')); ?>" aria-label="تماس با ما">
                                 <div class="content">
                                     <span class="text">تماس با ما</span>
                                 </div>
@@ -443,7 +454,7 @@
 
 
                         <li class="menu-item-link">
-                            <a href="https://help.aparat.com" aria-label="سوالات متداول">
+                            <a href="#" aria-label="سوالات متداول">
                                 <div class="content">
                                     <span class="text">سوالات متداول</span>
                                 </div>
@@ -496,27 +507,13 @@
         var checkauth = '<?php echo e(auth()->user()); ?>';
         $('.note-link').click(function(e){
             e.preventDefault()
-       
-            // $('.overlay.note').css({
-            //     'visibility': 'visible',
-            //     'opacity': '1',
-            //     'z-index': '111',
-            // })
-
-            // $('.note-list').click(function(e){
-            //     e.preventDefault();
-            //     $('.note-text').toggle(200)
-            // })
         })
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var swiper = new Swiper('.swiper-container1', {
-
             spaceBetween: 5,
             nextButton: '.swiper-p',
             prevButton: '.swiper-n',
@@ -541,10 +538,7 @@
                     slidesPerView: 4,
                     spaceBetween: 40
                 },
-
             }
-
-
         });
         var swiper = new Swiper('.swiper-container2', {
 

@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/dashboard', 'Panel\DashboardController@index')->name('Panel.Dashboard');
     Route::get('/panel/upload', 'Panel\DashboardController@UploadFile')->name('UploadFile');
     Route::post('/panel/upload', 'Panel\DashboardController@SubmitUploadFile')->name('sUploadFile');
+    
+    Route::get('/panel/{id}/episode', 'Panel\DashboardController@UploadEpisode')->name('Tutorial.CreateEpisode');
     Route::get('/panel/profile', 'Panel\DashboardController@Profile')->name('Profile');
     Route::post('/panel/profile/Submit', 'Panel\DashboardController@ProfileSave')->name('Profile.Submit');
     Route::get('/panel/users', 'Panel\UserController@index')->name('UsersList');
@@ -112,5 +114,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('panel/savecontactus', 'Panel\ContentController@SaveContactUs')->name('Panel.SaveContactUs');
     Route::post('panel/saveditcontactus', 'Panel\ContentController@SaveEditContactUs')->name('Panel.SaveEditContactUs');
     Route::get('panel/income', 'Panel\ContentController@Income')->name('Panel.Income');
+    
+   
 
 });

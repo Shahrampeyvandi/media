@@ -56,6 +56,36 @@ jQuery(function ($) {
         }
     })
 
+    $('.header-carousel').owlCarousel({
+        items: 1,
+        animateOut: 'fadeOut',
+        loop: true,
+        autoplay:true,
+        margin: 10,
+        rtl:true,
+        margin:40,
+        stagePadding:30,
+        smartSpeed:450,
+        responsive:{
+            0:{
+                items:1
+            },
+            500: {
+                items:1
+            },
+            600:{
+                items:1
+            },
+            800:{
+                items:1
+            },
+            1200:{
+                items:1
+            }
+
+        }
+    });
+
 
 
 slideShow();

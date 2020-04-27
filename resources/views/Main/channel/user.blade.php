@@ -16,12 +16,13 @@
                 </div>
             </div>
            
-            <div class="recent_content d-flex ">
+            <div class="recent_content d-flex mr-3">
                 <a href="{{route('ShowItem',['id'=>$lastpost->id])}}" class="image">
+                    
                     <img src="{{asset("$lastpost->picture")}}" height="100%" width="100%" alt="">
                 </a>
-                <div class="d-flex  flex-column pr-5">
-                    <h3>{{$lastpost->title}}</h3>
+                <div class="d-flex  flex-column pr-3">
+                    <h3><a href="#">{{Illuminate\Support\Str::limit($lastpost->title,15)}}</a></h3>
                     <p>{{$lastpost->subjects->name}}</p>
                     <div>
                         <span class="fs-0-8 text-black-50 mt-2 ml-3">

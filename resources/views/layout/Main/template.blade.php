@@ -327,6 +327,7 @@
 
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
+                      
                         <li class="menu-item-link active">
                             <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
@@ -337,6 +338,18 @@
                                 </div>
                             </a>
                         </li>
+                        @if (auth()->check())
+                        <li class="menu-item-link ">
+                         <a href="{{route('User.Show',auth()->user()->username)}}" aria-label="پروفایل من">
+                             <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
+                                 <use xlink:href="#si_home"></use>
+                             </svg>
+                             <div class="content">
+                                 <span class="text">پروفایل من</span>
+                             </div>
+                         </a>
+                     </li>
+                        @endif
                         {{-- <li class="menu-item-link ">
                         <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
                             viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
@@ -554,27 +567,13 @@
         var checkauth = '{{auth()->user()}}';
         $('.note-link').click(function(e){
             e.preventDefault()
-       
-            // $('.overlay.note').css({
-            //     'visibility': 'visible',
-            //     'opacity': '1',
-            //     'z-index': '111',
-            // })
-
-            // $('.note-list').click(function(e){
-            //     e.preventDefault();
-            //     $('.note-text').toggle(200)
-            // })
         })
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var swiper = new Swiper('.swiper-container1', {
-
             spaceBetween: 5,
             nextButton: '.swiper-p',
             prevButton: '.swiper-n',
@@ -599,10 +598,7 @@
                     slidesPerView: 4,
                     spaceBetween: 40
                 },
-
             }
-
-
         });
         var swiper = new Swiper('.swiper-container2', {
 

@@ -80,9 +80,9 @@
                                         </svg>
                                     </a>
                                     <?php if($notystatus): ?>
-                                        <span class="position-absolute noty-icon"> <i
+                                    <span class="position-absolute noty-icon"> <i
                                             class="fa fa-exclamation-circle text-danger"></i>
-                                        </span>
+                                    </span>
                                     <?php endif; ?>
                                 </div>
                                 <div class="dropdown-content">
@@ -95,7 +95,7 @@
                                                         <span class="text-info"><?php echo e($notification->title); ?>
 
                                                         </span>
-                                                    <span><?php echo e(\Morilog\Jalali\Jalalian::forge($notification->created_at)->format('%d %B %Y')); ?></span>
+                                                        <span><?php echo e(\Morilog\Jalali\Jalalian::forge($notification->created_at)->format('%d %B %Y')); ?></span>
                                                         <?php if($notification->read == 0): ?>
                                                         <a href="#" data-id="<?php echo e($notification->id); ?>"
                                                             class="noty-link text-white mdb-color lighten-2 px-1 radius-5 ml-1">فهمیدم</a>
@@ -310,152 +310,149 @@
                                     </a>
                                 </li>
                                 
-                            </ul>
-                        </li>
+                    </ul>
+                    </li>
 
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Post.Report.All')); ?>" aria-label=""><i
-                                    class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">گزارش های تخلف</span>
-                                </div>
-                            </a>
-                        </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Post.Report.All')); ?>" aria-label=""><i
+                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">گزارش های تخلف</span>
+                            </div>
+                        </a>
+                    </li>
 
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Purchase.All')); ?>" aria-label=""><i
-                                    class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">دوره های خریداری شده</span>
-                                </div>
-                            </a>
-                        </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Purchase.All')); ?>" aria-label=""><i
+                                class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">دوره های خریداری شده</span>
+                            </div>
+                        </a>
+                    </li>
 
-                        <?php endif; ?>
+                    <?php endif; ?>
 
-                        <?php if(auth()->user()->group == 'teacher' || auth()->user()->group == 'student'): ?>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('MyVideos')); ?>" aria-label="کارتون"><svg class="icon icon-videos"
-                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                    <use xlink:href="#si_videos">
-                                        <g id="si_videos" data-viewBox="0 0 24 24">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path
-                                                d="M4 6.47L5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-1.99 2L2 18a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V4z">
-                                            </path>
-                                        </g>
-                                    </use>
-                                </svg>
-                                <div class="content">
-                                    <span class="text">فایل های ویدیویی من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('MyAudios')); ?>" aria-label=""><i
-                                    class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">فایل های صوتی من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('MyTutorials')); ?>" aria-label=""><i
-                                    class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">دوره های آموزشی من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('UnsubscribeFiles')); ?>" aria-label=""><i
-                                    class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">فایل های منتشر نشده</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href=" <?php echo e(route('Panel.Comments')); ?> " aria-label="گیم"><svg class="icon icon-comments"
-                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                    <use xlink:href="#si_comments">
-                                        <g id="si_comments" data-viewBox="0 0 24 24">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path
-                                                d="M4 4h16v12H5.17L4 17.17V4m0-2a2 2 0 0 0-1.99 2L2 22l4-4h14a2.006 2.006 0 0 0 2-2V4a2.006 2.006 0 0 0-2-2z">
-                                            </path>
-                                            <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
-                                        </g>
-                                    </use>
-                                </svg>
-                                <div class="content">
-                                    <span class="text">دیدگاه‌های من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Panel.MyFavorites')); ?> " aria-label="">
-                                <div class="content d-flex align-items-center"><i
-                                        class="ti ti-tag fs-1-5 text-black-50 ml-3"></i>
-                                    <span class="text">علاقه مندی ها</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Message.My')); ?>" aria-label=""><i
-                                    class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">پیام های من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Purchase.My')); ?>" aria-label=""><i
-                                    class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">دوره های خریداری من</span>
-                                </div>
-                            </a>
-                        </li>
-                        <?php endif; ?>
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Panel.MyFollowers')); ?>" aria-label="گیم"><svg class="icon icon-gamepad"
-                                    viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                                    <use xlink:href="#si_gamepad"></use>
-                                </svg>
-                                <div class="content">
-                                    <span class="text">دنبال کننده ها</span>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('Profile')); ?>" aria-label=""><i
-                                    class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
-                                <div class="content">
-                                    <span class="text">ویرایش پروفایل</span>
-                                </div>
-                            </a>
-                        </li>
-
-
-                        <li class="menu-item-link">
-                            <a href="<?php echo e(route('logout')); ?>" aria-label=""><svg class="icon icon-logout"
-                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                    <use xlink:href="#si_logout">
-                                        <g id="si_logout" data-viewBox="0 0 24 24">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path
-                                                d="M13 3h-2v10h2zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12 7 7 0 1 1 7.58 6.58L6.17 5.17A8.992 8.992 0 1 0 21 12a8.932 8.932 0 0 0-3.17-6.83z">
-                                            </path>
-                                        </g>
-                                    </use>
-                                </svg>
-                                <div class="content">
-                                    <span class="text">خروج از حساب کاربری</span>
-                                </div>
-                            </a>
-                        </li>
+                    <?php if(auth()->user()->group == 'teacher' || auth()->user()->group == 'student'): ?>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('MyVideos')); ?>" aria-label="کارتون"><svg class="icon icon-videos"
+                                viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                <use xlink:href="#si_videos">
+                                    <g id="si_videos" data-viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M4 6.47L5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-1.99 2L2 18a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V4z">
+                                        </path>
+                                    </g>
+                                </use>
+                            </svg>
+                            <div class="content">
+                                <span class="text">فایل های ویدیویی من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('MyAudios')); ?>" aria-label=""><i
+                                class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">فایل های صوتی من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('MyTutorials')); ?>" aria-label=""><i
+                                class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">دوره های آموزشی من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('UnsubscribeFiles')); ?>" aria-label=""><i
+                                class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">فایل های منتشر نشده</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href=" <?php echo e(route('Panel.Comments')); ?> " aria-label="گیم"><svg class="icon icon-comments"
+                                viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                <use xlink:href="#si_comments">
+                                    <g id="si_comments" data-viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M4 4h16v12H5.17L4 17.17V4m0-2a2 2 0 0 0-1.99 2L2 22l4-4h14a2.006 2.006 0 0 0 2-2V4a2.006 2.006 0 0 0-2-2z">
+                                        </path>
+                                        <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
+                                    </g>
+                                </use>
+                            </svg>
+                            <div class="content">
+                                <span class="text">دیدگاه‌های من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.MyFavorites')); ?> " aria-label="">
+                            <div class="content d-flex align-items-center"><i
+                                    class="ti ti-tag fs-1-5 text-black-50 ml-3"></i>
+                                <span class="text">علاقه مندی ها</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Message.My')); ?>" aria-label=""><i
+                                class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">پیام های من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Purchase.My')); ?>" aria-label=""><i
+                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">دوره های خریداری من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.MyFollowers')); ?>" aria-label="گیم"><svg class="icon icon-gamepad"
+                                viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
+                                <use xlink:href="#si_gamepad"></use>
+                            </svg>
+                            <div class="content">
+                                <span class="text">دنبال کننده ها</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Profile')); ?>" aria-label=""><i
+                                class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">ویرایش پروفایل</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('logout')); ?>" aria-label=""><svg class="icon icon-logout" viewBox="0 0 24 24"
+                                0="" 24="" 24""="">
+                                <use xlink:href="#si_logout">
+                                    <g id="si_logout" data-viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M13 3h-2v10h2zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12 7 7 0 1 1 7.58 6.58L6.17 5.17A8.992 8.992 0 1 0 21 12a8.932 8.932 0 0 0-3.17-6.83z">
+                                        </path>
+                                    </g>
+                                </use>
+                            </svg>
+                            <div class="content">
+                                <span class="text">خروج از حساب کاربری</span>
+                            </div>
+                        </a>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -476,7 +473,6 @@
         </div>
         </div>
     </main>
-
     <script src="<?php echo e(asset('assets/js/app.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/Panel/assets/js/jquery.validate.js"></script>

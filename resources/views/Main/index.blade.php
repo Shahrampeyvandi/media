@@ -13,25 +13,9 @@
         width: 100%;
     ">
         </div>
-        {{-- <div class="row justify-content-center">
-            <div class="col-sm-8 mx-2 mx-md-0">
-                
-                <div id="slider">
-                    <img class="show" src="{{asset('assets/images/baner22.jpg')}}" alt="">
-                    <img class="" src="{{asset('assets/images/baner33.jpg')}}" alt="">
-                    @foreach($slideshows as $slideshow)
 
-                   <img src="{{route('BaseUrl')}}/{{$slideshow->banner}}" style="display:none;" alt="{{$slideshow->title}}">
-
-
-
-                    @endforeach
-                    
-                  </div>
-                
-            </div>
-        </div> --}}
         <div class="row justify-content-center">
+        
             <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
                 <div class="item single-client" style="height: 15rem;">
                     <img src="{{asset('assets/images/baner22.jpg')}}" alt="client logo" class="client-img">
@@ -39,8 +23,8 @@
                 <div class="item single-client" style="height: 15rem;">
                     <img src="{{asset('assets/images/baner33.jpg')}}" alt="client logo" class="client-img">
                 </div>
-                
-    
+
+
             </div>
         </div>
 
@@ -77,14 +61,14 @@
                                        @if ($movie->picture)
                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
                                        aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else 
+                                       @else
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
                                         aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       @endif 
-                                       
+                                       @endif
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -115,12 +99,12 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
-                                        
+
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
@@ -130,12 +114,12 @@
                                         @endif
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-                               
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -184,14 +168,14 @@
                                        @if ($movie->picture)
                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
                                        aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else 
+                                       @else
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
                                         aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       @endif 
-                                       
+                                       @endif
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -221,12 +205,12 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
-                                        
+
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
@@ -236,12 +220,12 @@
                                         @endif
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-                                   
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -320,14 +304,14 @@
                                        @if ($movie->picture)
                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
                                        aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else 
+                                       @else
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
                                         aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       @endif 
-                                       
+                                       @endif
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -358,18 +342,18 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                     <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
-                                       
-                                      
+
+
                                         {{$movie->epizodes->count()}}
-                                       
+
                                     </span></p>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
-                                        
+
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
@@ -379,12 +363,12 @@
                                         @endif
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-                               
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -405,7 +389,7 @@
 @endif
 
 @if (count($musics))
-    
+
 <section id="" style="    padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
         <div class="wpb_wrapper py-3">
@@ -459,7 +443,7 @@
                                                     </g>
                                                 </use>
                                             </svg>
-                    
+
                                         </a> </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
@@ -488,7 +472,7 @@
                                     <span class="fs-0-8 text-black-50">
                                         11 بهمن 1398
                                     </span>
-                    
+
                                 </div>
                             </div>
                         </div>
@@ -530,7 +514,7 @@
                         <div class="card__image border-tlr-radius">
                              @if ($podcast->picture)
                             <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
-                              @else 
+                              @else
 
                               <img src="{{asset('assets/images/record.png')}}" alt="image" class="border-tlr-radius">
                             @endif

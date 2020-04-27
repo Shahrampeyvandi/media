@@ -1,12 +1,16 @@
 
 
 <?php $__env->startSection('content'); ?>
+
 <div class="col-md-8 offset-md-2 mb-3">
 <form id="edit" action="<?php echo e(route('Profile.Submit')); ?>" method="post" enctype="multipart/form-data">
 <?php echo csrf_field(); ?>
 <input type="hidden" name="id" value="<?php echo e($member->id); ?>">
     <div class="card p-3">
         <div class="row">
+          <div class="col-md-12 text-center mb-2">
+            <?php echo $__env->make('Includes.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+          </div>
             <div class="col-md-12" style="display: flex;align-items: center;justify-content: center;">
               <div class="profile-img">
                 <div class="chose-img">
@@ -46,12 +50,12 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> تغییر رمز عبور: </label>
-            <input type="password" class="form-control" name="user_pass" id="user_pass" value="<?php echo e($member->password); ?>">
+            <input type="text" class="form-control" name="user_pass" id="user_pass" value="">
             </div>
             <div class="form-group col-md-6">
               <label for="confirm_user_pass" class="col-form-label"><span class="text-danger">*</span> تکرار
                 رمز عبور:</label>
-              <input type="password" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
+              <input type="text" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
             </div>
           </div>
           <div class="row">
@@ -108,6 +112,7 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
 <script type="text/javascript">
+  $(document).ready(function(){
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -121,7 +126,13 @@
     $("#user_profile").change(function(){
         readURL(this);
     });
-
+    $.validator.addMethod(
+    "regex",
+    function(value, element, regexp) {
+        return this.optional(element) || regexp.test(value);
+    },
+    "Please check your input."
+);
     $("#edit").validate({
 		rules: {
       user_name: "required",
@@ -133,11 +144,12 @@
 			},
      
 			user_pass: {
-				required: true,
-				minlength: 6
+				
+        minlength: 6,
+        regex: /^[a-zA-Z\d]+$/
 			},
 			confirm_user_pass: {
-				required: true,
+			
 				equalTo: "#user_pass"
 			},
 		user_mobile: {
@@ -156,7 +168,7 @@
         regex:"نام کاربری تنها شامل حروف لاتین میباشد و نمی تواند با عدد شروع شود"
 			},
 			user_pass: {
-				required: "رمز عبور دا وارد نمایید",
+				regex: "نام کاربری تنها شامل حروف لاتین میباشد و نمی تواند با عدد شروع شود",
 				minlength: "رمز عبور بایستی حداقل 6 کاراکتر باشد"
 			},
 			confirm_user_pass: {
@@ -169,6 +181,7 @@
      
 		}
 	});
+  })
 </script>
 
 <?php $__env->stopSection(); ?>
