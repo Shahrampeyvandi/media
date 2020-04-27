@@ -271,9 +271,14 @@ class PostsController extends Controller
         if(request()->hasFile('upload')) {
 
             $tmpName  	   = $_FILES['upload']['tmp_name'];
-            $filename 	   = $_FILES['upload']['name'];
+          
             $size 		   = $_FILES['upload']['size'];
-            $filePath      = "files/images/" . date('d-m-Y-H-i-s').'-'.$filename;
+            $filePath      = "files/images/" . date('d-m-Y-H-i-s');
+            $filename = request()->file('upload')->getClientOriginalName();
+           
+            if (!file_exists($filePath)) {
+                mkdir($filePath, 0755, true);
+            }
             $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
             $type 		   = $_GET['type'];
             $funcNum 	   = isset($_GET['CKEditorFuncNum']) ? $_GET['CKEditorFuncNum']: null;
@@ -289,11 +294,11 @@ class PostsController extends Controller
 	if (in_array($fileExtension, $allowedfileExtensions)) {
 
 	
-
-			if (move_uploaded_file($tmpName, $filePath)) {
-
+        if(request()->file('upload')->move(public_path($filePath),$filename)){
+			// if (move_uploaded_file($tmpName, $filePath)) {
+                $file = "$filePath/$filename";
 				// $filePath = str_replace('../', 'http://filemanager.localhost/elfinder/', $filePath);
-			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $filePath];
+			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $file];
 
 			    if ($type == 'file') {
 

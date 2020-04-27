@@ -20,7 +20,7 @@
                        @include('Includes.Main.player')
                     </div>
 
-                   
+                  
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
                         <div class="genre mb-md">
                             @foreach($content->tags as $tag)
@@ -76,7 +76,7 @@
                                 @if (auth()->check())
                                 <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
-                                    گزارش تخلف 
+                                    گزارش تخلف
                                 </a>
                                 @endif
 
@@ -365,7 +365,7 @@
 <script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
 <script>
     const player = new Plyr('#player',{
-        
+
     });
 </script>
 @endsection

@@ -146,7 +146,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 my-2 btn--wrapper">
-                            <input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />
+                            <input type="submit" name="upload" id="upload" value="آپلود" class="btn btn-sm btn-success" />
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,6 @@
 
 
 
-
         $(document).on('change','#type',function(){
             if($(this).val() == '6'){
                 $('.btn--wrapper input').val('ارسال')
@@ -267,6 +266,13 @@
 			},
         
 	});
+    
+    $('#upload').click(function(){
+           if($('#upload-file').valid()){
+            $(this).val('در حال آپلود ...')
+           }
+            
+        })
     // $('form').ajaxForm({
     //     beforeSerialize:function($Form, options){
     //     /* Before serialize */

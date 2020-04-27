@@ -9,26 +9,22 @@
         bottom: -110px;
         width: 100%;
     ">
-            <img src="http://localhost/media/public/assets/images/untitled1.png" alt="" style="
+            <img src="<?php echo e(asset('assets/images/untitled1.png')); ?>" alt="" style="
         width: 100%;
     ">
         </div>
+
         <div class="row justify-content-center">
-            <div class="col-sm-8 mx-2 mx-md-0">
-                
-                <div id="slider">
-                    <img class="show" src="<?php echo e(asset('assets/images/baner22.jpg')); ?>" alt="">
-                    <img class="" src="<?php echo e(asset('assets/images/baner33.jpg')); ?>" alt="">
-                    <?php $__currentLoopData = $slideshows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slideshow): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        
+            <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
+                <div class="item single-client" style="height: 15rem;">
+                    <img src="<?php echo e(asset('assets/images/baner22.jpg')); ?>" alt="client logo" class="client-img">
+                </div>
+                <div class="item single-client" style="height: 15rem;">
+                    <img src="<?php echo e(asset('assets/images/baner33.jpg')); ?>" alt="client logo" class="client-img">
+                </div>
 
-                   <img src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($slideshow->banner); ?>" style="display:none;" alt="<?php echo e($slideshow->title); ?>">
 
-
-
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    
-                  </div>
-                
             </div>
         </div>
 
@@ -65,13 +61,13 @@
                                        <?php if($movie->picture): ?>
                                        <img src="<?php echo e(asset("$movie->picture")); ?>" alt="<?php echo e($movie->title); ?>"
                                        aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
-                                       <?php else: ?> 
+                                       <?php else: ?>
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       <?php endif; ?> 
-                                       
+                                       <?php endif; ?>
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -104,12 +100,12 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>" title="<?php echo e($movie->title); ?>"
                                     class="title title d-block mb-2"><span><?php echo e($movie->title); ?></span></a>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         <?php if($movie->subjects): ?>
-                                        
+
                                         <?php echo e($movie->subjects->name); ?>
 
                                         <?php endif; ?>
@@ -121,12 +117,12 @@
                                         <?php endif; ?>
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: <?php echo e($movie->levels->name); ?></span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110"><?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
-                               
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -175,13 +171,13 @@
                                        <?php if($movie->picture): ?>
                                        <img src="<?php echo e(asset("$movie->picture")); ?>" alt="<?php echo e($movie->title); ?>"
                                        aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
-                                       <?php else: ?> 
+                                       <?php else: ?>
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       <?php endif; ?> 
-                                       
+                                       <?php endif; ?>
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -213,12 +209,12 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>" title="<?php echo e($movie->title); ?>"
                                     class="title title d-block mb-2"><span><?php echo e($movie->title); ?></span></a>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         <?php if($movie->subjects): ?>
-                                        
+
                                         <?php echo e($movie->subjects->name); ?>
 
                                         <?php endif; ?>
@@ -230,12 +226,12 @@
                                         <?php endif; ?>
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: <?php echo e($movie->levels->name); ?></span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110"><?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
-                                   
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -314,13 +310,13 @@
                                        <?php if($movie->picture): ?>
                                        <img src="<?php echo e(asset("$movie->picture")); ?>" alt="<?php echo e($movie->title); ?>"
                                        aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
-                                       <?php else: ?> 
+                                       <?php else: ?>
                                       <div class="d-flex justify-content-center align-items-center h-100">
                                         
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
                                     </div>
-                                       <?php endif; ?> 
-                                       
+                                       <?php endif; ?>
+
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -353,19 +349,19 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                    
+
                                 <a href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>" title="<?php echo e($movie->title); ?>"
                                     class="title title d-block mb-2"><span><?php echo e($movie->title); ?></span></a>
                                     <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
-                                       
-                                      
+
+
                                         <?php echo e($movie->epizodes->count()); ?>
 
-                                       
+
                                     </span></p>
                                     <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         <?php if($movie->subjects): ?>
-                                        
+
                                         <?php echo e($movie->subjects->name); ?>
 
                                         <?php endif; ?>
@@ -377,12 +373,12 @@
                                         <?php endif; ?>
                                     </span></p>
                                     <p class=""><span class="fs-0-9">سطح: <?php echo e($movie->levels->name); ?></span></p>
-                    
+
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110"><?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
-                               
+
                                 </ul>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -403,7 +399,7 @@
 <?php endif; ?>
 
 <?php if(count($musics)): ?>
-    
+
 <section id="" style="    padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
         <div class="wpb_wrapper py-3">
@@ -457,7 +453,7 @@
                                                     </g>
                                                 </use>
                                             </svg>
-                    
+
                                         </a> </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
@@ -488,7 +484,7 @@
                                     <span class="fs-0-8 text-black-50">
                                         11 بهمن 1398
                                     </span>
-                    
+
                                 </div>
                             </div>
                         </div>
@@ -530,7 +526,7 @@
                         <div class="card__image border-tlr-radius">
                              <?php if($podcast->picture): ?>
                             <img src="<?php echo e(asset("$podcast->picture")); ?>" alt="image" class="border-tlr-radius">
-                              <?php else: ?> 
+                              <?php else: ?>
 
                               <img src="<?php echo e(asset('assets/images/record.png')); ?>" alt="image" class="border-tlr-radius">
                             <?php endif; ?>
@@ -615,4 +611,5 @@
 
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layout.Main.template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\media\resources\views/Main/index.blade.php ENDPATH**/ ?>

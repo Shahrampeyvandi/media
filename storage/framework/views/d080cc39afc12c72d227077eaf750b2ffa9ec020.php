@@ -49,7 +49,7 @@
             <td>
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                     <a href="<?php echo e(route('ShowItem',$post->id)); ?>" class="btn btn-sm btn-rounded btn-primary">مشاهده</a>
-                    <a  class="post--delete btn btn-danger btn-sm m-0">قسمت جدید <i class="fa fa-plus"></i></a>
+                <a href="<?php echo e(route('Tutorial.CreateEpisode',$post->id)); ?>"  class=" btn btn-danger btn-sm m-0">قسمت جدید <i class="fa fa-plus"></i></a>
                     </div>
             
             </td>

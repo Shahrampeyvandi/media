@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <aside id="secondary" class="secondary">
-        <section id="recom" class="single-recom">
+        <section id="recom" class="single-recom mt-4">
             <header class="recom-header">
                 <h3 class="title mr-3 mr-md-0">پست های مرتبط</h3>
             </header>
@@ -8,7 +8,7 @@
                 <div class="inner">
                     <?php $__currentLoopData = $relateds; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
-                        <div class="w-40">
+                        <div class="w-50">
                             <?php if($related->picture): ?>
                             <a href="<?php echo e(route('ShowItem',['id'=>$related->id])); ?>"> <img
                                     src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($related->picture); ?>"
@@ -30,7 +30,7 @@
                             <h4 class="thumb-title">
                                 <a href="<?php echo e(route('ShowItem',['id'=>$related->id])); ?>"
                                     title="<?php echo e($related->title); ?>"
-                                    class="title"><span><?php echo e($related->title); ?></span></a>
+                                    class="title"><span><?php echo e(Illuminate\Support\Str::limit($related->title,12)); ?></span></a>
                             </h4>
                             <a href="<?php echo e(route('Category',['slug'=>$related->categories->latin_name])); ?>"
                                 title="<?php echo e($related->categories->name); ?>"
