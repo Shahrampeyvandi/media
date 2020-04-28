@@ -1,6 +1,31 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<div id="popup1" class="overlay">
+    <div class="popup">
+
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form id="" action="{{route('Panel.Checkout')}}" method="post">
+                @csrf
+               
+                <div class="mt-5 pr-2">
+                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">تسویه حساب</h5>
+                    <div class="form-group col-md-12">
+                        <input type="hidden" id="post_id" name="id" value="0">
+                      
+                       
+                    </div>
+                    <p>آیا با تسویه حساب با استاد و انتقال موجودی کیف پول به حساب فرد موافقید؟</p>
+                </div>
+                <div class="form-group   offset-md-10">
+
+                    <button type="submit" class="btn btn-sm btn-danger ">تسویه حساب </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div>
@@ -38,6 +63,9 @@
                 <th>موبایل</th>
                 <th>یوزرنیم</th>
                 <th>ایمیل</th>
+                @if (request()->path() == "panel/members/teacher")
+                <th>موجودی کیف پول</th>
+                 @endif
                 <th>تاریخ عضویت</th>
                 <th>وضعیت</th>
                 <th>عملیات</th>
@@ -54,6 +82,18 @@
             <td>{{$member->mobile}}</td>
             <td>{{$member->username}}</td>
             <td>{{$member->email}}</td>
+
+            @if($member->group=='teacher')
+            <td>
+            {{$member->wallet}}
+
+            <div class="btn-group" role="group" aria-label="">
+                    <a  data-id="{{$member->id}}" class="delete-post btn btn-rounded btn-danger btn-sm m-0">تسویه</a>
+                  </div>
+            </td>
+            @endif
+
+
             <td>{{\Morilog\Jalali\Jalalian::forge($member->created_at)->format('%d %B %Y')}}</td>
             @switch($member->confirmed)
             @case(0)

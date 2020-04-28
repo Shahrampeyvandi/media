@@ -125,7 +125,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('panel/editadvert', 'Panel\ContentController@EditAdvert')->name('Panel.EditAdvert');
     Route::post('panel/saveadvert', 'Panel\ContentController@SaveAdvert')->name('Panel.SaveAdvert');
     Route::post('panel/saveditadvert', 'Panel\ContentController@SaveEditAdvert')->name('Panel.SaveEditAdvert');
-    
+    Route::post('panel/checkout', 'Front\PayController@Checkout')->name('Panel.Checkout');
+
 
    
 
