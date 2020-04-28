@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
 
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
-    Route::post('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
+    Route::get('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
 
 });
 

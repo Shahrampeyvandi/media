@@ -59,6 +59,14 @@
                         </div>
                     </div>
                     <div class="item">
+                    @if(auth()->user()->group=='teacher')
+                        <div class="inline-flex upload-button">
+                            <a
+                                class="button button-info button-small button-hollow button-bordered upload-video"
+                                data-ctr="upload-button" data-ctr-cta="upload-button">
+                                <span class="text mr-1">موجودی کیف پول: {{auth()->user()->wallet}}</span></a>
+                        </div>
+                        @endif
                         <div class="inline-flex upload-button">
                             <a href="{{route('UploadFile')}}"
                                 class="button button-info button-small button-hollow button-bordered upload-video"

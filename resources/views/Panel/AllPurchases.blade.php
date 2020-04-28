@@ -28,7 +28,7 @@
             @foreach($purchases as $key=>$purchase)
             <tr>
             <td>{{$key+1}}</td>
-            <td><a href="{{route('User.Videos',['name'=>$purchase->members->username])}}">
+            <td><a href="{{route('User.Show',['name'=>$purchase->members->username])}}">
             {{$purchase->members->username}}
             </a>
             </td>

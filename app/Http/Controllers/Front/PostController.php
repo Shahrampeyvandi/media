@@ -36,6 +36,11 @@ class PostController extends Controller
         if($purchase){
             $isbuyedit=true;
         }
+        if($content->members_id==auth()->user()->id){
+            $isbuyedit=true;
+        }
+
+
         }
         if($content->type=='free'){
             $isbuyedit=true;
@@ -96,12 +101,12 @@ class PostController extends Controller
     if($post->type='money'){
         if(auth()->user()){
         $purchase=Purchase::where('members_id',auth()->user()->id)->where('posts_id',$id)->where('success',1)->first();
+        $isbuyedit=false;
         if($purchase){
             $isbuyedit=true;
-        }else{
-            $isbuyedit=false;
-
-            return back();
+        }
+        if($content->members_id==auth()->user()->id){
+            $isbuyedit=true;
         }
     }else{
         return back();

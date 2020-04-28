@@ -169,10 +169,12 @@ class DashboardController extends Controller
                     $media = 'video';
                 }
                 $getID3 = new \getID3;
-                $file = $getID3->analyze($filePath);
+                $filedur = $getID3->analyze($filePath);
+
+                //$duration = $filedur['playtime_seconds'];
 
 
-                $duration = date('H:i:s', $file['playtime_seconds']);
+                $duration = gmdate('H:i:s', $filedur['playtime_seconds']);
 
                 $post = new Posts();
                 $post->title = $request->title;
