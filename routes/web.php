@@ -94,8 +94,14 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
     Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
     Route::get('/panel/slideshow/', 'Panel\SlideshowController@Index')->name('Panel.SlideShow.All');
-    Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SlideShow.Submit');
+    Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SaveSlideShow');
     Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
+    Route::get('panel/slideshow/create', 'Panel\SlideshowController@CreateSlideShow')->name('Panel.CreateSlideShow');
+    
+    Route::get('/panel/slideshow/{id}/edit', 'Panel\SlideshowController@EditSlideShow')->name('Panel.EditSlideShow');
+    
+    Route::post('/panel/slideshow/edit', 'Panel\SlideshowController@SaveEditSlideShow')->name('Panel.SaveEditSlideShow');
+
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
     Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
@@ -110,7 +116,13 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('panel/savecontactus', 'Panel\ContentController@SaveContactUs')->name('Panel.SaveContactUs');
     Route::post('panel/saveditcontactus', 'Panel\ContentController@SaveEditContactUs')->name('Panel.SaveEditContactUs');
     Route::get('panel/income', 'Panel\ContentController@Income')->name('Panel.Income');
+   
+    Route::get('panel/advert', 'Panel\ContentController@Advert')->name('Panel.Advert');
+    Route::get('panel/editadvert', 'Panel\ContentController@EditAdvert')->name('Panel.EditAdvert');
+    Route::post('panel/saveadvert', 'Panel\ContentController@SaveAdvert')->name('Panel.SaveAdvert');
+    Route::post('panel/saveditadvert', 'Panel\ContentController@SaveEditAdvert')->name('Panel.SaveEditAdvert');
     
+
    
 
 });

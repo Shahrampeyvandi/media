@@ -54,6 +54,8 @@
                                     </use>
                                 </svg>
                             </button>
+
+                            <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 btn-main">صفحه اصلی</a>
                         </div>
                     </div>
                     <div class="item">
@@ -165,8 +167,8 @@
                         </button>
                     </div>
                     <div class="logo">
-                        <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو"><svg
+                        <a href="#" title=""
+                            aria-label=""><svg
                                 class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
                                 viewBox="viewBox=" 0 0 90 31.89"">
                                 <use xlink:href="#si_logo-fa"></use>
@@ -288,23 +290,30 @@
                             </a>
                             <ul style="display: none;">
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.SlideShow.All')}}" aria-label="">
+                                    <a href="{{route('Panel.SlideShow.All')}}" aria-label="اسلایدشو">
                                         <div class="content">
                                             <span class="text">اسلایدشو</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Policies')}}" aria-label="">
+                                    <a href="{{route('Panel.Policies')}}" aria-label="قوانین">
                                         <div class="content">
                                             <span class="text">قوانین</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.ContactUs')}}" aria-label="">
+                                    <a href="{{route('Panel.ContactUs')}}" aria-label="تماس با ما">
                                         <div class="content">
                                             <span class="text">تماس با ما</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Advert')}}" aria-label="تبلیغات">
+                                        <div class="content">
+                                            <span class="text">تبلیغات</span>
                                         </div>
                                     </a>
                                 </li>
@@ -491,9 +500,9 @@
     <script>
         $('.noty-link').click(function(e){
         e.preventDefault()
-      
+
         let id = $(this).data('id')
-       
+
        var thiss = $(this)
 
         $.ajaxSetup({
@@ -501,20 +510,20 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
           });
-        $.ajax({ 
+        $.ajax({
             url: '{{route("Noty.Read")}}',
             type: 'POST',
             data:{id:id},
-            dataType: 'JSON', 
+            dataType: 'JSON',
             cache:false,
             success: function(res) {
-                
+
                 $('.dropdown-content').removeClass('lighten-1').addClass('lighten-2')
             }
     });
 
 
-   
+
     })
     $('.menu-link').click(function(e){
         e.preventDefault();
@@ -523,7 +532,7 @@
 
     })
 
-    
+
     </script>
     @yield('js')
 </body>

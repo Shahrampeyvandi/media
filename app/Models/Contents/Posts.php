@@ -60,6 +60,7 @@ class Posts extends Model
          $strtotime +=   strtotime($epizode->duration);
 
         }
+      
         return date('H:i:s', $strtotime);
     }
    

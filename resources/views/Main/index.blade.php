@@ -1,5 +1,4 @@
 @extends('layout.Main.template')
-
 @section('content')
 <section class="top-banner"
     style="ackground-attachment: fixed;position: relative;padding: 100px 0; background: linear-gradient(40deg,#2096ff,#05ffa3) !important;">
@@ -13,25 +12,24 @@
         width: 100%;
     ">
         </div>
-
         <div class="row justify-content-center">
-        
             <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
-                <div class="item single-client" style="height: 15rem;">
-                    <img src="{{asset('assets/images/baner22.jpg')}}" alt="client logo" class="client-img">
-                </div>
-                <div class="item single-client" style="height: 15rem;">
-                    <img src="{{asset('assets/images/baner33.jpg')}}" alt="client logo" class="client-img">
-                </div>
-
+                @foreach ($slideshows as $slideshow)
+                <a href="{{$slideshow->link}}">
+                    <div class="item single-client position-relative" style="height: 15rem;">
+                        <img src="{{asset($slideshow->banner)}}" alt="client logo" class="client-img">
+                       <div class="overlay-banner"></div>
+                        <div class="banner-txt">
+                            {!! $slideshow->title !!}
+                        </div>
+                    </div>
+                </a>
+                @endforeach
 
             </div>
         </div>
-
     </div>
-
 </section>
-
 @if (count($moveis))
 <section id="" style="padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
@@ -40,35 +38,30 @@
                 style="margin-right: 0px;"><span class="title__divider__wrapper text-header">فیلم ها و سریال ها<span
                         class="line brk-base-bg-gradient-right"></span>
                 </span></h2>
-
             <a href="{{route('Category',['slug'=>'videos'])}}">
                 <span class="title--more">نمایش همه <i class="ti ti-angle-left fs-0-5"></i></span>
             </a>
         </div>
-
-
         <section class="list-content">
             <div id="" class="carousel carousel-movie swiper-container1" dir="rtl">
                 <div class="swiper-wrapper">
-
                     @foreach($moveis as $movie)
-
                     <div class="item carousel-item swiper-slide">
                         <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
                             <div class="thumb-wrapper">
                                 <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
                                     <div class="abs-fit">
-                                       @if ($movie->picture)
-                                       <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
-                                       aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else
-                                      <div class="d-flex justify-content-center align-items-center h-100">
-                                        {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
-                                        aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
-                                    </div>
-                                       @endif
-
+                                        @if ($movie->picture)
+                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
+                                        @else
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            {{-- <img src="{{asset('assets/images/cinema.png')}}"
+                                            alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image"> --}}
+                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="tools">
                                         <span class="badge-rate">
@@ -87,11 +80,12 @@
                                                 </use>
                                             </svg> </span>
                                         <span class="badge-rate"><span>
-                                            @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1) == '0')
-                                            {{substr($movie->duration,3)}}
-                                            @else
-                                            {{$movie->duration}}
-                                            @endif
+                                                @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1)
+                                                == '0')
+                                                {{substr($movie->duration,3)}}
+                                                @else
+                                                {{$movie->duration}}
+                                                @endif
                                             </span>
                                             <i class="fa fa-clock-o pl-1"></i>
                                         </span>
@@ -99,42 +93,34 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
-                                    <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+                                <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+                                <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
                                         @if ($movie->languages)
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
-                                    <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-
+                                    <li class="meta d-in light-60 dark-110">
+                                        {{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
                                 </ul>
-
                             </div>
                         </div>
                     </div>
-
                     @endforeach
-
-
-
                 </div>
             </div>
-
             <div class="swiper-button-next swiper-n "></div>
             <div class="swiper-button-prev swiper-p"></div>
         </section>
-
     </div>
 </section>
 @endif
@@ -165,16 +151,17 @@
                             <div class="thumb-wrapper">
                                 <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
                                     <div class="abs-fit">
-                                       @if ($movie->picture)
-                                       <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
-                                       aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else
-                                      <div class="d-flex justify-content-center align-items-center h-100">
-                                        {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
-                                        aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
-                                    </div>
-                                       @endif
+                                        @if ($movie->picture)
+                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
+                                        @else
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            {{-- <img src="{{asset('assets/images/cinema.png')}}"
+                                            alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image"> --}}
+                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                        </div>
+                                        @endif
 
                                     </div>
                                     <div class="tools">
@@ -194,7 +181,8 @@
                                                 </use>
                                             </svg> </span>
                                         <span class="badge-rate">
-                                            <span> @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1) == '0')
+                                            <span> @if (substr($movie->duration,0,1) == '0' &&
+                                                substr($movie->duration,1,1) == '0')
                                                 {{substr($movie->duration,3)}}
                                                 @else
                                                 {{$movie->duration}}
@@ -208,21 +196,22 @@
 
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
-                                    <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+                                <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+                                <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
                                         @if ($movie->languages)
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
-                                    <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
+                                    <li class="meta d-in light-60 dark-110">
+                                        {{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
 
                                 </ul>
 
@@ -266,7 +255,7 @@
             <div class="col-md-7 wow slideInLeft" data-wow-duration="1s" data-wow-delay=".3s">
                 <div class="theater-slider slider-for px-2">
                     <div class="single-theater">
-                    <img src="{{asset('assets/images/theater.jpeg')}}" alt="theater thumb">
+                        <img src="{{asset('assets/images/theater.jpeg')}}" alt="theater thumb">
                         <a class="play-video" href="#">
                             <i class="fa fa-play"></i>
                         </a>
@@ -301,16 +290,17 @@
                             <div class="thumb-wrapper">
                                 <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
                                     <div class="abs-fit">
-                                       @if ($movie->picture)
-                                       <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
-                                       aria-label="{{$movie->title}}" class="thumb-image">
-                                       @else
-                                      <div class="d-flex justify-content-center align-items-center h-100">
-                                        {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
-                                        aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
-                                    </div>
-                                       @endif
+                                        @if ($movie->picture)
+                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
+                                        @else
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            {{-- <img src="{{asset('assets/images/cinema.png')}}"
+                                            alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image"> --}}
+                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                        </div>
+                                        @endif
 
                                     </div>
                                     <div class="tools">
@@ -330,11 +320,12 @@
                                                 </use>
                                             </svg> </span>
                                         <span class="badge-rate"><span>
-                                            @if (substr($movie->getEpisodesTime(),0,1) == '0' && substr($movie->getEpisodesTime(),1,1) == '0')
-                                            {{substr($movie->getEpisodesTime(),3)}}
-                                            @else
-                                            {{$movie->getEpisodesTime()}}
-                                            @endif
+                                                @if (substr($movie->getEpisodesTime(),0,1) == '0' &&
+                                                substr($movie->getEpisodesTime(),1,1) == '0')
+                                                {{substr($movie->getEpisodesTime(),3)}}
+                                                @else
+                                                {{$movie->getEpisodesTime()}}
+                                                @endif
                                             </span>
                                             <i class="fa fa-clock-o pl-1"></i>
                                         </span>
@@ -345,27 +336,28 @@
 
                                 <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
-                                    <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
+                                <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
 
 
                                         {{$movie->epizodes->count()}}
 
                                     </span></p>
-                                    <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+                                <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
                                         {{$movie->subjects->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+                                <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
                                         @if ($movie->languages)
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                    <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
-                                    <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
+                                    <li class="meta d-in light-60 dark-110">
+                                        {{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
 
                                 </ul>
 
@@ -414,9 +406,11 @@
                                     <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                                             class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                             class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-                                    <div class="center text-center m-t-n"> <a href="{{route('ShowItem',['id'=>$music->id])}}"><i
+                                    <div class="center text-center m-t-n"> <a
+                                            href="{{route('ShowItem',['id'=>$music->id])}}"><i
                                                 class="ti ti-control-play fs-2"></i></a> </div>
-                                    <div class="bottom padder m-b-sm"> <a href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
+                                    <div class="bottom padder m-b-sm"> <a
+                                            href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
                                                 class="text-info"> {{count($music->comments)}}</span><svg
                                                 class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                                 <use xlink:href="#si_comments">
@@ -428,7 +422,8 @@
                                                         <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
                                                     </g>
                                                 </use>
-                                            </svg> </a> <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
+                                            </svg> </a> <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
+                                                class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
                                             <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                                 0="" 24="" 24""="">
                                                 <use xlink:href="#si_thumb-up">
@@ -447,23 +442,24 @@
                                         </a> </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
-                                            class="fa fa-bookmark i-lg"></i> </span> </div> <a href="{{route('ShowItem',['id'=>$music->id])}}"
-                                    class="music-img">
-                                   @if($music->picture)
-                                    <img src="{{asset($music->picture)}}" width="100%;" style="height: 230px;" alt="" class="r r-2x img-full">
-                                    @else
-                                    <img src="{{asset('assets/images/p4.jpg')}}" width="100%;" style="height: 230px;" alt=""
+                                            class="fa fa-bookmark i-lg"></i> </span> </div> <a
+                                    href="{{route('ShowItem',['id'=>$music->id])}}" class="music-img">
+                                    @if($music->picture)
+                                    <img src="{{asset($music->picture)}}" width="100%;" style="height: 230px;" alt=""
                                         class="r r-2x img-full">
+                                    @else
+                                    <img src="{{asset('assets/images/p4.jpg')}}" width="100%;" style="height: 230px;"
+                                        alt="" class="r r-2x img-full">
                                     @endif
                                 </a>
                             </div>
-                            <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}" class="text-ellipsis">{{$music->title}}</a>
+                            <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
+                                    class="text-ellipsis">{{$music->title}}</a>
                                 <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
-                                <a href="#"
-                                    class="text-ellipsis text-xs text-muted">
-                                @if ($music->languages)
+                                <a href="#" class="text-ellipsis text-xs text-muted">
+                                    @if ($music->languages)
                                     {{$music->language}}
-                                @endif
+                                    @endif
                                 </a>
                                 <div class="d-flex justify-content-between mt-3">
                                     <span class="fs-0-8 text-black-50">
@@ -512,32 +508,34 @@
                 <div style="width:230px;" class="m-3">
                     <div class="card radius shadowDepth1">
                         <div class="card__image border-tlr-radius">
-                             @if ($podcast->picture)
+                            @if ($podcast->picture)
                             <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
-                              @else
+                            @else
 
-                              <img src="{{asset('assets/images/record.png')}}" alt="image" class="border-tlr-radius">
+                            <img src="{{asset('assets/images/record.png')}}" alt="image" class="border-tlr-radius">
                             @endif
                         </div>
                         <div class="card__content px-3 pb-2">
                             <div class="card__share">
-                                <a href="{{route('ShowItem',['id'=>$podcast->id])}}" id="" class=" share-icon"
-                                   ><i class="fa fa-play-circle"></i></a>
+                                <a href="{{route('ShowItem',['id'=>$podcast->id])}}" id="" class=" share-icon"><i
+                                        class="fa fa-play-circle"></i></a>
                             </div>
                             <article class="card__article mt-2 pt-3">
-                                <h2><a href="{{route('ShowItem',['id'=>$podcast->id])}}" class="fs-0-8">{{$podcast->title}}</a></h2>
+                                <h2><a href="{{route('ShowItem',['id'=>$podcast->id])}}"
+                                        class="fs-0-8">{{$podcast->title}}</a></h2>
                                 <p>{{$podcast->desc}}</p>
                             </article>
                         </div>
                         <div class="pr-3">
                             <div class="card__author">
                                 <a class="fs-0-8"> زبان: {{$movie->languages->name}}</a>
-                                <p class="">سطح:  {{$podcast->levels->name}}</p>
+                                <p class="">سطح: {{$podcast->levels->name}}</p>
                             </div>
                         </div>
                         <div class="card__meta d-flex justify-content-between px-3 pt-1">
                             <span class="text-black-50 fs-0-8">{{$podcast->languages->name}}</span>
-                            <span class="text-black-50 fs-0-8">{{\Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y')}}</span>
+                            <span
+                                class="text-black-50 fs-0-8">{{\Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y')}}</span>
                         </div>
                     </div>
                 </div>

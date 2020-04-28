@@ -14,12 +14,12 @@
     <div class="view">
         <div class="row">
             <div class="col-md-9">
-                <div class="pr-3">
+                <div class="pr-3 ml-2 ml-md-0">
                     <div id="primary" class="primary">
 
                         @include('Includes.Main.player')
-                     </div>
- 
+                    </div>
+
 
 
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
@@ -95,32 +95,47 @@
                     </div>
 
 
-                    <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
-                        <div class="avatar">
-                            @if ($content->members->avatar)
-                        <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture user-avatar">
-                                <img src="{{asset('members/1587120640.jpg')}}" alt="">
-                            </a>
-
-                            @else
-                            <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture image"
-                                style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
-                                <i class="fa fa-user  position-absolute fs-1-5 text-white"
-                                    style="right: 12px;top: 7px;"></i>
-                            </a>
-                            @endif
-
-
-                            <div class=" fs-0-8 mt-2 mr-1">
-                                <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
-                                    <h3 class="title">
-                                        <span class="name">{{$content->members->username}}</span>
-                                    </h3>
+                    <div>
+                        <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
+                            <div class="avatar">
+                                @if ($content->members->avatar)
+                                <a href="{{route('User.Show',['name'=>$content->members->username])}}"
+                                    class="picture user-avatar">
+                                    <img src="{{asset('members/1587120640.jpg')}}" alt="">
                                 </a>
+
+                                @else
+                                <a href="{{route('User.Show',['name'=>$content->members->username])}}"
+                                    class="picture image"
+                                    style="width: 40px;height: 40px;    border: 2px solid #eaeaea;">
+                                    <i class="fa fa-user  position-absolute fs-1-5 text-white"
+                                        style="right: 12px;top: 7px;"></i>
+                                </a>
+                                @endif
+
+
+                                <div class=" fs-0-8 mt-2 mr-1">
+                                    <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}"
+                                        title="{{$content->members->username}}">
+                                        <h3 class="title d-flex flex-column">
+                                            <span class="name">{{$content->members->username}}</span>
+                                            <span class="name fs-0-8">دنبال کننده ها 10</span>
+                                        </h3>
+                                    </a>
+                                </div>
                             </div>
+
+                            @if(\App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
+                            <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link followed"> <span
+                                    class="text">دنبال میکنید</span></a>
+                            @else
+                            <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i
+                                    class="fa fa-plus"></i> <span class="text">دنبال
+                                    کردن</span></a>
+
+                            @endif
                         </div>
-                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
-                                کردن</span></a>
+
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
                         <div class="avatar">
@@ -186,6 +201,12 @@
                             </div>
                         </div>
                     </div>
+                   @if ($content->type == "money")
+                   <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
+                    <h3 class="text-black-50">این {{$content->categories->name}} غیر رایگان می باشد و برای مشاهده دوره باید آن را خریداری کنید</h3>
+                    <a href="#">پرداخت</a>
+                    </div>
+                   @endif
 
                     <div id="episodes_list" class="episodes_list">
                         <div class="episodes_list--section">
@@ -197,13 +218,13 @@
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
-                                    @if(auth()->user())
-                                       @if ($content->members_id == auth()->user()->id)
-                            
-                                       <span class="btn btn-info btn-sm btn-rounded">
-                                       تعداد بازدیدها  {{$post->views}}</span>
-                                       @endif
-                                       @endif
+                                        @if(auth()->user())
+                                        @if ($content->members_id == auth()->user()->id)
+
+                                        <span class="btn btn-info btn-sm btn-rounded">
+                                            تعداد بازدیدها {{$post->views}}</span>
+                                        @endif
+                                        @endif
                                         <span class="detail-type">
                                             رایگان</span>
                                         <span class="detail-time">{{$post->duration}}
@@ -218,24 +239,24 @@
                                 <div class="section-right"><span
                                         class="episodes_list--number">{{$episode->number}}</span>
                                     <div class="episodes_list--title">
-                                   @if($isbuyedit==true)
-                                    <a href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
-                                    @endif
+                                        @if($isbuyedit==true)
+                                        <a
+                                            href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
+                                            @endif
                                             {{$episode->title}}
                                         </a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
-                                    @if(auth()->user())
-                                       @if ($content->members_id == auth()->user()->id)
-                                       <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
-                                      حذف  </span></a>
-                                       <span class="btn btn-info btn-sm btn-rounded">
-                                       تعداد بازدیدها  {{$episode->views}}</span>
-                                       @endif
-                                       @endif
-                                        <span
-                                            class="detail-time">{{$episode->duration}}</span></div>
+                                        @if(auth()->user())
+                                        @if ($content->members_id == auth()->user()->id)
+                                        <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
+                                                حذف </span></a>
+                                        <span class="btn btn-info btn-sm btn-rounded">
+                                            تعداد بازدیدها {{$episode->views}}</span>
+                                        @endif
+                                        @endif
+                                        <span class="detail-time">{{$episode->duration}}</span></div>
                                 </div>
                             </div>
 
@@ -431,4 +452,3 @@
     });
 </script>
 @endsection
-

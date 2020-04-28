@@ -4,7 +4,7 @@ namespace App\Models\Contents;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Visit extends Model
+class Advert extends Model
 {
     protected $guarded = ['id'];
 }

@@ -27,7 +27,7 @@ class IndexController extends Controller
         }
 
         $categories=Categories::all();
-        $slideshows=Slideshow::all();
+        $slideshows=Slideshow::latest()->get();
         $moveis=Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
         $animations=Posts::where('confirmed',1)->where('categories_id',2)->take(10)->get();
         $clips=Posts::where('confirmed',1)->where('categories_id',3)->take(10)->get();

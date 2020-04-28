@@ -26,7 +26,7 @@
                             <option value="" selected>دسته بندی تعریف نشده است</option>
                             @endforelse
 
- 
+
                             @else
                             @forelse (\App\Models\Contents\Categories::latest()->get() as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -103,7 +103,7 @@
                         <input type="text" class="form-control" name="url" placeholder="آدرس یکتا">
                     </div>
                 </div>
-              
+
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="desc">توضیحات : </label>
@@ -116,7 +116,7 @@
                         <textarea class="form-control" name="desc2" id="desc2" cols="30" rows="8"></textarea>
                     </div>
                 </div>
-                
+
 
                 <div class="form-footer">
                     <div class="row fileform">
@@ -138,19 +138,20 @@
     
                             </select>
                         </div> --}}
-                        <div class="form-group col-md-2">
-                            <label for="desc">قیمت:  </label>
+                        <div class="form-group col-md-4">
+                            <label for="desc">قیمت: </label>
                             <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
                             <span class="rial">ریال</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 my-2 btn--wrapper">
-                            <input type="submit" name="upload" id="upload" value="آپلود" class="btn btn-sm btn-success" />
+                            <input type="submit" name="upload" id="upload" value="آپلود"
+                                class="btn btn-sm btn-success" />
                         </div>
                     </div>
                 </div>
-               
+
 
 
 
@@ -166,7 +167,7 @@
                 <h3>آپلود قسمت های دوره: </h3>
             </div> --}}
         <hr>
-       
+
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
                 style="width: 0%">
@@ -238,7 +239,13 @@
             }
         })
 
-
+        $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+        );
 
         $("#upload-file").validate({
 		rules: {
@@ -248,6 +255,9 @@
             subject:"required",
             level:"required",
             desc:"required",
+            price:{
+                regex:/^(?:[1-9]\d*|0)$/
+            }
 		},
 		messages: {
 			
@@ -261,6 +271,9 @@
             level:"سطح علمی فایل را انتخاب کنید",
             subject:"موضوع مورد نظر خود را انتخاب کنید",
             desc:"توضیحات برای فایل الزامی است",
+            price:{
+                regex:"قیمت نمی تواند با صفر شروع شود"
+            }
 
            
 			},

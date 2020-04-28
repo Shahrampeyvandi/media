@@ -10,66 +10,117 @@ use App\Models\Contents\Posts;
 use App\Models\SlideShow\Slideshow;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpFoundation\File\File as FileFile;
 
 class SlideshowController extends Controller
 {
 
-    public function Index(){
+    public function Index()
+    {
+        $slideshows = Slideshow::all();
 
-        $slideshows=Slideshow::all();
 
-        return view('Panel.SlideShow',compact('slideshows'));
+        return view('Panel.SlideShow', compact('slideshows'));
+    }
+
+
+    public function Submit(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'link' => 'required',
+            'pic' => 'mimes:jpeg,png,jpg',
+
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error('لطفا ورودی ها را کامل کنید');
+            return back();
         }
 
+        $destinationPath = "files/slideshow/";
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+        if ($request->hasFile('pic')) {
+            $picextension = $request->file('pic')->getClientOriginalExtension();
+            $fileName = 'pic_' . time() . '.' . $picextension;
+            $request->file('pic')->move($destinationPath, $fileName);
+            $picPath = "files/slideshow/$fileName";
+        }
 
-        public function Submit(Request $request){
+        $slideshow = new Slideshow;
+        $slideshow->title = $request->title;
+        $slideshow->link = $request->link;
+        $slideshow->banner = $picPath;
 
-            $validator = Validator::make($request->all(), [
-                'title' => 'required',
-                'link' => 'required',
-                'pic' => 'mimes:jpeg,png,jpg',
-              
-            ]);
-        
-            if ($validator->fails()) {
-                return response()->json(
-                    ['errors' => 'فایل دارای فرمت نامعتبر میباشد']
-                    , 200);
-            }
+        $slideshow->save();
+        toastr()->success('اسلایدشو با موفقیت افزوده شد');
+        return back();
+    }
 
+    public function Delete(Request $request)
+    {
+
+        $slideshow = Slideshow::find($request->comment_id);
+
+        File::delete(public_path() . '/' . $slideshow->banner);
+
+        $slideshow->delete();
+
+        return back();
+    }
+
+    public function EditSlideShow($id)
+    {
+        $slideshow = Slideshow::whereId($id)->first();
+        if (!is_null($slideshow)) {
+            return view('Panel.EditSlideShow', compact('slideshow'));
+        } else {
+            toastr()->error('اسلایدشو یافت نشد');
+            return back();
+        }
+    }
+
+    public function SaveEditSlideShow(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'link' => 'required',
+            'pic' => 'nullable|mimes:jpeg,png,jpg',
+
+        ]);
+        if ($validator->fails()) {
+            toastr()->error('لطفا ورودی ها را کامل کنید');
+            return back();
+        }
+        $slideshow = Slideshow::whereId($request->id)->first();
+        if ($request->hasFile('pic')) {
+            File::delete($slideshow->banner);
             $destinationPath = "files/slideshow/";
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0755, true);
             }
-            if ($request->hasFile('pic')) {
-                $picextension = $request->file('pic')->getClientOriginalExtension();
-                $fileName = 'pic_' . time() . '.' . $picextension;
-                $request->file('pic')->move($destinationPath, $fileName);
-                $picPath = "files/slideshow/$fileName";
-            }
 
-            $slideshow= new Slideshow;
-            $slideshow->title=$request->title;
-            $slideshow->link=$request->link;
-            $slideshow->banner=$picPath;
+            $picextension = $request->file('pic')->getClientOriginalExtension();
+            $fileName = 'pic_' . time() . '.' . $picextension;
+            $request->file('pic')->move($destinationPath, $fileName);
+            $picPath = "files/slideshow/$fileName";
+        } else {
+            $picPath = $slideshow->banner;
+        }
+        Slideshow::where('id', $request->id)->update([
+            'title' => $request->title,
+            'link' => $request->link,
+            'banner' => $picPath
+        ]);
+        toastr()->success('با موفقیت آپدیت شد');
+        return back();
+    }
+    public function CreateSlideShow()
+    {
 
-            $slideshow->save();
-
-
-
-    
-            return back();
-            }
-
-            public function Delete(Request $request){
-
-                $slideshow=Slideshow::find($request->id);
-
-                File::delete(public_path() .'/'. $slideshow->banner);
-
-                $slideshow->delete();
-        
-                return back();
-                               
-                }
+        return view('Panel.CreateSlideShow');
+    }
 }

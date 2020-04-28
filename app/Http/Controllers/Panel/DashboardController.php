@@ -130,7 +130,6 @@ class DashboardController extends Controller
                 toastr()->error('فایل زیرنویس دارای فرمت نامعتبر می باشد');
                 return back();
             }
-          
                 // Upload path
                 $destinationPath = "files/posts/$request->title";
                 if ($request->file !== null) {
@@ -141,9 +140,6 @@ class DashboardController extends Controller
                     // Valid extensions
                     $fileNamevideo = 'file_' . time() . '.' . $extension;
                     $request->file('file')->move($destinationPath, $fileNamevideo);
-                    //$path = $request->file('file')->storeAs(
-                    // 'uploads', $fileNamevideo
-                    //  );
                     $filePath = "files/posts/$request->title/$fileNamevideo";
                 } else {
                     $filePath = null;
@@ -189,7 +185,7 @@ class DashboardController extends Controller
                 $post->subjects_id = $request->subject;
                 $post->levels_id = $request->level;
                 $post->media = $media;
-                $post->duration = '22';
+                $post->duration = $duration;
                 if ($request->price !== "0" || $request->price !== null) {
                     $post->type = 'money';
                     $post->price = $request->price;

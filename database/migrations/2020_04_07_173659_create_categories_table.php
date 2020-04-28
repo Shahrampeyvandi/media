@@ -59,7 +59,7 @@ class CreateCategoriesTable extends Migration
         );
         DB::table('categories')->insert(
             array(
-                'name' => 'دوره های آموزشی',
+                'name' => 'دوره آموزشی',
                 'latin_name' => 'tutorial'
 
             )

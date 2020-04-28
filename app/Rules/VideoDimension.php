@@ -29,28 +29,17 @@ class VideoDimension implements Rule
     {
        if ($this->type == 3) {
         $getID3 = new getID3;
-
-        // the value is an instance of UploadedFile
         $file = $getID3->analyze($value->getRealPath());
-
         $passes = true;
-
-        // if ($this->maxWidth < $file['video']['resolution_x']
-        //     || $this->maxHeight < $file['video']['resolution_y']){
-        //     $passes = false;
-        // }
         $time= date('H:i:s', $file['playtime_seconds']);
         if($time <  date("00:03:00")){
             $passes = true;
-
         }else{
             $passes = false;
-
         }
        }else{
            $passes = true;
        }
-
         return $passes;
     }
 
@@ -61,6 +50,6 @@ class VideoDimension implements Rule
      */
     public function message()
     {
-        return 'کلیپ نمیتواند بیشتر از 3 دقیقه بابشد';
+        return 'کلیپ نمیتواند بیشتر از 3 دقیقه باشد';
     }
 }

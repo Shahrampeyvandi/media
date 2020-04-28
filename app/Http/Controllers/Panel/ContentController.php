@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contents\Advert;
 use App\Models\Contents\Policies;
 use App\Models\Contents\ContactUs;
 use App\Models\Contents\Income;
@@ -32,7 +33,8 @@ class ContentController extends Controller
         
         $policy = Policies::where('relatedto',$type)->latest()->first();
       if (is_null($policy)) {
-          return back();
+        toastr()->warning('موردی برای ویرایش وجود ندارد');  
+        return back();
         }
         return view('Panel.EditPolicy',compact('policy'));
     }
@@ -69,6 +71,7 @@ class ContentController extends Controller
     {
         $contactus = ContactUs::latest()->first();
         if (is_null($contactus)) {
+            toastr()->warning('موردی برای ویرایش وجود ندارد');
             return back();
           }
         return view('Panel.EditContactUs',compact('contactus'));
@@ -100,4 +103,43 @@ class ContentController extends Controller
        toastr()->success('با موفقیت ذخیره شد');
        return back();
     }
+
+    public function Advert()
+    {
+        return view('Panel.Advert');
+    }
+    public function SaveAdvert(Request $request)
+    {
+    
+        if(is_null($request->content)){
+            toastr()->error('لطفا متن وارد کنید');
+            return back();
+        }
+       Advert::create([
+        'content' => $request->content
+       ]);
+       toastr()->success('با موفقیت ذخیره شد');
+       return back();
+    }
+
+    public function EditAdvert()
+    {
+        
+        $advert = Advert::latest()->first();
+        if (is_null($advert)) {
+            toastr()->warning('موردی برای ویرایش وجود ندارد');
+            return back();
+          }
+        return view('Panel.EditAdvert',compact('advert'));
+    }
+    public function SaveEditAdvert(Request $request)
+    {
+        Advert::where('id',$request->id)->update([
+            'content' => $request->content
+        ]);
+        toastr()->success('با موفقیت آپدیت شد');
+        return back();
+    }
+
+  
 }

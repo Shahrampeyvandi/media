@@ -23,6 +23,8 @@ $(document).ready(function(){
          'opacity': '1',
          'z-index': '10',})
     })
+    
+   
  
     $('.close').click(function(e){
      e.preventDefault()

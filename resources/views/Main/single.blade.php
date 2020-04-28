@@ -14,13 +14,13 @@
     <div class="view">
         <div class="row">
             <div class="col-md-9">
-                <div class="pr-3">
+                <div class="pr-3 ml-2 ml-md-0">
                     <div id="primary" class="primary">
 
-                       @include('Includes.Main.player')
+                        @include('Includes.Main.player')
                     </div>
 
-                  
+
                     <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
                         <div class="genre mb-md">
                             @foreach($content->tags as $tag)
@@ -97,7 +97,8 @@
                     <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
                         <div class="avatar">
                             @if ($content->members->avatar)
-                        <a href="{{route('User.Show',['name'=>$content->members->username])}}" class="picture user-avatar">
+                            <a href="{{route('User.Show',['name'=>$content->members->username])}}"
+                                class="picture user-avatar">
                                 <img src="{{asset('members/1587120640.jpg')}}" alt="">
                             </a>
 
@@ -111,25 +112,37 @@
 
 
                             <div class=" fs-0-8 mt-2 mr-1">
-                                <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}" title="{{$content->members->username}}">
-                                    <h3 class="title">
+                                <a id="" href="{{route('User.Show',['name'=>$content->members->username])}}"
+                                    title="{{$content->members->username}}">
+                                    <h3 class="title d-flex flex-column">
                                         <span class="name">{{$content->members->username}}</span>
+                                        <span class="name fs-0-8">دنبال کننده ها 10</span>
                                     </h3>
                                 </a>
                             </div>
                         </div>
-                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i class="fa fa-plus"></i> <span class="text">دنبال
+                       
+                        @if(\App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
+                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link followed"> <span class="text">دنبال میکنید</span></a>
+                        @else
+                        <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link"><i
+                                class="fa fa-plus"></i> <span class="text">دنبال
                                 کردن</span></a>
+
+                        @endif
+
                     </div>
                     <div class="channel rel w-100 put-right py-xl">
                         <div class="avatar">
-                            <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="picture"><svg
-                                    class="icon icon-videos" viewBox="0 0 24 24" 0="" 24="" 24""="">
+                            <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}"
+                                title="{{$content->categories->name}}" class="picture"><svg class="icon icon-videos"
+                                    viewBox="0 0 24 24" 0="" 24="" 24""="">
                                     <use xlink:href="#si_videos"></use>
                                 </svg></a>
 
                             <div class="details">
-                                <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}" title="{{$content->categories->name}}" class="title">دسته بندی:
+                                <a href="{{route('Category',['slug'=>$content->categories->latin_name])}}"
+                                    title="{{$content->categories->name}}" class="title">دسته بندی:
                                     {{$content->categories->name}}</a>
                                 <span class="caption">{{$countcategoryposts}}
                                     {{$content->categories->name}}</span>
@@ -185,6 +198,12 @@
                             </div>
                         </div>
                     </div>
+                    @if ($content->type == "money")
+                    <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
+                     <h3 class="text-black-50">این {{$content->categories->name}} غیر رایگان می باشد و برای مشاهده دوره باید آن را خریداری کنید</h3>
+                     <a href="#">پرداخت</a>
+                     </div>
+                    @endif
                     <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
 
                         <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
