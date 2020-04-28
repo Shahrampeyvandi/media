@@ -78,6 +78,10 @@ Route::middleware('auth')->group(function () {
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
+
+    Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
+    Route::post('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
+
 });
 
 // روت های مختص ادمین پنل
