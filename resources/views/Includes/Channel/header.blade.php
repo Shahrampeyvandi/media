@@ -99,10 +99,12 @@
         <a href="{{route('User.Show',['name'=>$member->username,'slug'=>'tutorial'])}}"
             class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'tutorial'])) active @endif">دوره
             های آموزشی</a>
+        @if (auth()->user()->approved == 1)
 
         <a href="{{route('User.About',['name'=>$member->username])}}" @if(request()->route()->getName() == "User.About")
             class="tabs push_btn active ml-2 px-2 mb-2" @else class="tabs push_btn ml-2 px-2 mb-2" @endif >درباره
             کانال</a>
+        @endif
 
     </div>
 

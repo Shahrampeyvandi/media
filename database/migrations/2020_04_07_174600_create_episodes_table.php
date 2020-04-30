@@ -16,7 +16,7 @@ class CreateEpisodesTable extends Migration
         Schema::create('episodes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('posts_id');
-            $table->foreign('posts_id')->references('id')->on('posts');
+            $table->foreign('posts_id')->references('id')->on('posts')->onDelete('cascade');
             $table->integer('number')->nullable();
             $table->unsignedBigInteger('categories_id')->default(6);
             $table->foreign('categories_id')->references('id')->on('categories');
@@ -35,7 +35,7 @@ class CreateEpisodesTable extends Migration
             $table->enum('type',['free','money']);
             $table->integer('price')->nullable();
             $table->unsignedBigInteger('members_id');
-            $table->foreign('members_id')->references('id')->on('members');
+            $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
             $table->boolean('confirmed')->default(0);
             $table->string('rejectreason')->nullable();
             $table->text('otheroninformation')->nullable();

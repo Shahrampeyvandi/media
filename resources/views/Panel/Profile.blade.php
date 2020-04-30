@@ -124,6 +124,8 @@
     $("#user_profile").change(function(){
         readURL(this);
     });
+
+    
     $.validator.addMethod(
     "regex",
     function(value, element, regexp) {

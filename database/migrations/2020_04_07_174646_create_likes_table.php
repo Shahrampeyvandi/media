@@ -16,11 +16,11 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('posts_id')->nullable();;
-            $table->foreign('posts_id')->references('id')->on('posts');
+            $table->foreign('posts_id')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('episodes_id')->nullable();;
-            $table->foreign('episodes_id')->references('id')->on('episodes');
+            $table->foreign('episodes_id')->references('id')->on('episodes')->onDelete('cascade');
             $table->unsignedBigInteger('members_id')->nullable();
-            $table->foreign('members_id')->references('id')->on('members');
+            $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
             $table->timestamps();
         });
     }

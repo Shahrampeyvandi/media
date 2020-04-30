@@ -35,6 +35,7 @@ class CreateMembersTable extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('approved')->default(0);
             $table->enum('ability',['admin','mid-level-admin','member'])->default('member');
+            $table->text('aboutus')->nullable();
             $table->timestamps();
         });
         DB::table('members')->insert(

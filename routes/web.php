@@ -32,6 +32,7 @@ Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterDat
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
 Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
 Route::get('/contact-us', 'MainController@ContactUs')->name('ContactUs');
+Route::get('/advert', 'MainController@Advert')->name('Advert');
 
 // Channel Routes
 Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
@@ -72,6 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::post('upload/epizode', 'Panel\PostsController@UploadEpizode')->name('UploadEpizode');
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
+    
+    Route::get('aboutus/add', 'Panel\MembersController@AddAboutUs')->name('AddAboutUs');
+    Route::post('aboutus/add', 'Panel\MembersController@SaveAboutUs')->name('AddAboutUs');
 
 
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
@@ -105,6 +109,12 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/panel/slideshow/{id}/edit', 'Panel\SlideshowController@EditSlideShow')->name('Panel.EditSlideShow');
     
     Route::post('/panel/slideshow/edit', 'Panel\SlideshowController@SaveEditSlideShow')->name('Panel.SaveEditSlideShow');
+    Route::post('/panel/slideshow/count', 'SettingController@CountSlideShow')->name('SlideShow.Count');
+    
+    Route::get('/panel/bannerpost', 'Panel\ContentController@BannerPost')->name('Panel.BannerPost');
+    Route::post('/panel/ajax/content', 'Panel\ContentController@GetAjaxContent')->name('Panel.GetAjaxContent');
+    
+        Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
 
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');

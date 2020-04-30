@@ -243,40 +243,34 @@ class DashboardController extends Controller
     }
     public function Profile()
     {
-
         $member = auth()->user();
-
-
         return view('Panel.Profile', compact('member'));
     }
 
     public function ProfileSave(Request $request)
     {
-
         $validatedData = $request->validate(
             [
+                'user_profile' => 'max:2048',
                 'user_name' => 'required', \Illuminate\Validation\Rule::unique('members')->ignore($request->id),
             ],
             [
+                'user_profile.max' => 'عکس پروفایل نمی تواند بیشتر از دو مگابایت باشد',
                 'user_name.required'    => 'نام کاربری را وارد نمایید',
                 'user_name.unique'    => 'کاربری با این نام کاربری از قبل وجود دارد',
             ]
         );
-
         $member = auth()->user();
         if ($request->hasFile('user_profile')) {
-
             $destinationPath = "files/members" . $member->id;
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0755, true);
             }
             $extension = $request->file('user_profile')->getClientOriginalExtension();
             // Valid extensions
-
             $fileName = 'avatar_' . time() . '.' . $extension;
             $request->file('user_profile')->move($destinationPath, $fileName);
             $filePath = "$destinationPath/$fileName";
-
             $member->avatar = $filePath;
         }
         $member->firstname = $request->user_name;
@@ -293,45 +287,32 @@ class DashboardController extends Controller
         toastr()->success('ویرایش اطلاعات با موفقیت انجام شد');
         return back();
     }
-
-
     public function sendmessage(Request $request)
     {
-
         $message = new Messages;
         $message->members_id = auth()->user()->id;
         $message->message = $request->message;
         $message->save();
-
         toastr()->success('نظر شما برای مدیریت ارسال گردید');
         return back();
     }
 
     public function messages()
     {
-
         $messages = Messages::all();
-
         return view('Panel.AllMessages', compact('messages'));
     }
-
     public function mymessages()
     {
-
         $messages = Messages::where('members_id', auth()->user()->id)->get();
-
-
         return view('Panel.MyMessages', compact('messages'));
     }
 
-
     public function responsemessage(Request $request)
     {
-
         $message = Messages::whereId($request->id)->first();
         $message->response = $request->response;
         $message->update();
-
         toastr()->success('پاسخ با موفقیت برای کاربر ارسال شد');
         return back();
     }

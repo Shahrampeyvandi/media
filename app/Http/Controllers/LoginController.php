@@ -164,10 +164,12 @@ class LoginController extends Controller
         //dd($request->all());
         $validatedData = $request->validate(
             [
+                'user_profile' => 'max:2048',
                 'userid' => 'unique:members,username',
                 'user_mobile' => 'unique:members,mobile',
             ],
             [
+                'user_profile.max' => 'عکس پروفایل نمی تواند بیشتر از دو مگابایت باشد',
                 'userid.unique' => 'کاربری با این نام کاربری وجود دارد',
                 'user_mobile.unique'    => 'کاربری با این شماره موبایل وجود دارد',
 

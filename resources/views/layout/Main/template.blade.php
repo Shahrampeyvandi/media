@@ -490,7 +490,7 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="#" aria-label="تبلیغات">
+                        <a href="{{route('Advert')}}" aria-label="تبلیغات">
                                 <div class="content">
                                     <span class="text">تبلیغات</span>
                                 </div>
@@ -573,6 +573,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+       
         var swiper = new Swiper('.swiper-container1', {
             spaceBetween: 5,
             nextButton: '.swiper-p',

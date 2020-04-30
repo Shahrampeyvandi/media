@@ -14,11 +14,11 @@
         </div>
         <div class="row justify-content-center">
             <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
-                @foreach ($slideshows as $slideshow)
+                @foreach ($header_slideshow as $slideshow)
                 <a href="{{$slideshow->link}}">
                     <div class="item single-client position-relative" style="height: 15rem;">
-                        <img src="{{asset($slideshow->banner)}}" alt="client logo" class="client-img">
-                       <div class="overlay-banner"></div>
+                        <img src="{{asset($slideshow->banner)}}" alt="client logo" height="100%" class="client-img">
+                        <div class="overlay-banner"></div>
                         <div class="banner-txt">
                             {!! $slideshow->title !!}
                         </div>
@@ -235,6 +235,33 @@
 @endif
 
 
+@if (!is_null($postbanner))
+<section class="filmoja-theater-area section_70 px-2 px-md-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 my-2 my-md-0  wow bounceInUp" data-wow-duration=".7s" data-wow-delay=".6s">
+                <div class="theater-left">
+                    <div class="theater-box">
+                        <div class="theater-tex pr-md-4">
+                           {!! $postbanner->text !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 wow slideInLeft" data-wow-duration="1s" data-wow-delay=".3s">
+                <div class="theater-slider slider-for px-2">
+                    <div class="single-theater">
+                        <img src="{{asset($postbanner->image)}}" alt="theater thumb">
+                    <a class="play-video" href="{{route('ShowItem',$postbanner->content_id)}}">
+                            <i class="fa fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@else
 <section class="filmoja-theater-area section_70 px-2 px-md-0">
     <div class="container">
         <div class="row">
@@ -265,6 +292,8 @@
         </div>
     </div>
 </section>
+
+@endif
 
 @if (count($learning))
 <section id="" style="padding: 40px 0;" class="list-item li" data-list="slider">
@@ -572,21 +601,19 @@
         </div>
         <div class="col-md-12">
             <div class="owl-carousel owl-theme clients-carousel dot-indicator">
-                <div class="item single-client">
-                    <img src="{{asset('assets/images/1566673202.jpg')}}" alt="client logo" class="client-img">
-                </div>
-                <div class="item single-client">
-                    <img src="{{asset('assets/images/1566673200.jpg')}}" alt="client logo" class="client-img">
-                </div>
-                <div class="item single-client">
-                    <img src="{{asset('assets/images/1566673200.jpg')}}" alt="client logo" class="client-img">
-                </div>
-                <div class="item single-client">
-                    <img src="{{asset('assets/images/1566673202.jpg')}}" alt="client logo" class="client-img">
-                </div>
-                <div class="item single-client">
-                    <img src="{{asset('assets/images/1566673202.jpg')}}" alt="client logo" class="client-img">
-                </div>
+               @foreach ($footer_slideshow as $item)
+              
+                <a href="{{$item->link}}">
+                    <div class="item single-client position-relative" >
+                        <img src="{{asset($item->banner)}}" alt="client logo" height="100%" class="client-img">
+                        <div class="overlay-banner"></div>
+                        <div class="banner-txt">
+                            {!! $item->title !!}
+                        </div>
+                    </div>
+                </a>
+            
+               @endforeach
 
             </div>
         </div>
@@ -596,4 +623,54 @@
 
 
 
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function(){
+            $('.header-carousel').owlCarousel({
+            items: <?php echo json_encode($setting->header_slide_count) ?>,
+            animateOut: 'fadeOut',
+            loop: true,
+            autoplay:true,
+            margin: 10,
+            rtl:true,
+            margin:40,
+            stagePadding:30,
+            smartSpeed:450,
+      
+    });
+
+ // 9. our clients logo carousel
+ $('.clients-carousel').owlCarousel({
+        autoplay: true,
+        loop: true,
+        rtl:true,
+        margin:15,
+        dots:true,
+        slideTransition:'linear',
+        autoplayTimeout:4500,
+        autoplayHoverPause:true,
+        autoplaySpeed:4500,
+        responsive:{
+            0:{
+                items:2
+            },
+            500: {
+                items:2
+            },
+            600:{
+                items:<?php echo json_encode($setting->footer_slide_count) ?>
+            },
+           
+
+        }
+    })
+
+
+
+
+
+        });
+</script>
 @endsection

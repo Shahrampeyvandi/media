@@ -8,7 +8,9 @@ use App\Models\Members\Members;
 use App\Models\Contents\Posts;
 use App\Models\SlideShow\Slideshow;
 use App\Models\Contents\Categories;
+use App\Models\Contents\PostBanner;
 use App\Models\Contents\Visit;
+use App\Models\Setting;
 use Morilog\Jalali\Jalalian;
 
 class IndexController extends Controller
@@ -26,8 +28,11 @@ class IndexController extends Controller
             cookie()->queue(cookie($_SERVER['REMOTE_ADDR'], null, 15));
         }
 
+        $setting = Setting::first();
         $categories=Categories::all();
-        $slideshows=Slideshow::latest()->get();
+        $postbanner = PostBanner::first();
+        $header_slideshow=Slideshow::where('type','header_slideshow')->latest()->take(8)->get();
+        $footer_slideshow=Slideshow::where('type','footer_slideshow')->latest()->take(8)->get();
         $moveis=Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
         $animations=Posts::where('confirmed',1)->where('categories_id',2)->take(10)->get();
         $clips=Posts::where('confirmed',1)->where('categories_id',3)->take(10)->get();
@@ -37,7 +42,19 @@ class IndexController extends Controller
 
         //dd($moveis[0]->languages);
 
-        return view('Main.index',compact(['categories','moveis','animations','clips','musics','podcasts','learning','slideshows']));
+        return view('Main.index',compact([
+            'setting',
+            'categories',
+            'moveis',
+            'animations',
+            'clips',
+            'musics',
+            'podcasts',
+            'learning',
+            'header_slideshow',
+            'footer_slideshow',
+            'postbanner'
+            ]));
 
     }
 }

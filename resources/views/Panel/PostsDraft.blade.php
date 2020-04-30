@@ -53,7 +53,7 @@
             </span></h2>
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead class="grey lighten-1 text-white">
                 <tr>
                     <th>ردیف</th>

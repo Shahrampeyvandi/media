@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-12 ">
         <div class="table-responsive">
-            <table class="table table-bordered table-primary " id="DataTable">
+            <table class="table table-bordered table-primary  w-100" id="DataTable">
                         <thead>
                         <tr>
                             <th scope="col">ردیف</th>

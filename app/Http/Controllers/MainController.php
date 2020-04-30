@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contents\Advert;
 use App\Models\Contents\ContactUs;
 use App\Models\Contents\Policies;
 use Illuminate\Http\Request;
@@ -34,6 +35,19 @@ class MainController extends Controller
         $content = $policy !== null ? $policy->content : '';
 
         return view('Main.policies',compact('content'));
+    }
+
+    public function Advert()
+    {
+        
+       $advert =  Advert::latest()->first();
+       if(!is_null($advert)){
+        $content = $advert->content;
+       }else{
+           $content = '';
+       }
+        return view('Main.Advert',compact('content'));
+        
     }
 
     public function ContactUs()

@@ -9,9 +9,8 @@
           <span class="mr-3 d-inline-block pr-1 pb-2" style="border-bottom: 3px solid gray;"> همه چیز درباره کانال ...</span>
        </h3>
 
-       <div>
-           {{-- !! content !! --}}
-           {! content !}
+       <div class="pr-3 my-3">
+         {!! auth()->user()->aboutus !!}
        </div>
        <h4 class="mt-5">
         <span class="mr-3 d-inline-block pr-1 pb-2" >لینک های مرتبط</span>

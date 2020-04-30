@@ -7,6 +7,7 @@ use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Members\Members;
 use App\Models\Contents\Posts;
+use App\Models\Setting;
 use App\Models\SlideShow\Slideshow;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
@@ -18,9 +19,9 @@ class SlideshowController extends Controller
     public function Index()
     {
         $slideshows = Slideshow::all();
+        $count = Setting::first()->header_slide_count;
 
-
-        return view('Panel.SlideShow', compact('slideshows'));
+        return view('Panel.SlideShow', compact(['slideshows','count']));
     }
 
 
@@ -28,14 +29,12 @@ class SlideshowController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'link' => 'required',
             'pic' => 'mimes:jpeg,png,jpg',
 
         ]);
 
         if ($validator->fails()) {
-            toastr()->error('لطفا ورودی ها را کامل کنید');
+            toastr()->error('لطفا تصویر را وارد نمایید');
             return back();
         }
 
@@ -52,6 +51,7 @@ class SlideshowController extends Controller
 
         $slideshow = new Slideshow;
         $slideshow->title = $request->title;
+        $slideshow->type = $request->slider_type;
         $slideshow->link = $request->link;
         $slideshow->banner = $picPath;
 
@@ -123,4 +123,5 @@ class SlideshowController extends Controller
 
         return view('Panel.CreateSlideShow');
     }
+   
 }

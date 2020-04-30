@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSlideshowsTable extends Migration
+class CreatePostBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateSlideshowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('slideshows', function (Blueprint $table) {
+        Schema::create('post_banners', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['header_slideshow','footer_slideshow']);
-            $table->string('title')->nullable();
-            $table->string('banner');
-            $table->string('link')->nullable();
+            $table->integer('content_id');
+            $table->string('image');
+            $table->string('text');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateSlideshowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slideshows');
+        Schema::dropIfExists('post_banners');
     }
 }

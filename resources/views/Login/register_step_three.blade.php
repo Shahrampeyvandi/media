@@ -156,6 +156,7 @@
         $('.teacher-spec').fadeOut();
       }
    });
+   
     $.validator.addMethod(
     "regex",
     function(value, element, regexp) {

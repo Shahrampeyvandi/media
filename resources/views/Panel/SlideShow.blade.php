@@ -30,8 +30,48 @@
                 class=" btn btn-success btn-sm m-0 position-absolute">افزودن</a>
         </h2>
     </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+        <form action="{{route('SlideShow.Count')}}" method="post">
+                @csrf
+                <div class="form-group ">
+                    <label for="">نوع : </label>
+                    <select name="slider_type" id="slider-type" class="form-control  custom-select">
+                       
+                       
+                        <option value="header slider" >header slider</option>
+                        <option value="client slider" >client slider</option>
+
+                    </select>
+                </div>
+                <div class="form-group ">
+                    <label for="">تعداد نمایش داده شده در صفحه</label>
+                    <select name="count" id="count" class="form-control  custom-select">
+                       
+                       
+                        <option value="1" @if ($count == 1)
+                            selected
+                        @endif >یک</option>
+                        <option value="2" @if ($count == 2)
+                        selected
+                    @endif>دو</option>
+                        <option value="3" @if ($count == 3)
+                        selected
+                    @endif>سه</option>
+                        <option value="4" @if ($count == 4)
+                        selected
+                    @endif>چهار</option>
+                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="mx-0 btn btn-sm btn-info">تایید</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
                 <tr>
                     <th>ردیف</th>

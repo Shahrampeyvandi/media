@@ -23,4 +23,25 @@ class MembersController extends Controller
     
         return view('Panel.Members',compact('members'));
     }
+
+    public function AddAboutUs()
+    {
+        return view('Panel.aboutus');
+    }
+
+    public function SaveAboutUs(Request $request)
+    {
+       
+        if(is_null($request->content)){
+            toastr()->error('لطفا متن وارد کنید');
+            return back();
+        }
+       Members::where('id',auth()->user()->id)->update([
+        'aboutus' => $request->content
+       ]);
+       toastr()->success('با موفقیت ذخیره شد');
+       return back();
+    }
+
+   
 }

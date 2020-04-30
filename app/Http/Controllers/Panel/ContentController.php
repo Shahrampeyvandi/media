@@ -7,7 +7,11 @@ use App\Models\Contents\Advert;
 use App\Models\Contents\Policies;
 use App\Models\Contents\ContactUs;
 use App\Models\Contents\Income;
+use App\Models\Contents\PostBanner;
+use App\Models\Contents\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ContentController extends Controller
 {
@@ -139,6 +143,76 @@ class ContentController extends Controller
         ]);
         toastr()->success('با موفقیت آپدیت شد');
         return back();
+    }
+
+    public function BannerPost()
+    {
+        return view('Panel.BannerPost');
+    }
+
+    public function GetAjaxContent(Request $request)
+    {
+        
+        $posts = Posts::where('categories_id',$request->type)->where('languages_id',$request->lang)->get();
+        $list = '<option value="0">باز کردن فهرست انتخاب</option>';
+      if (count($posts)) {
+        foreach ($posts as $key => $post) {
+            $list .='<option value="'.$post->id.'">'.$post->title.'</option>';
+        }
+      }
+        return response()->json(
+            $list
+            , 200);
+    
+    }
+    public function SaveBannesPost(Request $request)
+    {
+        $post = PostBanner::first();
+        $validator = Validator::make($request->all(), [
+            'pic' => 'mimes:jpeg,png,jpg',
+
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error('لطفا تصویر را وارد نمایید');
+            return back();
+        }
+
+        $destinationPath = "files/postbanner/";
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+        if ($request->hasFile('pic')) {
+            if(!is_null($post)){
+                File::delete(public_path() . '/' . $post->image);
+            }
+            $picextension = $request->file('pic')->getClientOriginalExtension();
+            $fileName = 'pic_' . time() . '.' . $picextension;
+            $request->file('pic')->move($destinationPath, $fileName);
+            $picPath = "files/postbanner/$fileName";
+        }else{
+            $picPath = is_null($post) ? 'assets/images/theater.jpeg' : $post->image;
+        }
+     
+        if(!is_null($post)){
+            PostBanner::first()->update([
+                'content_id' => $request->content,
+                'image' => $picPath,
+                'text' => $request->title,
+            ]);
+    
+        }else{
+            PostBanner::create([
+                'content_id' => $request->content,
+                'image' => $picPath,
+                'text' => $request->title,
+            ]);
+        }
+        toastr()->success('با موفقیت افزوده شد');
+            return back();
+
+
+
     }
 
   

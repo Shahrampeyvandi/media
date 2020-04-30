@@ -297,6 +297,13 @@
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.BannerPost')}}" aria-label="پست ویژه">
+                                        <div class="content">
+                                            <span class="text">پست ویژه</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Policies')}}" aria-label="قوانین">
                                         <div class="content">
                                             <span class="text">قوانین</span>
@@ -439,6 +446,14 @@
                             </svg>
                             <div class="content">
                                 <span class="text">دنبال کننده ها</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('AddAboutUs')}}" aria-label=""><i
+                                class="ti ti-pencil fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">اضافه کردن متن درباره ما</span>
                             </div>
                         </a>
                     </li>
