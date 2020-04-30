@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\UserActivation;
 use App\Mail\Welcome;
+use App\Mail\SendResetPasswordToken;
 use App\Models\ActivationCode;
 use App\Models\Members\Members;
 use App\Models\Members\PasswordReset;
@@ -319,12 +320,25 @@ class LoginController extends Controller
         $passreset->save();
 
         Mail::to($member->email)->send(
-            new Welcome()
+            new SendResetPasswordToken($member->email,$passreset->token)
         );
+
+        //event(new UserActivation($request->mobile, $code));
 
 
         $request->session()->flash('Error', 'ایمیل بازیابی رمز عبور برای شما ارسال گردید!');
 
         return back();
     }
+
+    public function forgotresetpass(Request $request)
+    {
+
+
+       
+
+
+        return view('Login.resetpassword');
+    }
+
 }

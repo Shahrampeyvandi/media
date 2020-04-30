@@ -11,7 +11,7 @@ Route::get('/logout', 'LoginController@Logout')->name('logout');
 
 Route::get('/forgot', 'LoginController@forgot')->name('forgot');
 Route::post('/forgotsendtoken', 'LoginController@forgotsendtoken')->name('forgot.sendtoken');
-Route::post('/forgotresetpass', 'LoginController@forgotresetpass')->name('forgot.resetpass');
+Route::get('/forgotresetpass', 'LoginController@forgotresetpass')->name('forgot.resetpass');
 
 
 // register routes
