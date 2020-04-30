@@ -8,6 +8,7 @@ use App\Events\UserActivation;
 use App\Mail\Welcome;
 use App\Models\ActivationCode;
 use App\Models\Members\Members;
+use App\Models\Members\PasswordReset;
 use App\Models\Students\Student;
 use App\Models\Teachers\Teacher;
 use Carbon\Carbon;
@@ -35,7 +36,7 @@ class LoginController extends Controller
 
             if (Hash::check($request->pass, $member->password)) {
                 Auth::Login($member);
-                return redirect()->route('BaseUrl');
+                return redirect()->route('Panel.Dashboard');
             } else {
                 $request->session()->flash('Error', 'نام کاربری یا رمز عبور اشتباه است');
                 return back();
@@ -54,7 +55,7 @@ class LoginController extends Controller
                 if (Hash::check($request->pass,$member->password)) {
 
                     Auth::Login($member);
-                    return redirect()->route('BaseUrl');
+                    return redirect()->route('Panel.Dashboard');
                 } else {
                     $request->session()->flash('Error', 'رمز عبور وارد شده صحیح نمی باشد');
                     return back();
@@ -86,7 +87,7 @@ class LoginController extends Controller
                 if (Hash::check($request->pass,$member->password)) {
 
                     Auth::Login($member);
-                    return redirect()->route('BaseUrl');
+                    return redirect()->route('Panel.Dashboard');
                 } else {
                     $request->session()->flash('Error', 'رمز عبور وارد شده اشتباه می باشد');
                     return back();
@@ -231,7 +232,7 @@ class LoginController extends Controller
             
             toastr()->success('به ژن برتر خوش آمدید');
 
-            return redirect()->route('BaseUrl');
+            return redirect()->route('Panel.Dashboard');
 
 
         } catch (\Illuminate\Database\QueryException $e) {
@@ -264,7 +265,7 @@ class LoginController extends Controller
 
                 Auth::login($finduser);
 
-                return redirect()->route('BaseUrl');
+                return redirect()->route('Panel.Dashboard');
             } else {
 
 
@@ -291,5 +292,39 @@ class LoginController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+
+    public function forgot()
+    {
+        return view('Login.forgot');
+    }
+
+    public function forgotsendtoken(Request $request)
+    {
+
+        $member=Members::where('email',$request->email)->first();
+
+        if(is_null($member)){
+
+            $request->session()->flash('Error', 'این ایمیل در سایت وجود ندارد');
+
+            return back();
+
+        }
+
+        $passreset=new PasswordReset;
+        $passreset->email=$member->email;
+        $passreset->token=md5(uniqid($member->email.microtime(), true));;
+        $passreset->save();
+
+        Mail::to($member->email)->send(
+            new Welcome()
+        );
+
+
+        $request->session()->flash('Error', 'ایمیل بازیابی رمز عبور برای شما ارسال گردید!');
+
+        return back();
     }
 }

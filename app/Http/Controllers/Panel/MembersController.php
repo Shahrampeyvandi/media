@@ -44,4 +44,18 @@ class MembersController extends Controller
     }
 
    
+    public function chageability(Request $request)
+    {
+       
+        $member=Members::where('id',$request->id)->first();
+        if($request->type==1){
+            $member->ability='mid-level-admin';
+        }else{
+            $member->ability='member';
+        }
+        $member->update();
+        
+       toastr()->success('با موفقیت ذخیره شد');
+       //return back();
+    }
 }

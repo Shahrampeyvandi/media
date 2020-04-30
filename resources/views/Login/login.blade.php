@@ -33,6 +33,11 @@
                         <button type="submit" class="btn btn-sm btn-primary mx-2">ثبت نام</button>
                         <hr/>
                     </form>
+                    <form action="{{route('forgot')}}" method="get" class="form-inline">
+                        <label>رمز عبور خود را فراموش کرده اید؟</label>
+                        <button type="submit" class="btn btn-sm btn-primary mx-2">فراموشی رمز عبور</button>
+                        <hr/>
+                    </form>
                 </div>
             </div>
         </div>
