@@ -22,9 +22,10 @@ class PayController extends Controller
         $purchase->payedprice=$post->price;
         $purchase->save();
 
+
         $data = array('MerchantID' => '03824fe6-dfba-11e9-80d6-000c295eb8wc',
         'Amount' => $post->price,
-        'CallbackURL' => 'http://genebarter.ir/pay/callback?id='.$purchase->id,
+        'CallbackURL' => route('Pay.CallBack').'?id='.$purchase->id,
         'Description' => 'پرداخت صورت حساب');
        $jsonData = json_encode($data);
        //$ch = curl_init('https://www.zarinpal.com/pg/rest/WebGate/PaymentRequest.json');
@@ -46,24 +47,31 @@ class PayController extends Controller
         echo "cURL Error #:" . $err;
        } else {
         if ($result["Status"] == 100) {
+            $link='https://sandbox.zarinpal.com/pg/StartPay/'.$result["Authority"];
+            return redirect($link);
+
        // header('Location: https://www.zarinpal.com/pg/StartPay/' . $result["Authority"]);
-        header('Location: https://sandbox.zarinpal.com/pg/StartPay/' . $result["Authority"]);
+        //header('Location: https://sandbox.zarinpal.com/pg/StartPay/' . $result["Authority"]);
 
         } else {
         echo'ERR: ' . $result["Status"];
         }
        }
 
+       //dd($result);
 
 
-        return view('Mian.Pay',compact('purchase'));
+
+        //return back();
     }
 
     public function callback(Request $request){
 
-        $purchase=Purchase::where('id',$request->id);
+
+        $purchase=Purchase::where('id',$request->id)->first();
  
 
+        $Authority = $request->Authority;
 
  $data = array('MerchantID' => '03824fe6-dfba-11e9-80d6-000c295eb8wc', 'Authority' => $Authority, 'Amount' => $purchase->payedprice);
  $jsonData = json_encode($data);
@@ -93,20 +101,46 @@ $err = curl_error($ch);
 
  $purchase->update();
 
+ $cashadmin=$purchase->payedprice*50/100;
+ $cashteacher=$purchase->payedprice-$cashadmin;
 
- header('Location: http://genebartar.ir/content/' . $purchase->posts_id);
+ $member=Members::where('id',$purchase->posts->members_id)->first();
+ $member->wallet+=$cashteacher;
+ $member->update();
+
+ //header('Location: http://genebartar.ir/content/' . $purchase->posts_id);
+
+
+ toastr()->success('پرداخت با موفقیت انجام گردید!');
+ return redirect(route('Purchase.My'));
+
 
  } else {
     $purchase->payinfo='پرداخت ناموفق </br>'.$result['Status'];
     $purchase->update();
+    toastr()->error('پرداخت نا موفق بود');
+    return redirect(route('Purchase.My'));
 
-
- header('Location: http://genebartar.ir/content/' . $purchase->posts_id);
+ //header('Location: '.route('Purchase.My'));
  }
  }
         
 
         return view('Mian.Pay',compact('purchase'));
+    }
+
+
+    public function Checkout(Request $request){
+
+        //dd($request->all());
+        $member=Members::where('id',$request->id)->first();
+
+        $member->wallet=0;
+
+        $member->update();
+
+        toastr()->success('تسویه حساب با موفقیت انجام گردید!');
+        return back();
     }
 
 }

@@ -22,7 +22,8 @@ class PurchaseController extends Controller
     public function mypurchase()
     {
 
-        $purchases=Purchase::all();
+        //dd(auth()->user());
+        $purchases=Purchase::where('members_id',auth()->user()->id)->get();
 
 
     

@@ -14,7 +14,6 @@
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th >کاربر</th>
                 <th >دوره</th>
                 <th >هزینه پرداخت شده</th>
                 <th >اطلاعات پرداخت</th>
@@ -28,10 +27,7 @@
             @foreach($purchases as $key=>$purchase)
             <tr>
             <td>{{$key+1}}</td>
-            <td><a href="{{route('User.Videos',['name'=>$purchase->members->username])}}">
-            {{$purchase->members->username}}
-            </a>
-            </td>
+
             <td><a href="{{route('ShowItem',['id'=>$purchase->posts->id])}}">
             {{$purchase->posts->title}}
             </a></td>

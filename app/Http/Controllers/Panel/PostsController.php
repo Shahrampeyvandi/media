@@ -389,7 +389,7 @@ class PostsController extends Controller
         }
         $getID3 = new \getID3;
         $file = $getID3->analyze($filePathepisode);
-        $duration = date('H:i:s', $file['playtime_seconds']);
+        $duration = gmdate('H:i:s', $file['playtime_seconds']);
 
         $newepisode = new Episodes();
         $newepisode->posts_id = $request->post_id;
