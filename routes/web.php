@@ -38,11 +38,11 @@ Route::get('/contact-us', 'MainController@ContactUs')->name('ContactUs');
 Route::get('/advert', 'MainController@Advert')->name('Advert');
 
 // Channel Routes
-Route::get('{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
-Route::get('{name}/about', 'Front\ProfileController@About')->name('User.About');
+Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
+Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
 Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
 Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
-Route::get('{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
+Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
 
 
 // routes where must login
@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/dashboard', 'Panel\DashboardController@index')->name('Panel.Dashboard');
     Route::get('/panel/upload', 'Panel\DashboardController@UploadFile')->name('UploadFile');
     Route::post('/panel/upload', 'Panel\DashboardController@SubmitUploadFile')->name('sUploadFile');
-
+    
     Route::get('/panel/{id}/episode', 'Panel\DashboardController@UploadEpisode')->name('Tutorial.CreateEpisode');
     Route::get('/panel/profile', 'Panel\DashboardController@Profile')->name('Profile');
     Route::post('/panel/profile/Submit', 'Panel\DashboardController@ProfileSave')->name('Profile.Submit');
@@ -76,31 +76,29 @@ Route::middleware('auth')->group(function () {
     Route::post('upload/epizode', 'Panel\PostsController@UploadEpizode')->name('UploadEpizode');
     Route::get('notifications', 'Panel\NotificationsController@Index')->name('Notifications');
     Route::get('notifications/read', 'Panel\NotificationsController@Read')->name('Notifications.Read');
-
+    
     Route::get('aboutus/add', 'Panel\MembersController@AddAboutUs')->name('AddAboutUs');
     Route::post('aboutus/add', 'Panel\MembersController@SaveAboutUs')->name('AddAboutUs');
 
 
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
-
-    Route::get('panel/message/{id}/delete', 'Panel\DashboardController@DeleteMyMessage')->name('MyMessage.Delete');
-
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
 
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
     Route::get('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
+
 });
 
 // روت های مختص ادمین پنل
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
     Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
     Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
-    Route::get('/panel/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
-    Route::get('/panel/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
-    Route::get('/panel/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
+    Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
+    Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
     Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
+    Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
     Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
     Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
     Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
@@ -110,16 +108,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SaveSlideShow');
     Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
     Route::get('panel/slideshow/create', 'Panel\SlideshowController@CreateSlideShow')->name('Panel.CreateSlideShow');
-
+    
     Route::get('/panel/slideshow/{id}/edit', 'Panel\SlideshowController@EditSlideShow')->name('Panel.EditSlideShow');
-
+    
     Route::post('/panel/slideshow/edit', 'Panel\SlideshowController@SaveEditSlideShow')->name('Panel.SaveEditSlideShow');
     Route::post('/panel/slideshow/count', 'SettingController@CountSlideShow')->name('SlideShow.Count');
-
+    
     Route::get('/panel/bannerpost', 'Panel\ContentController@BannerPost')->name('Panel.BannerPost');
     Route::post('/panel/ajax/content', 'Panel\ContentController@GetAjaxContent')->name('Panel.GetAjaxContent');
-
-    Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
+    
+        Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
 
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
@@ -135,7 +133,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('panel/savecontactus', 'Panel\ContentController@SaveContactUs')->name('Panel.SaveContactUs');
     Route::post('panel/saveditcontactus', 'Panel\ContentController@SaveEditContactUs')->name('Panel.SaveEditContactUs');
     Route::get('panel/income', 'Panel\ContentController@Income')->name('Panel.Income');
-
+   
     Route::get('panel/advert', 'Panel\ContentController@Advert')->name('Panel.Advert');
     Route::get('panel/editadvert', 'Panel\ContentController@EditAdvert')->name('Panel.EditAdvert');
     Route::post('panel/saveadvert', 'Panel\ContentController@SaveAdvert')->name('Panel.SaveAdvert');
