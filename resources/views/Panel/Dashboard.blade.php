@@ -4,23 +4,23 @@
 <div class="container-fluid boxShadow p-5">
 
     <div class="row justify-content-center">
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <a href="{{route('MyVideos')}}">
                 <div class="small-box"
                     style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
                     <div class="inner ">
                         <h3 class="text-white">{{$countfilms}}</h3>
-                        <p class="text-white fs-1-5">فیلم ها</p>
+                        <p class="text-white fs-1-5">فیلم و سریال </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-exclamation"></i>
+                        <i class="fas fa-video"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <a href="{{route('MyVideos','animations')}}">
                 <div class="small-box" style="    padding: 20px;
@@ -30,17 +30,17 @@
                     <div class="inner">
                         <h3 style="color: white !important;">{{$countanimations}}<sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">انیمیشن ها</p>
+                        <p class="text-white fs-1-5">انیمیشن </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-radiation-alt"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <a href="{{route('MyVideos','clips')}}">
                 <div class="small-box" style="    padding: 20px;
@@ -51,17 +51,17 @@
                     <div class="inner">
                         <h3 style="color: white !important;">{{$countclips}}<sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">کلیپ ها</p>
+                        <p class="text-white fs-1-5">ژن پلاس</p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-film"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <a href="{{route('MyAudios')}}">
                 <div class="small-box" style="    padding: 20px;
@@ -71,17 +71,17 @@
                     <div class="inner">
                         <h3 style="color: white !important;">{{$countmusics}}<sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">موسیقی ها</p>
+                        <p class="text-white fs-1-5">موسیقی </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-music"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <a href="{{route('MyAudios','podcasts')}}">
                 <div class="small-box" style="    padding: 20px;
@@ -92,17 +92,17 @@
                     <div class="inner">
                         <h3 style="color: white !important;">{{$countpodcasts}}<sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">پادکست ها</p>
+                        <p class="text-white fs-1-5">پادکست </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-compact-disc"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             @if (auth()->user()->group !== "student")
             <a href="{{route('MyTutorials')}}">
@@ -117,7 +117,7 @@
                         <div class="inner">
                             <h3 style="color: white !important;">{{$countlearnings}}<sup style="font-size: 20px"></sup>
                             </h3>
-                            <p class="text-white fs-1-5">دوره های آموزشی</p>
+                            <p class="text-white fs-1-5">دوره آموزشی</p>
                         </div>
                         <div class="fs-2">
                             <i class="fas fa-cubes"></i>
@@ -126,7 +126,7 @@
                 </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             @if (auth()->user()->group == "admin")
             <a href="{{route('Panel.Comments.All')}}">
@@ -136,17 +136,17 @@
                     <div class="small-box"
                         style="padding:20px; box-shadow: 0 6px 20px 0 rgba(29,233,182,.5)!important; background: linear-gradient(-45deg,#43a047,#1de9b6)!important; color: #fff;border-radius: 7px;">
                         <div class="inner">
-                            <h3>{{$countcomments}}</h3>
+                            <h3 style="color: white !important;">{{$countcomments}}</h3>
 
                             <p class="text-white fs-1-5">دیدگاه ها</p>
                         </div>
                         <div class="fs-2">
-                            <i class="fas fa-dice-d20"></i>
+                            <i class="fas fa-comments"></i>
                         </div>
                     </div>
                 </a>
         </div>
-        <div class="col-lg-3 col-xs-6 my-3">
+        {{-- <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <div class="small-box"
                 style=" 
@@ -163,8 +163,8 @@
                     <i class="fas fa-file"></i>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-xs-6 my-3">
+        </div> --}}
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <div class="small-box" style="border-radius: 7px;
                             padding: 21px;
@@ -172,7 +172,7 @@
                             background: linear-gradient(-45deg,#0288d1,#26c6da)!important;
                         ">
                 <div class="inner">
-                    <h3 style="color: white !important;">0</h3>
+                <h3 style="color: white !important;">{{$followers}}</h3>
 
                     <p class="text-white fs-1-5">دنبال کننده ها</p>
                 </div>

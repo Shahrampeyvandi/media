@@ -120,6 +120,7 @@ class LoginController extends Controller
 
             event(new UserActivation($request->mobile, $code));
             session()->put('email', $request->mobile);
+            session()->put('success_step1','success');
             return  redirect()->route('SignUp.Verify', $request->mobile);
         } elseif (preg_match("/^09[0-9]{9}$/", $request->mobile)) {
             // event(new UserActivation($request->mobile,$code));
@@ -147,6 +148,7 @@ class LoginController extends Controller
     {
         $activationCode_OBJ = ActivationCode::where('v_code', $request->code)->first();
         if ($activationCode_OBJ) {
+            session()->put('success_step2','success');
             return redirect()->route('SignUp.Final');
         } else {
             return back();
@@ -160,7 +162,6 @@ class LoginController extends Controller
 
     public function registerStepThree(Request $request)
     {
-
         //dd($request->all());
         $validatedData = $request->validate(
             [
@@ -175,8 +176,6 @@ class LoginController extends Controller
 
             ]
         );
-
-
         if ($request->hasFile('user_profile')) {
             // Upload path
             $destinationPath = public_path('members/');
@@ -220,19 +219,13 @@ class LoginController extends Controller
             $member->group = $request->user_role;
             $member->ability = 'member';
             $member->save();
-
-            
             Auth::Login($member);
-
-
             Mail::to($member->email)->send(
                 new Welcome()
             );
-            
+            session()->put('success_step3','success');
             toastr()->success('به ژن برتر خوش آمدید');
-
-            return redirect()->route('BaseUrl');
-
+            return redirect()->route('Panel.Dashboard');
 
         } catch (\Illuminate\Database\QueryException $e) {
             $request->session()->flash('Error', 'ذخیره اطلاعات با مشکل مواجه شد');
@@ -246,7 +239,6 @@ class LoginController extends Controller
         return redirect()->route('BaseUrl');
     }
 
-
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -255,9 +247,7 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         try {
-
             $user = Socialite::driver('google')->user();
-
             $finduser = Members::where('google_id', $user->id)->first();
 
             if ($finduser) {

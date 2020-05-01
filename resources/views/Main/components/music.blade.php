@@ -36,7 +36,17 @@
                         </use>
                     </svg>
 
-                </a> </div>
+                </a>  <span class="badge-rate badge-rate float-left text-white-80"><span>
+                    @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
+                    == '0')
+                    {{substr($music->duration,3)}}
+                    @else
+                    {{$music->duration}}
+                    @endif
+                </span>
+                <i class="fa fa-clock-o pl-1"></i>
+            </span>
+        </div>
         </div>
         <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                     class="fa fa-bookmark i-lg"></i> </span> </div> <a href="#"

@@ -33,7 +33,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
-            style="margin-right: 0px;"><span class="title__divider__wrapper"> دنبال کنندگان من<span
+            style="margin-right: 0px;"><span class="title__divider__wrapper"> پیام های کاربران<span
                     class="line brk-base-bg-gradient-right"></span>
             </span></h2>
      
@@ -43,7 +43,7 @@
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th style="width: 600px"> متن</th>
+                <th style=""> متن</th>
                 <th> کاربر ارسال کننده</th>
                 <th> پاسخ شما</th>
                 <th> تاریخ ثبت</th>
@@ -55,11 +55,12 @@
             @foreach($messages as $key=>$message)
             <tr>
             <td>{{$key+1}}</td>
-            <td>{{$message->message}}</td>
-            <td>{{$message->members->username}}</td>
+            <td>{!!$message->message!!}</td>
+            <td><a class="text-primary" href="{{route('User.Show',$message->members->username)}}">
+                {{$message->members->username}}</a></td>
             <td>
             @if($message->response)
-            {{$message->response}}
+            {!!$message->response!!}
             @else
             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                     

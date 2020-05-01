@@ -118,8 +118,16 @@
     <main id="main" class="main" data-sidebar>
 
         @if (auth()->check())
-        <a href="#" class="account-icon"><i class="fa fa-user"></i>
+        @if (auth()->user()->avatar)
+            <a href="#" class="account-icon p-0 " >
+            <img src="{{asset(auth()->user()->avatar)}}" alt="">
         </a>
+             @else 
+             <a href="#" class="account-icon " >
+             <i class="fa fa-user"></i>
+            </a>
+            @endif
+
         <div class="dropdown-content" style="display:none;">
             <div class="menu-wrapper">
                 <ul class="menu-list">
@@ -217,6 +225,9 @@
                                     </use>
                                 </svg>
                             </button>
+                            <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
+                                <img src="{{asset('assets/images/LOGO.jpeg')}}" width="52px;" alt="">
+                                </a>
                         </div>
 
                     </div>
@@ -280,6 +291,7 @@
                                 </use>
                             </svg>
                         </button>
+                        
                     </div>
                     <div id="suggestions" class="search-suggestion">
 
@@ -305,7 +317,7 @@
         <aside id="sidebar" class="sidebar">
 
             <div class="sidebar-inner" data-simplebar data-simplebar-direction=rtl>
-                <div class="sidebar-toggle">
+                <div class="inline-flex sidebar-toggle">
                     <div class="toggle">
                         <button type="button"
                             class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
@@ -313,14 +325,11 @@
                                 <use xlink:href="#si_cats"></use>
                             </svg>
                         </button>
+                        
                     </div>
+                   
                     <div class="logo">
-                        <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو">
-                            <svg class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
-                                viewBox="viewBox=" 0 0 90 31.89 "">
-                                <use xlink:href="#si_logo-fa"></use>
-                            </svg></a>
+                        
                     </div>
                 </div>
 

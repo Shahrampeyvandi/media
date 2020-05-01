@@ -196,49 +196,39 @@ class PostsController extends Controller
          $post = Posts::whereId(request()->id)->first();
         
             if ($update_post){
-                Notifications::where('posts_id',request()->id)->update([
-                    'title' => 'پیام مدیر سایت',
-                    'text' => 'پست شما با عنوان '.$post->title.' تایید و در سایت قرار گرفت',
-                    'read'=>0
-                    ]);
+                $notification=new Notifications;
+                $notification->members_id=$post->members_id;
+                $notification->title='پیام مدیر سایت';
+                $notification->text= 'پست شما با عنوان '.$post->title.' تایید و در سایت قرار گرفت';
+                $notification->posts_id=$post->id;
+                $notification->save();
+               
             }
 
 
         // send notifications to user where post
         toastr()->success('محتوا با موفقیت تایید شد');
-        return back();
+        return redirect()->route('Panel.Posts.Unconfirmed');
     }
 
     public function reject(Request $request)
     {
-      
-
+    
         $validator = Validator::make($request->all(), [
-               
             'post_id' => 'required',
             'reason' => 'required'
-        
-        ]);
 
-    
-        
+        ]);
     if ($validator->fails()) {
         return back();
     }
-
     $post=Posts::whereId($request->post_id)->first();
-       
-
-
         $notification=new Notifications;
-
         $notification->members_id=$request->member_id;
         $notification->title='پست شما تایید نشد!';
-        $notification->text='پست اخیر شما با نام '.$post->title.' به دلیل '.$post->rejectreason.' توسط مدیر رد تایید گردید.';
+        $notification->text='پست اخیر شما با نام '.$post->title.' به دلیل '.$request->reason.' توسط مدیر رد تایید گردید.';
         $notification->posts_id=$post->id;
-
         $notification->save();
-
         $post->update([
             'confirmed'=>2,
             'rejectreason'=>$request->reason
@@ -249,13 +239,16 @@ class PostsController extends Controller
 
     public function ReadNoty(Request $request)
     {
-       
-        $notification=Notifications::whereId($request->id)->first();
-        $notification->read=1;
-        $notification->update();
+        $notification=Notifications::findOrFail($request->id);
+    
+      
+        if($notification->delete()){
+            return response()->json(
+               true
+                , 200);
+        }
         
     }
-
     public function Delete(Request $request)
     {
        

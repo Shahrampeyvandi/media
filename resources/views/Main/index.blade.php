@@ -438,7 +438,9 @@
                                     <div class="center text-center m-t-n"> <a
                                             href="{{route('ShowItem',['id'=>$music->id])}}"><i
                                                 class="ti ti-control-play fs-2"></i></a> </div>
-                                    <div class="bottom padder m-b-sm"> <a
+                                    <div class="bottom padder m-b-sm"> 
+                                       
+                                        <a
                                             href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
                                                 class="text-info"> {{count($music->comments)}}</span><svg
                                                 class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
@@ -451,7 +453,9 @@
                                                         <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
                                                     </g>
                                                 </use>
-                                            </svg> </a> <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
+                                            </svg> 
+                                        </a>
+                                             <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
                                                 class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
                                             <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                                 0="" 24="" 24""="">
@@ -468,7 +472,18 @@
                                                 </use>
                                             </svg>
 
-                                        </a> </div>
+                                        </a> 
+                                        <span class="badge-rate badge-rate float-left text-white-80"><span>
+                                            @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
+                                            == '0')
+                                            {{substr($music->duration,3)}}
+                                            @else
+                                            {{$music->duration}}
+                                            @endif
+                                        </span>
+                                        <i class="fa fa-clock-o pl-1"></i>
+                                    </span>
+                                    </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                                             class="fa fa-bookmark i-lg"></i> </span> </div> <a
@@ -484,7 +499,9 @@
                             </div>
                             <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
                                     class="text-ellipsis">{{$music->title}}</a>
-                                <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
+                                    <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
+                                    <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
+
                                 <a href="#" class="text-ellipsis text-xs text-muted">
                                     @if ($music->languages)
                                     {{$music->language}}

@@ -119,10 +119,10 @@
                               <input type="text" placeholder="مقطع تحصیلی" class="form-control" name="user_level" id="user_level">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="text" placeholder="سابقه تدریس" class="form-control" name="user_history" id="user_history">
+                              <input type="text" placeholder="دوره های تدریس شده" class="form-control" name="user_history" id="user_history">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="text" placeholder="حق سنوات" class="form-control" name="user_sanavat" id="user_sanavat">
+                              <input type="text" placeholder="سنوات تدریس" class="form-control" name="user_sanavat" id="user_sanavat">
                             </div>
                           
                           
@@ -184,7 +184,8 @@
 			},
 		user_mobile: {
 				
-      required: true
+      required: true,
+      regex:/^09[0-9]{9}$/
 			},
       user_history:{
         required: function(element){
@@ -225,12 +226,13 @@
 				equalTo: "رمز عبور وارد شده مطابقت ندارد"
 			},
       user_mobile:{
-        required:"شماره موبایل الزامی میباشد"
+        required:"شماره موبایل الزامی میباشد",
+        regex:"موبایل دارای فرمت نامعتبر می باشد"
       },
       user_responsibility:"انتخاب نقش الزامی است",
       user_role:"نقش خود را انتخاب کنید",
-      user_history:{required:"سابقه تدریس الزامی میباشد"}
-    ,user_sanavat:{required:"سابقه سنوات را وارد نمایید"}
+      user_history:{required:"دوره هایی که تدریس کرده اید را وارد کنید"}
+    ,user_sanavat:{required:"سنوات تدریس خود را وارد کنید"}
     ,user_certificate:{required:" مدرک تحصیلی را وارد نمایید"}
     ,user_level:{required:"مقطع تحصیلی را وارد نمایید"}
 

@@ -113,6 +113,7 @@
                             <input type="file" class="form-control" name="subtitle" id="subtitle" />
                         </div>
                     </div>
+                    @if (auth()->user()->group !== "student")
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="desc">قیمت: </label>
@@ -120,6 +121,7 @@
                             <span class="rial">ریال</span>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-3 my-2 btn--wrapper">
                             <input type="submit" name="upload" id="upload" value="آپلود"

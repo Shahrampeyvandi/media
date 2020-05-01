@@ -209,9 +209,17 @@
                         <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
                         @if (count($comments))
                         @foreach ($comments as $comment)
-                        <div class="row mr-2 ml-5 mb-2" style="   background: #e9e9ff;
-                                border-radius: 5px;
-                                padding: 10px;">
+                        <div class="row mr-2 ml-5 mb-2" 
+                        @if ($countbestcomments == 1 && $bestcomment_id == $comment->id)
+                            style="background: #daf5d7;
+                            border-radius: 5px;
+                            padding: 10px;"
+                        @else 
+                            style="   background: #e9e9ff;
+                            border-radius: 5px;
+                            padding: 10px;"
+                        @endif
+                        >
                             <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
@@ -257,12 +265,18 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->get()
+                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->latest()->get()
                         as
                         $comment_l2)
-                        <div class="row mr-3 ml-2 mb-2" style="   background: #e9e9ff;
-                                                       border-radius: 5px;
-                                                       padding: 10px;">
+                        <div class="row mr-3 ml-2 mb-2" @if ($countbestcomments == 1 && $bestcomment_id == $comment_l2->id)
+                            style="background: #daf5d7;
+                            border-radius: 5px;
+                            padding: 10px;"
+                        @else 
+                            style="   background: #e9e9ff;
+                            border-radius: 5px;
+                            padding: 10px;"
+                        @endif>
                             <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
@@ -308,11 +322,17 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->get()
+                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->latest()->get()
                         as $comment_l3)
-                        <div class="row mr-5 ml-2 mb-2" style="   background: #e9e9ff;
+                        <div class="row mr-5 ml-2 mb-2" @if ($countbestcomments == 1 && $bestcomment_id == $comment_l3->id)
+                            style="background: #daf5d7;
                             border-radius: 5px;
-                            padding: 10px;">
+                            padding: 10px;"
+                        @else 
+                            style="   background: #e9e9ff;
+                            border-radius: 5px;
+                            padding: 10px;"
+                        @endif>
                             <div class="col-3 col-md-1 pl-0">
                                 <div class="w-100 d-flex justify-content-center pt-3">
                                     <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
@@ -383,8 +403,27 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
 <script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
 <script>
+    var controls =
+[
+    'play-large', // The large play button in the center
+    
+    'rewind', // Rewind by the seek time (default 10 seconds)
+    'play', // Play/pause playback
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'progress', // The progress bar and scrubber for playback and buffering
+    'current-time', // The current time of playback
+    'duration', // The full duration of the media
+    'mute', // Toggle mute
+    'volume', // Volume control
+    'captions', // Toggle captions
+    'settings', // Settings menu
+    'pip', // Picture-in-picture (currently Safari only)
+    'airplay', // Airplay (currently Safari only)
+    'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+    'fullscreen' // Toggle fullscreen
+];
     const player = new Plyr('#player',{
-
+        controls
     });
 </script>
 @endsection

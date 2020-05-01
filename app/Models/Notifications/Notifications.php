@@ -12,4 +12,8 @@ class Notifications extends Model
     {
         return $this->belongsTo(Posts::class);
     }
+    public function setTextAttribute($value)
+    {
+        return $this->attributes['text']= nl2br($value);
+    }
 }

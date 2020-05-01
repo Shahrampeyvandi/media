@@ -25,15 +25,12 @@
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/sweet-alert.js"></script> --}}
-
     @yield('css')
     <script>
         var isMobile = false;
     </script>
 </head>
-
 <body class="device-desktop theme-light">
-
     <div class="load-progress hidden">
         <div class="bar"></div>
     </div>
@@ -55,7 +52,9 @@
                                 </svg>
                             </button>
 
-                            <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 btn-main">صفحه اصلی</a>
+                            <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
+                            <img src="{{asset('assets/images/LOGO.jpeg')}}" width="52px;" alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="item">
@@ -234,7 +233,11 @@
                             <a class="menu-link position-relative" aria-label=""><i
                                     class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
-                                    <span class="text">پست ها</span>
+                                    <span class="text">پست ها 
+                                        @if (\App\Models\Contents\Posts::where('confirmed',0)->count())
+                                        <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
+                                        @endif
+                                    </span>
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
@@ -382,7 +385,7 @@
                     </li>
                     <li class="menu-item-link">
                         <a href="{{route('MyAudios')}}" aria-label=""><i
-                                class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
+                                class="fa fa-music fs-1-2 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">فایل های صوتی من</span>
                             </div>
@@ -392,18 +395,18 @@
                         <a href="{{route('MyTutorials')}}" aria-label=""><i
                                 class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">دوره های آموزشی من</span>
+                                <span class="text">دوره های آموزشی خریداری شده</span>
                             </div>
                         </a>
                     </li>
-                    <li class="menu-item-link">
+                    {{-- <li class="menu-item-link">
                         <a href="{{route('UnsubscribeFiles')}}" aria-label=""><i
                                 class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">فایل های منتشر نشده</span>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="menu-item-link">
                         <a href=" {{route('Panel.Comments')}} " aria-label="گیم"><svg class="icon icon-comments"
                                 viewBox="0 0 24 24" 0="" 24="" 24""="">
@@ -442,16 +445,14 @@
                         <a href="{{route('Purchase.My')}}" aria-label=""><i
                                 class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">دوره های خریداری من</span>
+                                <span class="text">لیست تراکنش ها</span>
                             </div>
                         </a>
                     </li>
                     @endif
                     <li class="menu-item-link">
-                        <a href="{{route('Panel.MyFollowers')}}" aria-label="گیم"><svg class="icon icon-gamepad"
-                                viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                                <use xlink:href="#si_gamepad"></use>
-                            </svg>
+                        <a href="{{route('Panel.MyFollowers')}}" aria-label="گیم">
+                            <i class="fa fa-users text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">دنبال کننده ها</span>
                             </div>
@@ -523,11 +524,8 @@
     <script>
         $('.noty-link').click(function(e){
         e.preventDefault()
-
         let id = $(this).data('id')
-
        var thiss = $(this)
-
         $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -540,8 +538,10 @@
             dataType: 'JSON',
             cache:false,
             success: function(res) {
-
-                $('.dropdown-content').removeClass('lighten-1').addClass('lighten-2')
+               if(res === true){
+                thiss.parents('li').remove()
+               }
+               
             }
     });
 
