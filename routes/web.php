@@ -9,6 +9,9 @@ Route::get('/login', 'LoginController@index')->name('login');
 Route::post('/login', 'LoginController@verifyLogin')->name('Login');
 Route::get('/logout', 'LoginController@Logout')->name('logout');
 
+Route::get('/forgot', 'LoginController@forgot')->name('forgot');
+Route::post('/forgotsendtoken', 'LoginController@forgotsendtoken')->name('forgot.sendtoken');
+Route::get('/forgotresetpass', 'LoginController@forgotresetpass')->name('forgot.resetpass');
 
 
 // register routes
@@ -138,4 +141,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('panel/saveadvert', 'Panel\ContentController@SaveAdvert')->name('Panel.SaveAdvert');
     Route::post('panel/saveditadvert', 'Panel\ContentController@SaveEditAdvert')->name('Panel.SaveEditAdvert');
     Route::post('panel/checkout', 'Front\PayController@Checkout')->name('Panel.Checkout');
+
+    Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
+
+
+   
+
 });

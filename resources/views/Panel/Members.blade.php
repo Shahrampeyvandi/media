@@ -65,6 +65,7 @@
                 <th>ایمیل</th>
                 @if (request()->path() == "panel/members/teacher")
                 <th>موجودی کیف پول</th>
+                <th>نقش مدیریت</th>
                  @endif
                 <th>تاریخ عضویت</th>
                 <th>وضعیت</th>
@@ -90,6 +91,25 @@
             <div class="btn-group" role="group" aria-label="">
                     <a  data-id="{{$member->id}}" class="delete-post btn btn-rounded btn-danger btn-sm m-0">تسویه</a>
                   </div>
+            </td>
+
+            <td>
+            @if($member->ability =='mid-level-admin')
+
+            ادمین
+
+            <div class="btn-group" role="group" aria-label="">
+                    <a id="touser" value="{{$member->id}}" class=" btn btn-rounded btn-danger btn-sm m-0">تغییر به کاربر</a>
+                  </div>
+
+            @else
+
+            کاربر
+
+            <div class="btn-group" role="group" aria-label="">
+                    <a id="toadmin" value="{{$member->id}}" class=" btn btn-rounded btn-danger btn-sm m-0">تغییر به ادمین</a>
+                  </div>
+            @endif
             </td>
             @endif
 
@@ -127,6 +147,53 @@
 @endsection
 
 @section('js')
+<script>
 
+$('#toadmin').click(function(e){
+                e.preventDefault()
+                var value = $(this).attr('value');
+
+                // ajax request
+ $.ajax({
+                type:'post',
+                url:'{{route("Panel.Member.ChangeAbility")}}',
+                 data:{_token:'{{csrf_token()}}',id:value,type:1},
+        
+                      
+                 
+                 success:function(data){
+
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },1000)
+               
+                }
+        })
+    })
+
+
+    $('#touser').click(function(e){
+                e.preventDefault()
+                var value = $(this).attr('value');
+
+                // ajax request
+ $.ajax({
+                type:'post',
+                url:'{{route("Panel.Member.ChangeAbility")}}',
+                 data:{_token:'{{csrf_token()}}',id:value,type:2},
+   
+                      
+                 
+                 success:function(data){
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },1000)
+               
+                }
+        })
+    })
+</script>
 
 @endsection

@@ -32,7 +32,11 @@ color:white;
 <img src="https://genebartar.ir/assets/images/logo.jpeg">
     <h3 class="text-primary header1">به ژن برتر خوش آمدید</h3>
 
-<p>کد فعال سازی شما: {{$code}}</p>
+	<form action="{{ route('forgot.resetpass') }}" method="POST">
+	<input type="hidden" name="token" value="{{$token}}">
+    <input type="email" name="email" value="$email">
+    <input type="submit" value="بازیابی رمز عبور">
+</form>
     </div>
 </body>
 </html>
