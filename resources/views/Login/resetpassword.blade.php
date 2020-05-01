@@ -16,18 +16,18 @@
                   </div>
      
                 <div class="login-form" >
-                <form class="{{route('Login')}}" method="POST">
+                <form action="{{route('forgot.resetpassword')}}" method="POST">
                     @csrf
                         <label for="inlineFormInputName2" class="text-black-50">رمز عبور جدید خود را وارد کنید</label>
-                        <input type="password" class="form-control my-3 " name="field" id="inlineFormInputName2" placeholder="رمز عبور جدید">
-                        <input type="password" class="form-control my-3 " name="pass" id="inlineFormInputName2" placeholder="تکرار رمز عبور جدید">
+                        <input type="hidden" name="token" value="{{$token}}">
+                        <input type="password" class="form-control my-3 " name="password" id="inlineFormInputName2" placeholder="رمز عبور جدید">
+                        <input type="password" class="form-control my-3 " name="passwordr" id="inlineFormInputName2" placeholder="تکرار رمز عبور جدید">
                       
      
                         <button type="submit" class="btn btn-sm btn-success col-md-3 mb-2">بازیابی رمز</button>
-
-                        <hr/>
                     </form>
-                    
+                    <hr/>
+
                 </div>
             </div>
         </div>

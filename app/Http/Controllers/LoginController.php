@@ -323,12 +323,55 @@ class LoginController extends Controller
 
     public function forgotresetpass(Request $request)
     {
+        $token=$request->token;
+
+        $passreset=PasswordReset::where('token',$token)->where('created_at','>=',Carbon::now()->subMinutes(5))->latest()->first();
+
+       if(is_null($passreset)){
+
+        $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
+        //return back();
+       }
 
 
+
+
+        return view('Login.resetpassword',compact('token'));
+    }
+
+    
+    public function forgotresetpassword(Request $request)
+    {
+
+        $token=$request->token;
+
+        $passreset=PasswordReset::where('token',$token)->where('created_at','>=',Carbon::now()->subMinutes(5))->latest()->first();
+
+       if(is_null($passreset)){
+
+        $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
+        return back();
+
+       }
+
+       if($request->password != $request->passwordr){
+
+        $request->session()->flash('Error', 'رمز های وارد شده مطابقت ندارند');
+        return back();
+
+       }
        
 
+       $member=Members::where('email',$passreset->email)->first();
 
-        return view('Login.resetpassword');
+       $member->password = Hash::make($request->password);
+
+       $member->update();
+
+       Auth::Login($member);
+       return redirect()->route('Panel.Dashboard');
+
+       // return view('Login.resetpassword');
     }
 
 }

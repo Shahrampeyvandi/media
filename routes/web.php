@@ -12,6 +12,7 @@ Route::get('/logout', 'LoginController@Logout')->name('logout');
 Route::get('/forgot', 'LoginController@forgot')->name('forgot');
 Route::post('/forgotsendtoken', 'LoginController@forgotsendtoken')->name('forgot.sendtoken');
 Route::get('/forgotresetpass', 'LoginController@forgotresetpass')->name('forgot.resetpass');
+Route::post('/forgotresetpassword', 'LoginController@forgotresetpassword')->name('forgot.resetpassword');
 
 
 // register routes
@@ -145,6 +146,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
 
+    Route::post('panel/setcommission', 'SettingController@commission')->name('Panel.commission');
 
    
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Accounting\Purchase;
 use App\Models\Members\Members;
 use App\Models\Contents\Posts;
+use App\Models\Setting;
 
 
 class PayController extends Controller
@@ -100,8 +101,8 @@ $err = curl_error($ch);
  $purchase->success=1;
 
  $purchase->update();
-
- $cashadmin=$purchase->payedprice*50/100;
+$commisi=Setting::first()->commission;
+ $cashadmin=$purchase->payedprice*$commisi/100;
  $cashteacher=$purchase->payedprice-$cashadmin;
 
  $member=Members::where('id',$purchase->posts->members_id)->first();
