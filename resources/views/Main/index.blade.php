@@ -235,7 +235,7 @@
 @endif
 
 
-@if (!is_null($postbanner))
+@if (!is_null($toppostbanner))
 <section class="filmoja-theater-area section_70 px-2 px-md-0">
     <div class="container">
         <div class="row">
@@ -243,7 +243,7 @@
                 <div class="theater-left">
                     <div class="theater-box">
                         <div class="theater-tex pr-md-4">
-                           {!! $postbanner->text !!}
+                           {!! $toppostbanner->text !!}
                         </div>
                     </div>
                 </div>
@@ -251,8 +251,8 @@
             <div class="col-md-7 wow slideInLeft" data-wow-duration="1s" data-wow-delay=".3s">
                 <div class="theater-slider slider-for px-2">
                     <div class="single-theater">
-                        <img src="{{asset($postbanner->image)}}" alt="theater thumb">
-                    <a class="play-video" href="{{route('ShowItem',$postbanner->content_id)}}">
+                        <img src="{{asset($toppostbanner->image)}}" alt="theater thumb">
+                    <a class="play-video" href="{{route('ShowItem',$toppostbanner->content_id)}}">
                             <i class="fa fa-play"></i>
                         </a>
                     </div>

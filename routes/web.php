@@ -115,6 +115,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/panel/slideshow/count', 'SettingController@CountSlideShow')->name('SlideShow.Count');
     
     Route::get('/panel/bannerpost', 'Panel\ContentController@BannerPost')->name('Panel.BannerPost');
+    
+    Route::get('/panel/bannerpost/create', 'Panel\ContentController@CreateBannerPost')->name('Panel.CreateBanner');
+
     Route::post('/panel/ajax/content', 'Panel\ContentController@GetAjaxContent')->name('Panel.GetAjaxContent');
     
         Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');

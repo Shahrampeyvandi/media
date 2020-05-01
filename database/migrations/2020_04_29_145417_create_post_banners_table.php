@@ -18,6 +18,7 @@ class CreatePostBannersTable extends Migration
             $table->integer('content_id');
             $table->string('image');
             $table->string('text');
+            $table->enum('type',['top_banner','bottom_banner']);
             $table->timestamps();
         });
     }

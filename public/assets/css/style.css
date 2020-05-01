@@ -14574,6 +14574,9 @@ br {display:block}
 .toast-success {
   background-color: #36bf36 !important;
 }
+.toast-error {
+  background-color: #f9473e;
+}
 
 .filter-search{
   position: absolute;

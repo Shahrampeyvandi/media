@@ -30,7 +30,8 @@ class IndexController extends Controller
 
         $setting = Setting::first();
         $categories=Categories::all();
-        $postbanner = PostBanner::first();
+        $toppostbanner = PostBanner::where('type','top_banner')->first();
+        $bottompostbanner = PostBanner::where('type','bottom_banner')->first();
         $header_slideshow=Slideshow::where('type','header_slideshow')->latest()->take(8)->get();
         $footer_slideshow=Slideshow::where('type','footer_slideshow')->latest()->take(8)->get();
         $moveis=Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
@@ -53,7 +54,8 @@ class IndexController extends Controller
             'learning',
             'header_slideshow',
             'footer_slideshow',
-            'postbanner'
+            'toppostbanner',
+            'bottompostbanner'
             ]));
 
     }

@@ -147,6 +147,12 @@ class ContentController extends Controller
 
     public function BannerPost()
     {
+       $postbanners = PostBanner::all();
+        return view('Panel.BannerPostList',compact('postbanners'));
+    }
+
+    public function CreateBannerPost()
+    {
         return view('Panel.BannerPost');
     }
 
@@ -167,10 +173,19 @@ class ContentController extends Controller
     }
     public function SaveBannesPost(Request $request)
     {
-        $post = PostBanner::first();
+        
+        if ($request->position == null || $request->type == null || $request->lang == null) {
+            toastr()->error('ورودی ها را کامل کنید');
+            return back();
+        }
+        if($request->content == "0"){
+            toastr()->error('محتوایی پیدا نشد');
+            return back();
+        }
+
+        $post = PostBanner::where('type',$request->position)->first();
         $validator = Validator::make($request->all(), [
             'pic' => 'mimes:jpeg,png,jpg',
-
         ]);
 
         if ($validator->fails()) {
@@ -206,9 +221,10 @@ class ContentController extends Controller
                 'content_id' => $request->content,
                 'image' => $picPath,
                 'text' => $request->title,
+                'type' => $request->position
             ]);
         }
-        toastr()->success('با موفقیت افزوده شد');
+            toastr()->success('با موفقیت افزوده شد');
             return back();
 
 
