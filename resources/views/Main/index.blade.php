@@ -1,5 +1,29 @@
 @extends('layout.Main.template')
 @section('content')
+<div id="notes" class="d-b  pt-2">
+    <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
+    <h3>یادداشت ها</h3>
+    <ul class="mt-4">
+        @foreach ($mynotes as $note)
+        <li>{!!$note->text!!}
+        
+        
+            <a data-id="{{$note->id}}" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i class="fa fa-trash"></i></a>
+            <span class="float-left fs-0-8 pt-1">{{\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')}}
+       
+            </span>
+        </li>
+        @endforeach
+    </ul>
+    <div class="col-md-12 mt-3 mr-0 pr-0">
+        <form id="newnote" action="#" method="post">
+            <div class="form-group">
+                <textarea type="text" class="form-control" name="text" id="text"></textarea>
+                <button type="submit" class="btn btn-sm btn-primary">ذخیره</button>
+            </div>
+        </form>
+    </div>
+</div>
 <section class="top-banner"
     style="ackground-attachment: fixed;position: relative;padding: 100px 0; background: linear-gradient(40deg,#2096ff,#05ffa3) !important;">
     <div class="overlay-baner"></div>
@@ -243,7 +267,7 @@
                 <div class="theater-left">
                     <div class="theater-box">
                         <div class="theater-tex pr-md-4">
-                           {!! $toppostbanner->text !!}
+                            {!! $toppostbanner->text !!}
                         </div>
                     </div>
                 </div>
@@ -252,7 +276,7 @@
                 <div class="theater-slider slider-for px-2">
                     <div class="single-theater">
                         <img src="{{asset($toppostbanner->image)}}" alt="theater thumb">
-                    <a class="play-video" href="{{route('ShowItem',$toppostbanner->content_id)}}">
+                        <a class="play-video" href="{{route('ShowItem',$toppostbanner->content_id)}}">
                             <i class="fa fa-play"></i>
                         </a>
                     </div>
@@ -438,10 +462,9 @@
                                     <div class="center text-center m-t-n"> <a
                                             href="{{route('ShowItem',['id'=>$music->id])}}"><i
                                                 class="ti ti-control-play fs-2"></i></a> </div>
-                                    <div class="bottom padder m-b-sm"> 
-                                       
-                                        <a
-                                            href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
+                                    <div class="bottom padder m-b-sm">
+
+                                        <a href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
                                                 class="text-info"> {{count($music->comments)}}</span><svg
                                                 class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                                 <use xlink:href="#si_comments">
@@ -453,9 +476,9 @@
                                                         <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
                                                     </g>
                                                 </use>
-                                            </svg> 
+                                            </svg>
                                         </a>
-                                             <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
+                                        <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
                                                 class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
                                             <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                                 0="" 24="" 24""="">
@@ -472,17 +495,17 @@
                                                 </use>
                                             </svg>
 
-                                        </a> 
+                                        </a>
                                         <span class="badge-rate badge-rate float-left text-white-80"><span>
-                                            @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
-                                            == '0')
-                                            {{substr($music->duration,3)}}
-                                            @else
-                                            {{$music->duration}}
-                                            @endif
+                                                @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
+                                                == '0')
+                                                {{substr($music->duration,3)}}
+                                                @else
+                                                {{$music->duration}}
+                                                @endif
+                                            </span>
+                                            <i class="fa fa-clock-o pl-1"></i>
                                         </span>
-                                        <i class="fa fa-clock-o pl-1"></i>
-                                    </span>
                                     </div>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
@@ -499,8 +522,8 @@
                             </div>
                             <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
                                     class="text-ellipsis">{{$music->title}}</a>
-                                    <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
-                                    <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
+                                <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
+                                <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
 
                                 <a href="#" class="text-ellipsis text-xs text-muted">
                                     @if ($music->languages)
@@ -607,21 +630,23 @@
 
 
 
+@if (count($footer_slideshow))
 <section class="" style="padding: 100px;">
     <div class="row align-items-center justify-content-center">
         <div class="wpb_wrapper py-3">
             <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
-                style="margin-right: 0px;"><span class="title__divider__wrapper text-header">نماد های مربوطه<span
+                style="margin-right: 0px;"><span
+                    class="title__divider__wrapper text-header">{{$setting->footer_slider_title}}<span
                         class="line brk-base-bg-gradient-right"></span>
                 </span></h2>
 
         </div>
         <div class="col-md-12">
             <div class="owl-carousel owl-theme clients-carousel dot-indicator">
-               @foreach ($footer_slideshow as $item)
-              
+                @foreach ($footer_slideshow as $item)
+
                 <a href="{{$item->link}}">
-                    <div class="item single-client position-relative" >
+                    <div class="item single-client position-relative">
                         <img src="{{asset($item->banner)}}" alt="client logo" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
                         <div class="banner-txt">
@@ -629,13 +654,14 @@
                         </div>
                     </div>
                 </a>
-            
-               @endforeach
+
+                @endforeach
 
             </div>
         </div>
     </div>
 </section>
+@endif
 
 
 
@@ -645,6 +671,60 @@
 @section('js')
 <script>
     $(document).ready(function(){
+
+
+
+
+        $('.note-link').click(function(){
+            $('#notes').css({opacity: 1.0, visibility: "visible",left:"80px"});
+        })
+        $('.close-notes').click(function(e){
+            e.preventDefault();
+            $(this).parents('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
+        })
+
+        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+        $('#newnote').submit(function(e){
+            e.preventDefault()
+            var note = $(this).find('#text').val();
+            $.ajax({
+                    url: '{{route('Note.Save')}}',
+                    type: 'POST',
+                    data: {note: note},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     
+                        $('#text').val('')
+                        $('#notes ul').append(res)
+                        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+                    }
+                });
+        })
+        $(document).on('click','.trash-note',function(e){
+       
+            e.preventDefault();
+           
+            var noteid = $(this).data('id')
+            thiss = $(this)
+            $.ajax({
+                    url: '{{route('Note.Delete')}}',
+                    type: 'POST',
+                    data: {id: noteid},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     thiss.parents('li').remove()
+                    }
+                });
+        })
+
+
+
+
+
             $('.header-carousel').owlCarousel({
             items: <?php echo json_encode($setting->header_slide_count) ?>,
             animateOut: 'fadeOut',

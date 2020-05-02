@@ -89,6 +89,12 @@ Route::middleware('auth')->group(function () {
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
     Route::get('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
 
+
+    // notes
+    Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');
+    
+    Route::post('note/delete', 'Panel\NotesController@delete')->name('Note.Delete');
+
 });
 
 // روت های مختص ادمین پنل

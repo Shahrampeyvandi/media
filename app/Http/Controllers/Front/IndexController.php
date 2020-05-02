@@ -10,6 +10,7 @@ use App\Models\SlideShow\Slideshow;
 use App\Models\Contents\Categories;
 use App\Models\Contents\PostBanner;
 use App\Models\Contents\Visit;
+use App\Models\Members\Notes;
 use App\Models\Setting;
 use Morilog\Jalali\Jalalian;
 
@@ -42,7 +43,7 @@ class IndexController extends Controller
         $learning=Posts::where('confirmed',1)->where('categories_id',6)->take(10)->get();
 
         //dd($moveis[0]->languages);
-
+        $mynotes = Notes::where('members_id',auth()->user()->id)->latest()->get();
         return view('Main.index',compact([
             'setting',
             'categories',
@@ -55,7 +56,8 @@ class IndexController extends Controller
             'header_slideshow',
             'footer_slideshow',
             'toppostbanner',
-            'bottompostbanner'
+            'bottompostbanner',
+            'mynotes'
             ]));
 
     }

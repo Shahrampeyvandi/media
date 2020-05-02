@@ -720,6 +720,11 @@
             if ($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0) {
                 $('.dropdown-content').fadeOut(200)
             }
+            if ($(e.target).closest(".note-link").length == 0 && $(e.target).closest("#notes").length == 0) {
+                
+                $('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
+
+            }
         })
 
         $('.button__').click(function (e) {

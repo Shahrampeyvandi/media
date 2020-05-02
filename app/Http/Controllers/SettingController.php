@@ -17,7 +17,8 @@ class SettingController extends Controller
         }
         if ($request->slider_type == 'client slider') {
             Setting::first()->update([
-                'footer_slide_count' => $request->count
+                'footer_slide_count' => $request->count,
+                'footer_slider_title' => $request->header
             ]);
         }
       

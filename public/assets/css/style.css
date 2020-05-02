@@ -14914,3 +14914,31 @@ font-size: 12px;
   height:55px;
   border-radius: 50%;
 }
+#notes{
+  position: fixed;
+  transition:all .5s ;
+  opacity: 0;
+  /* top: 270px; */
+  left: -60px;
+  z-index: 111111111111111111;
+  border: 1px solid #229ca9;
+  padding: 10px;
+  border-radius: 4px;
+  width: 50%;
+  background: #00ceef;
+  visibility: hidden;
+}
+
+#notes ul{
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+#notes li{
+  background: white;
+  padding: 5px;
+  /* margin-left: 0px; */
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-bottom: 8px;
+}

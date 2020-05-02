@@ -32,7 +32,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-md-6">
-        <form action="{{route('SlideShow.Count')}}" method="post">
+        <form id="setting" action="{{route('SlideShow.Count')}}" method="post">
                 @csrf
                 <div class="form-group ">
                     <label for="">نوع : </label>
@@ -43,6 +43,10 @@
                         <option value="client slider" >client slider</option>
 
                     </select>
+                </div>
+                <div class="form-group header_sec" style="display: none;">
+                    <label for="header">عنوان هدر اسلایدر: </label>
+                    <input type="text" class="form-control" name="header" id="header">
                 </div>
                 <div class="form-group ">
                     <label for="">تعداد نمایش داده شده در صفحه</label>
@@ -114,5 +118,28 @@
 
 @section('js')
 
+<script>
+    $('#slider-type').change(function(){
+        if($(this).val() == "client slider"){
+            $('.header_sec').show(200)
+        }else{
+            $('.header_sec').hide(200)
+       
+        }
+    })
 
+    $("#setting").validate({
+		rules: {
+            header:{
+        required: function(element){
+            return $("#slider-type").val() == "client slider";
+        }
+      },
+		},
+		messages: {
+			header: "لطفا عنوان هدر اسلایدر را وارد نمایید",
+		
+		}
+	});
+</script>
 @endsection

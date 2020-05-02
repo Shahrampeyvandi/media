@@ -545,8 +545,6 @@
             }
     });
 
-
-
     })
     $('.menu-link').click(function(e){
         e.preventDefault();
@@ -554,8 +552,6 @@
         $(this).find('i').toggleClass('rotate-in')
 
     })
-
-
     </script>
     @yield('js')
 </body>
