@@ -688,6 +688,8 @@
         $('#newnote').submit(function(e){
             e.preventDefault()
             var note = $(this).find('#text').val();
+           
+            if(note.length !== 0){
             $.ajax({
                     url: '{{route('Note.Save')}}',
                     type: 'POST',
@@ -702,6 +704,7 @@
 
                     }
                 });
+            }
         })
         $(document).on('click','.trash-note',function(e){
        
