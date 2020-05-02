@@ -25,4 +25,19 @@ class SettingController extends Controller
         toastr()->success('با موفقیت تغییر کرد');
         return back();
     }
+
+
+    public function commission(Request $request)
+    {
+
+            Setting::first()->update([
+                'commission' => $request->commission
+            ]);
+    
+
+      
+        toastr()->success('با موفقیت تغییر کرد');
+        return back();
+    }
 }
+

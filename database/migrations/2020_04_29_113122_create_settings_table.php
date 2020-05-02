@@ -19,13 +19,15 @@ class CreateSettingsTable extends Migration
             $table->integer('header_slide_count')->default(1);
             $table->integer('footer_slide_count')->default(4);
             $table->string('footer_slider_title');
+            $table->integer('commission')->default(50);
             $table->timestamps();
         });
         DB::table('settings')->insert(
             array(
                 'header_slide_count' => 1,
                 'footer_slide_count' => 4,
-                'footer_slider_title' => 'نماد های مربوطه'
+                'footer_slider_title' => 'نماد های مربوطه',
+                'commission' => 50
 
             )
         );

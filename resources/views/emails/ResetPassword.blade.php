@@ -30,13 +30,13 @@ color:white;
 <body dir="rtl">
 <div>
 <img src="https://genebartar.ir/assets/images/logo.jpeg">
-    <h3 class="text-primary header1">به ژن برتر خوش آمدید</h3>
+    <h3 class="text-primary header1">کاربر عزیز ژن برتر! برای بازیابی رمزعبور روی لینک زیر کلیک کنید</h3>
 
-	<form action="{{ route('forgot.resetpass') }}" method="POST">
+	<form action="{{ route('forgot.resetpass') }}" method="get">
 	<input type="hidden" name="token" value="{{$token}}">
     <input type="email" name="email" value="$email">
     <input type="submit" value="بازیابی رمز عبور">
-</form>
+	<a href="{{ route('forgot.resetpass') }}?token={{$token}}">بازیابی رمز غبور</a>
     </div>
 </body>
 </html>
