@@ -467,6 +467,14 @@
                         </a>
                     </li>
                     <li class="menu-item-link">
+                        <a href="{{route('Panel.Setting')}}" aria-label=""><i
+                                class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تنظیمات</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
                         <a href="{{route('Profile')}}" aria-label=""><i
                                 class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">

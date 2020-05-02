@@ -152,6 +152,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
 
+    Route::get('panel/setcommission', 'SettingController@index')->name('Panel.Setting');
     Route::post('panel/setcommission', 'SettingController@commission')->name('Panel.commission');
 
    

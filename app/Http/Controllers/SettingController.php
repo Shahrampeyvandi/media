@@ -39,5 +39,14 @@ class SettingController extends Controller
         toastr()->success('با موفقیت تغییر کرد');
         return back();
     }
+
+    public function index()
+    {
+
+            $setting=Setting::first();
+
+      
+        return view('Panel.Setting',compact('setting'));
+    }
 }
 
