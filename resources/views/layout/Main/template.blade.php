@@ -543,17 +543,15 @@
                 @yield('content')
 
 
+                @if (auth()->check())
                 <div class="">
                     <ul class="side-function">
                         <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
                                     class="fa fa-pencil fs-2"></i></a>
-
                         </li>
-
-
                     </ul>
-
                 </div>
+                @endif
             </div>
         </div>
 
