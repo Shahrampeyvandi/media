@@ -55,13 +55,23 @@ class Posts extends Model
 
     public function getEpisodesTime()
     {
-       $strtotime = 0;
+    
+        $sum = [ 'h'=>0,'m'=>0,'s'=>0 ];
+
         foreach ($this->epizodes as $key => $epizode) {
-         $strtotime +=   strtotime($epizode->duration);
+         list($h,$m,$s) = explode(':',$epizode->duration);
+         $sum['h'] += $h;
+         $sum['m'] += $m;
+         $sum['s'] += $s;
 
         }
+        $sum['m'] += floor($sum['s']/60);
+$sum['h'] += floor($sum['m']/60);
+$sum['s'] = $sum['s']%60;
+$sum['m'] = $sum['m']%60;
+
       
-        return date('H:i:s', $strtotime);
+        return implode(':',$sum);
     }
    
 
