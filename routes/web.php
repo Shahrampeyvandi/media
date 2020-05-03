@@ -155,6 +155,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('panel/setcommission', 'SettingController@index')->name('Panel.Setting');
     Route::post('panel/setcommission', 'SettingController@commission')->name('Panel.commission');
 
-   
+    Route::post('panel/ofchannel', 'Panel\MembersController@officialchannel')->name('Panel.Channel.Official');
+
 
 });
