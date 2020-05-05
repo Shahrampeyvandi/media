@@ -54,12 +54,13 @@
         </div>
     </div>
 </section>
+@if(\App\Models\Setting::first()->mainpage_films==1)
 @if (count($moveis))
 <section id="" style="padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
         <div class="wpb_wrapper py-3">
             <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
-                style="margin-right: 0px;"><span class="title__divider__wrapper text-header">فیلم ها و سریال ها<span
+                style="margin-right: 0px;"><span class="title__divider__wrapper text-header">فیلم ها<span
                         class="line brk-base-bg-gradient-right"></span>
                 </span></h2>
             <a href="{{route('Category',['slug'=>'videos'])}}">
@@ -148,7 +149,9 @@
     </div>
 </section>
 @endif
+@endif
 
+@if(\App\Models\Setting::first()->mainpage_animations==1)
 @if (count($animations))
 <section id="" style="padding:0 0 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
@@ -257,6 +260,7 @@
     </div>
 </section>
 @endif
+@endif
 
 
 @if (!is_null($toppostbanner))
@@ -319,6 +323,7 @@
 
 @endif
 
+@if(\App\Models\Setting::first()->mainpage_taturials==1)
 @if (count($learning))
 <section id="" style="padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
@@ -432,9 +437,10 @@
     </div>
 </section>
 @endif
+@endif
 
+@if(\App\Models\Setting::first()->mainpage_musics==1)
 @if (count($musics))
-
 <section id="" style="    padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
         <div class="wpb_wrapper py-3">
@@ -555,9 +561,10 @@
 
     </div>
 </section>
-
+@endif
 @endif
 
+@if(\App\Models\Setting::first()->mainpage_podcasts==1)
 @if (count($podcasts))
 <section id="" style=" padding: 40px 0;" class="list-item li" data-list="slider">
     <div class="list-wrapper">
@@ -613,7 +620,7 @@
         </section>
     </div>
 </section>
-
+@endif
 @endif
 
 
