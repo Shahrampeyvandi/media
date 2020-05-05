@@ -122,42 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="search-widget" data-suggest-url="/search_suggestion">
-                    <div class="input-text">
-                        <div class="input-inner">
-
-                            <input class="input" type="search" id="" value="" name="search"
-                                placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
-
-                            <div class="input-box input-round"></div>
-                        </div>
-                        <button type="submit" id=searchIcon
-                            class="button button-small button-gray button-hollow button-circular end-icon search-icon">
-                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                                <use xlink:href="#si_search">
-                                    <g id="si_search" data-viewBox="0 0 24 24">
-                                        <path
-                                            d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.494 4.494 0 0 1 9.5 14z">
-                                        </path>
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                    </g>
-                                </use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div id="suggestions" class="search-suggestion">
-
-                        <div id="suggestionContent" class="suggestion-content">
-                            <div class="loading loading-aparat">
-                                <div class="inner"><svg class="icon icon-inner">
-                                        <use xlink:href="#si_loading-inner"></use>
-                                    </svg><svg class="icon icon-outer">
-                                        <use xlink:href="#si_loading-outer"></use>
-                                    </svg></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <a href="#" class="search-overlay"></a>
             </div>
         </header>
@@ -332,6 +297,13 @@
                                     <a href="{{route('Panel.Advert')}}" aria-label="تبلیغات">
                                         <div class="content">
                                             <span class="text">تبلیغات</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Testimonials')}}" aria-label="سوالات متداول">
+                                        <div class="content">
+                                            <span class="text">سوالات متداول</span>
                                         </div>
                                     </a>
                                 </li>

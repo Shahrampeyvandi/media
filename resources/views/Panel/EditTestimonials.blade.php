@@ -5,16 +5,16 @@
     <div class="col-md-12">
         <div class="card p-3">
            
-            <form id="upload-file" method="post" action="{{ route('Panel.SaveEditContactUs') }}" enctype="multipart/form-data">
+            <form id="upload-file" method="post" action="{{ route('Panel.EditTestimonials') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" value="{{$contactus->id}}">
+                <input type="hidden" name="id" value="{{$testimonial->id}}">
 
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="content">متن خود را وارد نمایید </label>
                         <textarea class="form-control" name="content" id="content" cols="30" rows="20">
 
-                            {!! $contactus->content !!}
+                            {!! $testimonial->content !!}
                         </textarea>
                     </div>
                 </div>

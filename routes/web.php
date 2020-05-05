@@ -38,6 +38,14 @@ Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('
 Route::get('/contact-us', 'MainController@ContactUs')->name('ContactUs');
 Route::get('/advert', 'MainController@Advert')->name('Advert');
 
+Route::get('/testimonials', 'MainController@Testimonials')->name('Testimonials');
+
+
+
+
+Route::post('search', 'MainController@Search')->name('SearchBar');
+
+
 // Channel Routes
 Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
 Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
@@ -127,7 +135,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
     Route::post('/panel/ajax/content', 'Panel\ContentController@GetAjaxContent')->name('Panel.GetAjaxContent');
     
-        Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
+    Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
 
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
@@ -149,6 +157,16 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('panel/saveadvert', 'Panel\ContentController@SaveAdvert')->name('Panel.SaveAdvert');
     Route::post('panel/saveditadvert', 'Panel\ContentController@SaveEditAdvert')->name('Panel.SaveEditAdvert');
     Route::post('panel/checkout', 'Front\PayController@Checkout')->name('Panel.Checkout');
+    
+    Route::get('panel/testimonials', 'Panel\ContentController@Testimonials')->name('Panel.Testimonials');
+    Route::post('panel/testimonials', 'Panel\ContentController@SaveTestimonials')->name('Panel.Testimonials');
+    Route::get('panel/testimonials/edit', 'Panel\ContentController@EditTestimonials')->name('Panel.EditTestimonials');
+
+    Route::post('panel/testimonials/savedit', 'Panel\ContentController@SaveEditTestimonials')->name('Panel.EditTestimonials');
+
+
+
+
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
 

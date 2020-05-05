@@ -1,29 +1,6 @@
 @extends('layout.Main.template')
 @section('content')
-<div id="notes" class="d-b  pt-2">
-    <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
-    <h3>یادداشت ها</h3>
-    <ul class="mt-4">
-        @foreach ($mynotes as $note)
-        <li>{!!$note->text!!}
-        
-        
-            <a data-id="{{$note->id}}" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i class="fa fa-trash"></i></a>
-            <span class="float-left fs-0-8 pt-1">{{\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')}}
-       
-            </span>
-        </li>
-        @endforeach
-    </ul>
-    <div class="col-md-12 mt-3 mr-0 pr-0">
-        <form id="newnote" action="#" method="post">
-            <div class="form-group">
-                <textarea type="text" class="form-control" name="text" id="text"></textarea>
-                <button type="submit" class="btn btn-sm btn-primary">ذخیره</button>
-            </div>
-        </form>
-    </div>
-</div>
+
 <section class="top-banner"
     style="ackground-attachment: fixed;position: relative;padding: 100px 0; background: linear-gradient(40deg,#2096ff,#05ffa3) !important;">
     <div class="overlay-baner"></div>
@@ -76,14 +53,14 @@
                                 <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
                                     <div class="abs-fit">
                                         @if ($movie->picture)
-                                        <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
-                                            aria-label="{{$movie->title}}" class="thumb-image">
+                                        
                                         @else
                                         <div class="d-flex justify-content-center align-items-center h-100">
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
                                     </div>
@@ -183,7 +160,8 @@
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
 
@@ -351,7 +329,8 @@
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
 
@@ -592,7 +571,7 @@
                             <article class="card__article mt-2 pt-3">
                                 <h2><a href="{{route('ShowItem',['id'=>$podcast->id])}}"
                                         class="fs-0-8">{{$podcast->title}}</a></h2>
-                                <p>{{$podcast->desc}}</p>
+                                
                             </article>
                         </div>
                         <div class="pr-3">
@@ -647,7 +626,7 @@
 
                 <a href="{{$item->link}}">
                     <div class="item single-client position-relative">
-                        <img src="{{asset($item->banner)}}" alt="client logo" height="100%" class="client-img">
+                        <img style="max-height: 150px;" src="{{asset($item->banner)}}" alt="client logo" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
                         <div class="banner-txt">
                             {!! $item->title !!}
@@ -675,55 +654,7 @@
 
 
 
-        $('.note-link').click(function(){
-            $('#notes').css({opacity: 1.0, visibility: "visible",left:"80px"});
-        })
-        $('.close-notes').click(function(e){
-            e.preventDefault();
-            $(this).parents('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
-        })
-
-        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
-
-        $('#newnote').submit(function(e){
-            e.preventDefault()
-            var note = $(this).find('#text').val();
-           
-            if(note.length !== 0){
-            $.ajax({
-                    url: '{{route('Note.Save')}}',
-                    type: 'POST',
-                    data: {note: note},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                     
-                        $('#text').val('')
-                        $('#notes ul').append(res)
-                        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
-
-                    }
-                });
-            }
-        })
-        $(document).on('click','.trash-note',function(e){
-       
-            e.preventDefault();
-           
-            var noteid = $(this).data('id')
-            thiss = $(this)
-            $.ajax({
-                    url: '{{route('Note.Delete')}}',
-                    type: 'POST',
-                    data: {id: noteid},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                     thiss.parents('li').remove()
-                    }
-                });
-        })
-
+     
 
 
 

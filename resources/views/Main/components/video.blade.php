@@ -9,10 +9,12 @@
                <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
                aria-label="{{$movie->title}}" class="thumb-image">
                @else 
-              <div class="d-flex justify-content-center align-items-center h-100">
-                {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
+               <div class="d-flex justify-content-center align-items-center h-100">
+                {{-- <img src="{{asset('assets/images/cinema.png')}}"
+                alt="{{$movie->title}}"
                 aria-label="{{$movie->title}}" class="thumb-image"> --}}
-            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
+                <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                aria-label="{{$movie->title}}" class="thumb-image">
             </div>
                @endif 
                

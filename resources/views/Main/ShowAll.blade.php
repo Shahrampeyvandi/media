@@ -44,6 +44,10 @@
                     @component('Main.components.music',['musics' => $posts])
                     @endcomponent
                     @endif
+                    @if(request()->path() == 'category/tutorial')
+                    @component('Main.components.tutorial',['learning' => $posts])
+                    @endcomponent
+                    @endif
     
                 </div>
                 <div class="paginate-item">

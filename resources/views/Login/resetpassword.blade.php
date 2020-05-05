@@ -7,7 +7,7 @@
 </div>
     <div class="main" style=" display: flex; justify-content: center; align-items: center;">
        
-        <div class="login-wrap" style="transform: translate(0,15%);">
+        <div class="login-wrap " style="transform: translate(0,15%);">
           
             <div class="col-md-12">
                 {{-- @include('FrontEnd.Login.partials.errors') --}}

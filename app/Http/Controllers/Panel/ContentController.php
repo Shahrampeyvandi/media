@@ -9,6 +9,7 @@ use App\Models\Contents\ContactUs;
 use App\Models\Contents\Income;
 use App\Models\Contents\PostBanner;
 use App\Models\Contents\Posts;
+use App\Models\Contents\Testimonal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class ContentController extends Controller
                 'content' => $request->content
             ]);
             toastr()->success('با موفقیت ذخیره شد');
-            return back();
+            return redirect()->route('Policies','s');
     }
 
     public function EditPolicies($type = 'students')
@@ -49,7 +50,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return back();
+        return redirect()->route('Policies','s');
     }
 
     public function ContactUs()
@@ -68,7 +69,7 @@ class ContentController extends Controller
         'content' => $request->content
        ]);
        toastr()->success('با موفقیت ذخیره شد');
-       return back();
+       return redirect()->route('ContactUs');
     }
 
     public function EditContactUs()
@@ -86,7 +87,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return back();
+        return redirect()->route('ContactUs');
     }
 
     public function Income()
@@ -123,7 +124,7 @@ class ContentController extends Controller
         'content' => $request->content
        ]);
        toastr()->success('با موفقیت ذخیره شد');
-       return back();
+       return redirect()->route('Advert');
     }
 
     public function EditAdvert()
@@ -142,7 +143,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return back();
+        return redirect()->route('Advert');
     }
 
     public function BannerPost()
@@ -229,6 +230,43 @@ class ContentController extends Controller
 
 
 
+    }
+
+    public function Testimonials()
+    {
+        return view('Panel.Testimonials');
+    }
+
+    public function SaveTestimonials(Request $request)
+    {
+        if(is_null($request->content)){
+            toastr()->error('لطفا متن وارد کنید');
+            return back();
+        }
+        Testimonal::create([
+        'content' => $request->content
+       ]);
+       toastr()->success('با موفقیت ذخیره شد');
+       return redirect()->route('Testimonials');
+    }
+
+    public function EditTestimonials(Request $request)
+    {
+        $testimonial = Testimonal::latest()->first();
+        if (is_null($testimonial)) {
+            toastr()->warning('موردی برای ویرایش وجود ندارد');
+            return back();
+          }
+        return view('Panel.EditTestimonials',compact('testimonial'));
+    }
+
+    public function SaveEditTestimonials(Request $request)
+    {
+        Testimonal::where('id',$request->id)->update([
+            'content' => $request->content
+        ]);
+        toastr()->success('با موفقیت آپدیت شد');
+        return redirect()->route('Testimonials');
     }
 
   
