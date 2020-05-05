@@ -151,17 +151,19 @@
                     </div>
 
                     <div class="description w-100 put-right pr-2">
-                        <h3 class="fs-0-9 mb-xs">توضیحات</h3>
+                       
                         <p class="paragraph mb-lg text-black-50">
                             {!!$content->desc!!}
                         </p>
                     </div>
-                    <div class="description w-100 put-right pr-2">
-                        <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
-                        <p class="paragraph mb-lg text-black-50">
-                            {!!$content->otheroninformation!!}
-                        </p>
-                    </div>
+                   @if ($content->otheroninformation)
+                   <div class="description w-100 put-right pr-2">
+                    <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
+                    <p class="paragraph mb-lg text-black-50">
+                        {!!$content->otheroninformation!!}
+                    </p>
+                </div>
+                   @endif
                     <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2">
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مربوط به</div>

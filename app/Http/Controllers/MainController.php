@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contents\Advert;
 use App\Models\Contents\ContactUs;
 use App\Models\Contents\Policies;
+use App\Models\Contents\Posts;
+use App\Models\Contents\Testimonal;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -60,6 +62,37 @@ class MainController extends Controller
            $content = '';
        }
         return view('Main.contactus',compact('content'));
+    }
+    public function Testimonials()
+    {
+
+       $testimonial =  Testimonal::latest()->first();
+       if(!is_null($testimonial)){
+        $content = $testimonial->content;
+       }else{
+           $content = '';
+       }
+        return view('Main.testimonials',compact('content'));
+    }
+    public function Search(Request $request)
+    {
+       
+      $posts =  Posts::where('title','like', '%' . $request->key . '%')->latest()->take(10)->get();
+      $li = '';
+      if(count($posts) !== 0){
+        foreach ($posts as $key => $post) {
+            $li .='<li><a href="'.route('ShowItem',$post->id).'" class="float-right text-primary">'.$post->title.'</a><span class="float-left fs-0-8">دسته بندی: '.$post->categories->name.'</span></li>';
+        }
+      }else{
+        $li .='<li><a href="#" class="float-right text-primary fs-0-8">موردی یافت نشد</a></li>';
+
+      }
+     
+
+      return response()->json(
+          $li,200
+      );
+
     }
 
   

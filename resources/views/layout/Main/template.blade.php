@@ -61,7 +61,30 @@
         <span>در حال بارگذاری ...</span>
     </div>
 
-
+    <div id="notes" class="d-b  pt-2">
+        <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
+        <h3>یادداشت ها</h3>
+        <ul class="mt-4">
+            @foreach ($mynotes as $note)
+            <li>{!!$note->text!!}
+            
+            
+                <a data-id="{{$note->id}}" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i class="fa fa-trash"></i></a>
+                <span class="float-left fs-0-8 pt-1">{{\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')}}
+           
+                </span>
+            </li>
+            @endforeach
+        </ul>
+        <div class="col-md-12 mt-3 mr-0 pr-0">
+            <form id="newnote" action="#" method="post">
+                <div class="form-group">
+                    <textarea type="text" class="form-control" name="text" id="text"></textarea>
+                    <button type="submit" class="btn btn-sm btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
     {{-- <div id="popup2" class="overlay note">
         <div class="popup" style="width:60%;">
             <a class="close" href="#">&times;</a>
@@ -273,7 +296,7 @@
                     <div class="input-text">
                         <div class="input-inner">
 
-                            <input class="input" type="search" id="" value="" name="search"
+                            <input class="input" type="text" id="searchinput" value="" name=""
                                 placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
 
                             <div class="input-box input-round"></div>
@@ -293,19 +316,12 @@
                         </button>
                         
                     </div>
-                    <div id="suggestions" class="search-suggestion">
+                    <div id="search--content" class="search-suggestion">
 
-                        <div id="suggestionContent" class="suggestion-content">
-                            <div class="loading loading-aparat">
-                                <div class="inner">
-                                    <svg class="icon icon-inner">
-                                        <use xlink:href="#si_loading-inner"></use>
-                                    </svg>
-                                    <svg class="icon icon-outer">
-                                        <use xlink:href="#si_loading-outer"></use>
-                                    </svg>
-                                </div>
-                            </div>
+                        <div id="" class="">
+                            <ul>
+                               <li class="fs-0-8 text-black-50">در حال جست و جو ...</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -572,9 +588,92 @@
     <script>
         $(document).ready(function () {
         var checkauth = '{{auth()->user()}}';
-        $('.note-link').click(function(e){
-            e.preventDefault()
+     
+
+        $('.note-link').click(function(){
+            $('#notes').css({opacity: 1.0, visibility: "visible",left:"80px"});
         })
+        $('.close-notes').click(function(e){
+            e.preventDefault();
+            $(this).parents('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
+        })
+
+        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+        $('#newnote').submit(function(e){
+            e.preventDefault()
+            var note = $(this).find('#text').val();
+           
+            if(note.length !== 0){
+            $.ajax({
+                    url: '{{route('Note.Save')}}',
+                    type: 'POST',
+                    data: {note: note},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     
+                        $('#text').val('')
+                        $('#notes ul').append(res)
+                        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+                    }
+                });
+            }
+        })
+        $(document).on('click','.trash-note',function(e){
+       
+            e.preventDefault();
+           
+            var noteid = $(this).data('id')
+            thiss = $(this)
+            $.ajax({
+                    url: '{{route('Note.Delete')}}',
+                    type: 'POST',
+                    data: {id: noteid},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     thiss.parents('li').remove()
+                    }
+                });
+        })
+
+
+var request = false;
+$(document).on('keyup','#searchinput',function(e){
+    e.preventDefault()
+    setTimeout(() => {
+        if (!request) {
+    
+        request = true;
+        let key = $(this).val();
+        let url = '{{route('SearchBar')}}';
+
+          $.ajax({ 
+               url: url,
+               type: 'POST',
+               data:{key:key},
+               dataType: 'JSON', 
+              
+               success: function(res) {
+                  
+                   $('#search--content ul').html(res)
+                  
+                //    $('.content-page').html(res[0])
+                //    $('.paginate-item').html(res[1])
+                   setTimeout(()=>{
+                       request=false;
+                   },500)
+                   
+               }
+           
+       })
+       
+     }
+   },1000)
+})
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -8,7 +8,7 @@
 @include('Includes.Login.Header')
 
 <div class="main" style=" display: flex; justify-content: center; align-items: center;">
-    <div class="login-wrap mt-5 mt-md-0">
+    <div class="login-wrap card mt-5 mt-md-0">
        
             <div class="col-md-12 text-center">
               @include('Includes.errors')
@@ -25,12 +25,12 @@
                             id="inlineFormInputName2" placeholder="ایمیل خود را وارد کنید">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-info  mb-2">ادامه</button>
+                        <button type="submit" class="btn btn-sm btn-info  mb-2 mr-0">ادامه</button>
                     </div>
                     <hr />
                 </form>
                 <form action="#" class="form-inline">
-                <a href="{{route('SignUp.Google')}}" class="btn btn-sm btn-danger"> ثبت نام با حساب گوگل <i class="fab fa-google"></i> </a>
+                <a href="{{route('SignUp.Google')}}" class="btn btn-sm btn-danger mr-0"> ثبت نام با حساب گوگل <i class="fab fa-google"></i> </a>
                     <hr />
                 </form>
             </div>

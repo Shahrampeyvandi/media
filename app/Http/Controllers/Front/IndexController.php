@@ -43,10 +43,7 @@ class IndexController extends Controller
         $learning=Posts::where('confirmed',1)->where('categories_id',6)->take(10)->get();
 
         //dd($moveis[0]->languages);
-        $mynotes=[];
-        if(auth()->user()){
-        $mynotes = Notes::where('members_id',auth()->user()->id)->latest()->get();
-        }
+      
         return view('Main.index',compact([
             'setting',
             'categories',
@@ -60,7 +57,7 @@ class IndexController extends Controller
             'footer_slideshow',
             'toppostbanner',
             'bottompostbanner',
-            'mynotes'
+         
             ]));
 
     }

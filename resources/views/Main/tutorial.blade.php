@@ -154,7 +154,7 @@
                     </div>
 
                     <div class="description w-100 put-right pr-2">
-                        <h3 class="fs-0-9 mb-xs">توضیحات</h3>
+                        
                         <p class="paragraph mb-lg text-black-50">
                             {!!$content->desc!!}
                         </p>

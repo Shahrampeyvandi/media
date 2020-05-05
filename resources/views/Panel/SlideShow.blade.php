@@ -80,6 +80,7 @@
                 <tr>
                     <th>ردیف</th>
                     <th>تصویر</th>
+                    <th>نوع</th>
                     <th> متن</th>
                     <th>لینک</th>
                     <th>تاریخ ثبت</th>
@@ -92,8 +93,15 @@
                 <tr>
                     <td>{{$key+1}}</td>
                     <td><img src="{{route('BaseUrl')}}//{{$slideshow->banner}}" style="width:200px;"></td>
-                    <td>{{$slideshow->title}}</td>
-                    <td>{{$slideshow->link}}</td>
+                    <td><span class="text-primary">{{$slideshow->type}}</span></td>
+                    <td>{!!$slideshow->title!!}</td>
+                    <td>
+                        @if ($slideshow->link)
+                        {{$slideshow->link}}
+                        @else
+                        <span class="text-danger">ندارد</span>
+                        @endif
+                    </td>
                     <td>{{\Morilog\Jalali\Jalalian::forge($slideshow->created_at)->format('%d %B %Y')}}</td>
                     <td>
 
