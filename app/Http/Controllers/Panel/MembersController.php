@@ -58,4 +58,19 @@ class MembersController extends Controller
        toastr()->success('با موفقیت ذخیره شد');
        //return back();
     }
+
+    public function officialchannel(Request $request)
+    {
+       
+        $member=Members::where('id',$request->id)->first();
+        if($request->type==1){
+            $member->approved=1;
+        }else{
+            $member->approved=0;
+        }
+        $member->update();
+        
+       toastr()->success('با موفقیت ذخیره شد');
+       //return back();
+    }
 }

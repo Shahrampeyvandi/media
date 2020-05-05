@@ -66,6 +66,7 @@
                 @if (request()->path() == "panel/members/teacher")
                 <th>موجودی کیف پول</th>
                 <th>نقش مدیریت</th>
+                <th>وضعیت کانال</th>
                  @endif
                 <th>تاریخ عضویت</th>
                 <th>وضعیت</th>
@@ -111,6 +112,22 @@
                   </div>
             @endif
             </td>
+
+        <td>
+        @if($member->approved == 1)
+        رسمی
+        <div class="btn-group" role="group" aria-label="">
+                    <a id="fromoff" value="{{$member->id}}" class=" btn btn-rounded btn-danger btn-sm m-0">تبدیل به غیر رسمی</a>
+                  </div>
+        @else
+        غیر رسمی
+        <div class="btn-group" role="group" aria-label="">
+                    <a id="tooff" value="{{$member->id}}" class=" btn btn-rounded btn-danger btn-sm m-0">تبدیل به رسمی</a>
+                  </div>
+        @endif
+
+
+        </td>
             @endif
 
 
@@ -182,6 +199,50 @@ $('#toadmin').click(function(e){
                 type:'post',
                 url:'{{route("Panel.Member.ChangeAbility")}}',
                  data:{_token:'{{csrf_token()}}',id:value,type:2},
+   
+                      
+                 
+                 success:function(data){
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },1000)
+               
+                }
+        })
+    })
+
+
+    $('#fromoff').click(function(e){
+                e.preventDefault()
+                var value = $(this).attr('value');
+
+                // ajax request
+ $.ajax({
+                type:'post',
+                url:'{{route("Panel.Channel.Official")}}',
+                 data:{_token:'{{csrf_token()}}',id:value,type:2},
+   
+                      
+                 
+                 success:function(data){
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },1000)
+               
+                }
+        })
+    })
+    $('#tooff').click(function(e){
+                e.preventDefault()
+                var value = $(this).attr('value');
+
+                // ajax request
+ $.ajax({
+                type:'post',
+                url:'{{route("Panel.Channel.Official")}}',
+                 data:{_token:'{{csrf_token()}}',id:value,type:1},
    
                       
                  
