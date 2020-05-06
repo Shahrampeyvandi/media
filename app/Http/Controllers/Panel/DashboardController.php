@@ -8,6 +8,7 @@ use App\Models\Contents\Episodes;
 use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
+use App\Models\Members\ChannelInformations;
 use App\Models\Members\Messages;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
@@ -271,7 +272,7 @@ class DashboardController extends Controller
     
     public function SubmitRequestChannel(Request $request)
     {
-       dd($request->all());
+       //dd($request->all());
         $member = auth()->user();
 
         if ($request->hasFile('national_card_pic')) {
@@ -283,7 +284,7 @@ class DashboardController extends Controller
             // Valid extensions
             $fileName = 'national_card_pic' . time() . '.' . $extension;
             $request->file('national_card_pic')->move($destinationPath, $fileName);
-            $filePath = "$destinationPath/$fileName";
+            $filePathkart = "$destinationPath/$fileName";
           
         }
         if ($request->hasFile('education_certificate_pic')) {
@@ -295,9 +296,10 @@ class DashboardController extends Controller
             // Valid extensions
             $fileName = 'education_certificate_pic' . time() . '.' . $extension;
             $request->file('education_certificate_pic')->move($destinationPath, $fileName);
-            $filePath = "$destinationPath/$fileName";
+            $filePathmadrak = "$destinationPath/$fileName";
           
         }
+        $filePathparvane='';
         if ($request->hasFile('permission_work_pic')) {
             $destinationPath = "files/members" . $member->id;
             if (!file_exists($destinationPath)) {
@@ -307,7 +309,7 @@ class DashboardController extends Controller
             // Valid extensions
             $fileName = 'permission_work_pic' . time() . '.' . $extension;
             $request->file('permission_work_pic')->move($destinationPath, $fileName);
-            $filePath = "$destinationPath/$fileName";
+            $filePathparvane = "$destinationPath/$fileName";
           
         }
 
@@ -318,6 +320,35 @@ class DashboardController extends Controller
          * save data
          * 
          */
+
+         $info=$member->memberChannelInformations;
+
+
+        // dd($info);
+         if(is_null($info)){
+
+            $info=new ChannelInformations;
+
+            $info->id=$member->id;
+            $info->kart_melli=$filePathkart;
+            $info->madrak=$filePathmadrak;
+            $info->parvane_faaliat=$filePathparvane;
+            $info->accepted=1;
+            $info->save();
+
+         }else{
+
+            $info=ChannelInformations::find($member->id);
+
+            $info->kart_melli=$filePathkart;
+            $info->madrak=$filePathmadrak;
+            $info->filePathparvane=$filePathparvane;
+            $info->accepted=1;
+            $info->update();
+
+
+
+         }
 
 
        

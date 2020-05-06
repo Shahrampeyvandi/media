@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Members\Members;
+use App\Models\Members\ChannelInformations;
 
 class MembersController extends Controller
 {
@@ -74,8 +75,48 @@ class MembersController extends Controller
        //return back();
     }
 
-    public function AboutUsSocialLink(Request $request)
-    {
-        dd($request->all());
+    public function ofchannelrequest(Request $request){
+
+        $requestedchannels=ChannelInformations::where('accepted',1)->get();
+
+
+
+
+        return view('Panel.RequestedChannels',compact('requestedchannels'));
+    }
+
+    public function SubmitRequestChannel(Request $request){
+
+        $member=Members::find($request->id);
+
+        if($request->type==2){
+
+            $member->approved=1;
+
+            $info=$member->channelInformations;
+
+            $info->accepted=2;
+
+            $member->update();
+            $info->update();
+
+        }else{
+
+            $member->approved=0;
+
+            $info=$member->channelInformations;
+
+            $info->accepted=3;
+
+            $member->update();
+            $info->update();
+
+
+
+        }
+
+
+        toastr()->success('با موفقیت انجام شد!');
+        //return back();
     }
 }
