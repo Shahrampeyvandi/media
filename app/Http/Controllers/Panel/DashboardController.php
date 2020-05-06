@@ -8,6 +8,7 @@ use App\Models\Contents\Episodes;
 use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Members\Members;
+use App\Models\Members\MemberChannelInfo;
 use App\Models\Members\Messages;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
@@ -318,6 +319,20 @@ class DashboardController extends Controller
          * save data
          * 
          */
+
+         $info=$member->channel_info();
+
+         if(is_null($info)){
+
+            $info=new MemberChannelInfo;
+
+
+         }else{
+
+
+
+
+         }
 
 
        
