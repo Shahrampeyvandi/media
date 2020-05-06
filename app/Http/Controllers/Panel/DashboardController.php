@@ -19,10 +19,10 @@ use App\Models\Members\Follows;
 use App\Models\Notifications\Notifications;
 use App\Rules\VideoDimension;
 use Carbon\Carbon;
-
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Morilog\Jalali\Jalalian;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -154,7 +154,11 @@ class DashboardController extends Controller
             $extension = $request->file('file')->getClientOriginalExtension();
             // Valid extensions
             $fileNamevideo = 'file_' . time() . '.' . $extension;
-            $request->file('file')->move($destinationPath, $fileNamevideo);
+            //$request->file('file')->move($destinationPath, $fileNamevideo);
+            $filePath22 = "files/posts/$request->title/$fileNamevideo";
+
+            Storage::disk('ftp')->put($filePath22, fopen($request->file('file'), 'r+'));
+
             $filePath = "files/posts/$request->title/$fileNamevideo";
         } else {
             $filePath = null;
@@ -184,7 +188,8 @@ class DashboardController extends Controller
             $media = 'video';
         }
         $getID3 = new \getID3;
-        $filedur = $getID3->analyze($filePath);
+        $filedur = $getID3->analyze($request->file('file'));
+
 
         //$duration = $filedur['playtime_seconds'];
 

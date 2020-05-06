@@ -68,6 +68,6 @@ class Members extends Model  implements Authenticatable
 
     public function channelInformations()
     {
-        return $this->hasOne(ChannelInformations::class,'id');
+        return $this->hasOne(ChannelInformations::class);
     }
 }

@@ -351,7 +351,12 @@ class PostsController extends Controller
             $extension = $request->file('file')->getClientOriginalExtension();
             // Valid extensions
             $fileName = 'file_' . time() . '.' . $extension;
-            $request->file('file')->move($destinationPath, $fileName);
+            //$request->file('file')->move($destinationPath, $fileName);
+
+            $filePathepisode22 = "$destinationPath/$fileName";
+
+            Storage::disk('ftp')->put($filePathepisode22, fopen($request->file('file'), 'r+'));
+
             $filePathepisode = "$destinationPath/$fileName";
         } else {
             $filePathepisode = null;
@@ -381,7 +386,7 @@ class PostsController extends Controller
             $media = 'video';
         }
         $getID3 = new \getID3;
-        $file = $getID3->analyze($filePathepisode);
+        $file = $getID3->analyze($request->file('file'));
         $duration = gmdate('H:i:s', $file['playtime_seconds']);
 
         $newepisode = new Episodes();

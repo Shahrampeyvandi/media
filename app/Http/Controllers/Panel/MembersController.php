@@ -96,29 +96,29 @@ class MembersController extends Controller
 
     public function SubmitRequestChannel(Request $request){
 
-        $member=Members::find($request->id);
+        $channelinfo=ChannelInformations::find($request->id);
        
+        $member=$channelinfo->member;
+
         if($request->type==2){
 
             $member->approved=1;
 
-            $info=$member->channelInformations;
 
-            $info->accepted=2;
+            $channelinfo->accepted=2;
 
             $member->update();
-            $info->update();
+            $channelinfo->update();
 
         }else{
 
             $member->approved=0;
 
-            $info=$member->channelInformations;
 
-            $info->accepted=3;
+            $channelinfo->accepted=3;
 
             $member->update();
-            $info->update();
+            $channelinfo->update();
 
 
 

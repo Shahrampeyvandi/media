@@ -15,8 +15,8 @@ class CreateChannelInformationsTable extends Migration
     {
         Schema::create('channel_informations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('member_id');
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+            $table->unsignedBigInteger('members_id');
+            $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
             $table->string('content')->nullable();
             $table->string('kart_melli')->nullable();
             $table->string('madrak')->nullable();
