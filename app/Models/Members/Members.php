@@ -66,8 +66,8 @@ class Members extends Model  implements Authenticatable
         return auth()->user()->ability == 'min-level-admin' ? true : false;
     }
 
-    public function channel_info()
+    public function channelInformations()
     {
-        return $this->hasOne(MemberChannelInformation::class);
+        return $this->hasOne(ChannelInformations::class,'id');
     }
 }

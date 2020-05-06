@@ -10,9 +10,13 @@ use App\Models\Accounting\Purchase;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Accounting\PayesSubscribes;
 
-class MemberChannelInformation extends Model
+class ChannelInformations extends Model
 {
     protected $quarded= [];
 
+    public function member()
+    {
+        return $this->belongsTo(Members::class,'id');
+    }
 
 }

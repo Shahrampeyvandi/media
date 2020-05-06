@@ -16,7 +16,18 @@
                     @include('Includes.errors')
                 </div>
             </div>
-            
+            @if($member->channelInformations && $member->channelInformations->accepted==1)
+
+            درخواست شما در دست بررسی می باشد
+            @elseif($member->channelInformations && $member->channelInformations->accepted==2)
+
+            در خواست شما تایید شد
+
+            @elseif($member->channelInformations && $member->channelInformations->accepted==3)
+
+            در خواست شما رد شد
+
+            @else
             <div class="row">
                 <div class="form-group  col-md-6">
                     <label for=""><span class="text-danger">*</span> مورد استفاده کانال: </label>
@@ -66,6 +77,7 @@
             </div>
         </div>
     </form>
+    @endif
 </div>
 @endsection
 @section('js')

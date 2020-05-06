@@ -255,7 +255,7 @@
                                     </a>
                                 </li>
                                  <li class="menu-item-link mr-35">
-                                    <a href="{{route('Message.All')}}" aria-label="درخواست کانال رسمی">
+                                    <a href="{{route('Channel.Requested.All')}}" aria-label="درخواست کانال رسمی">
                                         <div class="content">
                                             <span class="text">درخواست کانال رسمی</span>
                                         </div>

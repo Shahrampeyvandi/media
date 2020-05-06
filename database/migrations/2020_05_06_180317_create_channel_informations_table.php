@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMemberChannelInformationsTable extends Migration
+class CreateChannelInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateMemberChannelInformationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_channel_informations', function (Blueprint $table) {
-            $table->unsignedBigInteger('member_id')->unique();
+        Schema::create('channel_informations', function (Blueprint $table) {
+            $table->unsignedBigInteger('id')->unique();
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
             $table->string('kart_melli')->nullable();
             $table->string('madrak')->nullable();
@@ -36,6 +36,6 @@ class CreateMemberChannelInformationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_channel_informations');
+        Schema::dropIfExists('channel_informations');
     }
 }

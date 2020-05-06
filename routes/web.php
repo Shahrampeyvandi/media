@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::get('panel/requestchannel', 'Panel\DashboardController@RequestChannel')->name('Request.Channel');
     Route::post('panel/requestchannel', 'Panel\DashboardController@SubmitRequestChannel')->name('Request.Channel');
 
+    Route::get('panel/rechannels', 'Panel\MembersController@ofchannelrequest')->name('Channel.Requested.All');
+    Route::post('panel/reschannelreq', 'Panel\MembersController@SubmitRequestChannel')->name('Channel.Requested.Response');
+
     Route::post('/panel/profile/Submit', 'Panel\DashboardController@ProfileSave')->name('Profile.Submit');
     Route::get('/panel/users', 'Panel\UserController@index')->name('UsersList');
     Route::get('/panel/myvideos/{content?}', 'Panel\PostsController@MyVideos')->name('MyVideos');
