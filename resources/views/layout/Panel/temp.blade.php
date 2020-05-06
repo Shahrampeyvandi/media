@@ -232,7 +232,7 @@
                         </li>
 
                         <li class="menu-item-link d-flex flex-column">
-                            <a class="menu-link position-relative" href="#" aria-label=""><i
+                            <a class="menu-link position-relative" href="#" aria-label="کاربران"><i
                                     class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
                                     <span class="text">کاربران</span>
@@ -241,16 +241,23 @@
                             </a>
                             <ul style="display: none;">
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Members')}}" aria-label="">
+                                    <a href="{{route('Panel.Members')}}" aria-label="لیست کاربران">
                                         <div class="content">
                                             <span class="text">لیست کاربران</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Message.All')}}" aria-label="">
+                                    <a href="{{route('Message.All')}}" aria-label="پیام های کاربران">
                                         <div class="content">
                                             <span class="text">پیام های کاربران</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                 <li class="menu-item-link mr-35">
+                                    <a href="{{route('Message.All')}}" aria-label="درخواست کانال رسمی">
+                                        <div class="content">
+                                            <span class="text">درخواست کانال رسمی</span>
                                         </div>
                                     </a>
                                 </li>
@@ -331,6 +338,14 @@
                                 class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">دوره های خریداری شده</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Panel.Setting')}}" aria-label=""><i
+                                class="fas fa-cog fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تنظیمات</span>
                             </div>
                         </a>
                     </li>
@@ -438,19 +453,22 @@
                             </div>
                         </a>
                     </li>
+                   
                     <li class="menu-item-link">
-                        <a href="{{route('Panel.Setting')}}" aria-label=""><i
-                                class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                        <a href="{{route('Profile')}}" aria-label=""><i
+                                class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">تنظیمات</span>
+                                <span class="text">ویرایش پروفایل</span>
                             </div>
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a href="{{route('Profile')}}" aria-label=""><i
-                                class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                        <a style="padding-right: 20px;" href="{{route('Request.Channel')}}" aria-label="تقاضای کانال رسمی">
+                        
+                            <i
+                                class="fas fa-user-check fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">ویرایش پروفایل</span>
+                                <span class="text">تقاضای کانال رسمی</span>
                             </div>
                         </a>
                     </li>

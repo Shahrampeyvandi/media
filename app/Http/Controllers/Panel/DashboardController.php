@@ -262,7 +262,68 @@ class DashboardController extends Controller
         $member = auth()->user();
         return view('Panel.Profile', compact('member'));
     }
+    
+    public function RequestChannel()
+    {
+        $member = auth()->user();
+        return view('Panel.RequestChannel', compact('member'));
+    }
+    
+    public function SubmitRequestChannel(Request $request)
+    {
+       dd($request->all());
+        $member = auth()->user();
 
+        if ($request->hasFile('national_card_pic')) {
+            $destinationPath = "files/members" . $member->id;
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            $extension = $request->file('national_card_pic')->getClientOriginalExtension();
+            // Valid extensions
+            $fileName = 'national_card_pic' . time() . '.' . $extension;
+            $request->file('national_card_pic')->move($destinationPath, $fileName);
+            $filePath = "$destinationPath/$fileName";
+          
+        }
+        if ($request->hasFile('education_certificate_pic')) {
+            $destinationPath = "files/members" . $member->id;
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            $extension = $request->file('education_certificate_pic')->getClientOriginalExtension();
+            // Valid extensions
+            $fileName = 'education_certificate_pic' . time() . '.' . $extension;
+            $request->file('education_certificate_pic')->move($destinationPath, $fileName);
+            $filePath = "$destinationPath/$fileName";
+          
+        }
+        if ($request->hasFile('permission_work_pic')) {
+            $destinationPath = "files/members" . $member->id;
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            $extension = $request->file('permission_work_pic')->getClientOriginalExtension();
+            // Valid extensions
+            $fileName = 'permission_work_pic' . time() . '.' . $extension;
+            $request->file('permission_work_pic')->move($destinationPath, $fileName);
+            $filePath = "$destinationPath/$fileName";
+          
+        }
+
+
+
+        /**
+         * 
+         * save data
+         * 
+         */
+
+
+       
+        toastr()->success('مدارک با موفقیت آپلود شد و در انتظار تایید قرار گرفت');
+        return redirect()->route('Panel.Dashboard');
+    }
     public function ProfileSave(Request $request)
     {
         $validatedData = $request->validate(

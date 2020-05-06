@@ -32,7 +32,6 @@
 @endsection
 
 @section('js')
-
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){

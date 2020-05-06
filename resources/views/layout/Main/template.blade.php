@@ -539,7 +539,7 @@
 
 
                         <li class="menu-item-link">
-                            <a href="#" aria-label="سوالات متداول">
+                        <a href="{{route('Testimonials')}}" aria-label="سوالات متداول">
                                 <div class="content">
                                     <span class="text">سوالات متداول</span>
                                 </div>

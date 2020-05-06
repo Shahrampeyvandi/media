@@ -63,13 +63,16 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/panel/{id}/episode', 'Panel\DashboardController@UploadEpisode')->name('Tutorial.CreateEpisode');
     Route::get('/panel/profile', 'Panel\DashboardController@Profile')->name('Profile');
+    Route::get('panel/requestchannel', 'Panel\DashboardController@RequestChannel')->name('Request.Channel');
+    Route::post('panel/requestchannel', 'Panel\DashboardController@SubmitRequestChannel')->name('Request.Channel');
+
     Route::post('/panel/profile/Submit', 'Panel\DashboardController@ProfileSave')->name('Profile.Submit');
     Route::get('/panel/users', 'Panel\UserController@index')->name('UsersList');
     Route::get('/panel/myvideos/{content?}', 'Panel\PostsController@MyVideos')->name('MyVideos');
     Route::get('/panel/myaudios/{content?}', 'Panel\PostsController@MyAudios')->name('MyAudios');
-
+    
     Route::get('/panel/mytutorials/{content?}', 'Panel\PostsController@MyTutorials')->name('MyTutorials');
-
+    
     Route::get('/panel/unsubscribefiles', 'Panel\PostsController@UnsubscribeFiles')->name('UnsubscribeFiles');
     Route::get('/panel/myfavorites/{content?}', 'Panel\FavoritesController@index')->name('Panel.MyFavorites');
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');
@@ -89,7 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('aboutus/add', 'Panel\MembersController@AddAboutUs')->name('AddAboutUs');
     Route::post('aboutus/add', 'Panel\MembersController@SaveAboutUs')->name('AddAboutUs');
 
-
+    
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
@@ -97,13 +100,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
     Route::get('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
-
-
+    
+    
+    
     // notes
     Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');
     
     Route::post('note/delete', 'Panel\NotesController@delete')->name('Note.Delete');
-
+    
 });
 
 // روت های مختص ادمین پنل

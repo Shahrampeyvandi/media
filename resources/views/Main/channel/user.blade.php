@@ -19,7 +19,13 @@
             <div class="recent_content d-flex mr-3">
                 <a href="{{route('ShowItem',['id'=>$lastpost->id])}}" class="image">
                     
+                    @if ($lastpost->picture)
                     <img src="{{asset("$lastpost->picture")}}" height="100%" width="100%" alt="">
+                    @else
+                   <img style="width: 100%;
+                   object-fit: cover;
+                   height: 100%;box-shadow: 0 0 2px 0px grey;" src="{{asset('assets/images/temp_logo.png')}}" alt="">
+                    @endif
                 </a>
                 <div class="d-flex  flex-column pr-3">
                     <h3><a href="#">{{Illuminate\Support\Str::limit($lastpost->title,15)}}</a></h3>
