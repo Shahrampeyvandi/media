@@ -37,9 +37,18 @@ class MembersController extends Controller
             toastr()->error('لطفا متن وارد کنید');
             return back();
         }
-       Members::where('id',auth()->user()->id)->update([
+        $channel = ChannelInformations::where('member_id',auth()->user()->id)->first();
+        if($channel){
+        
+       ChannelInformations::where('id',auth()->user()->id)->update([
         'aboutus' => $request->content
        ]);
+        }else{
+            ChannelInformations::create([
+                'member_id' => auth()->user()->id,
+                'content' => $request->content,
+               ]);
+        }
        toastr()->success('با موفقیت ذخیره شد');
        return back();
     }
@@ -88,7 +97,7 @@ class MembersController extends Controller
     public function SubmitRequestChannel(Request $request){
 
         $member=Members::find($request->id);
-
+       
         if($request->type==2){
 
             $member->approved=1;
@@ -118,5 +127,24 @@ class MembersController extends Controller
 
         toastr()->success('با موفقیت انجام شد!');
         //return back();
+    }
+
+    public function AboutUsSocialLink(Request $request)
+    {
+       $channel = ChannelInformations::where('member_id',auth()->user()->id)->first();
+       if($channel){
+        foreach ($request->social as $key => $item) {
+                $channel->$item = $request->link[$key];
+            }
+            $channel->update();
+        }else{
+            $new = new ChannelInformations();
+            foreach ($request->social as $key => $item) {
+                $new->$item = $request->link[$key];
+            }
+            $new->save();
+        }
+        toastr()->success('با موفقیت انجام شد!');
+        return back();
     }
 }

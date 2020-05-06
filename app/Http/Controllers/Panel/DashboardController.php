@@ -329,7 +329,7 @@ class DashboardController extends Controller
 
             $info=new ChannelInformations;
 
-            $info->id=$member->id;
+            $info->member_id=$member->id;
             $info->kart_melli=$filePathkart;
             $info->madrak=$filePathmadrak;
             $info->parvane_faaliat=$filePathparvane;

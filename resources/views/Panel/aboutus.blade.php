@@ -34,12 +34,12 @@
                                     <select name="social[]" id="social" class="form-control  custom-select">
                                         <option value="">باز کردن فهرست انتخاب</option>
 
-                                        <option value="اینستاگرام">اینستاگرام</option>
-                                        <option value="تلگرام">تلگرام</option>
-                                        <option value="فیس بوک">فیس بوک</option>
-                                        <option value="توئیتر">توئیتر</option>
-                                        <option value="لینکدین">لینکدین</option>
-                                        <option value="صفحه اینترنتی">صفحه اینترنتی</option>
+                                        <option value="link_telegram">تلگرام</option>
+                                        <option value="link_whatsapp">واتس اپ</option>
+                                       
+                                        <option value="link_instagram">اینستاگرام</option>
+                                        <option value="link_linkedin">لینکدین</option>
+                                   
 
                                     </select>
                                 </div>

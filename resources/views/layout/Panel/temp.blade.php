@@ -437,6 +437,7 @@
                         </a>
                     </li>
                     @endif
+                    
                     <li class="menu-item-link">
                         <a href="{{route('Panel.MyFollowers')}}" aria-label="گیم">
                             <i class="fa fa-users text-black-50 ml-3"></i>
@@ -453,15 +454,7 @@
                             </div>
                         </a>
                     </li>
-                   
-                    <li class="menu-item-link">
-                        <a href="{{route('Profile')}}" aria-label=""><i
-                                class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">ویرایش پروفایل</span>
-                            </div>
-                        </a>
-                    </li>
+                    @if (auth()->user()->group == 'teacher')
                     <li class="menu-item-link">
                         <a style="padding-right: 20px;" href="{{route('Request.Channel')}}" aria-label="تقاضای کانال رسمی">
                         
@@ -472,6 +465,17 @@
                             </div>
                         </a>
                     </li>
+                    @endif
+                   
+                    <li class="menu-item-link">
+                        <a href="{{route('Profile')}}" aria-label=""><i
+                                class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">ویرایش پروفایل</span>
+                            </div>
+                        </a>
+                    </li>
+                   
                     <li class="menu-item-link">
                         <a href="{{route('logout')}}" aria-label=""><svg class="icon icon-logout" viewBox="0 0 24 24"
                                 0="" 24="" 24""="">
