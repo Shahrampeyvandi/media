@@ -91,8 +91,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('aboutus/add', 'Panel\MembersController@AddAboutUs')->name('AddAboutUs');
     Route::post('aboutus/add', 'Panel\MembersController@SaveAboutUs')->name('AddAboutUs');
-
     
+    Route::post('aboutus/addsocial', 'Panel\MembersController@AboutUsSocialLink')->name('AboutUsSocialLink');
+
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');

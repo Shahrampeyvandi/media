@@ -18,10 +18,60 @@
                     </div>
                 </div>
         </div>
-        <p>لینک شبکه های اجتماعی</p>
-        
+
+
 
         </form>
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="card p-3">
+                <form action="{{route('AboutUsSocialLink')}}" method="post">
+                        @csrf
+                            <div class="row wrapper-content">
+                                <div class="form-group  col-md-6">
+                                    <label for=""><span class="text-danger">*</span> افزودن لینک شبکه اجتماعی</label>
+                                    <select name="social[]" id="social" class="form-control  custom-select">
+                                        <option value="">باز کردن فهرست انتخاب</option>
+
+                                        <option value="اینستاگرام">اینستاگرام</option>
+                                        <option value="تلگرام">تلگرام</option>
+                                        <option value="فیس بوک">فیس بوک</option>
+                                        <option value="توئیتر">توئیتر</option>
+                                        <option value="لینکدین">لینکدین</option>
+                                        <option value="صفحه اینترنتی">صفحه اینترنتی</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group  col-md-6">
+                                    <label for="link" class="col-form-label"><span class="text-danger">*</span>
+                                        لینک</label>
+                                    <input type="text" placeholder="" class="form-control" name="link[]" id="link">
+                                </div>
+
+                            </div>
+                     
+                        <hr>
+                        <div class="clone ">
+
+                        </div>
+                        <div class="clone-bottom">
+
+                            <a href="#" class="">
+                                مورد جدید
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 my-2 btn--wrapper">
+                                <input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         {{-- <div class="col-md-3 my-2 btn--wrapper">
                 <input type="submit" name="send" value="ارسال" class="btn btn-sm btn-success" />
@@ -30,7 +80,7 @@
                 <hr>
                 <h3>آپلود قسمت های دوره: </h3>
             </div> --}}
-      
+
         <br />
 
     </div>
@@ -42,11 +92,6 @@
 
 @section('js')
 
-<!-- begin::input mask -->
-<script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
-<script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
-<!-- end::input mask -->
-<script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
@@ -55,7 +100,28 @@
             filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
             imageUploadUrl: '{{route('UploadImage')}}?type=image'
         });
+
+
+
+$(document).on('click','.clone-bottom',function(e){
+  e.preventDefault()
+  let cloned = $(this).siblings('.wrapper-content').clone()
+  cloned.find('input[type="text"]').val('')
+
+  cloned.prepend(`<div class="col-md-12"><a class="remove-link float-left" href="#" >
+                                    <i class="fas fa-trash text-danger"></i>
+                                </a></div>`)
+                               
+  $(this).prev('.clone').append(cloned)
+})
+
+
+$(document).on('click','.remove-link',function(e){
+    e.preventDefault()
+    $(this).parents('.wrapper-content').remove()
+  
+})
+
 });
 </script>
 @endsection
-

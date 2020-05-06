@@ -73,4 +73,9 @@ class MembersController extends Controller
        toastr()->success('با موفقیت ذخیره شد');
        //return back();
     }
+
+    public function AboutUsSocialLink(Request $request)
+    {
+        dd($request->all());
+    }
 }
