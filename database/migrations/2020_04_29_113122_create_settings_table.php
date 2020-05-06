@@ -20,6 +20,12 @@ class CreateSettingsTable extends Migration
             $table->integer('footer_slide_count')->default(4);
             $table->string('footer_slider_title');
             $table->integer('commission')->default(50);
+            $table->boolean('mainpage_films')->default(1);
+            $table->boolean('mainpage_animations')->default(1);
+            $table->boolean('mainpage_plus')->default(1);
+            $table->boolean('mainpage_musics')->default(1);
+            $table->boolean('mainpage_podcasts')->default(1);
+            $table->boolean('mainpage_taturials')->default(1);
             $table->timestamps();
         });
         DB::table('settings')->insert(
