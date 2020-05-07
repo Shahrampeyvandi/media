@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
+use App\Models\Contents\Episodes;
 use App\Models\Contents\Posts;
 
 class CommentController extends Controller
@@ -29,11 +30,15 @@ class CommentController extends Controller
     {
 
         $comment=new Comments();
-        $comment->members_id=$request->id;
-        $comment->text=$request->text;
-        $post=Posts::find($request->post)->first();
-      
-        $post->comments->save($comment);
+        $comment->members_id = auth()->user()->id;
+        $comment->text=$request->comment;
+        $comment->parent_id = $request->parent_id;
+        $post=Episodes::whereId($request->post_id)->first()->id;
+        $comment->episodes_id = $post;
+        $comment->confirmed = auth()->user()->is_admin() ? 1 : 0;
+        $comment->save();
+        toastr()->success('نظر شما با موفقیت ثبت شد');
+        return back();
     }  
 
     public function ConfirmUnconfComment(Request $request)

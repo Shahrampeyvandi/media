@@ -9,64 +9,79 @@
         </h2>
     </div>
     <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-12">
         <form id="setting" action="{{route('Panel.commission')}}" method="post">
                 @csrf
-                <div class="form-group ">
-                    <label for="">میزان پورسانت : </label>
-                    <input type="number" name="commission" class="form-control"id="" value="{{$setting->commission}}">
+               <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="" class="">میزان پورسانت فروش: (برحسب درصد)</label>
+                    <input type="number" name="commission" class="form-control mt-1" id="" value="{{$setting->commission}}">
             
                   
                 </div>
-                </div>
+               </div>
+               
 
 
 
-                <div class="col-md-6">
-                <div class="form-group ">
-                    <label for="">نمایش در صفحه اصلی : </label>
-            <select class="form-control" name="mainpage[]" id="" multiple>
-            <option value="1"
-            @if($setting->mainpage_films==1)
-            selected="selected"
-            @endif
-            >لیست فیلم ها</option>
-            <option value="2"
-            @if($setting->mainpage_animations==1)
-            selected="selected"
-            @endif
-            >لیست انیمیشن ها</option>
-            <option value="3"
-            @if($setting->mainpage_plus==1)
-            selected="selected"
-            @endif
-            >لیست ژن پلاس ها</option>
-            <option value="4"
-            @if($setting->mainpage_musics==1)
-            selected="selected"
-            @endif
-            >لیست موسیقی ها</option>
-            <option value="5"
-            @if($setting->mainpage_podcasts==1)
-            selected="selected"
-            @endif
-            >لیست پادکست ها</option>
-            <option value="6"
-            @if($setting->mainpage_taturials==1)
-            selected="selected"
-            @endif
-            >لیست دوره های آموزشی </option>
-
-            </select>
-
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <h4 for="" class="mb-2">نمایش در صفحه اصلی : </h4>
+                       
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="1" name="mainpage[mainpage_films]"
+                                        class="custom-control-input" value="1"  @if($setting->mainpage_films==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="1">لیست فیلم ها</label>
+                        </div>
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="2" name="mainpage[mainpage_animations]"
+                                        class="custom-control-input" value="1"  @if($setting->mainpage_animations==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="2">لیست انیمیشن ها</label>
+                        </div>
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="3" name="mainpage[mainpage_plus]"
+                                        class="custom-control-input" value="1" @if($setting->mainpage_plus==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="3">لیست ژن پلاس ها</label>
+                        </div>
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="4" name="mainpage[mainpage_musics]"
+                                        class="custom-control-input" value="1"  @if($setting->mainpage_musics==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="4">لیست موسیقی ها</label>
+                        </div>
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="5" name="mainpage[mainpage_podcasts]"
+                                        class="custom-control-input" value="1"  @if($setting->mainpage_podcasts==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="5">لیست پادکست ها</label>
+                        </div>
+                        <div class="checkstores custom-control custom-checkbox custom-control-inline ml-3"
+                                    style="margin-left: -1rem;">
+                                    <input  type="checkbox" id="6" name="mainpage[mainpage_taturials]"
+                                        class="custom-control-input" value="1"  @if($setting->mainpage_taturials==1)
+                                        checked
+                                        @endif>
+                                    <label class="custom-control-label" for="6">لیست دوره های آموزشی </label>
+                        </div>
+                      
                     </div>
-
                 </div>
-                </div>
-
                 <div class="row mb-3">
-                <div class="form-group">
-                    <button class="mx-0 btn btn-sm btn-info">تایید</button>
+                    <div class="form-group col-md-12">
+                        <button class="mx-0 btn btn-sm btn-primary">تایید</button>
                 </div>
                 </div>
 

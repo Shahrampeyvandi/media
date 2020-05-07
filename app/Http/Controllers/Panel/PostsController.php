@@ -344,20 +344,25 @@ class PostsController extends Controller
     {
         $post = Posts::whereId($request->post_id)->first();
         if ($request->file !== null) {
-            $destinationPath = "files/posts/$request->title/episodes";
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            $extension = $request->file('file')->getClientOriginalExtension();
-            // Valid extensions
-            $fileName = 'file_' . time() . '.' . $extension;
+            // if (!file_exists($destinationPath)) {
+                //     mkdir($destinationPath, 0755, true);
+                // }
+                $extension = $request->file('file')->getClientOriginalExtension();
+                // Valid extensions
+                $fileName = 'file_' . time() . '.' . $extension;
+                $destinationPath = "files/posts/episodes/$fileName";
             //$request->file('file')->move($destinationPath, $fileName);
 
-            $filePathepisode22 = "$destinationPath/$fileName";
+            // $filePathepisode22 = "$destinationPath/$fileName";
 
-            Storage::disk('ftp')->put($filePathepisode22, fopen($request->file('file'), 'r+'));
-
-            $filePathepisode = "$destinationPath/$fileName";
+            // Storage::disk('ftp')->put($filePathepisode22, fopen($request->file('file'), 'r+'));
+            $conn = ftp_connect(env('FTP_HOST'));
+            $login = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+            ftp_set_option($conn, FTP_USEPASVADDRESS, false);
+            ftp_pasv($conn, true);
+            ftp_put($conn, $destinationPath, $_FILES['file']['tmp_name'], FTP_BINARY);
+            $filePathepisode = $destinationPath;
+            ftp_close($conn);
         } else {
             $filePathepisode = null;
         }
@@ -399,7 +404,7 @@ class PostsController extends Controller
         $newepisode->subjects_id = $post->subjects_id;
         $newepisode->levels_id = $post->levels_id;
         $newepisode->picture = $picPath;
-        $newepisode->content_link = $filePathepisode;
+        $newepisode->content_link ="Https://dl.genebartar.ir/$filePathepisode";
         $newepisode->duration = $duration;
         $newepisode->type = 'free';
         $newepisode->price = 0;
@@ -450,6 +455,41 @@ foreach (Members::where('group','admin')->get() as $key => $admin) {
         toastr()->success('گزارش شما با موفقیت ثبت شد');
        return back();
     }
+
+    public function reportepisode(Request $request)
+    {
+       
+      
+        $member = auth()->user()->id;
+        $post = Episodes::whereId($request->postid)->first();
+        if(ViolationReports::where(['episods_id'=>$request->postid,'members_id'=>$member])->count())
+        {
+            toastr()->warning('شما تنها یک بار میتوانید گزارش تخلف ثبت کنید');
+            return back();
+        }
+        
+        $report=new ViolationReports;
+        $report->info=$request->info;
+        $report->members_id=$member;
+        $report->episods_id=$request->postid;
+        $report->save();
+
+foreach (Members::where('group','admin')->get() as $key => $admin) {
+    $notification = new Notifications;
+    $notification->members_id = $admin->id;
+    $notification->title = 'گزارش تخلف پست';
+    $notification->text = 'یک گزارش تخلف برای پست با نام '.'<a class="text-primary" href="'.route('ShowItem',$post->id).'">'.$post->title.'</a>'.' ثبت شد';
+    $notification->save();
+}
+       
+
+
+        toastr()->success('گزارش شما با موفقیت ثبت شد');
+       return back();
+    }
+
+
+
 
     public function allreport()
     {

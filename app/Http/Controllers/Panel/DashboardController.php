@@ -130,7 +130,7 @@ class DashboardController extends Controller
     }
     public function SubmitUploadFile(Request $request)
     {
-       
+
         $fileNamevideo = '1';
 
         $validator = Validator::make($request->all(), [
@@ -155,10 +155,15 @@ class DashboardController extends Controller
             // Valid extensions
             $fileNamevideo = 'file_' . time() . '.' . $extension;
             //$request->file('file')->move($destinationPath, $fileNamevideo);
-            $filePath22 = "files/posts/$request->title/$fileNamevideo";
+            $filePath22 = "files/posts/$fileNamevideo";
 
-            Storage::disk('ftp')->put($filePath22, fopen($request->file('file'), 'r+'));
-
+            // Storage::disk('ftp')->put($filePath22, fopen($request->file('file'), 'r+'));
+            $conn = ftp_connect(env('FTP_HOST'));
+            $login = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+            ftp_set_option($conn, FTP_USEPASVADDRESS, false);
+            ftp_pasv($conn, true);
+            ftp_put($conn, $filePath22, $_FILES['file']['tmp_name'], FTP_BINARY);
+            ftp_close($conn);
             $filePath = "files/posts/$request->title/$fileNamevideo";
         } else {
             $filePath = null;
@@ -201,7 +206,7 @@ class DashboardController extends Controller
         $post->desc = $request->desc;
         $post->picture = $picPath;
         $post->content_name = $fileNamevideo;
-        $post->content_link = $filePath;
+        $post->content_link = "Https://dl.genebartar.ir/$filePath22";
         $post->categories_id = $request->type;
         $post->languages_id = $request->lang;
         $post->subjects_id = $request->subject;
@@ -268,16 +273,16 @@ class DashboardController extends Controller
         $member = auth()->user();
         return view('Panel.Profile', compact('member'));
     }
-    
+
     public function RequestChannel()
     {
         $member = auth()->user();
         return view('Panel.RequestChannel', compact('member'));
     }
-    
+
     public function SubmitRequestChannel(Request $request)
     {
-       //dd($request->all());
+        //dd($request->all());
         $member = auth()->user();
 
         if ($request->hasFile('national_card_pic')) {
@@ -290,7 +295,6 @@ class DashboardController extends Controller
             $fileName = 'national_card_pic' . time() . '.' . $extension;
             $request->file('national_card_pic')->move($destinationPath, $fileName);
             $filePathkart = "$destinationPath/$fileName";
-          
         }
         if ($request->hasFile('education_certificate_pic')) {
             $destinationPath = "files/members" . $member->id;
@@ -302,9 +306,8 @@ class DashboardController extends Controller
             $fileName = 'education_certificate_pic' . time() . '.' . $extension;
             $request->file('education_certificate_pic')->move($destinationPath, $fileName);
             $filePathmadrak = "$destinationPath/$fileName";
-          
         }
-        $filePathparvane='';
+        $filePathparvane = '';
         if ($request->hasFile('permission_work_pic')) {
             $destinationPath = "files/members" . $member->id;
             if (!file_exists($destinationPath)) {
@@ -315,7 +318,6 @@ class DashboardController extends Controller
             $fileName = 'permission_work_pic' . time() . '.' . $extension;
             $request->file('permission_work_pic')->move($destinationPath, $fileName);
             $filePathparvane = "$destinationPath/$fileName";
-          
         }
 
 
@@ -326,37 +328,33 @@ class DashboardController extends Controller
          * 
          */
 
-         $info=$member->memberChannelInformations;
+        $info = $member->memberChannelInformations;
 
 
         // dd($info);
-         if(is_null($info)){
+        if (is_null($info)) {
 
-            $info=new ChannelInformations;
+            $info = new ChannelInformations;
 
-            $info->member_id=$member->id;
-            $info->kart_melli=$filePathkart;
-            $info->madrak=$filePathmadrak;
-            $info->parvane_faaliat=$filePathparvane;
-            $info->accepted=1;
+            $info->member_id = $member->id;
+            $info->kart_melli = $filePathkart;
+            $info->madrak = $filePathmadrak;
+            $info->parvane_faaliat = $filePathparvane;
+            $info->accepted = 1;
             $info->save();
+        } else {
 
-         }else{
+            $info = ChannelInformations::find($member->id);
 
-            $info=ChannelInformations::find($member->id);
-
-            $info->kart_melli=$filePathkart;
-            $info->madrak=$filePathmadrak;
-            $info->filePathparvane=$filePathparvane;
-            $info->accepted=1;
+            $info->kart_melli = $filePathkart;
+            $info->madrak = $filePathmadrak;
+            $info->filePathparvane = $filePathparvane;
+            $info->accepted = 1;
             $info->update();
+        }
 
 
 
-         }
-
-
-       
         toastr()->success('مدارک با موفقیت آپلود شد و در انتظار تایید قرار گرفت');
         return redirect()->route('Panel.Dashboard');
     }
@@ -426,14 +424,14 @@ class DashboardController extends Controller
     {
         $message = Messages::whereId($request->id)->first();
         $message->response = $request->response;
-        
-        if($message->update()){
-        $notification = new Notifications;
-        $notification->members_id =$message->members_id;
-        $notification->title = 'مدیریت سایت';
-        $notification->text = $request->response;
-        $notification->posts_id = 0;
-        $notification->save();
+
+        if ($message->update()) {
+            $notification = new Notifications;
+            $notification->members_id = $message->members_id;
+            $notification->title = 'مدیریت سایت';
+            $notification->text = $request->response;
+            $notification->posts_id = 0;
+            $notification->save();
         }
         toastr()->success('پاسخ با موفقیت برای کاربر ارسال شد');
         return back();
@@ -441,11 +439,10 @@ class DashboardController extends Controller
 
     public function DeleteMyMessage($id)
     {
-       $message =  Messages::findOrFail($id);
-        if($message->delete()){
+        $message =  Messages::findOrFail($id);
+        if ($message->delete()) {
             toastr()->success('پیام شما با موفقیت حذف شد');
             return back();
         }
-
     }
 }

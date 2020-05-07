@@ -60,22 +60,24 @@
                                             </g>
                                         </use>
                                     </svg> </a>
-                                <a href="#" data-id="{{$content->id}}" class="favorite-post pt-2 mx-2">
-                                    <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray"
-                                        @endif viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                        <use xlink:href="#si_favorite">
-                                            <g id="si_favorite" data-viewBox="0 0 24 24">
-                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                <path
-                                                    d="M16.5 3A5.988 5.988 0 0 0 12 5.09 5.988 5.988 0 0 0 7.5 3 5.447 5.447 0 0 0 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5A5.447 5.447 0 0 0 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5A3.418 3.418 0 0 1 7.5 5a3.909 3.909 0 0 1 3.57 2.36h1.87A3.885 3.885 0 0 1 16.5 5 3.418 3.418 0 0 1 20 8.5c0 2.89-3.14 5.74-7.9 10.05z">
-                                                </path>
-                                            </g>
-                                        </use>
-                                    </svg>
+                               @if ($type == 'post')
+                               <a href="#" data-id="{{$content->id}}" class="favorite-post pt-2 mx-2">
+                                <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray"
+                                    @endif viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                    <use xlink:href="#si_favorite">
+                                        <g id="si_favorite" data-viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M16.5 3A5.988 5.988 0 0 0 12 5.09 5.988 5.988 0 0 0 7.5 3 5.447 5.447 0 0 0 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5A5.447 5.447 0 0 0 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5A3.418 3.418 0 0 1 7.5 5a3.909 3.909 0 0 1 3.57 2.36h1.87A3.885 3.885 0 0 1 16.5 5 3.418 3.418 0 0 1 20 8.5c0 2.89-3.14 5.74-7.9 10.05z">
+                                            </path>
+                                        </g>
+                                    </use>
+                                </svg>
 
-                                </a>
+                            </a>
+                               @endif
                                 @if (auth()->check())
-                                <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
+                                <a data-id="0" class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
                                     گزارش تخلف
                                 </a>
@@ -159,13 +161,15 @@
                             {!!$content->desc!!}
                         </p>
                     </div>
-                    <div class="description w-100 put-right pr-2">
+                    @if ($content->otheroninformation)
+                    <div class="description w-100 put-right pr-2 mt-3">
                         <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
                         <p class="paragraph mb-lg text-black-50">
                             {!!$content->otheroninformation!!}
                         </p>
                     </div>
-                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2">
+                    @endif
+                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 border-t-1">
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مربوط به</div>
                             <div class="d-tc py-xs">
@@ -276,171 +280,7 @@
                     </div>
 
 
-
-                    <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
-
-                        <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
-                        @if (count($comments))
-                        @foreach ($comments as $comment)
-                        <div class="row mr-2 ml-5 mb-2" style="   background: #e9e9ff;
-                                border-radius: 5px;
-                                padding: 10px;">
-                            <div class="col-3 col-md-1 pl-0">
-                                <div class="w-100 d-flex justify-content-center pt-3">
-                                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-11 pl-3 comment-user-name">
-                                <div class="mt-3">
-                                    <div class=" d-flex justify-content-between mb-2">
-                                        <h3>{{$comment->members->firstname .' '.$comment->members->lastname }}</h3>
-                                        <span class="text-black-50 fs-0-8">
-                                            {{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}
-                                        </span>
-                                    </div>
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                                        {!!$comment->text!!}
-                                    </p>
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-
-                                            <div>
-                                                <a data-id="{{$comment->id}}"
-                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
-                                                    <span
-                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','like')->count()}}</span>
-                                                    <i class="fa fa-plus-square"></i>
-                                                </a>
-                                                <a data-id="{{$comment->id}}"
-                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
-                                                    href="#"> <span
-                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','dislike')->count()}}</span>
-                                                    <i class="fa fa-plus-square pl-1"></i>
-                                                </a>
-                                            </div>
-                                            <div class="text-info mr-2">
-                                                <a href="#"
-                                                    data-name="{{$comment->members->firstname .' '.$comment->members->lastname }}"
-                                                    data-id="{{$comment->id}}" class="button__"> پاسخ
-                                                    <i class="fa fa-reply"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment->id)->where('confirmed',1)->get()
-                        as
-                        $comment_l2)
-                        <div class="row mr-3 ml-2 mb-2" style="   background: #e9e9ff;
-                                                       border-radius: 5px;
-                                                       padding: 10px;">
-                            <div class="col-3 col-md-1 pl-0">
-                                <div class="w-100 d-flex justify-content-center pt-3">
-                                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-11 pl-3 comment-user-name">
-                                <div class="mt-3">
-                                    <div class=" d-flex justify-content-between mb-2">
-                                        <h3>{{$comment_l2->members->firstname .' '.$comment_l2->members->lastname }}
-                                        </h3>
-                                        <span class="text-black-50 fs-0-8">
-                                            {{\Morilog\Jalali\Jalalian::forge($comment_l2->created_at)->format('%d %B %Y')}}
-                                        </span>
-                                    </div>
-
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                                        {!!$comment_l2->text!!}
-                                    </p>
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-
-                                            <div>
-                                                <a data-id="{{$comment_l2->id}}"
-                                                    class="like-comment border-1 radius-5 pr-2 text-success" href="#">
-                                                    <span
-                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','like')->count()}}</span>
-                                                    <i class="fa fa-plus-square"></i>
-                                                </a>
-                                                <a data-id="{{$comment_l2->id}}"
-                                                    class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
-                                                    href="#"> <span
-                                                        class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','dislike')->count()}}</span>
-                                                    <i class="fa fa-plus-square pl-1"></i>
-                                                </a>
-                                            </div>
-                                            <div class="text-info mr-2">
-                                                <a href="#" data-id="{{$comment_l2->id}}" class="button__"> پاسخ
-                                                    <i class="fa fa-reply"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @foreach(\App\Models\Contents\Comments::where('parent_id',$comment_l2->id)->where('confirmed',1)->get()
-                        as $comment_l3)
-                        <div class="row mr-5 ml-2 mb-2" style="   background: #e9e9ff;
-                            border-radius: 5px;
-                            padding: 10px;">
-                            <div class="col-3 col-md-1 pl-0">
-                                <div class="w-100 d-flex justify-content-center pt-3">
-                                    <img class="w-100 rounded-circle" src="{{asset('assets/images/avatar.png')}}"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-11 pl-3 comment-user-name">
-                                <div class="mt-3">
-                                    <div class=" d-flex justify-content-between mb-2">
-                                        <h3>{{$comment_l3->members->firstname .' '.$comment_l3->members->lastname }}
-                                        </h3>
-                                        <span class="text-black-50 fs-0-8">
-                                            {{\Morilog\Jalali\Jalalian::forge($comment_l3->created_at)->format('%d %B %Y')}}
-                                        </span>
-                                    </div>
-
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
-                                        {!!$comment_l3->text!!}
-                                    </p>
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-
-                                            <div>
-                                                <a href="#"> <span class="text-success">0</span>
-                                                    <svg class="icon icon-thumb-up d-in v-m c-theme fs-1-2 ml-xxs"
-                                                        viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                                        <use xlink:href="#si_thumb-up">
-                                                            <g id="si_thumb-up" data-viewbox="0 0 24 24">
-                                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                                <path
-                                                                    d="M9 21h9a1.987 1.987 0 0 0 1.84-1.22l3.02-7.05A1.976 1.976 0 0 0 23 12v-2a2.006 2.006 0 0 0-2-2h-6.31l.95-4.57.03-.32a1.505 1.505 0 0 0-.44-1.06L14.17 1 7.58 7.59A1.987 1.987 0 0 0 7 9v10a2.006 2.006 0 0 0 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9z">
-                                                                </path>
-                                                                <path transform="translate(1 9)" d="M0 0h4v12H0z">
-                                                                </path>
-                                                            </g>
-                                                        </use>
-                                                    </svg> </a>
-                                            </div>
-                                            <div class="text-info mr-2">
-                                                <a href="#" data-id="{{$comment_l3->id}}" class="button__"> پاسخ
-                                                    <i class="fa fa-reply"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        @endforeach
-                        @endforeach
-                        @else
-                        <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
-                        @endif
-                    </div>
+                    @include('Includes.Main.Comments')
                 </div>
             </div>
             @include('Includes.Main.relatedposts')
@@ -449,13 +289,115 @@
 </div>
 </main>
 @endsection
+
 @section('js')
 
 <link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/emojionearea.min.css">
+<script src="{{route('BaseUrl')}}/assets/js/emojionearea.min.js"></script>
 <script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
 <script>
+
+$(".add-emoji").emojioneArea({
+    attributes: {
+        dir : "rtl",
+       
+    },
+    textcomplete: {
+        maxCount  : 20,
+        placement : 'absright'
+    },
+    pickerPosition: "bottom"
+});
+
+    var controls =
+[
+    'play-large', // The large play button in the center
+    
+    'rewind', // Rewind by the seek time (default 10 seconds)
+    'play', // Play/pause playback
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'progress', // The progress bar and scrubber for playback and buffering
+    'current-time', // The current time of playback
+    'duration', // The full duration of the media
+    'mute', // Toggle mute
+    'volume', // Volume control
+    'captions', // Toggle captions
+    'settings', // Settings menu
+    'pip', // Picture-in-picture (currently Safari only)
+    'airplay', // Airplay (currently Safari only)
+    'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+    'fullscreen' // Toggle fullscreen
+];
     const player = new Plyr('#player',{
-        
+        controls
     });
+    var type = "{{$type}}";
+    var checkauth = '{{auth()->user()}}';
+    
+    function ajaxlike(id, url) {
+          
+        
+     
+  }
+
+  $('#like-post').click(function (e) {
+      e.preventDefault();
+      
+      if (checkauth) {
+          if(type == "post"){
+
+          var url = '{{route("LikePost")}}';
+          }
+          if(type == "episode"){
+         
+            var url = '{{route("LikeEpisode")}}';
+            
+          }
+          let id = $(this).data('id')
+          $.ajax({
+              url: url,
+              type: 'POST',
+              data: {id: id},
+              dataType: 'JSON',
+              cache: false,
+              success: function (res) {
+                  $('#like-post span').text(res)
+              }
+          });
+      } else {
+          window.location.href = "{{route("login")}}"
+      }
+
+  })
+
+  $('.favorite-post').click(function (e) {
+      e.preventDefault();
+      if (checkauth) {
+          
+          let thiss = $(this)
+
+          let url = '{{route("AddFavorite")}}';
+          let id = $(this).data('id')
+          $.ajax({
+              url: url,
+              type: 'POST',
+              data: {id: id},
+              dataType: 'JSON',
+              cache: false,
+              success: function (res) {
+                  if (res == 'add') {
+                      thiss.find('svg').attr('fill', 'red')
+                  }
+                  if (res == 'remove') {
+                      thiss.find('svg').attr('fill', 'gray')
+                  }
+              }
+
+          });
+      } else {
+          window.location.href = "{{route("login")}}"
+      }
+  })
 </script>
 @endsection

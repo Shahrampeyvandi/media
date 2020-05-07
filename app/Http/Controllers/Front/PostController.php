@@ -96,7 +96,8 @@ class PostController extends Controller
         $countbestcomments = 0;
      }
        
-        
+     $type = "post";
+
 
 
         if ($content->categories_id == 6) {
@@ -106,6 +107,7 @@ class PostController extends Controller
             $post = $content;
             //dd($episodes);
             return view('Main.tutorial', compact([
+                'type',
                 'isbuyedit',
                 'id',
                 'post',
@@ -126,6 +128,7 @@ class PostController extends Controller
 
 
             return view('Main.single', compact([
+                'type',
                 'isbuyedit',
                 'id',
                 'content',
@@ -199,10 +202,10 @@ class PostController extends Controller
             ->latest()->get();
 
         $content->tags = [];
-
+        $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
 
         // $episodes=Episodes::where('posts_id',$)
-        return view('Main.tutorial', compact(['isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
+        return view('Main.tutorial', compact(['type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
     }
 }

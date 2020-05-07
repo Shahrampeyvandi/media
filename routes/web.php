@@ -81,8 +81,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');
     Route::get('/panel/mycomments', 'Panel\CommentController@myComments')->name('Panel.Comments');
     Route::get('/uploadfile', 'Panel\DashboardController@UploadFile')->name('Main.UploadFile');
-    Route::post('addcomment', 'Front\CommentController@AddPostComment')->name('AddComment');
+    Route::post('addpostcomment', 'Front\CommentController@AddPostComment')->name('AddPostComment');
+    Route::post('addepizodecomment', 'Front\CommentController@AddEpisodeComment')->name('AddEpisodeComment');
+
     Route::post('likepost', 'Front\LikeController@LikePost')->name('LikePost');
+    Route::post('likepisode', 'Front\LikeController@LikeEpisode')->name('LikeEpisode');
+
     Route::post('addtofav', 'Front\FavoriteController@AddFavorite')->name('AddFavorite');
     Route::post('likecomment', 'Front\CommentController@LikeComment')->name('LikeComment');
     Route::post('dislikecomment', 'Front\CommentController@DisLikeComment')->name('DisLikeComment');
@@ -100,6 +104,8 @@ Route::middleware('auth')->group(function () {
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
     Route::post('post/report', 'Panel\PostsController@report')->name('Post.Report');
+    Route::post('episode/report', 'Panel\PostsController@reportepisode')->name('Episode.Report');
+
     Route::get('panel/mypurchase', 'Panel\PurchaseController@mypurchase')->name('Purchase.My');
 
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');

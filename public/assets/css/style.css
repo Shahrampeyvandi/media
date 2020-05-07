@@ -9627,7 +9627,7 @@ html[lang="fa"] .input-select select {
 }
 .thumbnail-movie .thumb-wrapper .overlay {
   position: absolute;
-  top: 0;
+  top: 50px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -14159,7 +14159,7 @@ br {display:block}
 }
  .overlay {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -14170,7 +14170,7 @@ br {display:block}
 }
 .overlay1 {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -14181,7 +14181,7 @@ br {display:block}
 }
 .overlay2 {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;

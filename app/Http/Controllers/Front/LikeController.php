@@ -31,13 +31,19 @@ class LikeController extends Controller
     public function LikeEpisode(Request $request)
     {
 
+        $user_id = auth()->user()->id;
+        if(Likes::where(['episodes_id'=>$request->id,'members_id'=>$user_id])->count()){
+            return false;
+        }
         $like=new Likes();
-        $like->members_id=$request->id;
-        $episode=Episodes::find($request->post)->first();
-      
-        $episode->likes->save($like);
-
-        return back();
+        $like->members_id=$user_id;
+        $like->episodes_id = $request->id;
+        $like->save();
+        $counts = Likes::where('episodes_id',$request->id)->count();
+       
+        return response()->json(
+            $counts
+            , 200);
     }  
 
     public function UnLikePost(Request $request)

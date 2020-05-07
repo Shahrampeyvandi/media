@@ -29,43 +29,17 @@ class SettingController extends Controller
 
     public function commission(Request $request)
     {
-        //dd($request);
+        
         $mainpage=$request->mainpage;
-        $film=0;
-        $animation=0;
-        $plus=0;
-        $music=0;
-        $podcast=0;
-        $taturial=0;
-
-        foreach($mainpage as $main){
-            if($main==1){
-                $film=1;
-            }else if($main==2){
-                $animation=1;
-            }else if($main==3){
-                $plus=1;
-            }else if($main==4){
-                $music=1;
-            }else if($main==5){
-                $podcast=1;
-            }else if($main==6){
-                $taturial=1;
-            }
+       
+        $setting = Setting::first();
+        $setting->commission = $request->commission;
+        foreach($mainpage as $key=>$main){
+          $setting->$key = 1;
         }
+        $setting->update();
 
-            Setting::first()->update([
-                'commission' => $request->commission,
-                'mainpage_films'=>$film,
-                'mainpage_animations'=>$animation,
-                'mainpage_plus'=>$plus,
-                'mainpage_musics'=>$music,
-                'mainpage_podcasts'=>$podcast,
-                'mainpage_taturials'=>$taturial,
-            ]);
-    
-
-      
+        
         toastr()->success('با موفقیت تغییر کرد');
         return back();
     }

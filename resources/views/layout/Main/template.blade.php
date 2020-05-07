@@ -837,7 +837,6 @@ $(document).on('keyup','#searchinput',function(e){
         $('.report-btn').click(function (e) {
             e.preventDefault()
 
-            $('#parent_id').attr('value', parent_id)
             $('.overlay.report').css({
                 'visibility': 'visible',
                 'opacity': '1',
@@ -904,61 +903,7 @@ $(document).on('keyup','#searchinput',function(e){
         });
 
 
-        function ajaxlike(id, url) {
-          
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {id: id},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                        $('#like-post span').text(res)
-                    }
-                });
-           
-        }
-
-        $('#like-post').click(function (e) {
-            e.preventDefault();
-            if (checkauth) {
-                let url = '{{route("LikePost")}}';
-                let post_id = $(this).data('id')
-                ajaxlike(post_id, url);
-            } else {
-                window.location.href = "{{route("login")}}"
-            }
-
-        })
-
-        $('.favorite-post').click(function (e) {
-            e.preventDefault();
-            if (checkauth) {
-                
-                let thiss = $(this)
-
-                let url = '{{route("AddFavorite")}}';
-                let id = $(this).data('id')
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {id: id},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                        if (res == 'add') {
-                            thiss.find('svg').attr('fill', 'red')
-                        }
-                        if (res == 'remove') {
-                            thiss.find('svg').attr('fill', 'gray')
-                        }
-                    }
-
-                });
-            } else {
-                window.location.href = "{{route("login")}}"
-            }
-        })
+       
 
         $('.like-comment').click(function (e) {
             e.preventDefault();

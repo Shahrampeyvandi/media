@@ -124,7 +124,13 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" action="{{route('AddComment')}}" method="post">
+            <form id="" @if ($type == "post")
+            action="{{route('AddPostComment')}}"
+            @endif 
+            @if ($type == "episode")
+            action="{{route('AddEpisodeComment')}}"
+            @endif 
+            method="post">
                 @csrf
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> افزودن دیدگاه
@@ -132,8 +138,8 @@
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
                         <input type="hidden" name="post_id" value="{{$content->id}}">
-                        <textarea type="text" rows="4" class="form-control" name="comment"
-                            id="comment"></textarea>
+                        <textarea type="text" rows="4" rows="6" class="add-emoji" name="comment"
+                            id="comment" dir="rtl"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -147,16 +153,24 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" action="{{route('Post.Report')}}" method="post">
+            <form id="" 
+            @if ($type == "post")
+            action="{{route('Post.Report')}}"
+            @endif 
+            @if ($type == "episode")
+            action="{{route('Episode.Report')}}"
+            @endif 
+            
+            method="post">
                 @csrf
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> ارسال گزارش تخلف
                     </h5>
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
-                        <input type="hidden" name="postid" value="{{$id}}">
+                        <input type="hidden" name="postid" value="{{$content->id}}">
 
-                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control"
+                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control add-emoji"
                             name="info" id="description"></textarea>
                     </div>
                 </div>

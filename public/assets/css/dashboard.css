@@ -344,3 +344,7 @@ ul:not(.list-unstyled) li {
 select[name='example1_length']{
     margin-bottom: 1rem !important;
 }
+.custom-control-label::before, .custom-control-label::after {
+    left: auto;
+    right: -22px;
+}
