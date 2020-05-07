@@ -127,7 +127,7 @@
                                 </div>
                             </div>
 
-                            @if(\App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
+                            @if(auth()->user() && \App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
                             <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link followed"> <span
                                     class="text">دنبال میکنید</span></a>
                             @else

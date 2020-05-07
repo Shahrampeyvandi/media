@@ -33,7 +33,7 @@
             @endif</td>
             <td>{{\Morilog\Jalali\Jalalian::forge($message->created_at)->format('%d %B %Y')}}</td>
                 <td>
-                <!-- <a href="{{route('MyMessage.Delete',$message->id)}}" class="btn btn-danger btn-sm">حذف</a> -->
+                <!-- <a href="route('MyMessage.Delete',$message->id)" class="btn btn-danger btn-sm">حذف</a> -->
                 </td>
            </tr>
             @endforeach
