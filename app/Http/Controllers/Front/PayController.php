@@ -78,7 +78,7 @@ class PayController extends Controller
 
  $data = array('MerchantID' => '26630526-5b97-44c5-b713-aa8777b7a915', 'Authority' => $Authority, 'Amount' => $purchase->payedprice);
  $jsonData = json_encode($data);
- $ch = curl_init('https://zarinpal.com/pg/rest/WebGate/PaymentVerification.json');
+ $ch = curl_init('https://www.zarinpal.com/pg/rest/WebGate/PaymentVerification.json');
  //$ch = curl_init('https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json');
 
  curl_setopt($ch, CURLOPT_USERAGENT, 'ZarinPal Rest Api v1');

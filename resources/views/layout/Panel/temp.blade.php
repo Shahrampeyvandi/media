@@ -382,7 +382,7 @@
                         <a href="{{route('MyTutorials')}}" aria-label=""><i
                                 class="ti ti-book fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">دوره های آموزشی خریداری شده</span>
+                                <span class="text">دوره های آموزشی من</span>
                             </div>
                         </a>
                     </li>
