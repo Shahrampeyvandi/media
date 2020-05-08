@@ -130,7 +130,7 @@ class DashboardController extends Controller
     }
     public function SubmitUploadFile(Request $request)
     {
-
+        
         $fileNamevideo = '1';
 
         $validator = Validator::make($request->all(), [
@@ -138,12 +138,16 @@ class DashboardController extends Controller
             'pic' => 'nullable|mimes:jpeg,png,jpg',
         ]);
         if ($validator->fails()) {
-            toastr()->error('فایل دارای فرمت نامعتبر می باشد');
-            return back();
+            return response()->json(
+                ['errors'=> "فایل دارای فرمت غیرمجاز می باشد",403],
+                
+            );
         }
         if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
-            toastr()->error('فایل زیرنویس دارای فرمت نامعتبر می باشد');
-            return back();
+            return response()->json(
+                ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد",403],
+                
+            );
         }
         // Upload path
         $destinationPath = "files/posts/$request->title";
@@ -246,12 +250,17 @@ class DashboardController extends Controller
 
 
         if ($request->type !== "6") {
-            toastr()->success('فایل با موفقیت آپلود شد');
-            return back();
+           return response()->json(
+               ['success'=>"موفق",200]
+           );
         }
         if ($request->type == "6") {
-            toastr()->success('دوره آموزشی با موفقیت آپلود شد');
-            return redirect()->route('Tutorial.CreateEpisode', $post->id);
+            return response()->json(
+                ['success'=>"موفق"
+                ,'id' => $post->id
+                ,200]
+            );
+           
         }
         // } catch (\Throwable $th) {
 

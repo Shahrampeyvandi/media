@@ -14559,6 +14559,33 @@ br {display:block}
   background: #c0392b;
   color: #fff;
 }
+
+
+
+.episodes_list--free{
+  height: 34px;
+    background: #4296ff;
+    color: #fff;
+    text-align: center;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 35px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 4px solid #ebebeb;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 1.1em;
+}
 .episodes_list .episodes_list--section .episodes_list--item.lock .section-right .episodes_list--number {
   overflow: hidden;
   position: relative;

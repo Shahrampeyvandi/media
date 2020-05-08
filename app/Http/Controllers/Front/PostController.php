@@ -97,6 +97,7 @@ class PostController extends Controller
      }
        
      $type = "post";
+     $episode_id = null;
 
 
 
@@ -107,6 +108,7 @@ class PostController extends Controller
             $post = $content;
             //dd($episodes);
             return view('Main.tutorial', compact([
+                'episode_id',
                 'type',
                 'isbuyedit',
                 'id',
@@ -159,6 +161,7 @@ class PostController extends Controller
 
     public function episode($id, $ep)
     {
+        
         $content = Episodes::where('posts_id', $id)->where('number', $ep)->first();
         $post = Posts::whereId($id)->first();
         $favorite_status = 0;
@@ -169,7 +172,7 @@ class PostController extends Controller
             $favorite_status = Favorites::where('posts_id', $id)->where('members_id', $user_id)->count();
         }
 
-        if ($post->type = 'money') {
+        if ($post->type == 'money') {
             if (auth()->user()) {
                 $purchase = Purchase::where('members_id', auth()->user()->id)->where('posts_id', $id)->where('success', 1)->first();
                 $isbuyedit = false;
@@ -180,6 +183,7 @@ class PostController extends Controller
                     $isbuyedit = true;
                 }
             } else {
+                toastr()->error('برای مشاهده این قسمت بایستی دوره را خریداری کنید');
                 return back();
             }
         }
@@ -204,8 +208,8 @@ class PostController extends Controller
         $content->tags = [];
         $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
-
+        
         // $episodes=Episodes::where('posts_id',$)
-        return view('Main.tutorial', compact(['type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
+        return view('Main.tutorial', compact(['ep','type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
     }
 }

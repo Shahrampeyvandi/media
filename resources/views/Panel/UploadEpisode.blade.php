@@ -15,7 +15,7 @@
             <form id="upload-episode" action="{{route('UploadEpizode')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="post_id" value="{{$id}}">
-                <div class="card epizode p-3">
+                <div class=" epizode p-3">
                     <h3 class="mb-2">آپلود قسمت های دوره: </h3>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -59,6 +59,26 @@
                     </div>
                 </div>
             </form>
+            <hr>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+                style="width: 0%">
+                0%
+            </div>
+        </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3 mb-5">
+                <div class="sc-gZMcBi ePNtwd"><span>پسوند های مجاز فایل </span>
+                    <div class="sc-gqjmRU CZXVf">؟</div>
+                </div>
+                <div class="sc-VigVT hESCWV">
+                    <p>avi,mp4,mp3,mpga,mkv,3gp
+                    </p>
+                </div>
+            </div>
+        </div>
 
 
             @endsection
@@ -97,7 +117,80 @@
             file:"لطفا فایل قسمت را وارد نمایید",
 			},
         
-	});
+    });
+    $('#upload').click(function(){
+           if($('#upload-file').valid()){
+            $(this).val('در حال آپلود ...')
+           }
+        })
+
+    $('form').ajaxForm({
+        beforeSerialize:function($Form, options){
+        /* Before serialize */
+        for ( instance in CKEDITOR.instances ) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+        return true; 
+    },
+      beforeSend:function(){
+        $('#success').empty();
+        
+      },
+      uploadProgress:function(event, position, total, percentComplete)
+      {
+     
+        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+                    در حال بارگذاری ...
+                </button>`)
+        $('.progress-bar').text(percentComplete + '%');
+        $('.progress-bar').css('width', percentComplete + '%');
+      
+      
+      },
+     
+      success:function(data)
+      {
+         
+        
+
+          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
+     
+        if(data.errors)
+        {
+            swal("خطا"
+            , data.errors
+            ,
+             "error", {
+			button: "باشه"
+		});
+          $('.progress-bar').text('0%');
+          $('.progress-bar').css('width', '0%');
+        }
+        if(data.success)
+        {
+        
+            swal("موفق"
+            , "فایل با موفقیت آپلود شد"
+            ,
+             "success", {
+			button: "باشه"
+		});
+
+         window.location.reload()
+          
+        }
+      },
+
+      error:function(data){
+        swal("خطا"
+            , 'آپلود ناموفق بود'
+            ,
+             "error", {
+			button: "باشه"
+		});
+      }
+    });
    
 });
             </script>

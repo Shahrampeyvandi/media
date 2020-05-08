@@ -208,9 +208,10 @@
             title:"required",
             type:"required",
             pic:{
-                filesize:2000 * 1024
+                filesize:2000 * 1024,
+                accept: "jpg|jpeg|png|JPG|JPEG|PNG"
             },
-            file:"required",
+            file:{required:true,accept: "avi,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp"},
             lang:"required",
             subject:"required",
             level:"required",
@@ -229,9 +230,10 @@
             level:"سطح علمی فایل را انتخاب کنید",
             subject:"موضوع مورد نظر خود را انتخاب کنید",
             desc:"توضیحات برای فایل الزامی است",
-            file:"فایل مورد نظر خود را انتخاب نمایید",
+            file:{required:"فایل مورد نظر خود را انتخاب نمایید",accept:"فرمت فایل غیرمجاز می باشد"},
             price:{
-                regex:"قیمت نمی تواند با صفر شروع شود"
+                regex:"قیمت نمی تواند با صفر شروع شود",
+                accept:"تصویر دارای فرمت غیرمجاز می باشد"
              }
 			},
 	});
@@ -241,97 +243,89 @@
             $(this).val('در حال آپلود ...')
            }
         })
-    // $('form').ajaxForm({
-    //     beforeSerialize:function($Form, options){
-    //     /* Before serialize */
-    //     for ( instance in CKEDITOR.instances ) {
-    //         CKEDITOR.instances[instance].updateElement();
-    //     }
-    //     return true; 
-    // },
-    //   beforeSend:function(){
-    //     $('#success').empty();
+    $('form').ajaxForm({
+        beforeSerialize:function($Form, options){
+        /* Before serialize */
+        for ( instance in CKEDITOR.instances ) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+        return true; 
+    },
+      beforeSend:function(){
+        $('#success').empty();
         
-    //   },
-    //   uploadProgress:function(event, position, total, percentComplete)
-    //   {
-    //    if ($('#type').val() != '6') {
-    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-    //                 در حال بارگذاری ...
-    //             </button>`)
-    //     $('.progress-bar').text(percentComplete + '%');
-    //     $('.progress-bar').css('width', percentComplete + '%');
-    //    }else{
-    //     $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
-    //                 <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
-    //                 در حال ارسال...
-    //             </button>`)
-    //    }
+      },
+      uploadProgress:function(event, position, total, percentComplete)
+      {
       
-    //   },
+        $('.btn--wrapper').html(`<button class="btn btn-sm btn-success" type="button" disabled="">
+                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+                    در حال بارگذاری ...
+                </button>`)
+        $('.progress-bar').text(percentComplete + '%');
+        $('.progress-bar').css('width', percentComplete + '%');
+      
+      
+      },
      
-    //   success:function(data)
-    //   {
-    //     if ($('#type').val() != '6') {
+      success:function(data)
+      {
+         
+        
 
-    //       $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-    //     }else{
-    //         $('.btn--wrapper').html(`<input type="submit" name="upload" value="ارسال" class="btn btn-sm btn-success" />`)
+          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
+     
+        if(data.errors)
+        {
+            swal("خطا"
+            , data.errors
+            ,
+             "error", {
+			button: "باشه"
+		});
+          $('.progress-bar').text('0%');
+          $('.progress-bar').css('width', '0%');
+        }
+        if(data.success)
+        {
+            console.log(data.id)
+            if(data.id){
+                window.location.href = "{{ route("BaseUrl")}}/panel/"+data.id+"/episode";
+            }else{
+                swal("موفق"
+            , "فایل با موفقیت آپلود شد"
+            ,
+             "success", {
+			button: "باشه"
+		});
+            }
+        
+            
 
-    //     }
-    //     if(data.errors)
-    //     {
-    //         swal("خطا"
-    //         , data.errors
-    //         ,
-    //          "error", {
-	// 		button: "باشه"
-	// 	});
-    //       $('.progress-bar').text('0%');
-    //       $('.progress-bar').css('width', '0%');
-    //     }
-    //     if(data.success)
-    //     {
-    //     if ($('#type').val() != '6') {
-    //         swal("موفق"
-    //         , "فایل با موفقیت آپلود شد"
-    //         ,
-    //          "success", {
-	// 		button: "باشه"
-	// 	});
+          $('.progress-bar').text('انجام شد');
+          $('.progress-bar').css('width', '100%');
+         
+          $('#success').append(data.image);
 
-    //       $('.progress-bar').text('انجام شد');
-    //       $('.progress-bar').css('width', '100%');
-    //       }else{
-    //         swal("موفق"
-    //         , "ارسال با موفقیت انجام شد"
-    //         ,
-    //          "success", {
-	// 		button: "باشه"
-	// 	});
-    //       }
-    //       $('#success').append(data.image);
-
-    //       var form = $('#upload-file')
-    //         form.find('input[type="text"]').val('')
+          var form = $('#upload-file')
+            form.find('input[type="text"]').val('')
            
-    //         form.find('input[type="file"]').val('')
+            form.find('input[type="file"]').val('')
            
-    //         form.find('textarea').val('')
+            form.find('textarea').val('')
           
-    //     }
-    //   },
+        }
+      },
 
-    //   error:function(data){
-    //     swal("خطا"
-    //         , 'آپلود ناموفق بود'
-    //         ,
-    //          "error", {
-	// 		button: "باشه"
-	// 	});
-    //   }
-    // });
+      error:function(data){
+        swal("خطا"
+            , 'آپلود ناموفق بود'
+            ,
+             "error", {
+			button: "باشه"
+		});
+      }
+    });
 
 });
 </script>

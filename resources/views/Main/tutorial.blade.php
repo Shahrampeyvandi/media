@@ -60,22 +60,22 @@
                                             </g>
                                         </use>
                                     </svg> </a>
-                               @if ($type == 'post')
-                               <a href="#" data-id="{{$content->id}}" class="favorite-post pt-2 mx-2">
-                                <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray"
-                                    @endif viewBox="0 0 24 24" 0="" 24="" 24""="">
-                                    <use xlink:href="#si_favorite">
-                                        <g id="si_favorite" data-viewBox="0 0 24 24">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path
-                                                d="M16.5 3A5.988 5.988 0 0 0 12 5.09 5.988 5.988 0 0 0 7.5 3 5.447 5.447 0 0 0 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5A5.447 5.447 0 0 0 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5A3.418 3.418 0 0 1 7.5 5a3.909 3.909 0 0 1 3.57 2.36h1.87A3.885 3.885 0 0 1 16.5 5 3.418 3.418 0 0 1 20 8.5c0 2.89-3.14 5.74-7.9 10.05z">
-                                            </path>
-                                        </g>
-                                    </use>
-                                </svg>
+                                @if ($type == 'post')
+                                <a href="#" data-id="{{$content->id}}" class="favorite-post pt-2 mx-2">
+                                    <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray"
+                                        @endif viewBox="0 0 24 24" 0="" 24="" 24""="">
+                                        <use xlink:href="#si_favorite">
+                                            <g id="si_favorite" data-viewBox="0 0 24 24">
+                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M16.5 3A5.988 5.988 0 0 0 12 5.09 5.988 5.988 0 0 0 7.5 3 5.447 5.447 0 0 0 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5A5.447 5.447 0 0 0 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5A3.418 3.418 0 0 1 7.5 5a3.909 3.909 0 0 1 3.57 2.36h1.87A3.885 3.885 0 0 1 16.5 5 3.418 3.418 0 0 1 20 8.5c0 2.89-3.14 5.74-7.9 10.05z">
+                                                </path>
+                                            </g>
+                                        </use>
+                                    </svg>
 
-                            </a>
-                               @endif
+                                </a>
+                                @endif
                                 @if (auth()->check())
                                 <a data-id="0" class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
@@ -127,7 +127,8 @@
                                 </div>
                             </div>
 
-                            @if(auth()->user() && \App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
+                            @if(auth()->user() &&
+                            \App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
                             <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link followed"> <span
                                     class="text">دنبال میکنید</span></a>
                             @else
@@ -156,7 +157,7 @@
                     </div>
 
                     <div class="description w-100 put-right pr-2">
-                        
+
                         <p class="paragraph mb-lg text-black-50">
                             {!!$content->desc!!}
                         </p>
@@ -169,7 +170,8 @@
                         </p>
                     </div>
                     @endif
-                    <div class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 border-t-1">
+                    <div
+                        class="information w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 border-t-1">
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">مربوط به</div>
                             <div class="d-tc py-xs">
@@ -205,26 +207,29 @@
                             </div>
                         </div>
                     </div>
-                   @if ($content->type == "money")
-                   @if($isbuyedit==false)
-                   <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
-                    <h3 class="text-black-50">این {{$content->categories->name}}  غیر رایگان می باشد برای مشاهده بایستی خریداری نمایید</h3>
-                    <h3>مبلغ قابل پرداخت : {{$content->price}} ریال </h3>
+                    @if ($content->type == "money")
+                    @if($isbuyedit==false)
+                    <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
+                        <h3 class="text-black-50">این {{$content->categories->name}} غیر رایگان می باشد برای مشاهده
+                            بایستی خریداری نمایید</h3>
+                        <h3>مبلغ قابل پرداخت : {{$content->price}} ریال </h3>
 
-  <form action="{{route('Pay.Start')}}" method="post">
-  @csrf
-  <input type="hidden" name="id" value="{{$id}}">
-  <input type="submit" class="btn btn-success btn-sm mr-0" value="پرداخت">
-  </form>
-  
-  </div>
+                        <form action="{{route('Pay.Start')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$id}}">
+                            <input type="submit" class="btn btn-success btn-sm mr-0" value="پرداخت">
+                        </form>
+
+                    </div>
                     @endif
-                   @endif
+                    @endif
 
                     <div id="episodes_list" class="episodes_list">
                         <div class="episodes_list--section">
 
-                            <div class="episodes_list--item ">
+                            <div class="episodes_list--item "  @if ($episode_id == null)
+                            style="background: #92d7ff54;"
+                            @endif>
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
                                             href="{{route('ShowItem',['id'=>$post->id])}}">معرفی دوره</a></div>
@@ -247,10 +252,24 @@
                                 </div>
                             </div>
 
-                            @foreach($episodes as $episode)
-                            <div class="episodes_list--item lock">
-                                <div class="section-right"><span
-                                        class="episodes_list--number">{{$episode->number}}</span>
+                            @foreach($episodes as $key=>$episode)
+                            <div @if ($content->type == "money")
+                                class="episodes_list--item lock"
+                                @else
+                                class="episodes_list--item "
+                                @endif
+
+                                @if ($episode->id == $episode_id)
+                                    style="background: #92d7ff54;"
+                                @endif
+
+                                >
+                                <div class="section-right">
+                                    @if ($content->type == "money")
+                                    <span class="episodes_list--number">{{$episode->number}}</span>
+                                    @else
+                                    <span class="episodes_list--free">{{$episode->number}}</span>
+                                    @endif
                                     <div class="episodes_list--title">
                                         @if($isbuyedit==true)
                                         <a
@@ -269,7 +288,10 @@
                                             تعداد بازدیدها {{$episode->views}}</span>
                                         @endif
                                         @endif
-                                        <span class="detail-time">{{$episode->duration}}</span></div>
+
+                                        <span class="detail-time">{{$episode->duration}}</span>
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -299,8 +321,7 @@
 <script src="{{route('BaseUrl')}}/assets/js/emojionearea.min.js"></script>
 <script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
 <script>
-
-$(".add-emoji").emojioneArea({
+    $(".add-emoji").emojioneArea({
     attributes: {
         dir : "rtl",
        

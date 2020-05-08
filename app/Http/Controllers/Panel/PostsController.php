@@ -424,8 +424,9 @@ class PostsController extends Controller
             $newepisode->confirmed = 1;
         }
         $newepisode->save();
-        toastr()->success('فایل با موفقیت آپلود شد');
-        return back();
+        return response()->json(
+            ['success'=>"موفق",200]
+        );
     }
 
     public function CheckPost()
