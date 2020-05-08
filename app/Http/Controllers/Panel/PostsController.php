@@ -11,6 +11,7 @@ use App\Models\Notifications\Notifications;
 use App\Models\Contents\Posts;
 use App\Models\Contents\ViolationReports;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Accounting\Purchase;
 
 class PostsController extends Controller
 {
@@ -108,8 +109,18 @@ class PostsController extends Controller
 
     public function MyTutorials()
     {
+        $tutorials=[];
+        if(auth()->user()->group=='student'){
+         $purchases=Purchase::where('members_id',auth()->user()->id)->where('success',1)->get();
 
+         foreach($purchases as $purchase){
+             $tutorials[]=$purchase->posts;
+
+         }
+
+        }else{
         $tutorials = Posts::where('categories_id',6)->where('members_id',auth()->user()->id)->get();
+    }
         return view('Panel.MyTutorials',compact('tutorials'));
     }
 

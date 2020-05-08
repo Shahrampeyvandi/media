@@ -118,7 +118,7 @@
                         <div class="form-group col-md-4">
                             <label for="desc">قیمت: </label>
                             <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
-                            <span class="rial">ریال</span>
+                            <span class="rial">تومان</span>
                         </div>
                     </div>
                     @endif

@@ -20,11 +20,13 @@
                 <th>زبان</th>
                 <th>سطح</th>
                 <th>موضوع</th>
+                @if(auth()->user()->group!=='student')
                 <th>کامنت ها</th>
                 <th>گزارشات تخلف</th>
                 <th>لایک ها</th>
                 <th>بازدیدها</th>
                 <th></th>
+                @endif
                 
 
             </tr>
@@ -34,12 +36,14 @@
             @foreach($tutorials as $key=>$post)
             <tr>
             <td>{{$key+1}}</td>
-            <td>{{$post->title}}</td>
+            <td>
+            <a href="{{route('ShowItem',$post->id)}}" class="text-primary">{{$post->title}}</a>
+            </td>
             <td>{{$post->categories->name}}</td>
             <td>{{$post->languages->name}}</td>
             <td>{{$post->levels->name}}</td>
             <td>{{$post->subjects->name}}</td>
-           
+            @if(auth()->user()->group!=='student')
             <td>{{$post->comments->count()}}</td>
             <td>{{$post->violations->count()}}</td>
             <td>{{$post->likes->count()}}</td>
@@ -53,6 +57,7 @@
                     </div>
             
             </td>
+            @endif
             @endforeach
           
           
