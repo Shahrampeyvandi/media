@@ -207,15 +207,17 @@
                     </div>
                    @if ($content->type == "money")
                    @if($isbuyedit==false)
-                                      <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
-                    <h3 class="text-black-50">این پست جزو {{$content->categories->name}} غیر رایگان می باشد و برای مشاهده دوره باید آن را خریداری کنید</h3>
-                    <form action="{{route('Pay.Start')}}" method="post">
-                    @csrf
-                    <input type="hidden" name="id" value="{{$id}}">
-                    <input type="submit" class="btn btn-info btn-sm btn-rounded" value="پرداخت">
-                    </form>
-                    
-                    </div>
+                   <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
+                    <h3 class="text-black-50">این {{$content->categories->name}}  غیر رایگان می باشد برای مشاهده بایستی خریداری نمایید</h3>
+                    <h3>مبلغ قابل پرداخت : {{$content->price}} ریال </h3>
+
+  <form action="{{route('Pay.Start')}}" method="post">
+  @csrf
+  <input type="hidden" name="id" value="{{$id}}">
+  <input type="submit" class="btn btn-success btn-sm mr-0" value="پرداخت">
+  </form>
+  
+  </div>
                     @endif
                    @endif
 

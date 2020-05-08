@@ -126,7 +126,7 @@ class PostController extends Controller
         } else {
             // get Epizodes
 
-
+            
             return view('Main.single', compact([
                 'type',
                 'isbuyedit',

@@ -21,7 +21,8 @@
                                     {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                     alt="{{$movie->title}}"
                                     aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <i class="ti ti-video-camera text-black-50" style="font-size: 4rem;"></i>
+                                    <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$related->title}}"
+                                            aria-label="{{$related->title}}" class="thumb-image">
                                 </div>
                             </a>
                             @endif

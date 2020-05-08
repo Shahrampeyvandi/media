@@ -122,6 +122,7 @@
                             </div>
                         </div>
                        
+                        @if (auth()->check())
                         @if(\App\Models\Members\Follows::where('follower_id',auth()->user()->id)->where('followed_id',$content->members->id)->count())
                         <a href="#" title="" data-id="{{$content->members->id}}" class="follow-link followed"> <span class="text">دنبال میکنید</span></a>
                         @else
@@ -129,6 +130,7 @@
                                 class="fa fa-plus"></i> <span class="text">دنبال
                                 کردن</span></a>
 
+                        @endif
                         @endif
 
                     </div>
@@ -200,12 +202,22 @@
                             </div>
                         </div>
                     </div>
-                    @if ($content->type == "money")
-                    <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
-                     <h3 class="text-black-50">این {{$content->categories->name}} غیر رایگان می باشد و برای مشاهده دوره باید آن را خریداری کنید</h3>
-                     <a href="#">پرداخت</a>
-                     </div>
-                    @endif
+                     @if ($content->type == "money")
+                     @if($isbuyedit==false)
+                                      <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
+                                      <h3 class="text-black-50">این {{$content->categories->name}}  غیر رایگان می باشد برای مشاهده بایستی خریداری نمایید</h3>
+                                      <h3>مبلغ قابل پرداخت : {{$content->price}} ریال </h3>
+
+                    <form action="{{route('Pay.Start')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$id}}">
+                    <input type="submit" class="btn btn-success btn-sm mr-0" value="پرداخت">
+                    </form>
+                    
+                    </div>
+                   @endif
+                   @endif
+                   
                     @include('Includes.Main.Comments')
                 </div>
             </div>
@@ -220,8 +232,22 @@
 @section('js')
 
 <link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/emojionearea.min.css">
+<script src="{{route('BaseUrl')}}/assets/js/emojionearea.min.js"></script>
 <script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
 <script>
+
+$(".add-emoji").emojioneArea({
+    attributes: {
+        dir : "rtl",
+       
+    },
+    textcomplete: {
+        maxCount  : 20,
+        placement : 'absright'
+    },
+    pickerPosition: "bottom"
+});
     var controls =
 [
     'play-large', // The large play button in the center
