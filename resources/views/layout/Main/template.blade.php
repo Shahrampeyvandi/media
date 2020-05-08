@@ -53,6 +53,11 @@
     <script>
         var isMobile = false;
     </script>
+
+    <script type="text/javascript">
+        !function(){function t(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,localStorage.getItem("rayToken")?t.src="https://app.raychat.io/scripts/js/"+o+"?rid="+localStorage.getItem("rayToken")+"&href="+window.location.href:t.src="https://app.raychat.io/scripts/js/"+o;var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}var e=document,a=window,o="7a58561c-2f4a-4a15-8c90-e75c8ed050ed";"complete"==e.readyState?t():a.attachEvent?a.attachEvent("onload",t):a.addEventListener("load",t,!1)}();
+    </script>
+
 </head>
 
 <body class="device-desktop theme-light">
@@ -67,11 +72,13 @@
         <ul class="mt-4">
             @foreach ($mynotes as $note)
             <li>{!!$note->text!!}
-            
-            
-                <a data-id="{{$note->id}}" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i class="fa fa-trash"></i></a>
-                <span class="float-left fs-0-8 pt-1">{{\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')}}
-           
+
+
+                <a data-id="{{$note->id}}" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i
+                        class="fa fa-trash"></i></a>
+                <span
+                    class="float-left fs-0-8 pt-1">{{\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')}}
+
                 </span>
             </li>
             @endforeach
@@ -142,14 +149,14 @@
 
         @if (auth()->check())
         @if (auth()->user()->avatar)
-            <a href="#" class="account-icon p-0 " >
+        <a href="#" class="account-icon p-0 ">
             <img src="{{asset(auth()->user()->avatar)}}" alt="">
         </a>
-             @else 
-             <a href="#" class="account-icon " >
-             <i class="fa fa-user"></i>
-            </a>
-            @endif
+        @else
+        <a href="#" class="account-icon ">
+            <i class="fa fa-user"></i>
+        </a>
+        @endif
 
         <div class="dropdown-content" style="display:none;">
             <div class="menu-wrapper">
@@ -250,7 +257,7 @@
                             </button>
                             <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
                                 <img src="{{asset('assets/images/LOGO.jpeg')}}" width="52px;" alt="">
-                                </a>
+                            </a>
                         </div>
 
                     </div>
@@ -314,13 +321,13 @@
                                 </use>
                             </svg>
                         </button>
-                        
+
                     </div>
                     <div id="search--content" class="search-suggestion">
 
                         <div id="" class="">
                             <ul>
-                               <li class="fs-0-8 text-black-50">در حال جست و جو ...</li>
+                                <li class="fs-0-8 text-black-50">در حال جست و جو ...</li>
                             </ul>
                         </div>
                     </div>
@@ -341,18 +348,18 @@
                                 <use xlink:href="#si_cats"></use>
                             </svg>
                         </button>
-                        
+
                     </div>
-                   
+
                     <div class="logo">
-                        
+
                     </div>
                 </div>
 
 
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
-                      
+
                         <li class="menu-item-link active">
                             <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
@@ -365,15 +372,15 @@
                         </li>
                         @if (auth()->check())
                         <li class="menu-item-link ">
-                         <a href="{{route('User.Show',auth()->user()->username)}}" aria-label="پروفایل من">
-                             <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                 <use xlink:href="#si_home"></use>
-                             </svg>
-                             <div class="content">
-                                 <span class="text">پروفایل من</span>
-                             </div>
-                         </a>
-                     </li>
+                            <a href="{{route('User.Show',auth()->user()->username)}}" aria-label="پروفایل من">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
+                                    <use xlink:href="#si_home"></use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">پروفایل من</span>
+                                </div>
+                            </a>
+                        </li>
                         @endif
                         {{-- <li class="menu-item-link ">
                         <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
@@ -515,14 +522,14 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                        <a href="{{route('Advert')}}" aria-label="تبلیغات">
+                            <a href="{{route('Advert')}}" aria-label="تبلیغات">
                                 <div class="content">
                                     <span class="text">تبلیغات</span>
                                 </div>
                             </a>
                         </li>
                         <li class="menu-item-link">
-                        <a href="{{route('ContactUs')}}" aria-label="تماس با ما">
+                            <a href="{{route('ContactUs')}}" aria-label="تماس با ما">
                                 <div class="content">
                                     <span class="text">تماس با ما</span>
                                 </div>
@@ -539,7 +546,7 @@
 
 
                         <li class="menu-item-link">
-                        <a href="{{route('Testimonials')}}" aria-label="سوالات متداول">
+                            <a href="{{route('Testimonials')}}" aria-label="سوالات متداول">
                                 <div class="content">
                                     <span class="text">سوالات متداول</span>
                                 </div>

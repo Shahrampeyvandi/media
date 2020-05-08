@@ -208,8 +208,8 @@ class PostController extends Controller
         $content->tags = [];
         $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
-        
+        $episode_id = $ep;
         // $episodes=Episodes::where('posts_id',$)
-        return view('Main.tutorial', compact(['ep','type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
+        return view('Main.tutorial', compact(['episode_id','type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
     }
 }

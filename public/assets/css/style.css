@@ -15109,3 +15109,7 @@ font-size: 12px;
   margin-left: 5px;
   margin-bottom: 8px;
 }
+
+.raychat_main_powered_by_div{
+  display: none;
+}
