@@ -15,206 +15,190 @@ use App\Models\Accounting\Purchase;
 
 class PostsController extends Controller
 {
-    
+
     public function UploadFile()
     {
         return view('Panel.UploadFile');
-
     }
 
     public function SubmitUploadFile(Request $request)
     {
-       dd($request->all());
-        
-        if($request->hasFile('file')) {
+        dd($request->all());
+
+        if ($request->hasFile('file')) {
 
             // Upload path
             $destinationPath = 'files/';
-     
+
             // Create directory if not exists
             if (!file_exists($destinationPath)) {
-               mkdir($destinationPath, 0755, true);
+                mkdir($destinationPath, 0755, true);
             }
-     
+
             // Get file extension
             $extension = $request->file('file')->getClientOriginalExtension();
-     
+
             // Valid extensions
-            $validextensions = array("jpeg","jpg","png","pdf");
-     
+            $validextensions = array("jpeg", "jpg", "png", "pdf");
+
             // Check extension
-          
-     
-              // Rename file 
-              $fileName =time() .'.' . $extension;
-     
-              // Uploading file to given path
-              $request->file('file')->move($destinationPath, $fileName); 
-     
-            
-     
-          }
+
+
+            // Rename file 
+            $fileName = time() . '.' . $extension;
+
+            // Uploading file to given path
+            $request->file('file')->move($destinationPath, $fileName);
+        }
     }
 
-      public function MyVideos($content='')
+    public function MyVideos($content = '')
     {
-        
-        $member = auth()->user();
-      
-        if($content == '' ){
-           
-            //get all related videos orderby created at 
-         $posts =  Posts::where('members_id',$member->id)->whereHas('categories',function($q){
-            $q->where('latin_name','videos');
-         })->latest()->paginate(8);
-     
-        }
-        if($content == 'clips'){
-            //get all related videos orderby created at 
-         $posts =  Posts::where('members_id',$member->id)->whereHas('categories',function($q){
-            $q->where('latin_name','clips');
-         })->latest()->get();
-        }
-        if($content == 'animations'){
-            //get all related clips orderby created at 
-         $posts =  Posts::where('members_id',$member->id)->whereHas('categories',function($q){
-            $q->where('latin_name','animations');
-         })->latest()->get();
-        }
-       
 
-        return view('Panel.MyVideos',compact('posts'));
+        $member = auth()->user();
+
+        if ($content == '') {
+
+            //get all related videos orderby created at 
+            $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
+                $q->where('latin_name', 'videos');
+            })->latest()->paginate(8);
+        }
+        if ($content == 'clips') {
+            //get all related videos orderby created at 
+            $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
+                $q->where('latin_name', 'clips');
+            })->latest()->get();
+        }
+        if ($content == 'animations') {
+            //get all related clips orderby created at 
+            $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
+                $q->where('latin_name', 'animations');
+            })->latest()->get();
+        }
+
+
+        return view('Panel.MyVideos', compact('posts'));
     }
 
-    public function MyAudios($content='')
-    {   
+    public function MyAudios($content = '')
+    {
         $member = auth()->user();
-        if($content==''){
+        if ($content == '') {
             //get all related musics orderby created at 
-         $posts =  Posts::where('members_id',$member->id)->whereHas('categories',function($q){
-            $q->where('latin_name','musics');
-         })->latest()->get();
-       
+            $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
+                $q->where('latin_name', 'musics');
+            })->latest()->get();
         }
-        if($content == 'podcasts'){
+        if ($content == 'podcasts') {
             //get all related podcasts orderby created at 
-         $posts =  Posts::where('members_id',$member->id)->whereHas('categories',function($q){
-            $q->where('latin_name','podcasts');
-         })->latest()->get();
+            $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
+                $q->where('latin_name', 'podcasts');
+            })->latest()->get();
         }
-        return view('Panel.MyAudios',compact('posts'));
-
+        return view('Panel.MyAudios', compact('posts'));
     }
 
 
     public function MyTutorials()
     {
-        $tutorials=[];
-        if(auth()->user()->group=='student'){
-         $purchases=Purchase::where('members_id',auth()->user()->id)->where('success',1)->get();
+        $tutorials = [];
+        if (auth()->user()->group == 'student') {
+            $purchases = Purchase::where('members_id', auth()->user()->id)->where('success', 1)->get();
 
-         foreach($purchases as $purchase){
-             $tutorials[]=$purchase->posts;
-
-         }
-
-        }else{
-        $tutorials = Posts::where('categories_id',6)->where('members_id',auth()->user()->id)->get();
-    }
-        return view('Panel.MyTutorials',compact('tutorials'));
+            foreach ($purchases as $purchase) {
+                $tutorials[] = $purchase->posts;
+            }
+        } else {
+            $tutorials = Posts::where('categories_id', 6)->where('members_id', auth()->user()->id)->get();
+        }
+        return view('Panel.MyTutorials', compact('tutorials'));
     }
 
     public function UnsubscribeFiles()
     {
         $member = auth()->user();
 
-        $posts=Posts::where('members_id',$member->id)->where('confirmed',2)->get();
+        $posts = Posts::where('members_id', $member->id)->where('confirmed', 2)->get();
 
 
-        return view('Panel.UnsubscribeFiles',compact('posts'));
+        return view('Panel.UnsubscribeFiles', compact('posts'));
     }
-   
-    public function Index($content='')
+
+    public function Index($content = '')
     {
 
-      if($content == '' ){
-         $posts=Posts::where('categories_id',1)->where('confirmed',1)->get();
-     }
-     if($content == 'animations'){
-      $posts=Posts::where('categories_id',2)->where('confirmed',1)->get();
+        if ($content == '') {
+            $posts = Posts::where('categories_id', 1)->where('confirmed', 1)->get();
+        }
+        if ($content == 'animations') {
+            $posts = Posts::where('categories_id', 2)->where('confirmed', 1)->get();
+        }
+        if ($content == 'clips') {
+            $posts = Posts::where('categories_id', 3)->where('confirmed', 1)->get();
+        }
+        if ($content == 'musics') {
+            $posts = Posts::where('categories_id', 4)->where('confirmed', 1)->get();
+        }
+        if ($content == 'podcasts') {
+            $posts = Posts::where('categories_id', 5)->where('confirmed', 1)->get();
+        }
+        if ($content == 'learnings') {
+            $posts = Posts::where('categories_id', 6)->where('confirmed', 1)->get();
+        }
 
-     }
-     if($content == 'clips'){
-      $posts=Posts::where('categories_id',3)->where('confirmed',1)->get();
-     }
-     if($content=='musics'){
-      $posts=Posts::where('categories_id',4)->where('confirmed',1)->get();
-
-     }
-     if($content == 'podcasts'){
-      $posts=Posts::where('categories_id',5)->where('confirmed',1)->get();
-
-     }
-     if($content == 'learnings'){
-      $posts=Posts::where('categories_id',6)->where('confirmed',1)->get();
-
-     }
-
-        return view('Panel.Posts',compact('posts'));
+        return view('Panel.Posts', compact('posts'));
     }
 
     public function unconfirmed()
     {
 
-      $posts=Posts::where('confirmed',0)->get();
-      return view('Panel.PostsDraft',compact('posts'));
+        $posts = Posts::where('confirmed', 0)->get();
+        return view('Panel.PostsDraft', compact('posts'));
     }
 
 
-    
+
     public function rejected()
     {
 
-      $posts=Posts::where('confirmed',2)->get();
+        $posts = Posts::where('confirmed', 2)->get();
 
 
-        return view('Panel.PostsDraft',compact('posts'));
+        return view('Panel.PostsDraft', compact('posts'));
     }
 
     public function confirm()
     {
 
-        if(request()->price !== "0" || request()->price !== null){
+        if (request()->price !== "0" || request()->price !== null) {
             $price_type = 'money';
-         
-        }else{
-        $price_type = 'free';
-     
+        } else {
+            $price_type = 'free';
         }
-       $update_post = Posts::where('id',request()->id)->update([
-            'confirmed'=>1,
-            'title' =>request()->title,
-            'desc' =>request()->desc,
-            'categories_id' =>request()->type,
-            'languages_id' =>request()->lang,
-            'subjects_id' =>request()->subject,
-            'levels_id' =>request()->level,
-            'price' =>request()->price,
-            'type'=>$price_type,
-            'otheroninformation' =>request()->desc2
-            
-            ]);
-         $post = Posts::whereId(request()->id)->first();
-        
-            if ($update_post){
-                $notification=new Notifications;
-                $notification->members_id=$post->members_id;
-                $notification->title='پیام مدیر سایت';
-                $notification->text= 'پست شما با عنوان '.$post->title.' تایید و در سایت قرار گرفت';
-                $notification->posts_id=$post->id;
-                $notification->save();
-               
-            }
+        $update_post = Posts::where('id', request()->id)->update([
+            'confirmed' => 1,
+            'title' => request()->title,
+            'desc' => request()->desc,
+            'categories_id' => request()->type,
+            'languages_id' => request()->lang,
+            'subjects_id' => request()->subject,
+            'levels_id' => request()->level,
+            'price' => request()->price,
+            'type' => $price_type,
+            'otheroninformation' => request()->desc2
+
+        ]);
+        $post = Posts::whereId(request()->id)->first();
+
+        if ($update_post) {
+            $notification = new Notifications;
+            $notification->members_id = $post->members_id;
+            $notification->title = 'پیام مدیر سایت';
+            $notification->text = 'پست شما با عنوان ' . $post->title . ' تایید و در سایت قرار گرفت';
+            $notification->posts_id = $post->id;
+            $notification->save();
+        }
 
 
         // send notifications to user where post
@@ -224,25 +208,25 @@ class PostsController extends Controller
 
     public function reject(Request $request)
     {
-    
+
         $validator = Validator::make($request->all(), [
             'post_id' => 'required',
             'reason' => 'required'
 
         ]);
-    if ($validator->fails()) {
-        return back();
-    }
-    $post=Posts::whereId($request->post_id)->first();
-        $notification=new Notifications;
-        $notification->members_id=$request->member_id;
-        $notification->title='پست شما تایید نشد!';
-        $notification->text='پست اخیر شما با نام '.$post->title.' به دلیل '.$request->reason.' توسط مدیر رد تایید گردید.';
-        $notification->posts_id=$post->id;
+        if ($validator->fails()) {
+            return back();
+        }
+        $post = Posts::whereId($request->post_id)->first();
+        $notification = new Notifications;
+        $notification->members_id = $request->member_id;
+        $notification->title = 'پست شما تایید نشد!';
+        $notification->text = 'پست اخیر شما با نام ' . $post->title . ' به دلیل ' . $request->reason . ' توسط مدیر رد تایید گردید.';
+        $notification->posts_id = $post->id;
         $notification->save();
         $post->update([
-            'confirmed'=>2,
-            'rejectreason'=>$request->reason
+            'confirmed' => 2,
+            'rejectreason' => $request->reason
         ]);
         toastr()->success('محتوا حذف و پیام شما برای کاربر ارسال شد');
         return back();
@@ -250,105 +234,115 @@ class PostsController extends Controller
 
     public function ReadNoty(Request $request)
     {
-        $notification=Notifications::findOrFail($request->id);
-    
-      
-        if($notification->delete()){
+        $notification = Notifications::findOrFail($request->id);
+
+
+        if ($notification->delete()) {
             return response()->json(
-               true
-                , 200);
+                true,
+                200
+            );
         }
-        
     }
     public function Delete(Request $request)
     {
-       
-      
-        Posts::whereId($request->post_id)->delete();
+
+
+
+        $post = Posts::whereId($request->post_id)->first();
+        // set up basic connection
+        $conn = ftp_connect(env('FTP_HOST'));
+        // login with username and password
+        $login_result = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+        // try to delete $file
+        if (ftp_delete($conn, "files/posts/$post->content_name")) {
+            if ($post->categories_id !== 6) {
+                Posts::whereId($request->post_id)->delete();
+            } else {
+                foreach ($post->epizodes as $key => $episode) {
+                    ftp_delete($conn, "files/posts/episodes/$episode->content_name");
+                }
+                Posts::whereId($request->post_id)->delete();
+            }
+        } else {
+            toastr()->error('خطا در ارتباط با سرور');
+            return back();
+        }
+        // close the connection
+        ftp_close($conn);
+
         toastr()->success('پست با موفقیت حذف شد');
         return back();
-
     }
 
     public function UploadImage()
     {
-        if(request()->hasFile('upload')) {
+        if (request()->hasFile('upload')) {
 
-            $tmpName  	   = $_FILES['upload']['tmp_name'];
-          
-            $size 		   = $_FILES['upload']['size'];
+            $tmpName         = $_FILES['upload']['tmp_name'];
+
+            $size            = $_FILES['upload']['size'];
             $filePath      = "files/images/" . date('d-m-Y-H-i-s');
             $filename = request()->file('upload')->getClientOriginalName();
-           
+
             if (!file_exists($filePath)) {
                 mkdir($filePath, 0755, true);
             }
             $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-            $type 		   = $_GET['type'];
-            $funcNum 	   = isset($_GET['CKEditorFuncNum']) ? $_GET['CKEditorFuncNum']: null;
-        
+            $type            = $_GET['type'];
+            $funcNum        = isset($_GET['CKEditorFuncNum']) ? $_GET['CKEditorFuncNum'] : null;
+
             if ($type == 'image') {
                 $allowedfileExtensions = array('jpg', 'jpeg', 'gif', 'png');
             } else {
                 //file
                 $allowedfileExtensions = array('jpg', 'jpeg', 'gif', 'png', 'pdf', 'doc', 'docx');
             }
-        
-	//contrinue only if file is allowed
-	if (in_array($fileExtension, $allowedfileExtensions)) {
 
-	
-        if(request()->file('upload')->move(public_path($filePath),$filename)){
-			// if (move_uploaded_file($tmpName, $filePath)) {
-                $file = "$filePath/$filename";
-				// $filePath = str_replace('../', 'http://filemanager.localhost/elfinder/', $filePath);
-			    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') .'/'. $file];
-
-			    if ($type == 'file') {
-
-					return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath','');</script>";
-					
-				}
-
-			} else {
-
-			    $error = 'There has been an error, please contact support.';
-
-			    if ($type == 'file') {
-					$message = $error;
-
-					return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
-					
-				}
-
-			    $data = array('uploaded' => 0, 'error' => array('message' => $error));
-
-			}
-
-	
-
-	} else {
-
-		$error = 'The file type uploaded is not allowed.';
-
-		if ($type == 'file') {
-			$funcNum = $_GET['CKEditorFuncNum'];
-			$message = $error;
-
-			return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
-			
-		}
-
-	    
-	    $data = array('uploaded' => 0, 'error' => array('message' => $error));
-
-	}
-
-	//return response
-	     return json_encode($data);
-          }
+            //contrinue only if file is allowed
+            if (in_array($fileExtension, $allowedfileExtensions)) {
 
 
+                if (request()->file('upload')->move(public_path($filePath), $filename)) {
+                    // if (move_uploaded_file($tmpName, $filePath)) {
+                    $file = "$filePath/$filename";
+                    // $filePath = str_replace('../', 'http://filemanager.localhost/elfinder/', $filePath);
+                    $data = ['uploaded' => 1, 'fileName' => $filename, 'url' => route('BaseUrl') . '/' . $file];
+
+                    if ($type == 'file') {
+
+                        return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath','');</script>";
+                    }
+                } else {
+
+                    $error = 'There has been an error, please contact support.';
+
+                    if ($type == 'file') {
+                        $message = $error;
+
+                        return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
+                    }
+
+                    $data = array('uploaded' => 0, 'error' => array('message' => $error));
+                }
+            } else {
+
+                $error = 'The file type uploaded is not allowed.';
+
+                if ($type == 'file') {
+                    $funcNum = $_GET['CKEditorFuncNum'];
+                    $message = $error;
+
+                    return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$filePath', '$message');</script>";
+                }
+
+
+                $data = array('uploaded' => 0, 'error' => array('message' => $error));
+            }
+
+            //return response
+            return json_encode($data);
+        }
     }
 
     public function UploadEpizode(Request $request)
@@ -356,12 +350,12 @@ class PostsController extends Controller
         $post = Posts::whereId($request->post_id)->first();
         if ($request->file !== null) {
             // if (!file_exists($destinationPath)) {
-                //     mkdir($destinationPath, 0755, true);
-                // }
-                $extension = $request->file('file')->getClientOriginalExtension();
-                // Valid extensions
-                $fileName = 'file_' . time() . '.' . $extension;
-                $destinationPath = "files/posts/episodes/$fileName";
+            //     mkdir($destinationPath, 0755, true);
+            // }
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Valid extensions
+            $fileName = 'file_' . time() . '.' . $extension;
+            $destinationPath = "files/posts/episodes/$fileName";
             //$request->file('file')->move($destinationPath, $fileName);
 
             // $filePathepisode22 = "$destinationPath/$fileName";
@@ -415,7 +409,8 @@ class PostsController extends Controller
         $newepisode->subjects_id = $post->subjects_id;
         $newepisode->levels_id = $post->levels_id;
         $newepisode->picture = $picPath;
-        $newepisode->content_link ="Https://dl.genebartar.ir/$filePathepisode";
+        $newepisode->content_link = "Https://dl.genebartar.ir/$filePathepisode";
+        $newepisode->content_name = $filePathepisode;
         $newepisode->duration = $duration;
         $newepisode->type = 'free';
         $newepisode->price = 0;
@@ -425,79 +420,77 @@ class PostsController extends Controller
         }
         $newepisode->save();
         return response()->json(
-            ['success'=>"موفق",200]
+            ['success' => "موفق", 200]
         );
     }
 
     public function CheckPost()
     {
         $member = Members::whereId(request()->member)->first();
-        $post= Posts::whereId(request()->id)->first();
-    
-       return view('Panel.CheckPost',compact(['member','post']));
+        $post = Posts::whereId(request()->id)->first();
+
+        return view('Panel.CheckPost', compact(['member', 'post']));
     }
 
     public function report(Request $request)
     {
-      
+
         $member = auth()->user()->id;
         $post = Posts::whereId($request->postid)->first();
-        if(ViolationReports::where(['posts_id'=>$request->postid,'members_id'=>$member])->count())
-        {
+        if (ViolationReports::where(['posts_id' => $request->postid, 'members_id' => $member])->count()) {
             toastr()->warning('شما تنها یک بار میتوانید گزارش تخلف ثبت کنید');
             return back();
         }
-        
-        $report=new ViolationReports;
-        $report->info=$request->info;
-        $report->members_id=$member;
-        $report->posts_id=$request->postid;
+
+        $report = new ViolationReports;
+        $report->info = $request->info;
+        $report->members_id = $member;
+        $report->posts_id = $request->postid;
         $report->save();
 
-foreach (Members::where('group','admin')->get() as $key => $admin) {
-    $notification = new Notifications;
-    $notification->members_id = $admin->id;
-    $notification->title = 'گزارش تخلف پست';
-    $notification->text = 'یک گزارش تخلف برای پست با نام '.'<a class="text-primary" href="'.route('ShowItem',$post->id).'">'.$post->title.'</a>'.' ثبت شد';
-    $notification->save();
-}
-       
+        foreach (Members::where('group', 'admin')->get() as $key => $admin) {
+            $notification = new Notifications;
+            $notification->members_id = $admin->id;
+            $notification->title = 'گزارش تخلف پست';
+            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', $post->id) . '">' . $post->title . '</a>' . ' ثبت شد';
+            $notification->save();
+        }
+
 
 
         toastr()->success('گزارش شما با موفقیت ثبت شد');
-       return back();
+        return back();
     }
 
     public function reportepisode(Request $request)
     {
-       
-      
+
+
         $member = auth()->user()->id;
         $post = Episodes::whereId($request->postid)->first();
-        if(ViolationReports::where(['episods_id'=>$request->postid,'members_id'=>$member])->count())
-        {
+        if (ViolationReports::where(['episods_id' => $request->postid, 'members_id' => $member])->count()) {
             toastr()->warning('شما تنها یک بار میتوانید گزارش تخلف ثبت کنید');
             return back();
         }
-        
-        $report=new ViolationReports;
-        $report->info=$request->info;
-        $report->members_id=$member;
-        $report->episods_id=$request->postid;
+
+        $report = new ViolationReports;
+        $report->info = $request->info;
+        $report->members_id = $member;
+        $report->episods_id = $request->postid;
         $report->save();
 
-foreach (Members::where('group','admin')->get() as $key => $admin) {
-    $notification = new Notifications;
-    $notification->members_id = $admin->id;
-    $notification->title = 'گزارش تخلف پست';
-    $notification->text = 'یک گزارش تخلف برای پست با نام '.'<a class="text-primary" href="'.route('ShowItem',$post->id).'">'.$post->title.'</a>'.' ثبت شد';
-    $notification->save();
-}
-       
+        foreach (Members::where('group', 'admin')->get() as $key => $admin) {
+            $notification = new Notifications;
+            $notification->members_id = $admin->id;
+            $notification->title = 'گزارش تخلف پست';
+            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', $post->id) . '">' . $post->title . '</a>' . ' ثبت شد';
+            $notification->save();
+        }
+
 
 
         toastr()->success('گزارش شما با موفقیت ثبت شد');
-       return back();
+        return back();
     }
 
 
@@ -506,13 +499,11 @@ foreach (Members::where('group','admin')->get() as $key => $admin) {
     public function allreport()
     {
 
-        $reports=ViolationReports::all();
+        $reports = ViolationReports::all();
 
 
-     
 
-    return view('Panel.ViolationReports',compact('reports'));
 
+        return view('Panel.ViolationReports', compact('reports'));
     }
-   
 }

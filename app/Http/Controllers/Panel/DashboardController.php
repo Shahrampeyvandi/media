@@ -368,7 +368,8 @@ class DashboardController extends Controller
 
         /**
          * 
-         * verify mobile
+         * get activation code
+         * if true then 
          * 
          *  */  
 
@@ -446,7 +447,17 @@ class DashboardController extends Controller
             $info->accepted = 1;
             $info->update();
         }
-
+        if($info){
+            // ارسال نوتیفیکیشن برای گروه ادمین
+       foreach (Members::where('group','admin')->get() as $key => $admin) {
+        $notification = new Notifications;
+        $notification->members_id = $admin->id;
+        $notification->title = 'درخواست کانال رسمی';
+        $notification->text = 'کاربر با نام کاربری <a href="'.route('User.Show',$member->username).'" class="text-primary">'.$member->username.'</a> تقاضای ثبت کانال رسمی دارد';
+        $notification->posts_id = 0;
+        $notification->save();
+       }
+        }
 
 
         toastr()->success('مدارک با موفقیت آپلود شد و در انتظار تایید قرار گرفت');

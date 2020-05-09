@@ -126,6 +126,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
     Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
+    Route::post('/panel/members/delete', 'Panel\MembersController@Delete')->name('Panel.Members.Delete');
+
     Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
     Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
     Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
