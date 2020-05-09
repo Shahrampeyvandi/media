@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="col-md-8 offset-md-2 mb-3">
-    <form id="edit" action="{{route('Request.Channel')}}" method="post" enctype="multipart/form-data">
+    <form id="edit" action="{{route('Request.Channel.Submit')}}" method="post" enctype="multipart/form-data">
         @csrf
         
         <div class="card p-3">
             <div class="row">
                 <div class="col-md-12 text-center mb-5">
-                    <h3><<  کد تایید شماره تماس را وارد نمایید  >></h3>
+                    <h3><<   درخواست کانال رسمی >></h3>
                     <hr>
                 </div>
                 <div class="col-md-12 text-center mb-2">
@@ -23,11 +23,6 @@
 
 
             <div class="row">
-                <div class="form-group  col-md-6">
-                    <label for=""><span class="text-danger">*</span> کد تایید:  </label>
-                <input type="text" class="form-control" name="verify_code" id="verify_code" value="" >
-                </div>
-           
                 <div class="form-group  col-md-6">
                     <label for=""><span class="text-danger">*</span> مورد استفاده کانال: </label>
                     <select name="role" id="role" class="form-control  custom-select">
