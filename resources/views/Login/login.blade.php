@@ -26,7 +26,7 @@
 
 
                     <button type="submit" class="btn btn-sm btn-success col-md-3 mb-2 mr-0">ورود</button>
-                    <a href="{{route('SignUp.Google')}}" class="btn btn-sm btn-outline-success mr-0">ورود نام با حساب گوگل <i
+                    <a href="{{route('SignUp.Google')}}" class="btn btn-sm btn-danger mr-0">ورود نام با حساب گوگل <i
                             class="fab fa-google"></i></a>
 
                     <hr />

@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="col-md-8 offset-md-2 mb-3">
-    <form id="edit" action="{{route('Request.Channel')}}" method="post" enctype="multipart/form-data">
+<div class="col-md-6 offset-md-3 mb-3">
+    <form id="edit" action="{{route('Request.VerifyMobile')}}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id" value="{{$member->id}}">
         <div class="card p-3">
             <div class="row">
                 <div class="col-md-12 text-center mb-5">
-                    <h3><<  فرم ثبت کانال رسمی  >></h3>
+                    <h3><<  تایید شماره تلفن >></h3>
                     <hr>
                 </div>
                 <div class="col-md-12 text-center mb-2">
@@ -28,53 +28,23 @@
             در خواست شما رد شد
 
             @else
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="form-group  col-md-6">
-                    <label for=""><span class="text-danger">*</span> مورد استفاده کانال: </label>
-                    <select name="role" id="role" class="form-control  custom-select">
-                        <option value="personal">شخصی</option>
-                        <option value="official">مرکز آموزشی</option>
-                    </select>
+                   
+                <input type="number" class="form-control" name="mobile" id="mobile" value="{{$member->mobile}}" 
+                placeholder="شماره تماس" >
+                </div>
+           
+               
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="form-group col-md-12 text-center">
+                    <input type="submit" class="btn btn-sm btn-primary " value="تایید">
                 </div>
             </div>
 
-
-
-
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="national_card_pic" class="col-form-label"><span class="text-danger">*</span> تصویر کارت
-                        ملی: </label>
-                    <input type="file" placeholder="" class="form-control" name="national_card_pic"
-                        id="national_card_pic">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="education_certificate_pic" class="col-form-label"><span class="text-danger">*</span>
-                        تصویر مدرک تحصیلی: </label>
-                    <input type="file" placeholder="" class="form-control" name="education_certificate_pic"
-                        id="education_certificate_pic">
-                </div>
-
-            </div>
-            <div class="row permission_work_section" style="display: none;">
-                <div class="form-group col-md-12">
-                    <label for="permission_work_pic" class="col-form-label"><span class="text-danger">*</span> تصویر
-                        پروانه فعالیت: </label>
-                    <input type="file" placeholder="" class="form-control" name="permission_work_pic"
-                        id="permission_work_pic">
-                </div>
-
-
-            </div>
-
-
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <input type="submit" class="btn btn-sm btn-primary" value="آپلود">
-                </div>
-            </div>
+         
         </div>
     </form>
     @endif
@@ -93,40 +63,30 @@
       }
    });
   
-
+   $.validator.addMethod(
+    "regex",
+    function(value, element, regexp) {
+        return this.optional(element) || regexp.test(value);
+    },
+    "Please check your input."
+);
   
     $("#edit").validate({
 		rules: {
          
-            national_card_pic: {
-				required: true,
-                accept: "jpg|jpeg|png|JPG|JPEG|PNG",
-			},
-            education_certificate_pic: {
-				required: true,
-                accept: "jpg|jpeg|png|JPG|JPEG|PNG",
-			},
-            permission_work_pic:{
-                required: function(element){
-            return $('#role').val() == "official";
-        },
-                accept: "jpg|jpeg|png|JPG|JPEG|PNG",
-            }
+          mobile:{
+              required:true,
+              regex:/^09[0-9]{9}$/
+
+          }
 		},
 		messages: {
 		
-			national_card_pic: {
-				required: "تصویر کارت ملی خود را وارد نمایید",
-				accept: "تصویر وارد شده دارای فرمت غیرمجاز است"
-			},
-            education_certificate_pic: {
-				required: "تصویر مدرک تحصیلی خود را وارد نمایید",
-				accept: "تصویر وارد شده دارای فرمت غیرمجاز است"
-			},
-            permission_work_pic: {
-				required: "تصویر پروانه فعالیت خود را وارد نمایید",
-				accept: "تصویر وارد شده دارای فرمت غیرمجاز است"
-			}
+		mobile:{
+              required:"َشماره تماس خود را وارد نمایید",
+              regex:"شماره موبایل دارای فرمت نامعتبر می باشد"
+              
+          }
 		}
 	});
   })

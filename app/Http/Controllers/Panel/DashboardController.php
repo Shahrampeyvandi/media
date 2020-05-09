@@ -288,11 +288,51 @@ class DashboardController extends Controller
         $member = auth()->user();
         return view('Panel.RequestChannel', compact('member'));
     }
+    public function VerifyMobile(Request $request)
+    {
+        session()->put('mobile',$request->mobile);
+       
+
+//         $curl = curl_init();
+// curl_setopt_array($curl, array(
+// CURLOPT_URL => "https://api.ghasedak.io/v2/sms/send/simple",
+
+// CURLOPT_CUSTOMREQUEST => "POST",
+// CURLOPT_POSTFIELDS => "message= &linenumber= & Receptor=&=",
+// CURLOPT_HTTPHEADER => array(
+// "apikey: your apikey",
+// ),
+// ));
+// $response = curl_exec($curl);
+// $err = curl_error($curl);
+// curl_close($curl);
+
+// if ($err) {
+// echo "cURL Error #:" . $err;
+// } else {
+// echo $response;
+// }
+
+        return view('Panel.VerifyMobile');
+    }
+
+
+
 
     public function SubmitRequestChannel(Request $request)
     {
-        //dd($request->all());
+       
         $member = auth()->user();
+        
+
+        /**
+         * 
+         * verify mobile
+         * 
+         *  */  
+
+
+
 
         if ($request->hasFile('national_card_pic')) {
             $destinationPath = "files/members" . $member->id;

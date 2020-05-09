@@ -86,8 +86,8 @@ class SlideshowController extends Controller
     public function SaveEditSlideShow(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'link' => 'required',
+            'title' => 'nullable',
+            'link' => 'nullable',
             'pic' => 'nullable|mimes:jpeg,png,jpg',
 
         ]);
