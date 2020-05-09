@@ -408,7 +408,7 @@ class DashboardController extends Controller
         $notification = new Notifications;
         $notification->members_id = $admin->id;
         $notification->title = 'درخواست کانال رسمی';
-        $notification->text = 'کاربر با نام کاربری <a href="'.route('User.Show',$member->username).'">'.$member->username.'</a> تقاضای ثبت کانال رسمی دارد';
+        $notification->text = 'کاربر با نام کاربری <a href="'.route('User.Show',$member->username).'" class="text-primary">'.$member->username.'</a> تقاضای ثبت کانال رسمی دارد';
         $notification->posts_id = 0;
         $notification->save();
        }

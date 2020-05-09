@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contents\Posts;
 use Illuminate\Http\Request;
 use App\Models\Members\Members;
 use App\Models\Members\ChannelInformations;
@@ -145,6 +146,43 @@ class MembersController extends Controller
             $new->save();
         }
         toastr()->success('با موفقیت انجام شد!');
+        return back();
+    }
+
+    public function Delete(Request $request)
+    {
+
+
+         $posts = Posts::where('members_id',$request->id)->get();
+          // set up basic connection
+        $conn = ftp_connect(env('FTP_HOST'));
+        // login with username and password
+        $login_result = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+       
+     foreach ($posts as $key => $post) {
+            // try to delete $file
+        if (ftp_delete($conn, "files/posts/$post->content_name")) {
+            if ($post->categories_id !== 6) {
+                $post->delete();
+            } else {
+                foreach ($post->epizodes as $key => $episode) {
+                    ftp_delete($conn, "files/posts/episodes/$episode->content_name");
+                }
+                $post->delete();
+            }
+        } else {
+            toastr()->error('خطا در ارتباط با سرور');
+            return back();
+        }
+     }
+        // close the connection
+        ftp_close($conn);
+        $user = Members::find($request->id);
+
+        $user->delete();
+       
+
+        toastr()->success('تمام اطلاعات کاربر با موفقیت حذف شد');
         return back();
     }
 }
