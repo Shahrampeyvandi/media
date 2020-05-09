@@ -325,17 +325,18 @@ class DashboardController extends Controller
         }
 
 
+        $api='644B6B646441646E3851346F34336D52632F6A59497872383733587259303249515A352B3855586D5564553D';
 
         $curl = curl_init();
         curl_setopt_array($curl,
         array(
-        CURLOPT_URL => "https://api.ghasedak.io/v2/verification/send/simple ",
+        CURLOPT_URL => "https://api.kavenegar.com/v1/$api/verify/lookup.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 30,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "type=1&receptor=$member->mobile&template=verify&param1=$code->v_code",
+        CURLOPT_POSTFIELDS => "receptor=$member->mobile&template=verify&token=$code->v_code",
         CURLOPT_HTTPHEADER => array(
         "apikey: a6dd62cdc40d3990a48b9f04397506600b5bca37248176981a37fb97bec262b0",
         "cache-control: no-cache",
