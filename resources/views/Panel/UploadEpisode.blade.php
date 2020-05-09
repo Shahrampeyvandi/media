@@ -91,7 +91,8 @@
             <script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
             <script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
             <!-- end::input mask -->
-            <script src="http://malsup.github.com/jquery.form.js"></script>
+            <script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
+
             <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
             <script>
                 $(document).ready(function(){

@@ -139,13 +139,18 @@ class DashboardController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json(
-                ['errors'=> "فایل دارای فرمت غیرمجاز می باشد",403],
+                [
+                    'errors'=> "فایل دارای فرمت غیرمجاز می باشد"
+                     ,'code'=>403
+            ],
                 
             );
         }
         if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
             return response()->json(
-                ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد",403],
+                ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد"
+                ,'code'=>403
+            ],
                 
             );
         }

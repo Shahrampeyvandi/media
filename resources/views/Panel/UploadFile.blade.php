@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     @if (auth()->user()->group !== "student")
-                    <div class="row">
+                    <div class="row price" style="display: none;">
                         <div class="form-group col-md-4">
                             <label for="desc">قیمت: </label>
                             <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
@@ -164,7 +164,7 @@
 <script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
 <script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
 <!-- end::input mask -->
-<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
@@ -184,6 +184,14 @@
             imageUploadUrl: '{{route('UploadImage')}}?type=image'
         });
         $(document).on('change','#type',function(){
+
+            if($(this).val() == '6'){
+                $('.price').show()
+               
+            }else{
+                $('.price').hide()
+                
+            }
             if($(this).val() == '3'){
                 $('.genplus').show()
                
