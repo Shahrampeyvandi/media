@@ -65,7 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/profile', 'Panel\DashboardController@Profile')->name('Profile');
     Route::get('panel/requestchannel', 'Panel\DashboardController@RequestChannel')->name('Request.Channel');
     Route::post('panel/verifymobile', 'Panel\DashboardController@VerifyMobile')->name('Request.VerifyMobile');
-    Route::post('panel/requestchannel', 'Panel\DashboardController@SubmitRequestChannel')->name('Request.Channel');
+    Route::post('panel/sendsms', 'Panel\DashboardController@sendsms')->name('Request.SendSMS');
+    Route::post('panel/requestchannelsubmit', 'Panel\DashboardController@SubmitRequestChannel')->name('Request.Channel.Submit');
 
     Route::get('panel/rechannels', 'Panel\MembersController@ofchannelrequest')->name('Channel.Requested.All');
     Route::post('panel/reschannelreq', 'Panel\MembersController@SubmitRequestChannel')->name('Channel.Requested.Response');

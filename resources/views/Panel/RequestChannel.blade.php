@@ -31,8 +31,11 @@
             <div class="row justify-content-center">
                 <div class="form-group  col-md-6">
                    
-                <input type="number" class="form-control" name="mobile" id="mobile" value="{{$member->mobile}}" 
-                placeholder="شماره تماس" >
+                <label for=""><span class="text-danger">*</span> کد ارسال شده به شماره موبایل {{$member->mobile}} را وارد نمایید: </label>
+
+                <input type="number" class="form-control" name="code" id="mobile" value="" 
+                placeholder="کد تایید" >
+
                 </div>
            
                
@@ -40,7 +43,9 @@
             
             <div class="row justify-content-center">
                 <div class="form-group col-md-12 text-center">
+                    <a id="sendsms" type="submit" class="btn btn-sm btn-primary " >در خواست ارسال کد تایید</a>
                     <input type="submit" class="btn btn-sm btn-primary " value="تایید">
+
                 </div>
             </div>
 
@@ -76,19 +81,40 @@
          
           mobile:{
               required:true,
-              regex:/^09[0-9]{9}$/
-
           }
 		},
 		messages: {
 		
 		mobile:{
-              required:"َشماره تماس خود را وارد نمایید",
-              regex:"شماره موبایل دارای فرمت نامعتبر می باشد"
+              required:"َلطفا کد تایید را وارد نمایید",
               
           }
 		}
-	});
+    });
+    
+    $('#sendsms').click(function(e){
+                e.preventDefault()
+
+                // ajax request
+ $.ajax({
+
+                type:'post',
+                url:'{{route("Request.SendSMS")}}',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 data:{mobile:{{auth()->user()->mobile}}},
+
+            
+                 
+                 success:function(data){
+         
+                    $("#sendsms").html(data);
+
+               
+                }
+        })
+    })
+
+   
   })
 </script>
 

@@ -12,6 +12,7 @@ use App\Models\Members\ChannelInformations;
 use App\Models\Members\Messages;
 use App\Models\Students\Student;
 use App\Http\Controllers\Controller;
+use App\Models\ActivationCode;
 use App\Models\Accounting\Purchase;
 use App\Models\Contents\Categories;
 use App\Models\Contents\Visit;
@@ -291,42 +292,83 @@ class DashboardController extends Controller
     public function RequestChannel()
     {
         $member = auth()->user();
+
+ 
+    
+
         return view('Panel.RequestChannel', compact('member'));
     }
     public function VerifyMobile(Request $request)
     {
-        session()->put('mobile',$request->mobile);
+        //session()->put('mobile',$request->mobile);
        
+       $mobile=auth()->user()->mobile;
 
-//         $curl = curl_init();
-// curl_setopt_array($curl, array(
-// CURLOPT_URL => "https://api.ghasedak.io/v2/sms/send/simple",
+     
+       $activationCode_OBJ = ActivationCode::where('v_code', $request->code)->first();
+       if ($activationCode_OBJ) {
+           
 
-// CURLOPT_CUSTOMREQUEST => "POST",
-// CURLOPT_POSTFIELDS => "message= &linenumber= & Receptor=&=",
-// CURLOPT_HTTPHEADER => array(
-// "apikey: your apikey",
-// ),
-// ));
-// $response = curl_exec($curl);
-// $err = curl_error($curl);
-// curl_close($curl);
+       } else {
 
-// if ($err) {
-// echo "cURL Error #:" . $err;
-// } else {
-// echo $response;
-// }
+           $request->session()->flash('Error', 'کد وارد شده صحیح نمی باشد');
+           return back();
+               }
 
-        return view('Panel.VerifyMobile');
+
+        return view('Panel.VerifyMobile',compact('mobile'));
     }
 
 
+    public function sendsms(Request $request){
+
+        $member = auth()->user();
+
+        $code = ActivationCode::createCode($member->mobile);
+        if ($code == false) {
+            return 'کد فعال سازی قبلا برای شما ارسال شده است. لطفا بعدا مجددا امتحان فرمایید';
+        }
+
+
+        $api='644B6B646441646E3851346F34336D52632F6A59497872383733587259303249515A352B3855586D5564553D';
+
+        $curl = curl_init();
+        curl_setopt_array($curl,
+        array(
+        CURLOPT_URL => "https://api.kavenegar.com/v1/$api/verify/lookup.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "receptor=$member->mobile&template=verify&token=$code->v_code",
+        CURLOPT_HTTPHEADER => array(
+        "apikey: a6dd62cdc40d3990a48b9f04397506600b5bca37248176981a37fb97bec262b0",
+        "cache-control: no-cache",
+        "content-type: application/x-www-form-urlencoded",
+        )));
+
+        $response = curl_exec($curl);
+        //dd($response);
+
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        //echo $response;
+        }
+
+
+
+    
+        return 'کد با موفقیت ارسال شد';
+    }
 
 
     public function SubmitRequestChannel(Request $request)
     {
-       
+       //dd($request->all());
         $member = auth()->user();
         
 
@@ -336,6 +378,10 @@ class DashboardController extends Controller
          * if true then 
          * 
          *  */  
+
+    
+
+
 
 
 
