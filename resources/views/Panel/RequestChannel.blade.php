@@ -94,9 +94,13 @@
     
     $('#sendsms').click(function(e){
                 e.preventDefault()
-
+                var thiss = $(this)
+                $(this).html(`
+                    <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
+                    ارسال
+                `)
                 // ajax request
- $.ajax({
+             $.ajax({
 
                 type:'post',
                 url:'{{route("Request.SendSMS")}}',
@@ -106,7 +110,7 @@
             
                  
                  success:function(data){
-         
+                    
                     $("#sendsms").html(data);
 
                

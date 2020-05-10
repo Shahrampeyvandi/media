@@ -203,7 +203,7 @@ class PostsController extends Controller
 
         // send notifications to user where post
         toastr()->success('محتوا با موفقیت تایید شد');
-        return redirect()->route('Panel.Posts.Unconfirmed');
+        return redirect()->route('Panel.Posts.All');
     }
 
     public function reject(Request $request)

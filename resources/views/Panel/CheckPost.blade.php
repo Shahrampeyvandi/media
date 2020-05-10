@@ -5,22 +5,13 @@
     <div class="col-md-12">
 
         <div class="card p-3">
+            
+           
+            @component('Includes.Main.player',['content' => $post])
+                
+            @endcomponent
+          
 
-            <section id="play" class="mt-3 ">
-                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                    poster="{{route('BaseUrl')}}/{{$post->picture}}" data-setup="{}">
-                    <source src="{{route('BaseUrl')}}/{{$post->content_link}}" type="video/mp4" />
-                    <source src="{{route('BaseUrl')}}/{{$post->content_link}}" type="video/webm" />
-                    {{-- <track kind="captions" src="{{asset('files/record.vtt')}}" srclang="en"
-                    label="English" default> --}}
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports
-                            HTML5 video</a>
-                    </p>
-                </video>
-            </section>
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
                     style="margin-right: 0px;"><span class="title__divider__wrapper">ویرایش محتوا<span
@@ -131,23 +122,19 @@
                         <textarea class="form-control" name="desc2" id="desc2" cols="30" rows="8">{!!$post->desc2!!}</textarea>
                     </div>
                 </div>
-                <div class="row">
-                    {{-- <div class="form-group col-md-6">
-                        <select name="price_type" id="price_type" class="form-control browser-default custom-select">
-                            <option value="free" selected>رایگان</option>
-                            <option value="money">پولی</option>
-
-                        </select>
-                    </div> --}}
-                    <div class="form-group col-md-2">
-                        <label for="desc">قیمت:  </label>
-                        <input type="number" class="form-control" value="{{$post->price}}" name="price" id="price" placeholder="">
-                        <span class="rial">ریال</span>
-                    </div>
-            
-                    
-                   
+               @if ($post->categories->id == 6)
+               <div class="row">
+                 
+                <div class="form-group col-md-2">
+                    <label for="desc">قیمت:  </label>
+                    <input type="number" class="form-control" value="{{$post->price}}" name="price" id="price" placeholder="">
+                    <span class="rial">ریال</span>
                 </div>
+        
+                
+               
+            </div>
+               @endif
 
                 <div class="form-footer">
                    
@@ -225,24 +212,51 @@
 @endsection
 
 @section('css')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
-<link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
 
 
-<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
 
 @endsection
 
 @section('js')
 
-<script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
-<script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
-<!-- end::input mask -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+
+<script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
+
+
 
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
+
     $(document).ready(function(){
+        
+    var controls =
+[
+    'play-large', // The large play button in the center
+    
+    'rewind', // Rewind by the seek time (default 10 seconds)
+    'play', // Play/pause playback
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'progress', // The progress bar and scrubber for playback and buffering
+    'current-time', // The current time of playback
+    'duration', // The full duration of the media
+    'mute', // Toggle mute
+    'volume', // Volume control
+    'captions', // Toggle captions
+    'settings', // Settings menu
+    'pip', // Picture-in-picture (currently Safari only)
+    'airplay', // Airplay (currently Safari only)
+    'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+    'fullscreen' // Toggle fullscreen
+];
+    const player = new Plyr('#player',{
+        controls
+    ,
+    speed:{ selected: 1, options: [ 0.75, 1, 1.25, 1.5] }
+    });
+
+
         CKEDITOR.replace('desc',{
             filebrowserUploadUrl : '{{route('UploadImage')}}',
             filebrowserImageUploadUrl : '{{route('UploadImage')}}'

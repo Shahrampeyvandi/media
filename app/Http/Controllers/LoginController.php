@@ -31,6 +31,7 @@ class LoginController extends Controller
 
     public function verifyLogin(Request $request)
     {
+        dd(Hash::make('123456'));
 
         if ($member = Members::where('mobile', $request->field)->where('ability', 'admin')->orWhere('ability', 'mid-level-admin')->first()) {
 
