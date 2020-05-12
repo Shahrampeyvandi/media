@@ -122,6 +122,20 @@ Route::middleware('auth')->group(function () {
     
 });
 
+Route::middleware(['auth','admin','mid-admin'])->group(function () {
+    Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
+    Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
+    Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
+    Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
+    Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
+    Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
+    Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
+    Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
+    Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
+    Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+
+});
+
 // روت های مختص ادمین پنل
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
@@ -195,3 +209,4 @@ Route::middleware(['auth','admin'])->group(function () {
 
 
 });
+

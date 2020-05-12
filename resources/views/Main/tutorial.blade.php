@@ -212,7 +212,7 @@
                     <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
                         <h3 class="text-black-50">این {{$content->categories->name}} غیر رایگان می باشد برای مشاهده
                             بایستی خریداری نمایید</h3>
-                        <h3>مبلغ قابل پرداخت : {{$content->price}} تومان </h3>
+                        <h3>شهریه دوره : {{$content->price}} تومان </h3>
 
                         <form action="{{route('Pay.Start')}}" method="post">
                             @csrf

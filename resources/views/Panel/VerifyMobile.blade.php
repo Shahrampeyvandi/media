@@ -1,6 +1,37 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/login.css">
+
+<header class="container d-none d-md-block" >
+    <div class="row" style="justify-content: center;">
+        <div class="col-md-6">
+            <ul class="stepper stepper-horizontal">
+
+    
+
+                <li class="active">
+                <a href="#!" class="p-2 text-black-50">
+                        <span style="" class="circle_ bg-gradient">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <span class="fs-0-8">تایید شماره تلفن</span>
+                    </a>
+                
+                </li>
+                
+                <li class="active">
+                <a href="#!" class="p-2 text-primary">
+                        <span style="border: 3px solid #7979d0;
+                        background: #9696f9 !important;" class="circle_ " >2</span>
+                        <span class="">بارگذاری مدارک</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
 
 <div class="col-md-8 offset-md-2 mb-3">
     <form id="edit" action="{{route('Request.Channel.Submit')}}" method="post" enctype="multipart/form-data">

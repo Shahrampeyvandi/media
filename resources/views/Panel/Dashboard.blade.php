@@ -102,15 +102,12 @@
         </div>
         <!-- ./col -->
         <!-- ./col -->
+        @if (auth()->user()->group !== "student")
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            @if (auth()->user()->group !== "student")
             <a href="{{route('MyTutorials')}}">
-                @else
-                <a href="#">
-                    @endif
-
-                    <div class="small-box" style="    padding: 20px;
+            
+            <div class="small-box" style="    padding: 20px;
                       box-shadow: 0 6px 20px 0 #ff88e0!important;
                       background: linear-gradient(-45deg,#bb057b,#ff88e0)!important;                   color: #fff;
                     border-radius: 7px;">
@@ -125,6 +122,9 @@
                     </div>
                 </a>
         </div>
+                @else
+                    @endif
+
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->

@@ -464,6 +464,12 @@ class DashboardController extends Controller
         $notification->posts_id = 0;
         $notification->save();
        }
+       $notificationuser = new Notifications;
+       $notificationuser->members_id = $member->id;
+       $notificationuser->title = 'درخواست کانال رسمی';
+       $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی در دست بررسی می باشد.';
+       $notificationuser->posts_id = $post->id;
+       $notificationuser->save();
         }
 
 
