@@ -7,7 +7,9 @@
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
             style="margin-right: 0px;"><span class="title__divider__wrapper">دوره های من<span
                     class="line brk-base-bg-gradient-right"></span>
-            </span></h2>
+            </span>
+        <a class="float-left btn btn-outline-success btn-sm btn-rounded" href="{{route('UploadFile')}}?c=tutorial">  <i class="fas fa-plus"></i> جدید</a>
+        </h2>
      
     </div>
     <div style="overflow-x: auto;">

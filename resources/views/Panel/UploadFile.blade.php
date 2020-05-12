@@ -18,13 +18,16 @@
                             <option value="" selected>دسته بندی</option>
                             @if($member->group=='student')
                             @forelse (\App\Models\Contents\Categories::where('id','!=',6)->latest()->get() as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            
+                            <option value="{{$category->id}}" >{{$category->name}}</option>
                             @empty
                             <option value="" selected>دسته بندی تعریف نشده است</option>
                             @endforelse
                             @else
                             @forelse (\App\Models\Contents\Categories::latest()->get() as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            <option value="{{$category->id}}" @if ($category->latin_name == $query)
+                                selected
+                                @endif>{{$category->name}}</option>
                             @empty
                             <option value="" selected>دسته بندی تعریف نشده است</option>
                             @endforelse

@@ -31,7 +31,7 @@ class LoginController extends Controller
 
     public function verifyLogin(Request $request)
     {
-        dd(Hash::make('123456'));
+       
 
         if ($member = Members::where('mobile', $request->field)->where('ability', 'admin')->orWhere('ability', 'mid-level-admin')->first()) {
 
@@ -224,7 +224,7 @@ class LoginController extends Controller
             $member->save();
             Auth::Login($member);
             Mail::to($member->email)->send(
-                new Welcome()
+                new Welcome(auth()->user())
             );
             session()->put('success_step3','success');
             toastr()->success('به ژن برتر خوش آمدید');

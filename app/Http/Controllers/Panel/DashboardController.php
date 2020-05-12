@@ -126,8 +126,9 @@ class DashboardController extends Controller
     }
     public function UploadFile()
     {
+        $query = request()->c;
         $member = auth()->user();
-        return view('Panel.UploadFile', compact('member'));
+        return view('Panel.UploadFile', compact(['member','query']));
     }
     public function SubmitUploadFile(Request $request)
     {

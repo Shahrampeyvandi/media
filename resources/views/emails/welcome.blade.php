@@ -306,7 +306,7 @@ Sizes: [
 										tables centered in the emailBody table,
 										in case its width is set to 100%.
 									-->
-									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#FFFFFF;" bgcolor="#3498db">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#FFFFFF;background-image: url(https://genebartar.ir/assets/images/email_bg.jpeg);background-size: cover;" >
 										<tr>
 											<td align="center" valign="top">
 												<!-- FLEXIBLE CONTAINER // -->
@@ -333,7 +333,7 @@ Sizes: [
 
 																		<h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;">ژن برتر</h1>
 																		<h2 style="text-align:center;font-weight:normal;font-family:Helvetica,Arial,sans-serif;font-size:23px;margin-bottom:10px;color:#205478;line-height:135%;">دنیای اموزش آنلاین</h2>
-																		<div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#FFFFFF;line-height:135%;">کاربر عزیز از ثبت نام شما متشکریم و ورود شما را به خانواده ی بزرگ ژن برتر تبریک می گوییم.</div>
+																		<div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#205478;line-height:135%;">کاربر عزیز از ثبت نام شما متشکریم و ورود شما را به خانواده ی بزرگ ژن برتر تبریک می گوییم.</div>
 																	</td>
 																</tr>
 															</table>
@@ -370,7 +370,7 @@ Sizes: [
 															<table border="0" cellpadding="0" cellspacing="0" width="50%" class="emailButton" style="background-color: #3498DB;">
 																<tr>
 																	<td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-																		<a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="{{ route('BaseUrl') }}" target="_blank">ورود به ژن برتر</a>
+																		<a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="{{ route('Panel.Dashboard') }}?u={{$member->username}}" target="_blank">ورود به ژن برتر</a>
 																	</td>
 																</tr>
 															</table>
