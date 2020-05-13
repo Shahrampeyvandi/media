@@ -144,7 +144,7 @@ class DashboardController extends Controller
                 [
                     'errors'=> "فایل دارای فرمت غیرمجاز می باشد"
                      ,'code'=>403
-            ],
+            ],403
                 
             );
         }
@@ -152,7 +152,7 @@ class DashboardController extends Controller
             return response()->json(
                 ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد"
                 ,'code'=>403
-            ],
+            ],403
                 
             );
         }
