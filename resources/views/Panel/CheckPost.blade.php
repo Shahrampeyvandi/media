@@ -253,7 +253,7 @@
     const player = new Plyr('#player',{
         controls
     ,
-    speed:{ selected: 1, options: [ 0.75, 1, 1.25, 1.5] }
+    speed:{ selected: 1, options: [ 0.5, 0.75, 1, 1.25] }
     });
 
 

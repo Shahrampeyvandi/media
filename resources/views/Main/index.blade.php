@@ -409,8 +409,8 @@
                 </div>
             </div>
 
-            <div class="swiper-button-next swiper-n "></div>
-            <div class="swiper-button-prev swiper-p"></div>
+            <div class="swiper-button-next swiper-learning-n "></div>
+            <div class="swiper-button-prev swiper-learning-p"></div>
         </section>
 
     </div>
@@ -520,7 +520,7 @@
                                         {{$music->languages->name}}
                                     </span>
                                     <span class="fs-0-8 text-black-50">
-                                        11 بهمن 1398
+                                        {{\Morilog\Jalali\Jalalian::forge($music->created_at)->format('%d %B %Y')}}
                                     </span>
 
                                 </div>

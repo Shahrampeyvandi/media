@@ -748,8 +748,9 @@ $(document).on('keyup','#searchinput',function(e){
         var learning_slider = new Swiper('.swiper-container-learning', {
 
             spaceBetween: 5,
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
+            nextButton: '.swiper-learning-p',
+            prevButton: '.swiper-learning-n',
+           
             breakpoints: {
                 320: {
                     slidesPerView: 1,

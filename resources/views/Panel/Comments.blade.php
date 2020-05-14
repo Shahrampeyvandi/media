@@ -26,7 +26,29 @@
         </div>
     </div>
 </div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+        <li class="breadcrumb-item"><a href="#">کامنت ها</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            @switch(request()->path())
+            @case("panel/allcomments")
+            تایید شده
+            @break
+            @case("panel/allcomments/unconfirmed")
+            در انتظار تایید
+            @break
+            @case("panel/allcomments/rejected")
+            تایید نشده
+            @break
+           
 
+            @default
+
+            @endswitch
+        </li>
+    </ol>
+</nav>
 <div class="row">
     <div class="col-md-12">
         <div>

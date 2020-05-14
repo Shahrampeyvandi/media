@@ -352,8 +352,10 @@
     'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
     'fullscreen' // Toggle fullscreen
 ];
-    const player = new Plyr('#player',{
+const player = new Plyr('#player',{
         controls
+    ,
+    speed:{ selected: 1, options: [ 0.5, 0.75, 1, 1.25] }
     });
     var type = "{{$type}}";
     var checkauth = '{{auth()->user()}}';

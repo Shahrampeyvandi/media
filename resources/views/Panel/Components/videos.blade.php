@@ -73,6 +73,6 @@
 </div>
 <div class="row">
    <div class="col-md-12">
-    <a href="{{route('UploadFile')}}" class=" btn btn-sm btn-outline-info btn-rounded"><i class="fa fa-plus"></i> &nbsp; آپلود  </a>
+    <a href="{{route('UploadFile')}}?c=videos" class=" btn btn-sm btn-outline-info btn-rounded"><i class="fa fa-plus"></i> &nbsp; آپلود  </a>
    </div>
 </div>

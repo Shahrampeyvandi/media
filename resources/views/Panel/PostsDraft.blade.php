@@ -34,6 +34,26 @@
         </div>
     </div>
 </div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+        <li class="breadcrumb-item"><a href="#">پست های پیش نویس</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            @switch(request()->path())
+            @case("panel/allposts/unconfirmed")
+            درانتظار تایید
+            @break
+            @case("panel/allposts/rejected")
+            تایید نشده
+            @break
+           
+
+            @default
+
+            @endswitch
+        </li>
+    </ol>
+</nav>
 <div class="row">
     <div class="col-md-12">
         <div>

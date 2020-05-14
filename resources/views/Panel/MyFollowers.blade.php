@@ -10,7 +10,7 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered text-center">
+        <table id="example1" class="table table-striped  table-bordered text-center w-100">
             <thead>
             <tr>
                 <th>ردیف</th>

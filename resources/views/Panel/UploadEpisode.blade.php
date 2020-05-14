@@ -1,6 +1,9 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<div class="overlay_upload " >
+    <img src="{{asset('assets/images/LOGO.jpeg')}}" style=" bottom: -60px;" alt="">
+    </div>
 <div class="row">
     <div class="col-md-12">
 
@@ -84,13 +87,7 @@
             @endsection
 
             @section('js')
-            {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> --}}
-            {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> --}}
-            {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
-            <!-- begin::input mask -->
-            <script src="{{asset('Panel/vendor/input-mask/jquery.mask.js')}}"></script>
-            <script src="{{asset('Panel/assets/js/input-mask.js')}}"></script>
-            <!-- end::input mask -->
+          
             <script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
 
             <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
@@ -144,6 +141,8 @@
                     <span class="spinner-border spinner-border-sm m-l-5 fs-0-8" role="status" aria-hidden="true"></span>
                     در حال بارگذاری ...
                 </button>`)
+                $('.overlay_upload').show(300)
+        $('.overlay_upload img').animate({bottom:'8px'}, 1000)
         $('.progress-bar').text(percentComplete + '%');
         $('.progress-bar').css('width', percentComplete + '%');
       
@@ -167,6 +166,7 @@
 		});
           $('.progress-bar').text('0%');
           $('.progress-bar').css('width', '0%');
+          
         }
         if(data.success)
         {

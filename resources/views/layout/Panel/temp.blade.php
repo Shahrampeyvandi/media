@@ -96,10 +96,10 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <div id="notification " class="d-b  pt-2">
-                                        <ul>
+                                        <ul class="ul">
                                             @foreach ($notifications as $notification)
                                             <li>
-                                                <div class="  d-flex flex-column flex-sm-wrap mb-2">
+                                                <div class=" d-flex flex-column flex-sm-wrap mb-2">
                                                     <span class="mr-1 fs-0-8 d-flex justify-content-between">
                                                         <span class="text-info">{{$notification->title}}
                                                         </span>
@@ -321,6 +321,15 @@
                                 </div>
                                 </a>
                         </li> --}}
+                        @if (auth()->user()->approved == 1 || auth()->user()->group == "admin")
+                          <li class="menu-item-link  mr-35">
+                            <a href="{{route('AddAboutUs')}}" aria-label="">
+                                <div class="content">
+                                    <span class="text">اضافه کردن متن درباره ما</span>
+                                </div>
+                            </a>
+                         </li>
+                         @endif
                     </ul>
                     </li>
 
@@ -446,14 +455,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu-item-link">
-                        <a href="{{route('AddAboutUs')}}" aria-label=""><i
-                                class="ti ti-pencil fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">اضافه کردن متن درباره ما</span>
-                            </div>
-                        </a>
-                    </li>
+                   
                     @if (auth()->user()->group == 'teacher')
                     <li class="menu-item-link">
                         <a style="padding-right: 20px;" href="{{route('Request.Channel')}}" aria-label="تقاضای کانال رسمی">
@@ -528,6 +530,10 @@
         e.preventDefault()
         let id = $(this).data('id')
        var thiss = $(this)
+       
+       if ($(this).parents('ul').children().length == 1) {
+           $(this).parents('.dropdown-content').remove()
+       }
         $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

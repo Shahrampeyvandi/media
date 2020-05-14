@@ -26,6 +26,30 @@
         </div>
     </div>
 </div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">کاربران </a></li>
+        <li class="breadcrumb-item"><a href="#">لیست کاربران</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            @switch(request()->path())
+            @case("panel/members")
+            دانشجویان
+            @break
+            @case("panel/members/teacher")
+            اساتید
+            @break
+            @case("panel/members/deactive")
+            غیر فعال
+            @break
+           
+
+            @default
+
+            @endswitch
+        </li>
+    </ol>
+</nav>
 <div class="row">
     <div class="col-md-12">
         <div>
@@ -105,8 +129,8 @@
                         ادمین
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="touser" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0">تغییر
-                                به کاربر</a>
+                            <a id="touser" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"> <i class="fas fa-sync"></i> &nbsp;
+                                  کاربر </a>
                         </div>
 
                         @else
@@ -114,8 +138,8 @@
                         کاربر
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="toadmin" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0">تغییر به
-                                ادمین</a>
+                            <a id="toadmin" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"> <i class="fas fa-sync"></i>&nbsp;
+                                 ادمین </a>
                         </div>
                         @endif
                     </td>
@@ -125,15 +149,15 @@
                         رسمی
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0">تبدیل
-                                به غیر رسمی</a>
+                            <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
+                                 غیر رسمی</a>
                         </div>
                         @else
-                        غیر رسمی
+                        غیر رسمی 
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0">تبدیل
-                                به رسمی</a>
+                            <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
+                                 رسمی</a>
                         </div>
                         @endif
 
@@ -232,16 +256,10 @@ $('.delete--user').click(function(e){
                 type:'post',
                 url:'{{route("Panel.Member.ChangeAbility")}}',
                  data:{_token:'{{csrf_token()}}',id:value,type:1},
-        
-                      
-                 
                  success:function(data){
-
-
                        setTimeout(()=>{
                         location.reload()
                        },1000)
-               
                 }
         })
             }
@@ -252,12 +270,7 @@ $('.delete--user').click(function(e){
 				});
     		}
     	});
-    
-
-    
     })
-
-
     $('#touser').click(function(e){
                 e.preventDefault()
                 var value = $(this).attr('value');
@@ -282,7 +295,6 @@ $('.delete--user').click(function(e){
                        setTimeout(()=>{
                         location.reload()
                        },1000)
-               
                 }
         })
             }
@@ -294,8 +306,6 @@ $('.delete--user').click(function(e){
     		}
     	});
     })
-   
-
    
     $('#fromoff').click(function(e){
                 e.preventDefault()
@@ -336,7 +346,6 @@ $('.delete--user').click(function(e){
     	});
 
     })
-
 
     
     $('#tooff').click(function(e){
