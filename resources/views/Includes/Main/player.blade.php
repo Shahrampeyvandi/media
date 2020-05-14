@@ -1,8 +1,11 @@
 <section id="play" class="mt-5">
 <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
 <script src="https://vjs.zencdn.net/7.7.6/video.js"></script>
+<script src="{{route('BaseUrl')}}/Panel/assets/js/videojs.ads.min.js"></script>
+<script src="{{route('BaseUrl')}}/Panel/assets/js/videojs-preroll.js"></script>
+<link href="{{route('BaseUrl')}}/Panel/assets/css/videojs-preroll.css" rel="stylesheet" type="text/css">
 
-<link href="{{route('BaseUrl')}}/Panel/assets/js/videojs.watermark.css" rel="stylesheet">
+<link href="{{route('BaseUrl')}}/Panel/assets/css/videojs.watermark.css" rel="stylesheet">
 <script src="{{route('BaseUrl')}}/Panel/assets/js/videojs.watermark.js"></script>
 
 
@@ -24,13 +27,20 @@
 
 
 <script>
+videojs('player', {}, function(){
+  var player = this;
+  player.preroll({
+    src:"Https://dl.genebartar.ir/files/posts/file_1589382614.mp4"
+  });
+});
+
 var video = videojs('player');
 
 video.watermark({
     file: '{{route('BaseUrl')}}/assets/images/LOGO.jpeg',
-    xpos: 60,
-  ypos: 60,
-  xrepeat:0,
+    xpos: 0,
+  ypos: 0,
+  xrepeat:1,
   opacity: 0.5
 });
 </script>
