@@ -63,7 +63,7 @@ class Members extends Model  implements Authenticatable
     }
     public function is_mid_admin()
     {
-        return auth()->user()->ability == 'min-level-admin' ? true : false;
+        return auth()->user()->ability == 'mid-level-admin' ? true : false;
     }
 
     public function channelInformations()

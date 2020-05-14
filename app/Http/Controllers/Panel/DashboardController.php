@@ -144,7 +144,7 @@ class DashboardController extends Controller
                 [
                     'errors'=> "فایل دارای فرمت غیرمجاز می باشد"
                      ,'code'=>403
-            ],
+            ],403
                 
             );
         }
@@ -152,7 +152,7 @@ class DashboardController extends Controller
             return response()->json(
                 ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد"
                 ,'code'=>403
-            ],
+            ],403
                 
             );
         }
@@ -464,6 +464,12 @@ class DashboardController extends Controller
         $notification->posts_id = 0;
         $notification->save();
        }
+       $notificationuser = new Notifications;
+       $notificationuser->members_id = $member->id;
+       $notificationuser->title = 'درخواست کانال رسمی';
+       $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی در دست بررسی می باشد.';
+       $notificationuser->posts_id = $post->id;
+       $notificationuser->save();
         }
 
 

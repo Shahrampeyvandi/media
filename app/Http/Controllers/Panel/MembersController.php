@@ -101,6 +101,9 @@ class MembersController extends Controller
        
         $member=$channelinfo->member;
 
+        $notificationuser = new Notifications;
+        $notificationuser->members_id = $member->id;
+
         if($request->type==2){
 
             $member->approved=1;
@@ -110,6 +113,11 @@ class MembersController extends Controller
 
             $member->update();
             $channelinfo->update();
+
+     
+       $notificationuser->title = 'درخواست کانال رسمی';
+       $notificationuser->text = 'کاربر گرامی! با در خواست شما برای کانال رسمی موافقت گردید.';
+       
 
         }else{
 
@@ -121,10 +129,14 @@ class MembersController extends Controller
             $member->update();
             $channelinfo->update();
 
-
+            $notificationuser->title = 'درخواست کانال رسمی';
+            $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی رد گردید.';
+            
 
         }
 
+        //$notificationuser->posts_id = $post->id;
+       $notificationuser->save();
 
         toastr()->success('با موفقیت انجام شد!');
         //return back();

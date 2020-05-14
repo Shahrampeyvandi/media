@@ -193,6 +193,39 @@
                             </a>
                         </li>
 
+                        @if (auth()->user()->is_mid_admin())
+                        <li class="menu-item-link d-flex flex-column">
+                            <a class="menu-link position-relative" aria-label=""><i
+                                    class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">پست ها 
+                                        @if (\App\Models\Contents\Posts::where('confirmed',0)->count())
+                                        <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
+                                        @endif
+                                    </span>
+                                </div>
+                                <i class="sub-menu-arrow ti-angle-left "></i>
+                            </a>
+                            <ul style="display:none;">
+                          <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Posts.Unconfirmed')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">پست های پیش نویس</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Comments.All')}}" aria-label="">
+                                        <div class="content">
+                                            <span class="text">کامنت ها</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @endif
+
                         @if (auth()->user()->is_admin())
                         <li class="menu-item-link d-flex flex-column">
                             <a class="menu-link position-relative" aria-label=""><i

@@ -129,8 +129,8 @@
                         ادمین
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="touser" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"> <i class="fas fa-sync"></i> &nbsp;
-                                  کاربر </a>
+                            <a id="touser" value="{{$member->id}}" class="touser btn  btn-danger btn-sm m-0">تغییر
+                                به کاربر</a>
                         </div>
 
                         @else
@@ -138,8 +138,8 @@
                         کاربر
                         <br>
                         <div class="btn-group" role="group" aria-label="">
-                            <a id="toadmin" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"> <i class="fas fa-sync"></i>&nbsp;
-                                 ادمین </a>
+                            <a id="toadmin" value="{{$member->id}}" class="toadmin btn  btn-danger btn-sm m-0">تغییر به
+                                ادمین</a>
                         </div>
                         @endif
                     </td>
@@ -236,7 +236,7 @@ $('.delete--user').click(function(e){
 
     
     })
-    $('#toadmin').click(function(e){
+    $('.toadmin').click(function(e){
                 e.preventDefault()
                 var value = $(this).attr('value');
            swal({
@@ -271,7 +271,9 @@ $('.delete--user').click(function(e){
     		}
     	});
     })
-    $('#touser').click(function(e){
+
+
+    $('.touser').click(function(e){
                 e.preventDefault()
                 var value = $(this).attr('value');
                 swal({
