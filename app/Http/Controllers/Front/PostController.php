@@ -41,16 +41,6 @@ class PostController extends Controller
         ]);
       }
         
- 
-
-       
-        
-
-
-
-
-
-
         $favorite_status = 0;
         if (auth()->user()) {
             $user_id = auth()->user()->id;
@@ -95,15 +85,12 @@ class PostController extends Controller
             $comment_id =0;
            $array = [];
            $best = [];
-
-
      if (count($allpostcomments)) {
         foreach ($allpostcomments as $comment) {
             $like = CommentsLikes::where('comments_id', $comment->id)->where('score', 'like')->count();
             $array[$comment->id] = $like;
            
         }
-
         $max = 0;
         $countbestcomments = 0;
        foreach ($array as $key => $value) {
@@ -116,12 +103,9 @@ class PostController extends Controller
             }
            
        }
-   
        foreach ($array as $key => $value) {
           if($value == $max) $countbestcomments++;
        }
-
-      
      }else{
         $bestcomment_id = 0;
         $countbestcomments = 0;
@@ -129,9 +113,6 @@ class PostController extends Controller
        
      $type = "post";
      $episode_id = null;
-
-
-
         if ($content->categories_id == 6) {
 
             $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
@@ -161,8 +142,6 @@ class PostController extends Controller
             ]));
         } else {
             // get Epizodes
-
-            
             return view('Main.single', compact([
                 'type',
                 'isbuyedit',
