@@ -4,11 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>
-        ژن برتر
+       @yield('title','ژن برتر - اشتراک گذاری محتوای آموزشی')
+        
     </title>
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
+    <meta name="description" 
+    content="@yield('description','موزیک و ویدیوهای آموزشی خود را به راحتی آپلود کرده و با یکدیگر به اشتراک بگذارید')">
     <link rel="icon" href="{{asset('assets/images/logo.jpeg')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css"> --}}

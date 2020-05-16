@@ -16,13 +16,18 @@
                                     aria-label="{{$related->title}}" class="thumb-image" style="min-height: 130px;"></a>
                             @else
                             <a href="{{route('ShowItem',['id'=>$related->id])}}">
-                                <div class="d-flex justify-content-center align-items-center h-100 p-3" style="    border: 1px solid gray;
+                                <div class="d-flex justify-content-center align-items-center h-100 " style="    border: 1px solid gray;
                                 border-radius: 4px;">
                                     {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                     alt="{{$movie->title}}"
                                     aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                    <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$related->title}}"
-                                            aria-label="{{$related->title}}" class="thumb-image">
+                                   @if ($content->categories_id == 4 || $content->categories_id == 5)
+                                   <img style="object-fit: fill; height: 100%;" src="{{asset("assets/images/logo-music1.png")}}" alt="{{$related->title}}"
+                                   aria-label="{{$related->title}}" class="thumb-image">  
+                                   @else 
+                                   <img style="   object-fit: fill; height: 100%;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$related->title}}"
+                                   aria-label="{{$related->title}}" class="thumb-image">   
+                                   @endif
                                 </div>
                             </a>
                             @endif

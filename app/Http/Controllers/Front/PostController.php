@@ -23,7 +23,7 @@ class PostController extends Controller
     {
         $content = Posts::whereId($id)->first();
 
-
+        
         $advert = AdvertLink::where(['cat_id'=>$content->categories_id,'status'=>1])->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
@@ -32,7 +32,7 @@ class PostController extends Controller
         }else{
             $link = '';
             $pic_link = '';
-            $link_type = '';
+            $link_type = '';    
         }
 
       if (AdvertVisit::where('ip',request()->ip())->count() == 0) {
