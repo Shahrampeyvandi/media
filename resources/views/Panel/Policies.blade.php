@@ -43,7 +43,7 @@
 
                 <div class="row">
                     <div class="col-md-3 my-2 btn--wrapper">
-                        <input type="submit" name="upload" value="جدید" class="btn btn-sm btn-success" />
+                        <input type="submit" name="upload" value="ذخیره" class="btn btn-sm btn-success" />
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-<section id="play" class="mt-5">
+
 <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
 <script src="https://vjs.zencdn.net/7.7.6/video.js"></script>
 <script src="{{route('BaseUrl')}}/Panel/assets/js/videojs.ads.min.js"></script>
@@ -17,30 +17,47 @@
     </audio>
 </section>
     @else
-    <video class="video-js mx-3 w-100" id="player" playsinline
+    <section id="play" class="mt-5 position-relative">
+      @if ($link_type == 'image')
+       <a class="close">بستن X</a>   
+       <a href="{{$link}}" target="_blank" class="advert-img"><img src="{{$pic_link}}" class="" alt=""></a>
+      @endif
+    <video class="video-js mx-3 w-100" style="height: 440px;" id="player" 
         controls>
         <source src="{{$content->content_link}}" type="video/mp4" size="576" />
         <source src="{{$content->content_link}}" type="video/mp4" size="720" />
         <source src="{{$content->content_link}}" type="video/mp4" size="1080" />
 
-        <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+        <track kind="captions" label="other captions" src="{{$content->subtitle}}" srclang="en" default />
     </video>
     </section>
     @endif
 
 
 <script>
-videojs('player', {}, function(){
+
+  $('#play .close').click(function(e){
+    e.preventDefault()
+    $(this).next('a').remove()
+    $(this).remove()
+  })
+videojs('player', {
+    'playbackRates': [0.7, 1.0, 1.5, 2.0] 
+}, function(){
   var player = this;
+  var src = "{{$link}}";
+  var type = "{{$link_type}}";
+ if (type !== '' && type == 'video') {
   player.preroll({
-    src:"Https://dl.genebartar.ir/files/posts/file_1589382614.mp4"
+    src:src
   });
+ }
 });
 
 var video = videojs('player');
 
 video.watermark({
-    file: '{{route('BaseUrl')}}/assets/images/LOGO.jpeg',
+    file: '{{route('BaseUrl')}}/assets/images/min-logo.png',
     xpos: 0,
   ypos: 0,
   xrepeat:1,

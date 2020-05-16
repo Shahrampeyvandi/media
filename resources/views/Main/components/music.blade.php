@@ -6,9 +6,12 @@
             <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-            <div class="center text-center m-t-n"> <a href="{{route('ShowItem',['id'=>$music->id])}}"><i
+            <div class="center text-center m-t-n"> <a
+                    href="{{route('ShowItem',['id'=>$music->id])}}"><i
                         class="ti ti-control-play fs-2"></i></a> </div>
-            <div class="bottom padder m-b-sm"> <a href="#" class="ml-2"> <span
+            <div class="bottom padder m-b-sm">
+
+                <a href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
                         class="text-info"> {{count($music->comments)}}</span><svg
                         class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                         <use xlink:href="#si_comments">
@@ -20,7 +23,10 @@
                                 <path d="M6 12h8v2H6zM6 9h12v2H6zM6 6h12v2H6z"></path>
                             </g>
                         </use>
-                    </svg> </a> <a href="#"> <span class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
+                    </svg>
+                </a>
+                <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
+                        class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
                     <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                         0="" 24="" 24""="">
                         <use xlink:href="#si_thumb-up">
@@ -36,43 +42,47 @@
                         </use>
                     </svg>
 
-                </a>  <span class="badge-rate badge-rate float-left text-white-80"><span>
-                    @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
-                    == '0')
-                    {{substr($music->duration,3)}}
-                    @else
-                    {{$music->duration}}
-                    @endif
+                </a>
+                <span class="badge-rate badge-rate float-left text-white-80"><span>
+                        @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
+                        == '0')
+                        {{substr($music->duration,3)}}
+                        @else
+                        {{$music->duration}}
+                        @endif
+                    </span>
+                    <i class="fa fa-clock-o pl-1"></i>
                 </span>
-                <i class="fa fa-clock-o pl-1"></i>
-            </span>
-        </div>
+            </div>
         </div>
         <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
-                    class="fa fa-bookmark i-lg"></i> </span> </div> <a href="#"
-            class="music-img">
-           @if($music->picture)
-            <img src="{{asset($music->picture)}}" width="100%;" height="230px" alt="" class="r r-2x img-full">
-            @else
-            <img src="{{asset('assets/images/p4.jpg')}}" width="100%;" height="230px"  alt=""
+                    class="fa fa-bookmark i-lg"></i> </span> </div> <a
+            href="{{route('ShowItem',['id'=>$music->id])}}" class="music-img">
+            @if($music->picture)
+            <img src="{{asset($music->picture)}}" width="100%;" style="height: 230px;" alt=""
                 class="r r-2x img-full">
+            @else
+            <img src="{{asset('assets/images/logo-music1.png')}}" width="100%;" style="height: 230px;"
+                alt="" class="r r-2x img-full">
             @endif
         </a>
     </div>
-    <div class="padder-v px-2"> <a href="#" class="text-ellipsis">{{$music->title}}</a>
+    <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
+            class="text-ellipsis">{{$music->title}}</a>
+        <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
         <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
-        <a href="#"
-            class="text-ellipsis text-xs text-muted">
-        @if ($music->languages)
+
+        <a href="#" class="text-ellipsis text-xs text-muted">
+            @if ($music->languages)
             {{$music->language}}
-        @endif
+            @endif
         </a>
         <div class="d-flex justify-content-between mt-3">
             <span class="fs-0-8 text-black-50">
                 {{$music->languages->name}}
             </span>
             <span class="fs-0-8 text-black-50">
-                11 بهمن 1398
+                {{\Morilog\Jalali\Jalalian::forge($music->created_at)->format('%d %B %Y')}}
             </span>
 
         </div>

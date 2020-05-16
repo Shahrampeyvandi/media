@@ -60,7 +60,7 @@
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
@@ -163,7 +163,7 @@
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
@@ -334,7 +334,7 @@
                                             {{-- <img src="{{asset('assets/images/cinema.png')}}"
                                             alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image"> --}}
-                                            <img style="object-fit: cover;" src="{{asset("assets/images/temp_logo.png")}}" alt="{{$movie->title}}"
+                                            <img style="object-fit: cover;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
                                         @endif
@@ -500,7 +500,7 @@
                                     <img src="{{asset($music->picture)}}" width="100%;" style="height: 230px;" alt=""
                                         class="r r-2x img-full">
                                     @else
-                                    <img src="{{asset('assets/images/p4.jpg')}}" width="100%;" style="height: 230px;"
+                                    <img src="{{asset('assets/images/logo-music1.png')}}" width="100%;" style="height: 230px;"
                                         alt="" class="r r-2x img-full">
                                     @endif
                                 </a>
@@ -567,7 +567,7 @@
                             <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
                             @else
 
-                            <img src="{{asset('assets/images/record.png')}}" alt="image" class="border-tlr-radius">
+                            <img src="{{asset('assets/images/logo-music1.png')}}" alt="image" class="border-tlr-radius">
                             @endif
                         </div>
                         <div class="card__content px-3 pb-2">

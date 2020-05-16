@@ -1,6 +1,38 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<div id="popup" class="overlay delete">
+    <div class="popup">
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form id="" action="{{route("Channel.Requested.Response")}}" method="post">
+                @csrf
+                <div class="mt-5 pr-2">
+                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
+                    <div class="form-group col-md-12">
+                        <input type="hidden" id="request_id" name="id" value="">
+                        <input type="hidden" id="member-id" name="member_id" value="">
+                    </div>
+                    <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> دلیل عدم تایید:
+                    </label>
+                    <div class="form-group mt-2 ">
+                        <select name="reason" id="reason" class="form-control browser-default custom-select">
+                            <option value="" selected>باز کردن فهرست انتخاب</option>
+                         
+                            <option value="عدم تطابق با شرایط لازم" >عدم تطابق با شرایط لازم</option>
+                            <option value="نقص مدارک">نقص مدارک</option>
+                         
+                       
+                        </select>
+                    </div>               
+                </div>
+                <div class="form-group  mt-1 ">
+                    <button type="submit" class="btn btn-sm btn-danger ">عدم تایید </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">کاربران </a></li>
@@ -63,10 +95,10 @@
 
                         <div class="btn-group" role="group" aria-label="">
                             <a id="acceptchannel" value="{{$requestedchannel->id}}"
-                                class=" btn btn-rounded btn-info btn-sm m-0">تایید</a>
+                                class="acceptchannel btn btn-rounded btn-info btn-sm m-0">تایید</a>
 
                             <a id="refusechannel" value="{{$requestedchannel->id}}"
-                                class="delete-post btn btn-rounded btn-danger btn-sm m-0">رد</a>
+                                class="refusechannel delete-post btn btn-rounded btn-danger btn-sm m-0">رد</a>
 
 
                         </div>
@@ -92,7 +124,7 @@
 
 @section('js')
 <script>
-    $('#acceptchannel').click(function(e){
+    $('.acceptchannel').click(function(e){
                 e.preventDefault()
                 var value = $(this).attr('value');
                 swal({
@@ -135,46 +167,17 @@
           
        })
 
-
-    $('#refusechannel').click(function(e){
-                e.preventDefault()
-                var value = $(this).attr('value');
-                swal({
-            title: "آیا اطمینان دارید؟",
-            text: "درخواست کانال رسمی پإیرفته نمیشود",
-            icon: "warning",
-			buttons: {
-				confirm : 'بله',
-				cancel : 'خیر'
-			},
-            dangerMode: true
-        })
-        .then(function(willDelete) {
-            if (willDelete) {
-                // ajax request
- $.ajax({
-                type:'post',
-                url:'{{route("Channel.Requested.Response")}}',
-                 data:{_token:'{{csrf_token()}}',id:value,type:3},
-   
-                
-                 success:function(data){
-
-                       setTimeout(()=>{
-                        location.reload()
-                       },1000)
-               
-                }
-        })
-            }
-			else {
-                swal("عملیات لغو شد", {
-					icon: "error",
-					button: "تایید"
-				});
-    		}
-    	});
-       
+     
+       $('.refusechannel').click(function(e){
+        e.preventDefault()
+        let id = $(this).attr('value')
+       $('#request_id').attr('value',id)
+     $('.overlay').css({  'visibility': 'visible',
+         'opacity': '1',
+         'z-index': '10',})
     })
+
+
+
 </script>
 @endsection

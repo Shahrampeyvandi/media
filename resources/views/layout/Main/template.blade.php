@@ -424,7 +424,9 @@
                             <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر">
                                 <svg class="icon icon-down" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_down"></use>
-                                </svg> <span class="content">نمایش بیشتر</span></a>
+                                </svg> 
+                                <span class="content">نمایش بیشتر</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -973,6 +975,20 @@ $(document).on('keyup','#searchinput',function(e){
 
 
     })
+
+
+    $('.menu-show-more').click(function(e){
+        e.preventDefault()
+        if($(this).hasClass('less')){
+            $(this).find('span').text('نمایش بیشتر')
+            $(this).removeClass('less')
+
+        }else{
+            $(this).addClass('less')
+        $(this).find('span').text('نمایش کمتر')
+        }
+        
+    });
 
 
     </script>

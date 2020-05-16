@@ -10,6 +10,9 @@ use App\Models\Contents\Episodes;
 use App\Models\Contents\Categories;
 use App\Models\Contents\Comments;
 use App\Models\Accounting\Purchase;
+use App\Models\Contents\Advert;
+use App\Models\Contents\AdvertLink;
+use App\Models\Contents\AdvertVisit;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Contents\Likes;
 use App\Models\Members\Favorites;
@@ -19,6 +22,34 @@ class PostController extends Controller
     public function index($id)
     {
         $content = Posts::whereId($id)->first();
+
+
+        $advert = AdvertLink::where('cat_id',$content->categories_id)->latest()->first();
+        if ($advert) {
+            $link = $advert->content_link;
+            $pic_link = $advert->pic_address;
+            $link_type = $advert->type;
+        }else{
+            $link = '';
+            $pic_link = '';
+            $link_type = '';
+        }
+
+      if (AdvertVisit::where('ip',request()->ip())->count() == 0) {
+        $advert->visits()->create([
+            'ip'=> request()->ip(),
+        ]);
+      }
+        
+ 
+
+       
+        
+
+
+
+
+
 
         $favorite_status = 0;
         if (auth()->user()) {
@@ -122,7 +153,10 @@ class PostController extends Controller
                 'countcategoryposts',
                 'episodes',
                 'bestcomment_id',
-                'countbestcomments'
+                'countbestcomments',
+                'link',
+                'link_type',
+                'pic_link'
                 
             ]));
         } else {
@@ -141,7 +175,10 @@ class PostController extends Controller
                 'categories',
                 'countcategoryposts',
                 'bestcomment_id',
-                'countbestcomments'
+                'countbestcomments',
+                'link',
+                'link_type',
+                'pic_link'
             ]));
         }
     }

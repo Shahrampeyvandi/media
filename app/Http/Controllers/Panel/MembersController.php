@@ -7,6 +7,7 @@ use App\Models\Contents\Posts;
 use Illuminate\Http\Request;
 use App\Models\Members\Members;
 use App\Models\Members\ChannelInformations;
+use App\Models\Notifications\Notifications;
 
 class MembersController extends Controller
 {
@@ -101,7 +102,7 @@ class MembersController extends Controller
        
         $member=$channelinfo->member;
 
-        $notificationuser = new Notifications;
+        $notificationuser = new Notifications();
         $notificationuser->members_id = $member->id;
 
         if($request->type==2){
@@ -130,7 +131,7 @@ class MembersController extends Controller
             $channelinfo->update();
 
             $notificationuser->title = 'درخواست کانال رسمی';
-            $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی رد گردید.';
+            $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی رد گردید <br/> دلیل رد درخواست : '.$request->reason.'';
             
 
         }
@@ -139,7 +140,7 @@ class MembersController extends Controller
        $notificationuser->save();
 
         toastr()->success('با موفقیت انجام شد!');
-        //return back();
+        return back();
     }
 
     public function AboutUsSocialLink(Request $request)

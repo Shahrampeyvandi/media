@@ -154,13 +154,13 @@
                     <div class="avatar">
 
                         @if (auth()->user()->avatar)
-                        <a href="#" class="picture image">
+                        <a href="{{route('Panel.Dashboard')}}?u={{auth()->user()->username}}" class="picture image">
                             <div class=" avatar-img"
                                 style="background-image: url({{route('BaseUrl')}}/{{auth()->user()->avatar}})">
                             </div>
                         </a>
                         @else
-                        <a href="#" class="picture image">
+                        <a href="{{route('Panel.Dashboard')}}?u={{auth()->user()->username}}" class="picture image">
                             <div class=" avatar-img"
                                 style="background-image: url({{asset('assets/images/avatar.png')}})">
                             </div>
@@ -290,7 +290,12 @@
                                  <li class="menu-item-link mr-35">
                                     <a href="{{route('Channel.Requested.All')}}" aria-label="درخواست کانال رسمی">
                                         <div class="content">
-                                            <span class="text">درخواست کانال رسمی</span>
+                                            <span class="text">درخواست کانال رسمی
+
+                                                @if (\App\Models\Members\ChannelInformations::where('accepted',1)->count())
+                                                <span class="fs-0-8 text-danger fw-500">جدید</span>
+                                                @endif
+                                            </span>
                                         </div>
                                     </a>
                                 </li>
@@ -336,7 +341,14 @@
                                 <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Advert')}}" aria-label="تبلیغات">
                                         <div class="content">
-                                            <span class="text">تبلیغات</span>
+                                            <span class="text">صفحه تبلیغات</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.Content.AdvertList')}}" aria-label="مدیریت تبلیغات">
+                                        <div class="content">
+                                            <span class="text">مدیریت تبلیغات</span>
                                         </div>
                                     </a>
                                 </li>

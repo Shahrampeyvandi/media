@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contents\Advert;
+use App\Models\Contents\AdvertLink;
 use App\Models\Contents\Policies;
 use App\Models\Contents\ContactUs;
 use App\Models\Contents\Income;
@@ -30,7 +31,7 @@ class ContentController extends Controller
                 'content' => $request->content
             ]);
             toastr()->success('با موفقیت ذخیره شد');
-            return redirect()->route('Policies','s');
+            return redirect()->route('Panel.Dashboard');
     }
 
     public function EditPolicies($type = 'students')
@@ -50,7 +51,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return redirect()->route('Policies','s');
+        return redirect()->route('Panel.Dashboard');
     }
 
     public function ContactUs()
@@ -69,7 +70,7 @@ class ContentController extends Controller
         'content' => $request->content
        ]);
        toastr()->success('با موفقیت ذخیره شد');
-       return redirect()->route('ContactUs');
+       return redirect()->route('Panel.Dashboard');
     }
 
     public function EditContactUs()
@@ -87,7 +88,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return redirect()->route('ContactUs');
+        return redirect()->route('Panel.Dashboard');
     }
 
     public function Income()
@@ -124,7 +125,7 @@ class ContentController extends Controller
         'content' => $request->content
        ]);
        toastr()->success('با موفقیت ذخیره شد');
-       return redirect()->route('Advert');
+       return redirect()->route('Panel.Dashboard');
     }
 
     public function EditAdvert()
@@ -143,7 +144,7 @@ class ContentController extends Controller
             'content' => $request->content
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return redirect()->route('Advert');
+        return redirect()->route('Panel.Dashboard');
     }
 
     public function BannerPost()
@@ -268,6 +269,105 @@ class ContentController extends Controller
         toastr()->success('با موفقیت آپدیت شد');
         return redirect()->route('Testimonials');
     }
+    public function ShowAdvertList()
+    {
 
+        $advertLinks = AdvertLink::latest()->get();
+        return view('Panel.ShowAdvertList',compact('advertLinks'));
+    }
+
+    
+    
+    public function AddContentAdvert()
+    {
+
+        
+        return view('Panel.AddContentAdvert');
+    }
+
+    public function SubmitAdvertContent(Request $request)
+    {  
+        
+        if($request->link == null && !$request->has('file')){
+            toastr()->error('لطفا لینک فایل را وارد و یا فایل مورد نظر را آپلود کنید');
+            return back();
+        }
+        
+        $newAdvert = new AdvertLink();
+
+        
+
+        if ($request->content_type == "image") {
+           
+
+           $newAdvert->content_link = $request->link;
+
+           $destinationPath = "files/adverts/";
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+                $picextension = $request->file('pic_address')->getClientOriginalExtension();
+                $fileName = 'pic' . time() . '.' . $picextension;
+                $request->file('pic_address')->move($destinationPath, $fileName);
+                $picPath = "/files/adverts/$fileName";
+               
+               
+                $newAdvert->pic_address = route('BaseUrl').$picPath;
+                
+                
+                
+                $newAdvert->type = "image";
+
+           
+        }
+        if ($request->content_type == "video") {
+            if($request->link !== null){
+                $newAdvert->content_link = $request->link;
+            }else{
+                $destinationPath = "files/adverts/";
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+                $picextension = $request->file('file')->getClientOriginalExtension();
+                $fileName = 'advert_' . time() . '.' . $picextension;
+                $request->file('file')->move($destinationPath, $fileName);
+                $filePath = "/files/adverts/$fileName";
+                $newAdvert->content_link = route('BaseUrl').$filePath;
+                if(in_array($request->file('file')->getClientOriginalExtension(),['jpg','jpeg','png','JPG','JPEG','PNG'])){
+                    $newAdvert->type = 'image';
+                }
+                if(in_array($request->file('file')->getClientOriginalExtension(),['avi','mp4','mov','ogg','qt','mp3','mpga','mkv','3gp'])){
+                   $newAdvert->type = 'video';
+               }
+            }
+           
+         }
+       
+
+        $newAdvert->cat_id = $request->category;
+        $newAdvert->view_count = $request->count;
+        $newAdvert->status = 1;
+        $newAdvert->save();
+        //  $newAdvert->type 
+        toastr()->success('با موفقیت ذخیره شد');
+        return redirect()->route('Panel.Content.AdvertList');
+        
+
+        
+
+       
+     
+        
+          
+    
+       
+            
+        
+
+
+
+    }
+
+    
   
 }

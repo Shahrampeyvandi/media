@@ -195,9 +195,11 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('panel/testimonials/edit', 'Panel\ContentController@EditTestimonials')->name('Panel.EditTestimonials');
 
     Route::post('panel/testimonials/savedit', 'Panel\ContentController@SaveEditTestimonials')->name('Panel.EditTestimonials');
-
-
-
+    
+    Route::get('panel/advertlist', 'Panel\ContentController@ShowAdvertList')->name('Panel.Content.AdvertList');
+    Route::get('panel/addadvert', 'Panel\ContentController@AddContentAdvert')->name('Panel.Content.AddAdvert');
+    
+    Route::post('panel/addadvert', 'Panel\ContentController@SubmitAdvertContent')->name('Panel.Content.AddAdvert');
 
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
