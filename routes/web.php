@@ -201,7 +201,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('panel/addadvert', 'Panel\ContentController@AddContentAdvert')->name('Panel.Content.AddAdvert');
     
     Route::post('panel/addadvert', 'Panel\ContentController@SubmitAdvertContent')->name('Panel.Content.AddAdvert');
-
+    Route::post('panel/advert/delete', 'Panel\ContentController@DeleteAdvertContent')->name('Panel.AdvertList.Delete');
+    
+    Route::post('panel/advert/status', 'Panel\ContentController@StatusAdvertContent')->name('Panel.AdvertList.Status');
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
 

@@ -24,7 +24,7 @@ class PostController extends Controller
         $content = Posts::whereId($id)->first();
 
 
-        $advert = AdvertLink::where('cat_id',$content->categories_id)->latest()->first();
+        $advert = AdvertLink::where(['cat_id'=>$content->categories_id,'status'=>1])->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
