@@ -96,6 +96,14 @@
                 <input type="text" placeholder="" class="form-control" name="years" id="years">
               </div>
             </div>
+
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="user_mobile" class="col-form-label">شماره شبا: </label>
+                <input type="number" placeholder="" class="form-control" name="shaba" id="shaba" value="{{$member->shaba}}">
+              </div>
+     
+            </div>
           
           
          

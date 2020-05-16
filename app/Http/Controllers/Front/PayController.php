@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Accounting\Purchase;
+use App\Models\Accounting\Transaction;
 use App\Models\Members\Members;
 use App\Models\Contents\Posts;
 use App\Models\Setting;
@@ -109,6 +110,25 @@ $commisi=Setting::first()->commission;
 
  $member=Members::where('id',$purchase->posts->members_id)->first();
  $member->wallet+=$cashteacher;
+
+ $transaction=new Transaction;
+ $transaction->type='واریز';
+ $transaction->amount=$cashteacher;
+ $transaction->members_id=$member->id;
+ $transaction->posts_id=$purchase->posts_id;
+ $transaction->save();
+
+ $transactionadmin=new Transaction;
+ $transactionadmin->type='واریز';
+ $transactionadmin->amount=$cashadmin;
+ $transactionadmin->members_id=1;
+ $transactionadmin->posts_id=$purchase->posts_id;
+ $transactionadmin->save();
+
+ $admin=Members::find(1);
+ $admin->wallet+=$cashadmin;
+
+ $admin->update();
  $member->update();
 
  //header('Location: http://genebartar.ir/content/' . $purchase->posts_id);

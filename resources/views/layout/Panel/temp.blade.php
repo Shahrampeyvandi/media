@@ -403,7 +403,26 @@
                             </div>
                         </a>
                     </li>
-
+                    <li class="menu-item-link">
+                        <a style="padding-right: 20px;" href="{{route('Accounting.Transactions')}}" aria-label="تراکنش های من">
+                        
+                            <i
+                            class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تراکنش های من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a style="padding-right: 20px;" href="{{route('Panel.Checkout')}}" aria-label="تسویه حساب با اساتید">
+                        
+                            <i
+                            class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تسویه حساب با اساتید</span>
+                            </div>
+                        </a>
+                    </li>
                     @endif
 
                     @if (auth()->user()->group == 'teacher' || auth()->user()->group == 'student')
@@ -486,10 +505,11 @@
                         <a href="{{route('Purchase.My')}}" aria-label=""><i
                                 class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">لیست تراکنش ها</span>
+                                <span class="text">لیست خرید ها</span>
                             </div>
                         </a>
                     </li>
+   
                     @endif
                     
                     <li class="menu-item-link">
@@ -509,6 +529,14 @@
                                 class="fas fa-user-check fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تقاضای کانال رسمی</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="{{route('Accounting.Transactions')}}" aria-label=""><i
+                        class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تراکنش های من</span>
                             </div>
                         </a>
                     </li>
