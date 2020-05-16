@@ -368,6 +368,54 @@ class ContentController extends Controller
 
     }
 
+    public function DeleteAdvertContent(Request $request)
+    {
+        $advert=AdvertLink::find($request->id);
+        if($advert->delete()){
+            return response()->json(
+                'success',200
+            );
+        }else{
+            return response()->json(
+                'error',401
+            );
+        }
+    }
+    public function StatusAdvertContent(Request $request)
+    {
+
+        $advert=AdvertLink::whereId($request->id)->first();
+        if($advert){
+
+        
+        if($advert->status == 1){
+            AdvertLink::whereId($request->id)->update(
+                [
+                    'status'=> 0
+                ]
+                );
+            }else{
+                AdvertLink::whereId($request->id)->update(
+                    [
+                        'status'=> 1
+                    ]
+                    );
+            }
+            return response()->json(
+                'success',200
+            );
+        }
+           
+        else{
+            return response()->json(
+                'error',401
+            );
+        }
+    }
+
+
+    
+
     
   
 }

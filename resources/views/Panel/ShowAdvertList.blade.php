@@ -1,45 +1,27 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div id="popup1" class="overlay">
-    <div class="popup">
-        <a class="close" href="#">&times;</a>
-        <div class="content">
-            <form id="" action="{{route('Panel.SlideShow.Delete')}}" method="post">
-                @csrf
-                <div class="mt-5 pr-2">
-                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
-                    <div class="form-group col-md-12">
-                        <input type="hidden" id="comment_id" name="comment_id" value="0">
-                    </div>
-                    <p>آیا برای حذف مورد مطمئن هستید؟</p>
-                </div>
-                <div class="form-group   offset-md-10">
-                    <button type="submit" class="btn btn-sm btn-danger ">حذف </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 <div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line" style="margin-right: 0px;"><span
-                class="title__divider__wrapper">لیست لینک های تبلیغاتی<span class="line brk-base-bg-gradient-right"></span>
+                class="title__divider__wrapper">لیست لینک های تبلیغاتی<span
+                    class="line brk-base-bg-gradient-right"></span>
             </span> <a href="{{route('Panel.Content.AddAdvert')}}" style="left:0;"
                 class=" btn btn-success btn-sm m-0 position-absolute">افزودن</a>
         </h2>
     </div>
-   
+
     <div style="overflow-x: auto;">
         <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
                 <tr>
                     <th>ردیف</th>
                     <th>محتوا</th>
-                    
+                    <th>وضعیت</th>
                     <th>نوع</th>
-                     
+
                     <th>دسته بندی</th>
                     <th>بازدیدهای مجاز</th>
                     <th>بازدید فعلی</th>
@@ -54,45 +36,56 @@
                     <td>{{$key+1}}</td>
                     <td>
                         @if ($advert->type == 'image')
-                    <a href="{{$advert->content_link}}" target="_blank"><img src="{{$advert->pic_address}}" style="width:200px;"></a>
+                        <a href="{{$advert->content_link}}" target="_blank"><img src="{{$advert->pic_address}}"
+                                style="width:200px;"></a>
                         @else
                         <video width="320" height="240" controls>
                             <source src="{{$advert->content_link}}" type="video/mp4">
-                        
-                           
-                          </video>
+
+
+                        </video>
                         @endif
-                    
+
                     </td>
-                    
-                    <td><span class="text-primary">
-                        @if ($advert->type == 'image')
-                            تصویر
-                        @endif
-                        @if ($advert->type == 'video')
-                        ویدئو
+                <td>
+
+                    @if ($advert->status == 1)
+                        <span class="text-success">فعال</span>
+                    @else
+                            <span class="text-danger">غیرفعال</span>
                     @endif
-                        
-                    </span></td>
+                   
+                </td>
+                    <td><span class="text-primary">
+                            @if ($advert->type == 'image')
+                            تصویر
+                            @endif
+                            @if ($advert->type == 'video')
+                            ویدئو
+                            @endif
+
+                        </span></td>
 
                     <td>{{$advert->categories->name}}</td>
                     <td>
-                        
+
                         {{$advert->view_count}}
-                      
+
                     </td>
                     <td>
-                        
+
                         {{$advert->visits->count()}}
-                      
+
                     </td>
                     <td>{{\Morilog\Jalali\Jalalian::forge($advert->created_at)->format('%d %B %Y')}}</td>
                     <td>
 
                         <div class="btn-group" role="group" aria-label="">
-                      
+
                             <a data-id="{{$advert->id}}"
-                                class="btn--delete btn btn-rounded btn-danger btn-sm m-0">حذف</a>
+                                class="delete btn btn-rounded btn-danger btn-sm m-0">حذف</a>
+                                <a data-id="{{$advert->id}}"
+                                    class="status btn btn-rounded btn-info btn-sm m-0">تغییر وضعیت</a>
                         </div>
                     </td>
                 </tr>
@@ -110,6 +103,82 @@
 @section('js')
 
 <script>
+     $('.delete').click(function(e){
+                e.preventDefault()
+                var value = $(this).data('id');
+                swal({
+            title: "آیا اطمینان دارید؟",
+            text: "حذف خواهد شد",
+            icon: "warning",
+			buttons: {
+				confirm : 'بله',
+				cancel : 'خیر'
+			},
+            dangerMode: true
+        })
+        .then(function(willDelete) {
+            if (willDelete) {
+                // ajax request
+                $.ajax({
+                type:'post',
+                url:'{{route("Panel.AdvertList.Delete")}}',
+                 data:{_token:'{{csrf_token()}}',id:value},
+                 success:function(data){
+                           if(data == 'success'){
+                       setTimeout(()=>{
+                            location.reload()
+                       },500)
+                           }
+                       
+                }
+        })
+            }
+			else {
+                swal("عملیات لغو شد", {
+					icon: "error",
+					button: "تایید"
+				});
+    		}
+    	});
+
+
+     })
+      $('.status').click(function(e){
+                e.preventDefault()
+                var value = $(this).data('id');
+                swal({
+            title: "آیا اطمینان دارید؟",
+            text: "تغییر حالت وضعیت",
+            icon: "warning",
+			buttons: {
+				confirm : 'بله',
+				cancel : 'خیر'
+			},
+            dangerMode: false
+        })
+        .then(function(willDelete) {
+            if (willDelete) {
+                // ajax request
+                $.ajax({
+                type:'post',
+                url:'{{route("Panel.AdvertList.Status")}}',
+                 data:{_token:'{{csrf_token()}}',id:value,type:2},
+                 success:function(data){
+                       setTimeout(()=>{
+                        location.reload()
+                       },500)
+                }
+        })
+            }
+			else {
+                swal("عملیات لغو شد", {
+					icon: "error",
+					button: "تایید"
+				});
+    		}
+    	});
+    })
+
     $('#slider-type').change(function(){
         if($(this).val() == "client slider"){
             $('.header_sec').show(200)
