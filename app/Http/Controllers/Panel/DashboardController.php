@@ -512,6 +512,7 @@ class DashboardController extends Controller
         $member->years = $request->years;
         $member->history = $request->history;
         $member->books = $request->books;
+        $member->shaba=$request->shaba;
         $member->update();
         toastr()->success('ویرایش اطلاعات با موفقیت انجام شد');
         return redirect()->route('Panel.Dashboard');

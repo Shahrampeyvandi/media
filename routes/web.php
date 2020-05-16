@@ -113,7 +113,8 @@ Route::middleware('auth')->group(function () {
     Route::post('pay/startpay', 'Front\PayController@index')->name('Pay.Start');
     Route::get('pay/callback', 'Front\PayController@callback')->name('Pay.CallBack');
     
-    
+    Route::get('accounting/transactions', 'Panel\PurchaseController@transactions')->name('Accounting.Transactions');
+
     
     // notes
     Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');
@@ -208,6 +209,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('panel/setcommission', 'SettingController@commission')->name('Panel.commission');
 
     Route::post('panel/ofchannel', 'Panel\MembersController@officialchannel')->name('Panel.Channel.Official');
+
+    Route::get('panel/checkout', 'Panel\PurchaseController@checkout')->name('Panel.Checkout');
+    Route::post('panel/checkout', 'Panel\PurchaseController@checkoutcreate')->name('Panel.Checkout.Create');
 
 
 });

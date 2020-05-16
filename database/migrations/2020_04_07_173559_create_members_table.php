@@ -37,6 +37,7 @@ class CreateMembersTable extends Migration
             $table->integer('wallet')->default(0);
             $table->enum('ability',['admin','mid-level-admin','member'])->default('member');
             $table->text('aboutus')->nullable();
+            $table->string('shaba')->nullable();
             $table->timestamps();
         });
         DB::table('members')->insert(
