@@ -6,18 +6,17 @@
 
         <div class="card p-3">
             
-           
-            @component('Includes.Main.player',['content' => $post])
+            @component('Includes.Main.player',['content' => $post,'link' => $link,
+            'link_type'=>$link_type,
+            'pic_link'=> $pic_link])
                 
             @endcomponent
-          
 
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
                     style="margin-right: 0px;"><span class="title__divider__wrapper">ویرایش محتوا<span
                             class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
-
             </div>
             <form id="upload-file" method="post" action="{{route('Panel.Posts.Confirm.Submit')}}" enctype="multipart/form-data">
                 @csrf

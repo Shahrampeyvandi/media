@@ -12,6 +12,7 @@ use App\Models\Contents\Posts;
 use App\Models\Contents\ViolationReports;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Accounting\Purchase;
+use App\Models\Contents\AdvertLink;
 
 class PostsController extends Controller
 {
@@ -409,7 +410,7 @@ class PostsController extends Controller
         $newepisode->subjects_id = $post->subjects_id;
         $newepisode->levels_id = $post->levels_id;
         $newepisode->picture = $picPath;
-        $newepisode->content_link = "Https://dl.genebartar.ir/$filePathepisode";
+        $newepisode->content_link = "Https://dl.genebartar.com/$filePathepisode";
         $newepisode->content_name = $filePathepisode;
         $newepisode->duration = $duration;
         $newepisode->type = 'free';
@@ -428,8 +429,24 @@ class PostsController extends Controller
     {
         $member = Members::whereId(request()->member)->first();
         $post = Posts::whereId(request()->id)->first();
-
-        return view('Panel.CheckPost', compact(['member', 'post']));
+        $advert = AdvertLink::where(['cat_id'=>$post->categories_id,'status'=>1])->latest()->first();
+        if ($advert) {
+            $link = $advert->content_link;
+            $pic_link = $advert->pic_address;
+            $link_type = $advert->type;
+        }else{
+            $link = '';
+            $pic_link = '';
+            $link_type = '';    
+        }
+    
+        return view('Panel.CheckPost', compact([
+            'member', 
+            'post',
+            'link',
+            'link_type',
+            'pic_link'
+        ]));
     }
 
     public function report(Request $request)

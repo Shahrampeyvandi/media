@@ -750,6 +750,38 @@ $(document).on('keyup','#searchinput',function(e){
 
 
         });
+        
+        var swiper = new Swiper('.swiper-container-clip', {
+
+spaceBetween: 5,
+nextButton: '.swiper-clip-p',
+prevButton: '.swiper-clip-n',
+breakpoints: {
+    320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+    },
+    640: {
+        slidesPerView: 1,
+        spaceBetween: 20
+    },
+    768: {
+        slidesPerView: 3,
+        spaceBetween: 10
+    },
+    1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+    },
+    1380: {
+        slidesPerView: 4,
+        spaceBetween: 40
+    },
+
+}
+
+
+});
         var learning_slider = new Swiper('.swiper-container-learning', {
 
             spaceBetween: 5,

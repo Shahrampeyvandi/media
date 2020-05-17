@@ -6,7 +6,12 @@
     <div class="row justify-content-center">
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->is_admin())
+            <a href="{{route('Panel.Posts.All')}}">
+            @else 
+
             <a href="{{route('MyVideos')}}">
+            @endif
                 <div class="small-box"
                     style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
                     <div class="inner ">
@@ -22,7 +27,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->is_admin())
+            <a href="{{route('Panel.Posts.All','animations')}}">
+            @else 
+
             <a href="{{route('MyVideos','animations')}}">
+                @endif
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #71ec62 !important;
                     background: linear-gradient(-45deg,#2a9c05,#71ec62)!important;                    color: #fff;
@@ -42,7 +52,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->is_admin())
+            <a href="{{route('Panel.Posts.All','clips')}}">
+            @else 
+
             <a href="{{route('MyVideos','clips')}}">
+                @endif
                 <div class="small-box" style="    padding: 20px;
                    box-shadow: 0 6px 20px 0 #bb52e6!important;
     background: linear-gradient(-45deg,#70059c,#bb52e6)!important;
@@ -63,7 +78,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->is_admin())
+            <a href="{{route('Panel.Posts.All','musics')}}">
+            @else 
+
             <a href="{{route('MyAudios')}}">
+                @endif
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #f971a3 !important;
                     background: linear-gradient(-45deg,#de0067,#f1689a)!important;                   color: #fff;
@@ -83,7 +103,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            <a href="{{route('MyAudios','podcasts')}}">
+                @if (auth()->user()->is_admin())
+                <a href="{{route('Panel.Posts.All','podcasts')}}">
+                @else 
+    
+                <a href="{{route('MyAudios','podcasts')}}">
+                    @endif
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 rgba(255, 53, 19, 0.5)!important;
                     background: linear-gradient(-45deg,#9c1405,#e91d26)!important;
@@ -105,7 +130,13 @@
         @if (auth()->user()->group !== "student")
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            @if (auth()->user()->is_admin())
+            <a href="{{route('Panel.Posts.All','learnings')}}">
+            @else 
+
             <a href="{{route('MyTutorials')}}">
+                @endif
+            
             
             <div class="small-box" style="    padding: 20px;
                       box-shadow: 0 6px 20px 0 #ff88e0!important;
@@ -128,7 +159,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            @if (auth()->user()->group == "admin")
+            @if (auth()->user()->is_admin())
             <a href="{{route('Panel.Comments.All')}}">
                 @else
                 <a href="{{route('Panel.Comments')}}">

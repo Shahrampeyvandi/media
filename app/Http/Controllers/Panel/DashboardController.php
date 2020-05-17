@@ -217,7 +217,7 @@ class DashboardController extends Controller
         $post->desc = $request->desc;
         $post->picture = $picPath;
         $post->content_name = $fileNamevideo;
-        $post->content_link = "Https://dl.genebartar.ir/$filePath22";
+        $post->content_link = "Https://dl.genebartar.com/$filePath22";
         $post->categories_id = $request->type;
         $post->languages_id = $request->lang;
         $post->subjects_id = $request->subject;

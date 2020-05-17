@@ -1,22 +1,21 @@
 
 <div class="row">
    @foreach ($movies as $movie)
-  
-<div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
+   <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
     <div class="thumb-wrapper">
         <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
             <div class="abs-fit">
-               @if ($movie->picture)
-               <img src="{{asset("$movie->picture")}}" height="230px" alt="{{$movie->title}}"
-               aria-label="{{$movie->title}}" class="thumb-image">
-               @else 
-              <div class="d-flex justify-content-center align-items-center h-100">
-                {{-- <img src="{{asset('assets/images/cinema.png')}}" alt="{{$movie->title}}"
-                aria-label="{{$movie->title}}" class="thumb-image"> --}}
-            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
-            </div>
-               @endif 
-               
+                @if ($movie->picture)
+                
+                @else
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    {{-- <img src="{{asset('assets/images/cinema.png')}}"
+                    alt="{{$movie->title}}"
+                    aria-label="{{$movie->title}}" class="thumb-image"> --}}
+                    <img style="object-fit: cover;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$movie->title}}"
+                    aria-label="{{$movie->title}}" class="thumb-image">
+                </div>
+                @endif
             </div>
             <div class="tools">
                 <span class="badge-rate">
@@ -34,39 +33,39 @@
                             </g>
                         </use>
                     </svg> </span>
-                <span class="badge-rate">
-                    <span> @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1) == '0')
+                <span class="badge-rate"><span>
+                        @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1)
+                        == '0')
                         {{substr($movie->duration,3)}}
                         @else
                         {{$movie->duration}}
-                        @endif</span>
-                    <i class="fa fa-clock pl-1"></i>
+                        @endif
+                    </span>
+                    <i class="fa fa-clock-o pl-1"></i>
                 </span>
             </div>
         </a>
     </div>
     <div class="position-relative px-2 pt-3">
-
         <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
             class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
-            <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+        <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                 @if ($movie->subjects)
-                
+
                 {{$movie->subjects->name}}
                 @endif
             </span></p>
-            <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+        <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
                 @if ($movie->languages)
                 {{$movie->languages->name}}
                 @endif
             </span></p>
-            <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+        <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
 
         <ul class="meta-tags d-b w-100 mt-xs  pb-2">
-            <li class="meta d-in light-60 dark-110">{{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-       
+            <li class="meta d-in light-60 dark-110">
+                {{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
         </ul>
-
     </div>
 </div>
   @endforeach

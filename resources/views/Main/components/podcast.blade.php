@@ -22,7 +22,7 @@
         </div>
         <div class="pr-3">
             <div class="card__author">
-                <a class="fs-0-8"> زبان: {{$movie->languages->name}}</a>
+                <a class="fs-0-8"> زبان: {{$podcast->languages->name}}</a>
                 <p class="">سطح: {{$podcast->levels->name}}</p>
             </div>
         </div>

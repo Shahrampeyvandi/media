@@ -3,9 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>
-        ژن برتر - پنل
-    </title>
+   @if (auth()->user()->is_admin())
+   <title>
+    ژن برتر - پنل ادمین
+</title>   
+   @else 
+   <title>
+    ژن برتر - پنل کاربری
+</title>   
+   @endif
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
@@ -206,7 +212,7 @@
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display:none;">
+                            <ul class="sub-menu" style="display:none;">
                           <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Posts.Unconfirmed')}}" aria-label="">
                                         <div class="content">
@@ -239,7 +245,7 @@
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display:none;">
+                            <ul class="sub-menu" style="display:none;">
                                 <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Posts.All')}}" aria-label="">
                                         <div class="content">
@@ -272,7 +278,7 @@
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display: none;">
+                            <ul class="sub-menu" style="display: none;">
                                 <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Members')}}" aria-label="لیست کاربران">
                                         <div class="content">
@@ -309,7 +315,7 @@
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display: none;">
+                            <ul class="sub-menu" style="display: none;">
                                 <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.SlideShow.All')}}" aria-label="اسلایدشو">
                                         <div class="content">
@@ -629,6 +635,8 @@
     })
     $('.menu-link').click(function(e){
         e.preventDefault();
+        $('ul.sub-menu').slideUp()
+        $('i').removeClass('rotate-in')
         $(this).next('ul').slideToggle()
         $(this).find('i').toggleClass('rotate-in')
 
