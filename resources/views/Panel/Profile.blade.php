@@ -81,26 +81,41 @@
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="user_mobile" class="col-form-label">مدرک تحصیلی: </label>
-                <input type="text" placeholder="" class="form-control" name="certificate" id="user_certificate">
+                <input type="text" placeholder="" class="form-control" 
+                name="certificate"
+                value="{{$member->certificate}}"
+                 id="user_certificate">
               </div>
               <div class="form-group col-md-6">
                 <label for="user_mobile" class="col-form-label">مقطع تحصیلی: </label>
-                <input type="text" placeholder="" class="form-control" name="level" id="user_level">
+                <input type="text" placeholder="" 
+                class="form-control" name="level" 
+                value="{{$member->edu_level}}"
+                id="user_level">
               </div>
               <div class="form-group col-md-6">
                 <label for="user_mobile" class="col-form-label">سابقه تدریس: </label>
-                <input type="text" placeholder="" class="form-control" name="history" id="history">
+                <input type="text" placeholder="" class="form-control"
+                 name="history"
+                 value="{{$member->history}}" 
+                 id="history">
               </div>
               <div class="form-group col-md-6">
                 <label for="user_mobile" class="col-form-label">حق سنوات: </label>
-                <input type="text" placeholder="" class="form-control" name="years" id="years">
+                <input type="text" placeholder="" class="form-control"
+                 name="years" 
+              value="{{$member->years}}"
+                 id="years">
               </div>
             </div>
 
             <div class="row">
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-6">
                 <label for="user_mobile" class="col-form-label">شماره شبا: </label>
-                <input type="number" placeholder="" class="form-control" name="shaba" id="shaba" value="{{$member->shaba}}">
+                <input type="number" placeholder="" class="form-control " name="shaba" id="shaba" value="{{$member->shaba}}">
+                <span class="" style="position: absolute;
+                top: 42px;
+                left: -1px;">IR</span>
               </div>
      
             </div>
@@ -164,7 +179,10 @@
 				
       required: true
       },
-      user_email:"required"
+      user_email:"required",
+      shaba:{
+        required:true,regex:/^[0-9]{24}$/
+      }
 		},
 		messages: {
 			user_name: "لطفا نام خود را وارد نمایید",
@@ -186,6 +204,11 @@
       user_mobile:{
         required:"شماره موبایل الزامی میباشد"
       },
+      shaba:{
+        required:"شماره شبا الزامی می باشد",
+        regex:"شماره شبا دارای فرمت نامعتبر می باشد"
+
+      }
      
 		}
 	});

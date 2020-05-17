@@ -220,6 +220,7 @@ class LoginController extends Controller
             $member->edu_level = $request->user_level;
             $member->active = 1;    
             $member->group = $request->user_role;
+            $member->shaba = null;
             $member->ability = 'member';
             $member->save();
             Auth::Login($member);

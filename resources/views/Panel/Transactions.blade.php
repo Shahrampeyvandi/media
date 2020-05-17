@@ -29,7 +29,7 @@
 <div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
-            style="margin-right: 0px;"><span class="title__divider__wrapper"> گزارشات تخلف پست ها<span
+            style="margin-right: 0px;"><span class="title__divider__wrapper"> گزارش تراکنش ها<span
                     class="line brk-base-bg-gradient-right"></span>
             </span></h2>
      

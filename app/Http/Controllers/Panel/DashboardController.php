@@ -511,7 +511,8 @@ class DashboardController extends Controller
         $member->age = $request->age;
         $member->years = $request->years;
         $member->history = $request->history;
-        $member->books = $request->books;
+        $member->edu_level = $request->level;
+        $member->certificate=$request->certificate;
         $member->shaba=$request->shaba;
         $member->update();
         toastr()->success('ویرایش اطلاعات با موفقیت انجام شد');

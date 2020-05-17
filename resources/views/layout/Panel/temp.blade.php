@@ -73,6 +73,7 @@
                         </div>
                         @endif
                         <div class="inline-flex upload-button">
+                            
                             <a href="{{route('UploadFile')}}"
                                 class="button button-info button-small button-hollow button-bordered upload-video"
                                 data-ctr="upload-button" data-ctr-cta="upload-button">

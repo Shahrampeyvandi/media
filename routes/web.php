@@ -58,8 +58,8 @@ Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowA
 
 Route::middleware('auth')->group(function () {
     Route::get('/panel/dashboard', 'Panel\DashboardController@index')->name('Panel.Dashboard');
-    Route::get('/panel/upload', 'Panel\DashboardController@UploadFile')->name('UploadFile');
-    Route::post('/panel/upload', 'Panel\DashboardController@SubmitUploadFile')->name('sUploadFile');
+    Route::get('/panel/upload', 'Panel\DashboardController@UploadFile')->name('UploadFile')->middleware('check-shaba');
+    Route::post('/panel/upload', 'Panel\DashboardController@SubmitUploadFile')->name('sUploadFile')->middleware('check-shaba');
     
     Route::get('/panel/{id}/episode', 'Panel\DashboardController@UploadEpisode')->name('Tutorial.CreateEpisode');
     Route::get('/panel/profile', 'Panel\DashboardController@Profile')->name('Profile');

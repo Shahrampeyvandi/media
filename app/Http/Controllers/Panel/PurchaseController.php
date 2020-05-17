@@ -55,7 +55,7 @@ class PurchaseController extends Controller
 
     public function checkoutcreate(Request $request){
 
-        //dd($request->all());
+        
 
         $data='';
 
