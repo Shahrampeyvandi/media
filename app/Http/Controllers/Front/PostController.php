@@ -23,24 +23,26 @@ class PostController extends Controller
     {
         $content = Posts::whereId($id)->first();
 
-        
-        $advert = AdvertLink::where(['cat_id'=>$content->categories_id,'status'=>1])->latest()->first();
+
+        $advert = AdvertLink::where(['cat_id' => $content->categories_id, 'status' => 1])->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
             $link_type = $advert->type;
-        }else{
+        } else {
             $link = '';
             $pic_link = '';
-            $link_type = '';    
+            $link_type = '';
         }
 
-      if (AdvertVisit::where('ip',request()->ip())->count() == 0) {
-        $advert->visits()->create([
-            'ip'=> request()->ip(),
-        ]);
-      }
-        
+        if ($advert) {
+            if (AdvertVisit::where('ip', request()->ip())->count() == 0) {
+                $advert->visits()->create([
+                    'ip' => request()->ip(),
+                ]);
+            }
+        }
+
         $favorite_status = 0;
         if (auth()->user()) {
             $user_id = auth()->user()->id;
@@ -74,45 +76,42 @@ class PostController extends Controller
             ->where('parent_id', 0)
             ->where('confirmed', 1)
             ->latest()->get();
-            $allpostcomments =
+        $allpostcomments =
             Comments::where('posts_id', $id)
             ->where('confirmed', 1)
             ->latest()->get();
-            $from = date("Y-m-01 00:00:00");
-            $to = date("Y-m-29 23:59:59");
-            $maxlike = 0;
-            $mostlikeid = 1;
-            $comment_id =0;
-           $array = [];
-           $best = [];
-     if (count($allpostcomments)) {
-        foreach ($allpostcomments as $comment) {
-            $like = CommentsLikes::where('comments_id', $comment->id)->where('score', 'like')->count();
-            $array[$comment->id] = $like;
-           
-        }
-        $max = 0;
-        $countbestcomments = 0;
-       foreach ($array as $key => $value) {
-           if($value > $max) {
-               $best = [];
-               $max = $value; 
-               $bestcomment_id = $key;
-               $best[$key] = $value;
-              
+        $from = date("Y-m-01 00:00:00");
+        $to = date("Y-m-29 23:59:59");
+        $maxlike = 0;
+        $mostlikeid = 1;
+        $comment_id = 0;
+        $array = [];
+        $best = [];
+        if (count($allpostcomments)) {
+            foreach ($allpostcomments as $comment) {
+                $like = CommentsLikes::where('comments_id', $comment->id)->where('score', 'like')->count();
+                $array[$comment->id] = $like;
             }
-           
-       }
-       foreach ($array as $key => $value) {
-          if($value == $max) $countbestcomments++;
-       }
-     }else{
-        $bestcomment_id = 0;
-        $countbestcomments = 0;
-     }
-       
-     $type = "post";
-     $episode_id = null;
+            $max = 0;
+            $countbestcomments = 0;
+            foreach ($array as $key => $value) {
+                if ($value > $max) {
+                    $best = [];
+                    $max = $value;
+                    $bestcomment_id = $key;
+                    $best[$key] = $value;
+                }
+            }
+            foreach ($array as $key => $value) {
+                if ($value == $max) $countbestcomments++;
+            }
+        } else {
+            $bestcomment_id = 0;
+            $countbestcomments = 0;
+        }
+
+        $type = "post";
+        $episode_id = null;
         if ($content->categories_id == 6) {
 
             $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
@@ -138,7 +137,7 @@ class PostController extends Controller
                 'link',
                 'link_type',
                 'pic_link'
-                
+
             ]));
         } else {
             // get Epizodes
@@ -177,8 +176,9 @@ class PostController extends Controller
 
     public function episode($id, $ep)
     {
-        
+
         $content = Episodes::where('posts_id', $id)->where('number', $ep)->first();
+       
         $post = Posts::whereId($id)->first();
         $favorite_status = 0;
         $isbuyedit = true;
@@ -225,7 +225,34 @@ class PostController extends Controller
         $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
         $episode_id = $ep;
+        $advert = AdvertLink::where(['cat_id' => $content->post->categories_id, 'status' => 1])->latest()->first();
+        if ($advert) {
+            $link = $advert->content_link;
+            $pic_link = $advert->pic_address;
+            $link_type = $advert->type;
+        } else {
+            $link = '';
+            $pic_link = '';
+            $link_type = '';
+        }
         // $episodes=Episodes::where('posts_id',$)
-        return view('Main.tutorial', compact(['episode_id','type','isbuyedit', 'id', 'content', 'comments', 'likes', 'favorite_status', 'relateds', 'categories', 'countcategoryposts', 'post', 'episodes']));
+        return view('Main.tutorial', compact([
+            'episode_id',
+            'type',
+            'isbuyedit',
+            'id',
+            'content',
+            'comments',
+            'likes',
+            'favorite_status',
+            'relateds',
+            'categories',
+            'countcategoryposts',
+            'post',
+            'episodes',
+            'link',
+            'pic_link',
+            'link_type',
+        ]));
     }
 }

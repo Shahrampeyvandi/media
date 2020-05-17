@@ -10,7 +10,7 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
             <tr>
                 <th>ردیف</th>
@@ -32,13 +32,13 @@
             {{$purchase->posts->title}}
             </a></td>
             <td>{{$purchase->payedprice}}</td>
-            <td>{{$purchase->payinfo}}</td>
+            <td>{!!$purchase->payinfo!!}</td>
             <td>
             @if($purchase->success ==1)
-            موفق
+            <span class="text-success">موفق</span>
 
             @else
-            نا موفق
+            <span class="text-danger">نا موفق</span>
 
             @endif
             </td>

@@ -105,14 +105,21 @@
 		rules: {
             epizode_number:"required",
             epizode_title:"required",
-            file:"required",
+            file:{required:true,accept: "avi,mp4,mov,mpga,mkv,3gp"},
+            epizode_subtitle:{
+                accept: "vtt"
+            }
+
            
 		},
 		messages: {
 			
             epizode_number: {required: "لطفا شماره قسمت را وارد نمایید",},
             epizode_title:"لطفا عنوان قسمت را وارد نمایید",
-            file:"لطفا فایل قسمت را وارد نمایید",
+            file:{required:"فایل مورد نظر خود را انتخاب نمایید",accept:"فرمت فایل غیرمجاز می باشد"},
+            epizode_subtitle:{
+                accept: "فرمت زیرنویس غیرمجاز می باشد"
+            }
 			},
         
     });

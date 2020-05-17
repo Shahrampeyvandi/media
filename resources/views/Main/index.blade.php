@@ -17,7 +17,7 @@
             <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
                 @foreach ($header_slideshow as $slideshow)
                 <a href="{{$slideshow->link}}">
-                    <div class="item single-client position-relative" style="height: 15rem;">
+                    <div class="item single-client position-relative" style="height: 20rem;">
                         <img src="{{asset($slideshow->banner)}}" alt="client logo" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
                         <div class="banner-txt">
@@ -108,7 +108,22 @@
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                    <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                                        @if ($movie->levels->name == 'مقدماتی')
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @elseif($movie->levels->name == 'متوسط')
+    
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @else
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        @endif
+                                </span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">
@@ -212,7 +227,22 @@
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                    <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                                        @if ($movie->levels->name == 'مقدماتی')
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @elseif($movie->levels->name == 'متوسط')
+    
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @else
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        @endif
+                                </span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">
@@ -326,7 +356,22 @@
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                    <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                                        @if ($movie->levels->name == 'مقدماتی')
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @elseif($movie->levels->name == 'متوسط')
+    
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                        @else
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                        @endif
+                                </span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">
@@ -504,7 +549,22 @@
                                         {{$movie->languages->name}}
                                         @endif
                                     </span></p>
-                                <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+                                <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                                    @if ($movie->levels->name == 'مقدماتی')
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                    @elseif($movie->levels->name == 'متوسط')
+
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                                    @else
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                                    @endif
+                            </span></p>
 
                                 <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                                     <li class="meta d-in light-60 dark-110">

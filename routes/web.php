@@ -34,7 +34,7 @@ Route::get('/policies/{slug?}', 'MainController@policies')->name('Policies');
 Route::get('/category/{slug}', 'Front\CategoryController@show')->name('Category');
 Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterData');
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
-Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
+
 Route::get('/contact-us', 'MainController@ContactUs')->name('ContactUs');
 Route::get('/advert', 'MainController@Advert')->name('Advert');
 
@@ -57,6 +57,7 @@ Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowA
 // routes where must login
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/panel/dashboard', 'Panel\DashboardController@index')->name('Panel.Dashboard');
     Route::get('/panel/upload', 'Panel\DashboardController@UploadFile')->name('UploadFile')->middleware('check-shaba');
     Route::post('/panel/upload', 'Panel\DashboardController@SubmitUploadFile')->name('sUploadFile')->middleware('check-shaba');
@@ -115,6 +116,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('accounting/transactions', 'Panel\PurchaseController@transactions')->name('Accounting.Transactions');
 
+    Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
     
     // notes
     Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');

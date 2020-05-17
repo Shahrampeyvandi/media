@@ -111,7 +111,7 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">شماره شبا: </label>
+                <label for="user_mobile" class="col-form-label">شماره شبا: (دقت کنید که شماره شبا حتما باید به نام صاحب پروفایل باشد)</label>
                 <input type="number" placeholder="" class="form-control " name="shaba" id="shaba" value="{{$member->shaba}}">
                 <span class="" style="position: absolute;
                 top: 42px;

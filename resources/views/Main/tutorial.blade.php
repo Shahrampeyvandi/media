@@ -253,7 +253,7 @@
                             </div>
 
                             @foreach($episodes as $key=>$episode)
-                            <div @if ($content->type == "money")
+                            <div @if ($content->type == "money" && !$isbuyedit)
                                 class="episodes_list--item lock"
                                 @else
                                 class="episodes_list--item "

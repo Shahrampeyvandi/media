@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Episodes extends Model
 {
+    public function post()
+    {
+        return $this->belongsTo(Posts::class,'posts_id');
+    }
     public function likes()
     {
         return $this->hasMany(Likes::class);

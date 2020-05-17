@@ -15148,3 +15148,19 @@ font-size: 12px;
     padding: 0px 6px;
     font-size: 14px;
 }
+.item-level img{
+  width: 15px;
+    position: absolute;
+    display: inline-block;
+    padding-top: 2;
+    height: 15px;
+    top: 3px;
+    right: 31px;
+}
+
+.item-level img:nth-child(2){
+  right: 48px;
+}
+.item-level img:nth-child(3){
+  right: 65px;
+}
