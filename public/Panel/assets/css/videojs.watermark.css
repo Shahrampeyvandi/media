@@ -4,5 +4,8 @@
     z-index: 2;
     height: 100px;
     right: 10px;
-    top: 10px;
+    top: 15px;
+}
+.vjs-watermark img{
+    width: 100px !important;
 }

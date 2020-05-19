@@ -12,7 +12,7 @@
 
                 <li class="social">
                     <a href="{{\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_whatsapp}}"
-                        class="social-icons" title="whatsapp" target="_blank"><i class="fa fa-wa"></i></a>
+                        class="social-icons" title="whatsapp" target="_blank"><i class="fa fa-whatsapp"></i></a>
                 </li>
                 <li class="social">
                     <a href="{{\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_telegram}}"

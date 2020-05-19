@@ -85,47 +85,50 @@
           </div>
          
          
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">مدرک تحصیلی: </label>
-                <input type="text" placeholder="" class="form-control" 
-                name="certificate"
-                value="{{$member->certificate}}"
-                 id="user_certificate">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">مقطع تحصیلی: </label>
-                <input type="text" placeholder="" 
-                class="form-control" name="level" 
-                value="{{$member->edu_level}}"
-                id="user_level">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">سابقه تدریس: </label>
-                <input type="text" placeholder="" class="form-control"
-                 name="history"
-                 value="{{$member->history}}" 
-                 id="history">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">حق سنوات: </label>
-                <input type="text" placeholder="" class="form-control"
-                 name="years" 
-              value="{{$member->years}}"
-                 id="years">
-              </div>
+          @if (auth()->user()->group == "teacher")
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">مدرک تحصیلی: </label>
+              <input type="text" placeholder="" class="form-control" 
+              name="certificate"
+              value="{{$member->certificate}}"
+               id="user_certificate">
             </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">مقطع تحصیلی: </label>
+              <input type="text" placeholder="" 
+              class="form-control" name="level" 
+              value="{{$member->edu_level}}"
+              id="user_level">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">سابقه تدریس: </label>
+              <input type="text" placeholder="" class="form-control"
+               name="history"
+               value="{{$member->history}}" 
+               id="history">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">حق سنوات: </label>
+              <input type="text" placeholder="" class="form-control"
+               name="years" 
+            value="{{$member->years}}"
+               id="years">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">شماره شبا: (دقت کنید که شماره شبا حتما باید به نام صاحب پروفایل باشد)</label>
+              <input type="number" placeholder="" class="form-control " name="shaba" id="shaba" value="{{$member->shaba}}">
+              <span class="" style="position: absolute;
+              top: 42px;
+              left: -1px;">IR</span>
+            </div>
+   
+          </div>
+          @endif
 
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">شماره شبا: (دقت کنید که شماره شبا حتما باید به نام صاحب پروفایل باشد)</label>
-                <input type="number" placeholder="" class="form-control " name="shaba" id="shaba" value="{{$member->shaba}}">
-                <span class="" style="position: absolute;
-                top: 42px;
-                left: -1px;">IR</span>
-              </div>
-     
-            </div>
+           
           
           
          
@@ -142,6 +145,16 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -173,6 +186,9 @@
         minlength: 5,
         regex: /^[a-zA-Z]+[a-zA-Z\d]*$/
 			},
+      age:{
+        max:80
+      },
      
 			user_pass: {
 				
@@ -193,6 +209,9 @@
       }
 		},
 		messages: {
+      age:{
+        max:"سن وارد شده غیر مجاز است"
+      },
 			user_name: "لطفا نام خود را وارد نمایید",
       user_family: "لطفا نام خانوادگی خود را وارد نمایید",
       user_email:"ایمیل الزامی است",
