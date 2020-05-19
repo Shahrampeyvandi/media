@@ -22,7 +22,10 @@
        <a class="close">بستن X</a>   
        <a href="{{$link}}" target="_blank" class="advert-img"><img src="{{$pic_link}}" class="" alt=""></a>
       @endif
-    <video class="video-js mx-3 w-100" style="height: 440px;" id="player" 
+    <video class="video-js mx-3 w-100" controls
+    preload="auto"
+    
+    height="440" id="player" 
         controls>
         <source src="{{$content->content_link}}" type="video/mp4" size="576" />
         <source src="{{$content->content_link}}" type="video/mp4" size="720" />

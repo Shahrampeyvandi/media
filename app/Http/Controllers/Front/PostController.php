@@ -255,4 +255,13 @@ class PostController extends Controller
             'link_type',
         ]));
     }
+
+    // public function ShowVideo($id)
+    // {
+    //     $content = Posts::whereId($id)->first();
+       
+    //     $response = response($content->content_link);
+    //     $response->header('Content-Type', 'video/mp4');
+    //     return $response;
+    // }
 }

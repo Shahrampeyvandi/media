@@ -15164,3 +15164,7 @@ font-size: 12px;
 .item-level img:nth-child(3){
   right: 65px;
 }
+
+.vjs-watermark{
+  bottom: 0 !important;
+}

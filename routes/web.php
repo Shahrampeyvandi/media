@@ -53,6 +53,7 @@ Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
 Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
 Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
 
+Route::get('video/show/{id}', 'Front\PostController@ShowVideo')->name('Video.Show');
 
 // routes where must login
 
