@@ -16,14 +16,15 @@ use App\Models\Contents\AdvertVisit;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Contents\Likes;
 use App\Models\Members\Favorites;
+use App\Models\Members\Follows;
 
 class PostController extends Controller
 {
     public function index($id)
     {
         $content = Posts::whereId($id)->first();
-
-
+        $title= "ژن برتر - $content->title";
+        $followers = Follows::where('followed_id',$content->members_id)->count();
         $advert = AdvertLink::where(['cat_id' => $content->categories_id, 'status' => 1])->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
@@ -119,6 +120,7 @@ class PostController extends Controller
             $post = $content;
             //dd($episodes);
             return view('Main.tutorial', compact([
+                'title',
                 'episode_id',
                 'type',
                 'isbuyedit',
@@ -136,12 +138,14 @@ class PostController extends Controller
                 'countbestcomments',
                 'link',
                 'link_type',
-                'pic_link'
+                'pic_link',
+                'followers'
 
             ]));
         } else {
             // get Epizodes
             return view('Main.single', compact([
+                'title',
                 'type',
                 'isbuyedit',
                 'id',
@@ -156,7 +160,8 @@ class PostController extends Controller
                 'countbestcomments',
                 'link',
                 'link_type',
-                'pic_link'
+                'pic_link',
+                'followers'
             ]));
         }
     }
@@ -178,7 +183,7 @@ class PostController extends Controller
     {
 
         $content = Episodes::where('posts_id', $id)->where('number', $ep)->first();
-       
+       $title= "ژن برتر - $content->title";
         $post = Posts::whereId($id)->first();
         $favorite_status = 0;
         $isbuyedit = true;
@@ -237,6 +242,7 @@ class PostController extends Controller
         }
         // $episodes=Episodes::where('posts_id',$)
         return view('Main.tutorial', compact([
+            'title',
             'episode_id',
             'type',
             'isbuyedit',

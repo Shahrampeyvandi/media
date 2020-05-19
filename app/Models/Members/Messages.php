@@ -10,12 +10,17 @@ class Messages extends Model
     {
         return $this->belongsTo('App\Models\Members\Members');
     }
-    public function setMessageAttribute($value)
+    public function recived()
     {
-        return $this->attributes['message']= nl2br($value);
+        return $this->belongsTo('App\Models\Members\Members','recived_id');
     }
-    public function setResponseAttribute($value)
-    {
-        return $this->attributes['response']= nl2br($value);
-    }
+    
+    // public function setMessageAttribute($value)
+    // {
+    //     return $this->attributes['message']= nl2br($value);
+    // }
+    // public function setResponseAttribute($value)
+    // {
+    //     return $this->attributes['response']= nl2br($value);
+    // }
 }

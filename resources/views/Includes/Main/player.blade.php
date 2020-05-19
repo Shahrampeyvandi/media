@@ -60,8 +60,8 @@ videojs('player', {
 var video = videojs('player');
 
 video.watermark({
-    file: '{{route('BaseUrl')}}/assets/images/min-logo.png',
-    xpos: 0,
+    file: '{{route('BaseUrl')}}/assets/images/logo-genebartar-vidoe.png',
+    xpos: 1,
   ypos: 0,
   xrepeat:1,
   opacity: 0.5

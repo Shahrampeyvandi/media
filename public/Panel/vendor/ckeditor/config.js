@@ -9,5 +9,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
 	config.extraPlugins = 'uploadimage';
 	config.extraPlugins = 'uploadwidget';
+	config.enterMode = CKEDITOR.ENTER_BR;
 	
 };

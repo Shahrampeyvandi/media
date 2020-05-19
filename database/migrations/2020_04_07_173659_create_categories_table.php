@@ -39,7 +39,7 @@ class CreateCategoriesTable extends Migration
             array(
 
                 'name' => 'ژن پلاس',
-                'latin_name' => 'clips'
+                'latin_name' => 'genplus'
 
                 )
         );

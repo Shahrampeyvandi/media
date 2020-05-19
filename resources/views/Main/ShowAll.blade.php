@@ -10,7 +10,7 @@
         <section id="" style="padding: 40px 0;" class="list-item li px-3" data-list="slider">
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
-                    style="margin-right: 0px;"><span class="title__divider__wrapper">  {{$title}} ها<span
+                    style="margin-right: 0px;"><span class="title__divider__wrapper text-header">  {{$title}} <span
                             class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
                 <a href="#">   
@@ -28,6 +28,11 @@
                    
                     @if(request()->path() == 'category/videos')
                     @component('Main.components.video',['videos' => $posts])
+                
+                    @endcomponent
+                    @endif
+                    @if(request()->path() == 'category/genplus')
+                    @component('Main.components.genplus',['clips' => $posts])
                 
                     @endcomponent
                     @endif

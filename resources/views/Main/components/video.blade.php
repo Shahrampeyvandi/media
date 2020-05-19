@@ -1,12 +1,13 @@
 @foreach($videos as $movie)
 
 
-<div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
+<div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
     <div class="thumb-wrapper">
         <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
             <div class="abs-fit">
                 @if ($movie->picture)
-                
+                <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
+                aria-label="{{$movie->title}}" class="thumb-image">
                 @else
                 <div class="d-flex justify-content-center align-items-center h-100">
                     {{-- <img src="{{asset('assets/images/cinema.png')}}"
@@ -60,7 +61,22 @@
                 {{$movie->languages->name}}
                 @endif
             </span></p>
-        <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
+            <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                @if ($movie->levels->name == 'مقدماتی')
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                <img src="{{asset('assets/images/level0.png')}}" alt="">
+                <img src="{{asset('assets/images/level0.png')}}" alt="">
+                @elseif($movie->levels->name == 'متوسط')
+
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                <img src="{{asset('assets/images/level0.png')}}" alt="">
+                @else
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                <img src="{{asset('assets/images/level1.png')}}" alt="">
+                @endif
+        </span></p>
 
         <ul class="meta-tags d-b w-100 mt-xs  pb-2">
             <li class="meta d-in light-60 dark-110">
@@ -68,6 +84,5 @@
         </ul>
     </div>
 </div>
-
 
 @endforeach

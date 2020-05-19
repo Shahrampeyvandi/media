@@ -7,7 +7,9 @@ use App\Models\Contents\Posts;
 use Illuminate\Http\Request;
 use App\Models\Members\Members;
 use App\Models\Members\ChannelInformations;
+use App\Models\Members\Messages;
 use App\Models\Notifications\Notifications;
+
 
 class MembersController extends Controller
 {
@@ -197,5 +199,28 @@ class MembersController extends Controller
 
         toastr()->success('تمام اطلاعات کاربر با موفقیت حذف شد');
         return back();
+    }
+
+    public function SendMessage(Members $member)
+    {
+        
+        return view('Panel.SendMessage',compact('member'));
+    }
+
+    public function SubmitMessage(Request $request)
+    {
+        
+         $message = new Messages();
+         $message->members_id = null;
+         $message->recived_id = $request->id;
+         $message->message = $request->message;
+        $message->read = 0;
+        $message->save();
+
+
+       
+        toastr()->success('پیام با موفقیت برای کاربر ارسال شد');
+        return back();
+
     }
 }
