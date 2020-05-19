@@ -7,7 +7,7 @@
                 <div class="abs-fit">
                     @if ($movie->picture)
                     <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
-                        aria-label="{{$movie->title}}" class="thumb-image">
+                    aria-label="{{$movie->title}}" class="thumb-image">
                     @else
                     <div class="d-flex justify-content-center align-items-center h-100">
                         {{-- <img src="{{asset('assets/images/cinema.png')}}"
@@ -17,7 +17,6 @@
                         aria-label="{{$movie->title}}" class="thumb-image">
                     </div>
                     @endif
-
                 </div>
                 <div class="tools">
                     <span class="badge-rate">
@@ -35,25 +34,25 @@
                                 </g>
                             </use>
                         </svg> </span>
-                    <span class="badge-rate">
-                        <span> @if (substr($movie->duration,0,1) == '0' &&
-                            substr($movie->duration,1,1) == '0')
+                    <span class="badge-rate"><span>
+                            @if (substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1)
+                            == '0')
                             {{substr($movie->duration,3)}}
                             @else
                             {{$movie->duration}}
-                            @endif</span>
+                            @endif
+                        </span>
                         <i class="fa fa-clock-o pl-1"></i>
                     </span>
                 </div>
             </a>
         </div>
         <div class="position-relative px-2 pt-3">
-
             <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
                 class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
             <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                     @if ($movie->subjects)
-
+    
                     {{$movie->subjects->name}}
                     @endif
                 </span></p>
@@ -62,14 +61,27 @@
                     {{$movie->languages->name}}
                     @endif
                 </span></p>
-            <p class=""><span class="fs-0-9">سطح: {{$movie->levels->name}}</span></p>
-
+                <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                    @if ($movie->levels->name == 'مقدماتی')
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                    @elseif($movie->levels->name == 'متوسط')
+    
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    <img src="{{asset('assets/images/level0.png')}}" alt="">
+                    @else
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    <img src="{{asset('assets/images/level1.png')}}" alt="">
+                    @endif
+            </span></p>
+    
             <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                 <li class="meta d-in light-60 dark-110">
                     {{\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')}}</li>
-
             </ul>
-
         </div>
     </div>
    @endforeach

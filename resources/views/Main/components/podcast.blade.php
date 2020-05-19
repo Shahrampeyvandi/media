@@ -23,7 +23,22 @@
         <div class="pr-3">
             <div class="card__author">
                 <a class="fs-0-8"> زبان: {{$podcast->languages->name}}</a>
-                <p class="">سطح: {{$podcast->levels->name}}</p>
+                <p class="item-level position-relative">سطح: 
+                    @if ($podcast->levels->name == 'مقدماتی')
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                    @elseif($music->levels->name == 'متوسط')
+
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                    @else
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                    @endif    
+                </p>
             </div>
         </div>
         <div class="card__meta d-flex justify-content-between px-3 pt-1">

@@ -17,6 +17,8 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('members_id')->nullable();
             $table->foreign('members_id')->references('id')->on('members')->onDelete('cascade');
+            $table->unsignedBigInteger('recived_id')->nullable();
+            $table->foreign('recived_id')->references('id')->on('members')->onDelete('cascade');
             $table->text('message');
             $table->text('response')->nullable();
             $table->boolean('read')->dafault(0);

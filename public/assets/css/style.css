@@ -1302,6 +1302,9 @@ img {
 .fw-500 {
   font-weight: 500;
 }
+.fw-600 {
+  font-weight: 600;
+}
 .lh-none {
   line-height: 0;
 }
@@ -9620,7 +9623,7 @@ html[lang="fa"] .input-select select {
 
 .thumbnail-movie .thumb-wrapper {
   overflow: visible;
-  height: 175px;
+  height: 128.8px;
 }
 .thumbnail-movie .thumb-wrapper:after {
   padding-top: 133%;
@@ -13836,7 +13839,7 @@ color: var(--yellow);
 .card__image {
   display: flex;
   justify-content: center;
-  height: 150px;
+  height: 131.1px;
   /* min-height: 100px; */
   background-color: #eee;
 }
@@ -15159,8 +15162,12 @@ font-size: 12px;
 }
 
 .item-level img:nth-child(2){
-  right: 48px;
+  right: 50px;
 }
 .item-level img:nth-child(3){
-  right: 65px;
+  right: 70px;
+}
+
+.vjs-watermark{
+  bottom: 0 !important;
 }

@@ -27,6 +27,8 @@
     </div>
 </div>
 
+
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">کاربران </a></li>
@@ -169,7 +171,10 @@
                     <td>{{\Morilog\Jalali\Jalalian::forge($member->created_at)->format('%d %B %Y')}}</td>
                    
                  
-                <td><a href="" data-id="{{$member->id}}"  class=" delete--user btn btn-sm btn-danger"> حذف کاربر</a></td>
+                <td>
+                    <a href="" data-id="{{$member->id}}"  class=" delete--user btn btn-sm btn-danger"> <i class="fas fa-trash"></i></a>
+                <a href="{{route('Members.SendMessage',$member)}}"  class="  btn btn-sm btn-primary"> <i class="fas fa-inbox"></i></a>
+                </td>
                    
 
 

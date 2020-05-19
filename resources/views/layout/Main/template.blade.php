@@ -259,7 +259,7 @@
                                 </svg>
                             </button>
                             <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
-                                <img src="{{asset('assets/images/LOGO.jpeg')}}" width="52px;" alt="">
+                                <img src="{{asset('assets/images/Logo-genebartar.png')}}" width="52px;" alt="">
                             </a>
                         </div>
 

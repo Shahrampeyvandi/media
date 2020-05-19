@@ -6,19 +6,25 @@
         </div>
         <div class="wrapper">
 
+            @if (!is_null(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()))
             <ul class="socials">
+
+
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="{{\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_whatsapp}}"
+                        class="social-icons" title="whatsapp" target="_blank"><i class="fa fa-wa"></i></a>
                 </li>
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i class="fa fa-telegram"></i></a>
+                    <a href="{{\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_telegram}}"
+                        class="social-icons" title="telegram" target="_blank"><i class="fa fa-telegram"></i></a>
                 </li>
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i
-                            class="fa fa-instagram"></i></a>
+                    <a href="{{\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_instagram}}"
+                        class="social-icons" title="instagram" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
 
             </ul>
+            @endif
         </div>
     </section>
     <section class="details-row">

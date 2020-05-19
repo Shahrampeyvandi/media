@@ -5,9 +5,9 @@
         <a href="#" class="d-block mt-3 text-primary">بازگشت به صفحه اصلی</a>
     </div>
 </div> --}}
-@include('Includes.Login.Header')
 
-<div class="main" style=" display: flex; justify-content: center; align-items: center;">
+
+<div class="main" style=" display: flex; justify-content: center; align-items: center;height: 100vh;">
     <div class="login-wrap card mt-5 mt-md-0">
        
             <div class="col-md-12 text-center">

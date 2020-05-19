@@ -1,7 +1,6 @@
+@foreach($clips as $movie)
 
-<div class="row">
-   @foreach ($movies as $movie)
-   
+
 <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
     <div class="thumb-wrapper">
         <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
@@ -85,10 +84,5 @@
         </ul>
     </div>
 </div>
-  @endforeach
-</div>
-<div class="row">
-   <div class="col-md-12">
-    <a href="{{route('UploadFile')}}?c=videos" class=" btn btn-sm btn-outline-info btn-rounded"><i class="fa fa-plus"></i> &nbsp; آپلود  </a>
-   </div>
-</div>
+
+@endforeach

@@ -59,7 +59,7 @@
                             </button>
 
                             <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
-                            <img src="{{asset('assets/images/LOGO.jpeg')}}" width="52px;" alt="">
+                            <img src="{{asset('assets/images/Logo-genebartar.png')}}" width="52px;" alt="">
                             </a>
                         </div>
                     </div>
@@ -287,13 +287,13 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item-link mr-35">
+                                {{-- <li class="menu-item-link mr-35">
                                     <a href="{{route('Message.All')}}" aria-label="پیام های کاربران">
                                         <div class="content">
                                             <span class="text">پیام های کاربران</span>
                                         </div>
                                     </a>
-                                </li>
+                                </li> --}}
                                  <li class="menu-item-link mr-35">
                                     <a href="{{route('Channel.Requested.All')}}" aria-label="درخواست کانال رسمی">
                                         <div class="content">
@@ -504,7 +504,12 @@
                         <a href="{{route('Message.My')}}" aria-label=""><i
                                 class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">پیام های من</span>
+                                <span class="text">پیام های من
+
+                                    @if (\App\Models\Members\Messages::where('recived_id',auth()->user()->id)->where('read',0)->count())
+                                    <span class="fs-0-8 text-danger fw-500">جدید</span>
+                                    @endif
+                                </span>
                             </div>
                         </a>
                     </li>

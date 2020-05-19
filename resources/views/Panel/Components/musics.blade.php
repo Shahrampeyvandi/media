@@ -1,6 +1,6 @@
 <div class="row">
     @foreach($musics as $music)
-    <div class="item w-100 ml-5 mr-2  my-5 card" style="max-width: 210px;">
+    <div class="item w-100 ml-5 mr-2  my-5 card" style="max-width: 233px;">
         <div class="position-relative">
             <div class="item-overlay opacity r r-2x bg-black">
                 <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
@@ -10,7 +10,7 @@
                         href="{{route('ShowItem',['id'=>$music->id])}}"><i
                             class="ti ti-control-play fs-2"></i></a> </div>
                 <div class="bottom padder m-b-sm">
-
+    
                     <a href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
                             class="text-info"> {{count($music->comments)}}</span><svg
                             class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
@@ -41,7 +41,7 @@
                                 </g>
                             </use>
                         </svg>
-
+    
                     </a>
                     <span class="badge-rate badge-rate float-left text-white-80"><span>
                             @if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
@@ -59,10 +59,10 @@
                         class="fa fa-bookmark i-lg"></i> </span> </div> <a
                 href="{{route('ShowItem',['id'=>$music->id])}}" class="music-img">
                 @if($music->picture)
-                <img src="{{asset($music->picture)}}" width="100%;" style="height: 230px;" alt=""
+                <img src="{{asset($music->picture)}}" width="100%;" style="height: 131px;" alt=""
                     class="r r-2x img-full">
                 @else
-                <img src="{{asset('assets/images/logo-music1.png')}}" width="100%;" style="height: 230px;"
+                <img src="{{asset('assets/images/logo-music1.png')}}" width="100%;" style="height: 131px;"
                     alt="" class="r r-2x img-full">
                 @endif
             </a>
@@ -70,8 +70,23 @@
         <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
                 class="text-ellipsis">{{$music->title}}</a>
             <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
-            <p href="#" class="text-ellipsis text-black-50">سطح: {{$music->levels->name}}</p>
-
+            <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:
+                @if ($music->levels->name == 'مقدماتی')
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                @elseif($music->levels->name == 'متوسط')
+    
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                @else
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                @endif
+                </p>
+    
             <a href="#" class="text-ellipsis text-xs text-muted">
                 @if ($music->languages)
                 {{$music->language}}
@@ -84,7 +99,7 @@
                 <span class="fs-0-8 text-black-50">
                     {{\Morilog\Jalali\Jalalian::forge($music->created_at)->format('%d %B %Y')}}
                 </span>
-
+    
             </div>
         </div>
     </div>

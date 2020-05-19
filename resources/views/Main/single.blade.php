@@ -1,5 +1,7 @@
 @extends('layout.Main.template')
-
+@section('title')
+    {{$title}}
+@endsection
 @section('css')
 
 
@@ -110,6 +112,7 @@
                         </div>
 
                     </div>
+                         @include('Includes.Main.playerSubtitles')
 
 
                     <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
@@ -134,7 +137,7 @@
                                     title="{{$content->members->username}}">
                                     <h3 class="title d-flex flex-column">
                                         <span class="name">{{$content->members->username}}</span>
-                                        <span class="name fs-0-8">دنبال کننده ها 10</span>
+                                        <span class="name fs-0-8">دنبال کننده ها  {{$followers}}</span>
                                     </h3>
                                 </a>
                             </div>
@@ -216,7 +219,10 @@
                         <div class="d-tr">
                             <div class="d-tc w-20 py-xs light-60 dark-110">سطح</div>
                             <div class="d-tc py-xs">
-                                <span class="text">{{$content->levels->name}}</span>
+                                <span class="text">
+                                    
+                                    {{$content->levels->name}}
+                                </span>
                             </div>
                         </div>
                     </div>

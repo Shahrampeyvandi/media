@@ -20,6 +20,7 @@ use App\Models\Members\Follows;
 use App\Models\Notifications\Notifications;
 use App\Rules\VideoDimension;
 use Carbon\Carbon;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Morilog\Jalali\Jalalian;
@@ -523,21 +524,43 @@ class DashboardController extends Controller
         $message = new Messages;
         $message->members_id = auth()->user()->id;
         $message->message = $request->message;
+        $message->recived_id = null;
         $message->read = 0;
         $message->save();
+
+        foreach (Members::where('group','admin')->get() as $key => $admin) {
+            $notification = new Notifications;
+            $notification->members_id = $admin->id;
+            $notification->title = 'پیام جدید';
+            $notification->text = 'کاربر <a class="text-primary">'.auth()->user()->username.'</a> برای شما یک پیام ارسال کرده است <br/> <a href="'.route('Members.SendMessage',auth()->user()->id).'" class="text-primary">مشاهده پیام</a>';
+            $notification->posts_id = 0;
+            $notification->save();
+           }
+
         toastr()->success('نظر شما برای مدیریت ارسال گردید');
         return back();
     }
 
     public function messages()
     {
-        $messages = Messages::all();
+        $messages = Messages::where('recived_id',null)->latest()->get();
         return view('Panel.AllMessages', compact('messages'));
     }
+
+    public function sendmessages()
+    {
+        $messages = Messages::where('members_id',null)->latest()->get();
+        return view('Panel.AllMessages', compact('messages'));
+    }
+
+    
     public function mymessages()
     {
-        $messages = Messages::where('members_id', auth()->user()->id)->get();
-        return view('Panel.MyMessages', compact('messages'));
+        $member = auth()->user();
+        Messages::where('recived_id',$member->id)->update([
+            'read'=> 1
+        ]);
+        return view('Panel.MyMessages', compact('member'));
     }
 
     public function responsemessage(Request $request)
@@ -556,7 +579,24 @@ class DashboardController extends Controller
         toastr()->success('پاسخ با موفقیت برای کاربر ارسال شد');
         return back();
     }
-
+    
+    public function DeleteMessage($id)
+    {
+        $message =  Messages::findOrFail($id);
+        if ($message->delete()) {
+            toastr()->success('پیام با موفقیت حذف شد');
+            return back();
+        }
+    }
+    public function DeleteMemberMessage($id)
+    {
+        $message =  Messages::findOrFail($id);
+        if ($message->delete()) {
+            toastr()->success('پیام با موفقیت حذف شد');
+            return back();
+        }
+    }
+    
     public function DeleteMyMessage($id)
     {
         $message =  Messages::findOrFail($id);

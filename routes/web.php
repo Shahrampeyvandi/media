@@ -53,6 +53,7 @@ Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
 Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
 Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
 
+Route::get('video/show/{id}', 'Front\PostController@ShowVideo')->name('Video.Show');
 
 // routes where must login
 
@@ -103,6 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::post('aboutus/add', 'Panel\MembersController@SaveAboutUs')->name('AddAboutUs');
     
     Route::post('aboutus/addsocial', 'Panel\MembersController@AboutUsSocialLink')->name('AboutUsSocialLink');
+    Route::get('message/delete/{id}', 'Panel\DashboardController@DeleteMemberMessage')->name('Message.Delete');
 
     Route::post('panel/sendmessage', 'Panel\DashboardController@sendmessage')->name('Message.Send');
     Route::get('panel/mymessages', 'Panel\DashboardController@mymessages')->name('Message.My');
@@ -144,6 +146,9 @@ Route::middleware(['auth','admin','mid-admin'])->group(function () {
 
 // روت های مختص ادمین پنل
 Route::middleware(['auth','admin'])->group(function () {
+    
+    Route::get('/panel/sendmessage/{member}', 'Panel\MembersController@SendMessage')->name('Members.SendMessage');
+    Route::post('/panel/submitmessage', 'Panel\MembersController@SubmitMessage')->name('Members.SubmitMessage');
     Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
     Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
     Route::post('/panel/members/delete', 'Panel\MembersController@Delete')->name('Panel.Members.Delete');
@@ -178,7 +183,11 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
     Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
-    Route::get('panel/messages', 'Panel\DashboardController@messages')->name('Message.All');
+    Route::get('panel/membermessages', 'Panel\DashboardController@messages')->name('Message.All');
+    Route::get('panel/adminmessages', 'Panel\DashboardController@sendmessages')->name('Admin.Message.All');
+    
+    Route::get('panel/message/delete/{id}', 'Panel\DashboardController@DeleteMessage')->name('Admin.Message.Delete');
+
     Route::get('panel/allpurchase', 'Panel\PurchaseController@index')->name('Purchase.All');
     Route::get('panel/policies/{type?}', 'Panel\ContentController@Policies')->name('Panel.Policies');
     Route::get('panel/policies/{type?}/edit', 'Panel\ContentController@EditPolicies')->name('Panel.EditPolicies');

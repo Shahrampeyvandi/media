@@ -1,7 +1,7 @@
 @extends('layout.Login.template')
 @section('content')
-@include('Includes.Login.Header')
-    <div class="main mt-5 mt-md-0" style=" display: flex; justify-content: center; align-items: center;">  
+
+    <div class="main mt-5 mt-md-0" style="height:100vh; display: flex; justify-content: center; align-items: center;">  
         <div class="login-wrap card">
             <div class="col-md-12">
                 {{-- @include('FrontEnd.Login.partials.errors') --}}

@@ -1,11 +1,11 @@
 @extends('layout.Login.template')
 @section('content')
-@include('Includes.Login.Header')
 
-    <div class="main mt-5 mt-md-0" style="display: flex; justify-content: center; align-items: center;">
+
+    <div class="main mt-5 mt-md-2" style="display: flex; justify-content: center; align-items: center;">
         <div class="col-md-12 card" style="max-width:650px !important;margin-bottom: 2rem; ">
             <div class="head-login">
-              <h4 class="mb-2"><a class="text-black-50 fs-0-8" href="#">اطلاعات فردی</a></h4>
+              <h3 class="mb-0"><a class="text-success fs-0-8 " href="#"> ثبت نام</a></h3>
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
