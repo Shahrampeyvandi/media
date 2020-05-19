@@ -37,7 +37,11 @@ class PurchaseController extends Controller
 
     public function transactions(){
 
-        $transactions=Transaction::where('members_id',auth()->user()->id)->get();
+        if(auth()->user()->is_admin()){
+            $transactions=Transaction::all();
+        }else{
+            $transactions=Transaction::where('members_id',auth()->user()->id)->get();
+        }
     
 
 
