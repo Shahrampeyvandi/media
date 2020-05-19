@@ -57,7 +57,7 @@ class SlideshowController extends Controller
 
         $slideshow->save();
         toastr()->success('اسلایدشو با موفقیت افزوده شد');
-        return back();
+        return redirect()->route('Panel.SlideShow.All');
     }
 
     public function Delete(Request $request)
@@ -116,7 +116,7 @@ class SlideshowController extends Controller
             'banner' => $picPath
         ]);
         toastr()->success('با موفقیت آپدیت شد');
-        return back();
+        return redirect()->route('Panel.SlideShow.All');
     }
     public function CreateSlideShow()
     {

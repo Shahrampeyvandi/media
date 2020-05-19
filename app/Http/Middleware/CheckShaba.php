@@ -15,7 +15,7 @@ class CheckShaba
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->is_admin() && auth()->user()->shaba == null){
+        if(auth()->user()->group == "teacher" && auth()->user()->shaba == null){
             $request->session()->flash('Error', 'ابتدا پروفایل خود را تکمیل کنید');
             return redirect()->route('Profile');
         }

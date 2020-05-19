@@ -569,8 +569,11 @@
             <div class="view">
 
                 @yield('content')
-
-
+                <section id="" style=" padding: 40px 0;" class="list-item li stylish-color" data-list="slider">
+                <div class="text-center text-white-50">
+                    کلیه حقوق این سایت متعلق به ژن برتر میباشد
+                </div>
+                </section>
                 @if (auth()->check())
                 <div class="">
                     <ul class="side-function">
@@ -585,6 +588,9 @@
 
 
     </main>
+  
+       
+   
 
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
