@@ -386,8 +386,8 @@
                     </li>
 
                     <li class="menu-item-link">
-                        <a href="{{route('Post.Report.All')}}" aria-label=""><i
-                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                        <a href="{{route('Post.Report.All')}}" aria-label="" style="padding-right: 37px;"><i
+                                class="fas fa-exclamation fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">گزارش های تخلف</span>
                             </div>
@@ -411,20 +411,20 @@
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a style="padding-right: 20px;" href="{{route('Accounting.Transactions')}}" aria-label="تراکنش های من">
+                        <a style="padding-right: 31px;" href="{{route('Accounting.Transactions')}}" aria-label="تراکنش های من">
                         
                             <i
-                            class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            class="fas fa-dollar-sign fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تراکنش های من</span>
                             </div>
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a style="padding-right: 20px;" href="{{route('Panel.Checkout')}}" aria-label="تسویه حساب با اساتید">
-                        
+                        <a style="padding-right: 24px;" href="{{route('Panel.Checkout')}}" aria-label="تسویه حساب با اساتید">
+                            
                             <i
-                            class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            class="fas fa-hand-holding-usd fs-1-2 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تسویه حساب با اساتید</span>
                             </div>
