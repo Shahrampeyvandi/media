@@ -13,6 +13,7 @@ class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
     public $member;
+    public $subject;
     /**
      * Create a new message instance.
      *
@@ -21,6 +22,8 @@ class Welcome extends Mailable
     public function __construct(Members $member)
     {
         $this->member = $member;
+        $this->subject='به ژن برتر خوش آمدید';
+
     }
 
     /**

@@ -1,6 +1,8 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/login.css">
+
 
 <div class="col-md-8 offset-md-2 mb-3">
 <form id="edit" action="{{route('Profile.Submit')}}" method="post" enctype="multipart/form-data">
@@ -48,12 +50,14 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> تغییر رمز عبور: </label>
-            <input type="text" class="form-control" name="user_pass" id="user_pass" value="">
+            <input type="password" class="form-control" name="user_pass" id="user_pass" value="">
+            <span toggle="#user_pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div>
             <div class="form-group col-md-6">
               <label for="confirm_user_pass" class="col-form-label"><span class="text-danger">*</span> تکرار
                 رمز عبور:</label>
-              <input type="text" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
+              <input type="password" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
+              <span toggle="#confirm_user_pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div>
           </div>
           <div class="row">
@@ -61,11 +65,14 @@
               <label for="user_email" class="col-form-label" >ایمیل:</label>
               <input type="text" disabled class="form-control" name="user_email" id="user_email" value="{{$member->email}}">
             </div>
+    
             <div class="form-group col-md-6">
               <label for="username" class="col-form-label"><span class="text-danger">*</span> نام کاربری:</label>
               <input type="text" class="form-control" name="username" id="username" value="{{$member->username}}">
             </div>
           </div>
+
+         
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_mobile" class="col-form-label"><span class="text-danger">*</span> موبایل:</label>
@@ -132,6 +139,7 @@
 </div>
 @endsection
 @section('js')
+
 <script type="text/javascript">
   $(document).ready(function(){
     function readURL(input) {
@@ -212,7 +220,18 @@
      
 		}
 	});
+  $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
   })
+
 </script>
 
 @endsection

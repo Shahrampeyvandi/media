@@ -249,7 +249,7 @@ Sizes: [
 																			<tr>
 																				<td align="left" class="textContent">
 																					<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-																						The introduction of your message preview goes here. Try to make it short.
+																						ورود شما را به خانواده ژن برتر خوشآمد می گوییم.
 																					</div>
 																				</td>
 																			</tr>
@@ -261,7 +261,7 @@ Sizes: [
 																				<td align="left" class="textContent">
 																					<!-- CONTENT // -->
 																					<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-																						If you can't see this message, <a href="#" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;"><span style="color:#828282;">view&nbsp;it&nbsp;in&nbsp;your&nbsp;browser</span></a>.
+																					این ایمیل از طرف , <a href="#" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;"><span style="color:#828282;">ژن برتر</span></a> برای شما ارسال شده است.
 																					</div>
 																				</td>
 																			</tr>
@@ -425,7 +425,7 @@ Sizes: [
 
 																		<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
 																			<div>Copyright &#169; 2020 <a href="http://www.genebartar.ir" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">Genebartar</span></a>. All&nbsp;rights&nbsp;reserved.</div>
-																			<div>If you do not want to receive emails from us, you can <a href="#" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">unsubscribe</span></a>.</div>
+																			<div>این ایمیل به درخواست شما و برای فعال سازی حساب ارسال شده است <a href="http://genebartar.com" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">زن برتر</span></a>.</div>
 																		</div>
 
 																	</td>
