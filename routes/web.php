@@ -124,6 +124,9 @@ Route::middleware('auth')->group(function () {
     Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');
     
     Route::post('note/delete', 'Panel\NotesController@delete')->name('Note.Delete');
+
+    Route::get('download', 'Front\PostController@download')->name('Download');
+
     
 });
 

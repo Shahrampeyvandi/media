@@ -355,8 +355,8 @@ class PostsController extends Controller
             // }
             $extension = $request->file('file')->getClientOriginalExtension();
             // Valid extensions
-            $fileName = 'file_' . time() . '.' . $extension;
-            $destinationPath = "files/posts/episodes/$fileName";
+            $fileNameepisode = 'file_' . time() . '.' . $extension;
+            $destinationPath = "files/posts/episodes/$fileNameepisode";
             //$request->file('file')->move($destinationPath, $fileName);
 
             // $filePathepisode22 = "$destinationPath/$fileName";
@@ -411,7 +411,7 @@ class PostsController extends Controller
         $newepisode->levels_id = $post->levels_id;
         $newepisode->picture = $picPath;
         $newepisode->content_link = "Https://dl.genebartar.com/$filePathepisode";
-        $newepisode->content_name = $filePathepisode;
+        $newepisode->content_name = $fileNameepisode;
         $newepisode->duration = $duration;
         $newepisode->type = 'free';
         $newepisode->price = 0;

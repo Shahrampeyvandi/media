@@ -12,6 +12,7 @@ class SendResetPasswordToken extends Mailable
     use Queueable, SerializesModels;
     public $email;
     public $token;
+    public $subject;
     /**
      * Create a new message instance.
      *
@@ -21,6 +22,7 @@ class SendResetPasswordToken extends Mailable
     {
         $this->email = $email;
         $this->token = $token;
+        $this->subject='بازیابی رمز عبور';
     }
 
     /**

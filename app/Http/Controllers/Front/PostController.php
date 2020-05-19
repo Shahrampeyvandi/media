@@ -262,6 +262,67 @@ class PostController extends Controller
         ]));
     }
 
+    public function download(Request $request){
+
+        if(!auth()->check()){
+
+            return redirect()->route('BaseUrl');
+
+        }
+
+        if($request->type==1){
+
+            $content=Posts::find($request->id);
+
+
+
+        }else{
+
+            $content=Episodes::find($request->id);
+
+            if($content->post->type=='money'){
+
+                $purchase = Purchase::where('members_id', auth()->user()->id)->where('posts_id', $content->post->id)->where('success', 1)->first();
+                if (!$purchase) {
+
+                    return redirect()->route('ShowItem',['id'=>$content->post->id]);
+                }
+
+            }
+
+
+        }
+
+        $filename=$content->title.substr($content->content_name,-4);
+        $path=substr($content->content_link,26);
+
+        
+$tempImage = tempnam(sys_get_temp_dir(), $filename);
+copy('http://dl.genebartar.ir/sadas.php?path='.$path, $tempImage);
+
+return response()->download($tempImage, $filename);
+
+       
+    }
+
+    public function downloadinthedownloadhost(Request $request){
+
+        $file = ($_GET['path']);
+
+        $filetype=filetype($file);
+ 
+        $filename=basename($file);
+ 
+        header ("Content-Type: ".$filetype);
+ 
+        header ("Content-Length: ".filesize($file));
+ 
+        header ("Content-Disposition: attachment; filename=".$filename);
+ 
+        readfile($file);
+
+
+    }
     // public function ShowVideo($id)
     // {
     //     $content = Posts::whereId($id)->first();
@@ -271,3 +332,4 @@ class PostController extends Controller
     //     return $response;
     // }
 }
+

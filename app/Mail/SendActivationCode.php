@@ -12,6 +12,7 @@ class SendActivationCode extends Mailable
     use Queueable, SerializesModels;
     public $email;
     public $code;
+    public $subject;
     /**
      * Create a new message instance.
      *
@@ -21,6 +22,7 @@ class SendActivationCode extends Mailable
     {
         $this->email = $mobile;
         $this->code = $code;
+        $this->subject='کد فعال سازی';
     }
 
     /**

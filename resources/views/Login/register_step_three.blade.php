@@ -187,6 +187,11 @@
       required: true,
       regex:/^09[0-9]{9}$/
 			},
+      userid: {
+				required: true,
+        minlength: 5,
+        regex: /^[a-zA-Z]+[a-zA-Z\d]*$/
+			},
       user_history:{
         required: function(element){
             return $("#teacher").val().length > 0;
@@ -224,6 +229,11 @@
 			user_cpass: {
 				required: "رمز عبور را وارد نمایید",
 				equalTo: "رمز عبور وارد شده مطابقت ندارد"
+			},
+      userid: {
+				required: "لطفا نام کاربری یکتای خود را وارد نمایید",
+        minlength: "نام کابری حداقل 5 کاراکتر دارد",
+        regex:"نام کاربری تنها شامل حروف لاتین میباشد و نمی تواند با عدد شروع شود"
 			},
       user_mobile:{
         required:"شماره موبایل الزامی میباشد",

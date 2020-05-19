@@ -1,6 +1,8 @@
 @extends('layout.Panel.temp')
 
 @section('content')
+<link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/login.css">
+
 
 <div class="col-md-8 offset-md-2 mb-3">
 <form id="edit" action="{{route('Profile.Submit')}}" method="post" enctype="multipart/form-data">
@@ -63,11 +65,14 @@
               <label for="user_email" class="col-form-label" >ایمیل:</label>
               <input type="text" disabled class="form-control" name="user_email" id="user_email" value="{{$member->email}}">
             </div>
+    
             <div class="form-group col-md-6">
               <label for="username" class="col-form-label"><span class="text-danger">*</span> نام کاربری:</label>
               <input type="text" class="form-control" name="username" id="username" value="{{$member->username}}">
             </div>
           </div>
+
+         
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_mobile" class="col-form-label"><span class="text-danger">*</span> موبایل:</label>
@@ -137,6 +142,7 @@
 </div>
 @endsection
 @section('js')
+
 <script type="text/javascript">
   $(document).ready(function(){
     $(".toggle-password").click(function() {
@@ -233,7 +239,18 @@ if (input.attr("type") == "password") {
      
 		}
 	});
+  $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
   })
+
 </script>
 
 @endsection

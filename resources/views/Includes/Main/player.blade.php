@@ -39,6 +39,8 @@
 
 <script>
 
+@if($content->categories_id == 4 || $content->categories_id == 5)
+@else
   $('#play .close').click(function(e){
     e.preventDefault()
     $(this).next('a').remove()
@@ -66,5 +68,6 @@ video.watermark({
   xrepeat:1,
   opacity: 0.5
 });
+@endif
 </script>
 </section>
