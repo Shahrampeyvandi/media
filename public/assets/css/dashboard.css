@@ -399,3 +399,6 @@ select[name='example1_length']{
     left: 50px;
     color: gray;
   }
+.hide-menu{
+    display: none !important;
+}

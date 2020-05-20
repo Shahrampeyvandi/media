@@ -32,12 +32,13 @@
                     @endcomponent
                     @endif
                     @if(request()->path() == 'category/genplus')
-                    @component('Main.components.genplus',['clips' => $posts])
+                    @component('Main.components.video',['videos' => $posts])
                 
                     @endcomponent
                     @endif
                     @if(request()->path() == 'category/animations')
-                    @component('Main.components.animations',['animations' => $posts])
+                    @component('Main.components.video',['videos' => $posts])
+                
                     @endcomponent
                     @endif
                     @if(request()->path() == 'category/podcasts')
@@ -50,7 +51,8 @@
                     @endcomponent
                     @endif
                     @if(request()->path() == 'category/tutorial')
-                    @component('Main.components.tutorial',['learning' => $posts])
+                    @component('Main.components.video',['videos' => $posts])
+                
                     @endcomponent
                     @endif
     

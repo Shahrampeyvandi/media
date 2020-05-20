@@ -11,11 +11,11 @@
         </div>
         <div class="card__content px-3 pb-2">
             <div class="card__share">
-                <a href="{{route('ShowItem',['id'=>$podcast->id])}}" id="" class=" share-icon"><i
+                <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}" id="" class=" share-icon"><i
                         class="fa fa-play-circle"></i></a>
             </div>
             <article class="card__article mt-2 pt-3">
-                <h2><a href="{{route('ShowItem',['id'=>$podcast->id])}}"
+                <h2><a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}"
                         class="fs-0-8">{{$podcast->title}}</a></h2>
                 
             </article>

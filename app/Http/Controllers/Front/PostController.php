@@ -20,9 +20,10 @@ use App\Models\Members\Follows;
 
 class PostController extends Controller
 {
-    public function index($id)
+    public function index($category,$slug)
     {
-        $content = Posts::whereId($id)->first();
+        $content = Posts::whereSlug($slug)->first();
+        $id = $content->id;
         $title= "ژن برتر - $content->title";
         $followers = Follows::where('followed_id',$content->members_id)->count();
         $advert = AdvertLink::where(['cat_id' => $content->categories_id, 'status' => 1])->latest()->first();
@@ -179,8 +180,11 @@ class PostController extends Controller
     }
 
 
-    public function episode($id, $ep)
+    public function episode($slug, $ep)
     {
+        $post = Posts::whereSlug($slug)->first();
+        $id = $post->id;
+        $followers = Follows::where('followed_id',$post->members_id)->count();
 
         $content = Episodes::where('posts_id', $id)->where('number', $ep)->first();
        $title= "ژن برتر - $content->title";
@@ -259,6 +263,7 @@ class PostController extends Controller
             'link',
             'pic_link',
             'link_type',
+            'followers'
         ]));
     }
 
@@ -266,7 +271,7 @@ class PostController extends Controller
 
         if(!auth()->check()){
 
-            return redirect()->route('BaseUrl');
+            return redirect()->route('login');
 
         }
 

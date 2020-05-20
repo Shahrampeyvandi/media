@@ -30,6 +30,7 @@
     <div class="col-md-12">
         <div class="card p-3">
             <h3 class="mb-2">پیام های شما با {{$member->firstname .' '.$member->lastname}}</h3>
+            @if (count(\App\Models\Members\Messages::where('recived_id',$member->id)->orWhere('members_id',$member->id)->get()))
             @foreach(\App\Models\Members\Messages::where('recived_id',$member->id)->orWhere('members_id',$member->id)->latest()->get()
             as $item)
 
@@ -86,6 +87,11 @@
             </div>
             @endif
             @endforeach
+            @else
+            <div class="alert alert-primary text-right" role="alert">
+                هیچ پیامی وجود ندارد
+              </div>
+            @endif
 
         </div>
     </div>

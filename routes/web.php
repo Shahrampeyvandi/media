@@ -29,9 +29,9 @@ Route::get('auth/google/callback', 'LoginController@handleGoogleCallback')->name
 Route::get('/', 'Front\IndexController@Index')->name('BaseUrl');
 
 Route::get('/1', 'Front\IndexController@index')->name('sfs');
-Route::get('/content/{id}', 'Front\PostController@index')->name('ShowItem');
 Route::get('/policies/{slug?}', 'MainController@policies')->name('Policies');
 Route::get('/category/{slug}', 'Front\CategoryController@show')->name('Category');
+
 Route::get('filterdata', 'Front\CategoryController@FilterData')->name('FilterData');
 Route::get('filterwithname', 'Front\CategoryController@FilterWithName')->name('FilterWithName');
 
@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('accounting/transactions', 'Panel\PurchaseController@transactions')->name('Accounting.Transactions');
 
-    Route::get('/content/{id}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
+    Route::get('/content/{slug}/episode/{ep}', 'Front\PostController@episode')->name('ShowItem.Episode');
     
     // notes
     Route::post('note/save', 'Panel\NotesController@save')->name('Note.Save');
@@ -231,4 +231,4 @@ Route::middleware(['auth','admin'])->group(function () {
 
 
 });
-
+Route::get('/{content}/{slug}', 'Front\PostController@index')->name('ShowItem');

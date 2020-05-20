@@ -20,7 +20,7 @@ use App\Models\Members\Follows;
 use App\Models\Notifications\Notifications;
 use App\Rules\VideoDimension;
 use Carbon\Carbon;
-use Illuminate\Mail\Message;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Morilog\Jalali\Jalalian;
@@ -133,6 +133,16 @@ class DashboardController extends Controller
     }
     public function SubmitUploadFile(Request $request)
     {
+        // check post with title
+        if(Posts::whereTitle($request->title)->count()){
+            return response()->json(
+                [
+                    'errors'=> "محتوایی با این عنوان از قبل ثبت شده است"
+                     ,'code'=>403
+            ],403
+                
+            );
+        }
         
         $fileNamevideo = '1';
 
@@ -215,6 +225,7 @@ class DashboardController extends Controller
 
         $post = new Posts();
         $post->title = $request->title;
+
         $post->desc = $request->desc;
         $post->picture = $picPath;
         $post->content_name = $fileNamevideo;

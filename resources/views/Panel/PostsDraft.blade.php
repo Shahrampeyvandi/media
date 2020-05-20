@@ -37,39 +37,15 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">پست ها</a></li>
-        <li class="breadcrumb-item"><a href="#">پست های پیش نویس</a></li>
-        <li class="breadcrumb-item active" aria-current="page">
-            @switch(request()->path())
-            @case("panel/allposts/unconfirmed")
-            درانتظار تایید
-            @break
-            @case("panel/allposts/rejected")
-            تایید نشده
-            @break
-           
-
-            @default
-
-            @endswitch
-        </li>
+        <li class="breadcrumb-item active">پست های پیش نویس</li>
+        
     </ol>
 </nav>
-<div class="row">
-    <div class="col-md-12">
-        <div>
-            <a href="{{route('Panel.Posts.Unconfirmed')}}" @if (request()->path() == "panel/allposts/unconfirmed")
-                class="btn btn-info" @else class="btn btn-light" @endif>درانتظار تایید</a>
-            <a href="{{route('Panel.Posts.Rejected')}}" @if (request()->path() == "panel/allposts/rejected")
-                class="btn btn-info" @else class="btn btn-light" @endif>تایید نشده</a>
-            <a href="#"></a>
-        </div>
-        <hr>
-    </div>
-</div>
+
 <div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line" style="margin-right: 0px;"><span
-                class="title__divider__wrapper">پست ها<span class="line brk-base-bg-gradient-right"></span>
+                class="title__divider__wrapper">پست های پیش نویس<span class="line brk-base-bg-gradient-right"></span>
             </span></h2>
     </div>
     <div style="overflow-x: auto;">

@@ -641,7 +641,15 @@
     })
     $('.menu-link').click(function(e){
         e.preventDefault();
-        $('ul.sub-menu').slideUp()
+       if($(this).hasClass('active')){
+        $(this).next('ul').slideUp()
+        $('i').removeClass('rotate-in')
+        return false;
+        }
+       $('ul.sub-menu').slideUp()
+       $('.menu-link').removeClass('active')
+        $(this).addClass('active')
+        
         $('i').removeClass('rotate-in')
         $(this).next('ul').slideToggle()
         $(this).find('i').toggleClass('rotate-in')

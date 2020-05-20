@@ -299,7 +299,7 @@
         }
         if(data.success)
         {
-            console.log(data.id)
+            
             if(data.id){
                 window.location.href = "{{ route("BaseUrl")}}/panel/"+data.id+"/episode";
             }else{
@@ -309,6 +309,9 @@
              "success", {
 			button: "باشه"
 		});
+              setTimeout(() => {
+                window.location.reload()
+              }, 600);
             }
         
             
@@ -338,6 +341,7 @@
              "error", {
 			button: "باشه"
 		});
+        $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
 
         $('.overlay_upload').hide(400)
         $('.overlay_upload img').animate({bottom:'-60px'}, 1000) 

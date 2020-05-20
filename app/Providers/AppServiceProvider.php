@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
               
                 $mynotes = Notes::where('members_id',auth()->user()->id)->latest()->get();
                 
-                $notifications=DB::table('notifications')->where('members_id',Auth::user()->id)->orderBy('updated_at', 'desc')->take(5)->get();
+                $notifications=DB::table('notifications')->where('members_id',Auth::user()->id)->orderBy('updated_at', 'desc')->take(10)->get();
                
                 $notystatus = Db::table('notifications')->where('members_id',Auth::user()->id)->where('read',0)->count();
                 $view->with(['notifications'=>$notifications,'notystatus'=>$notystatus,'mynotes'=>$mynotes]);
