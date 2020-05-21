@@ -8,6 +8,12 @@
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-12">
+                        <label for="content">برای کانال خود تصویر انتخاب کنید</label>
+                        <input type="file" class="form-control" name="image" id="image" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
                         <label for="content">متن خود را وارد نمایید </label>
                         <textarea class="form-control" name="content" id="content" cols="30" rows="20"></textarea>
                     </div>
@@ -100,8 +106,24 @@
             filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
             imageUploadUrl: '{{route('UploadImage')}}?type=image'
         });
-
-
+        $.validator.addMethod('filesize', function (value, element, param) {
+        return this.optional(element) || (element.files[0].size <= param)
+         }, 'سایز تصویر نمی تواند بیشتر از دو مگابایت باشد');
+        $("#upload-file").validate({
+		rules: {
+            image:{
+                
+                filesize:2000 * 1024,
+                accept: "jpg|jpeg|png|JPG|JPEG|PNG"
+            },
+		},
+		messages: {
+            image:{
+                filesize:"حجم تصویر بیش از حد مجاز میباشد",
+                accept: "تصویر دارای فرمت غیر مجاز می باشد"
+            },
+		}
+	});
 
 $(document).on('click','.clone-bottom',function(e){
   e.preventDefault()
@@ -121,6 +143,8 @@ $(document).on('click','.remove-link',function(e){
     $(this).parents('.wrapper-content').remove()
   
 })
+
+
 
 });
 </script>

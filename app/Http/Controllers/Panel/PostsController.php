@@ -402,7 +402,7 @@ class PostsController extends Controller
         $newepisode = new Episodes();
         $newepisode->posts_id = $request->post_id;
         $newepisode->title = $request->epizode_title;
-        $newepisode->slug =Str::slug($request->epizode_title);
+        
         $newepisode->number = $request->epizode_number;
         $newepisode->desc = $request->epizode_desc;
         $newepisode->categories_id = $post->categories_id;

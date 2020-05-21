@@ -1,9 +1,15 @@
 <header class="channel-header">
     <section class="cover-wrapper">
 
+        @if (\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first() && $url = \App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->image )
+        <div class="cover"
+            style="background-image: url({{asset($url)}}); background-position: center;">
+        </div>
+        @else 
         <div class="cover"
             style="background-image: url({{asset('assets/images/edu.jpg')}}); background-position: center;">
-        </div>
+        </div>   
+        @endif
         <div class="wrapper">
 
             @if (!is_null(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()))
@@ -93,8 +99,8 @@
         <a href="{{route('User.Show',['name'=>$member->username,'slug'=>'animations'])}}"
             class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'animations'])) active @endif">انیمیشن
             ها</a>
-        <a href="{{route('User.Show',['name'=>$member->username,'slug'=>'clips'])}}"
-            class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'clips'])) active @endif">کلیپ
+        <a href="{{route('User.Show',['name'=>$member->username,'slug'=>'genplus'])}}"
+            class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'genplus'])) active @endif">ژن پلاس
             ها</a>
         <a href="{{route('User.Show',['name'=>$member->username,'slug'=>'musics'])}}"
             class="tabs push_btn ml-2 px-2 mb-2 @if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'musics'])) active @endif">موسیقی

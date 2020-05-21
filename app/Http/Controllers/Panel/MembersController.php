@@ -41,16 +41,29 @@ class MembersController extends Controller
             toastr()->error('لطفا متن وارد کنید');
             return back();
         }
-        $channel = ChannelInformations::where('member_id',auth()->user()->id)->first();
+
+        if ($request->hasFile('image')) {
+            $destinationPath = "members/";
+            $picextension = $request->file('image')->getClientOriginalExtension();
+            $fileName = 'about_' . time() . '.' . $picextension;
+            $request->file('image')->move($destinationPath, $fileName);
+            $picPath = "members/$fileName";
+        } else {
+            $picPath = '';
+        }
+        $channel = ChannelInformations::where('members_id',auth()->user()->id)->first();
         if($channel){
         
        ChannelInformations::where('id',auth()->user()->id)->update([
-        'aboutus' => $request->content
+        'aboutus' => $request->content,
+        'image' => $picPath !== "" ? $picPath : $channel->image,
+
        ]);
         }else{
             ChannelInformations::create([
-                'member_id' => auth()->user()->id,
+                'members_id' => auth()->user()->id,
                 'content' => $request->content,
+                'image' => $picPath,
                ]);
         }
        toastr()->success('با موفقیت ذخیره شد');
@@ -147,7 +160,7 @@ class MembersController extends Controller
 
     public function AboutUsSocialLink(Request $request)
     {
-       $channel = ChannelInformations::where('member_id',auth()->user()->id)->first();
+       $channel = ChannelInformations::where('members_id',auth()->user()->id)->first();
        if($channel){
         foreach ($request->social as $key => $item) {
                 $channel->$item = $request->link[$key];

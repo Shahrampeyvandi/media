@@ -12,7 +12,7 @@ use App\Models\Accounting\PayesSubscribes;
 
 class ChannelInformations extends Model
 {
-    protected $quarded= [];
+    protected $guarded= ['id'];
 
     public function member()
     {

@@ -11,7 +11,7 @@
         </h3>
 
         <div class="pr-3 my-3">
-            @if (auth()->user()->channelInformations->content !== null)
+            @if (auth()->user()->channelInformations !== null)
 
             {!! auth()->user()->channelInformations->content !!}
             @else
@@ -22,6 +22,7 @@
             <span class="mr-3 d-inline-block pr-1 pb-2">لینک های مرتبط</span>
         </h4>
         <div class="other links d-flex justify-content-start mx-3">
+            @if (auth()->user()->channelInformations)
             @if (auth()->user()->channelInformations->link_telegram)
 
             <a href="{{auth()->user()->channelInformations->link_telegram}}" class="ml-2"><i class="fa fa-circle"></i>
@@ -35,6 +36,7 @@
             @endif
             @if (auth()->user()->channelInformations->link_linkedin)
             <a href="{{auth()->user()->channelInformations->link_linkedin}}" class="ml-2"><i class="fa fa-circle"></i> لینکدین</a>
+            @endif
             @endif
         </div>
     </div>
