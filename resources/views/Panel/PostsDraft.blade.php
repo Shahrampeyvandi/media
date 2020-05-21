@@ -96,7 +96,7 @@
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>
-                        <a class="text-primary" href="{{route('ShowItem',$post->id)}}">
+                        <a class="text-primary" href=" {{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}">
                             {{$post->title}}
                         </a>
                     </td>

@@ -32,6 +32,10 @@ class SendActivationCode extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.activationcode');
+        return $this->subject($this->subject)
+        ->view('emails.activationcode')
+        ->text('emails.activitioncodetext')
+        ->with('code', $this->code);
+        //return $this->view('emails.activationcode');
     }
 }

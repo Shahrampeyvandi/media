@@ -54,7 +54,7 @@
             @foreach($reports as $key=>$report)
             <tr>
             <td>{{$key+1}}</td>
-            <td><a class="text-primary" href="{{route('ShowItem',$report->posts_id)}}">
+            <td><a class="text-primary" href=" {{route('ShowItem',['content'=>$report->posts->categories->name,'slug'=>$report->posts->slug])}}">
             {{$report->posts->title}}
             </a>
             </td>

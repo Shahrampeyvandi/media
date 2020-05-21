@@ -33,6 +33,10 @@ class Welcome extends Mailable
      */
     public function build()
     {
-        return $this->from('info@genebartar.com')->markdown('emails.welcome');
+        return $this->subject($this->subject)
+        ->view('emails.welcome')
+        ->text('emails.welcometext')
+        ->with('code', $this->member);
+        //return $this->from('info@genebartar.com')->markdown('emails.welcome');
     }
 }

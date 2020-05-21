@@ -97,7 +97,7 @@
             <tr>
             <td>{{$key+1}}</td>
             <td style="max-width: 500px;word-wrap: break-word;">{!! $comment->text !!}</td>
-            <td><a class="text-primary" href="{{route('ShowItem',['id'=>$comment->posts->id])}}">{{$comment->posts->title}}</a></td>
+            <td><a class="text-primary" href="{{route('ShowItem',['content'=>$comment->posts->categories->name,'slug'=>$comment->posts->slug])}}">{{$comment->posts->title}}</a></td>
             <td>{{$comment->members->username}}</td>
             <td>{{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}</td>
             <td class="text-success">{{$comment->commentlikes->where('score','like')->count()}}</td>
