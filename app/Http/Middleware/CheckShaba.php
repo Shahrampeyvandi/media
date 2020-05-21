@@ -17,7 +17,7 @@ class CheckShaba
     {
         if(auth()->user()->group == "teacher" && auth()->user()->shaba == null){
             $request->session()->flash('Error', 'ابتدا پروفایل خود را تکمیل کنید');
-            return redirect()->route('Profile');
+            return redirect()->route('UploadFile');
         }
         return $next($request);
     }

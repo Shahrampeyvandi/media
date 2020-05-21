@@ -162,7 +162,7 @@
                             @endif>
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem',['id'=>$post->id])}}">معرفی دوره</a></div>
+                                            href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}">معرفی دوره</a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
@@ -203,7 +203,7 @@
                                     <div class="episodes_list--title">
                                         @if($isbuyedit==true)
                                         <a
-                                            href="{{route('ShowItem.Episode',['id'=>$episode->posts_id,'ep'=>$episode->number])}}">
+                                            href="{{route('ShowItem.Episode',['slug'=>$episode->post->slug,'ep'=>$episode->number])}}">
                                             @endif
                                             {{$episode->title}}
                                         </a></div>

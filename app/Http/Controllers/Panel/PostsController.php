@@ -13,6 +13,7 @@ use App\Models\Contents\ViolationReports;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Accounting\Purchase;
 use App\Models\Contents\AdvertLink;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -224,11 +225,9 @@ class PostsController extends Controller
         $notification->title = 'پست شما تایید نشد!';
         $notification->text = 'پست اخیر شما با نام ' . $post->title . ' به دلیل ' . $request->reason . ' توسط مدیر رد تایید گردید.';
         $notification->posts_id = $post->id;
-        $notification->save();
-        $post->update([
-            'confirmed' => 2,
-            'rejectreason' => $request->reason
-        ]);
+        
+        if($post->delete())  $notification->save();
+       
         toastr()->success('محتوا حذف و پیام شما برای کاربر ارسال شد');
         return back();
     }
@@ -403,6 +402,7 @@ class PostsController extends Controller
         $newepisode = new Episodes();
         $newepisode->posts_id = $request->post_id;
         $newepisode->title = $request->epizode_title;
+        
         $newepisode->number = $request->epizode_number;
         $newepisode->desc = $request->epizode_desc;
         $newepisode->categories_id = $post->categories_id;

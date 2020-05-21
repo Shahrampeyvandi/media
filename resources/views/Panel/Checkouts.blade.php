@@ -27,7 +27,7 @@
 
                     <option value="{{$member->id}}">{{$member->firstname}} {{$member->lastname}} - موجودی کیف پول: {{$member->wallet}} تومان</option>
 
-@endif
+                    @endif
 
 
                     @endforeach

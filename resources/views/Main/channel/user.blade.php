@@ -17,14 +17,14 @@
             </div>
            
             <div class="recent_content d-flex mr-3">
-                <a href="{{route('ShowItem',['id'=>$lastpost->id])}}" class="image">
+                <a href="{{route('ShowItem',['content'=>$lastpost->categories->name,'slug'=>$lastpost->slug])}}" class="image">
                     
                     @if ($lastpost->picture)
                     <img src="{{asset("$lastpost->picture")}}" height="100%" width="100%" alt="">
                     @else
                    <img style="width: 100%;
                    object-fit: cover;
-                   height: 100%;box-shadow: 0 0 2px 0px grey;" src="{{asset('assets/images/temp_logo.png')}}" alt="">
+                   height: 100%;box-shadow: 0 0 2px 0px grey;" src="{{asset('assets/images/logo-video1.png')}}" alt="">
                     @endif
                 </a>
                 <div class="d-flex  flex-column pr-3">
@@ -60,7 +60,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -113,7 +113,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -178,7 +178,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -247,7 +247,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -316,7 +316,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -386,7 +386,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">
@@ -456,7 +456,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="{{route('ShowItem',['id'=>$post->id])}}"
+                                            <a id="" href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}"
                                                 class="thumb thumb-preview"
                                                 data-poster="{{asset("$post->picture")}}"><img
                                                     src="{{asset("$post->picture")}}" class=" thumb-image">

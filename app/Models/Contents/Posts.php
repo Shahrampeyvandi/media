@@ -1,13 +1,27 @@
 <?php
 
 namespace App\Models\Contents;
-
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Posts extends Model
 {
     protected $guarded = ['id']; 
+    use Sluggable;
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
     public function categories()
     {
         return $this->belongsTo(Categories::class);
@@ -85,6 +99,8 @@ $sum['m'] = $sum['m']%60;
     {
         return $this->attributes['otheroninformation']= nl2br($value);
     }
+   
+   
 
    
 }

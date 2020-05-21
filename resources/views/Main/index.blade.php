@@ -16,7 +16,13 @@
         <div class="row justify-content-center">
             <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
                 @foreach ($header_slideshow as $slideshow)
+                @if ($slideshow->link)
+                    
                 <a href="{{$slideshow->link}}">
+                
+                @else
+                <a href="#">
+                @endif
                     <div class="item single-client position-relative" style="height: 20rem;">
                         <img src="{{asset($slideshow->banner)}}" alt="client logo" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
@@ -51,7 +57,7 @@
                     <div class="item carousel-item swiper-slide">
                         <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
                             <div class="thumb-wrapper">
-                                <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
+                                <a class="thumb" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
                                     <div class="abs-fit">
                                         @if ($movie->picture)
                                         <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
@@ -96,7 +102,7 @@
                                 </a>
                             </div>
                             <div class="position-relative px-2 pt-3">
-                                <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
+                                <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
@@ -169,7 +175,7 @@
                     <div class="item carousel-item swiper-slide">
                         <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
                             <div class="thumb-wrapper">
-                                <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
+                                <a class="thumb" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
                                     <div class="abs-fit">
                                         @if ($movie->picture)
                                         <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
@@ -215,7 +221,7 @@
                             </div>
                             <div class="position-relative px-2 pt-3">
 
-                                <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
+                                <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
@@ -298,7 +304,7 @@
                     <div class="item carousel-item swiper-slide">
                         <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
                             <div class="thumb-wrapper">
-                                <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
+                                <a class="thumb" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
                                     <div class="abs-fit">
                                         @if ($movie->picture)
                                         <img src="{{asset("$movie->picture")}}" alt="{{$movie->title}}"
@@ -344,7 +350,7 @@
                             </div>
                             <div class="position-relative px-2 pt-3">
 
-                                <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
+                                <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
@@ -484,7 +490,7 @@
                     <div class="item carousel-item swiper-slide">
                         <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
                             <div class="thumb-wrapper">
-                                <a class="thumb" href="{{route('ShowItem',['id'=>$movie->id])}}">
+                                <a class="thumb" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
                                     <div class="abs-fit">
                                         @if ($movie->picture)
                                         <img src="{{asset($movie->picture)}}" alt="{{$movie->title}}"
@@ -531,7 +537,7 @@
                             </div>
                             <div class="position-relative px-2 pt-3">
 
-                                <a href="{{route('ShowItem',['id'=>$movie->id])}}" title="{{$movie->title}}"
+                                <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
                                     class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
                                 <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
 
@@ -620,11 +626,11 @@
                                             class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                             class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
                                     <div class="center text-center m-t-n"> <a
-                                            href="{{route('ShowItem',['id'=>$music->id])}}"><i
+                                            href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"><i
                                                 class="ti ti-control-play fs-2"></i></a> </div>
                                     <div class="bottom padder m-b-sm">
 
-                                        <a href="{{route('ShowItem',['id'=>$music->id])}}" class="ml-2"> <span
+                                        <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}" class="ml-2"> <span
                                                 class="text-info"> {{count($music->comments)}}</span><svg
                                                 class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                                 <use xlink:href="#si_comments">
@@ -638,8 +644,8 @@
                                                 </use>
                                             </svg>
                                         </a>
-                                        <a href="{{route('ShowItem',['id'=>$music->id])}}"> <span
-                                                class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->id)->count()}}</span>
+                                        <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"> <span
+                                                class="text-success">{{\App\Models\Contents\Likes::where('posts_id',$music->slug)->count()}}</span>
                                             <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                                 0="" 24="" 24""="">
                                                 <use xlink:href="#si_thumb-up">
@@ -670,7 +676,7 @@
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                                             class="fa fa-bookmark i-lg"></i> </span> </div> <a
-                                    href="{{route('ShowItem',['id'=>$music->id])}}" class="music-img">
+                                    href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}" class="music-img">
                                     @if($music->picture)
                                     <img src="{{asset($music->picture)}}" width="100%;" style="height: 131px;" alt=""
                                         class="r r-2x img-full">
@@ -680,7 +686,7 @@
                                     @endif
                                 </a>
                             </div>
-                            <div class="padder-v px-2"> <a href="{{route('ShowItem',['id'=>$music->id])}}"
+                            <div class="padder-v px-2"> <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"
                                     class="text-ellipsis">{{$music->title}}</a>
                                 <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
                                 <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:
@@ -762,11 +768,11 @@
                         </div>
                         <div class="card__content px-3 pb-2">
                             <div class="card__share">
-                                <a href="{{route('ShowItem',['id'=>$podcast->id])}}" id="" class=" share-icon"><i
+                                <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}" id="" class=" share-icon"><i
                                         class="fa fa-play-circle"></i></a>
                             </div>
                             <article class="card__article mt-2 pt-3">
-                                <h2><a href="{{route('ShowItem',['id'=>$podcast->id])}}"
+                                <h2><a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}"
                                         class="fs-0-8">{{$podcast->title}}</a></h2>
                                 
                             </article>
