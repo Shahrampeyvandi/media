@@ -227,7 +227,7 @@ class ContentController extends Controller
             ]);
         }
             toastr()->success('با موفقیت افزوده شد');
-            return back();
+            return redirect()->route('Panel.Dashboard');
 
 
 

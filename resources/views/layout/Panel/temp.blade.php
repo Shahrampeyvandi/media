@@ -644,6 +644,7 @@
        if($(this).hasClass('active')){
         $(this).next('ul').slideUp()
         $('i').removeClass('rotate-in')
+        $(this).removeClass('active')
         return false;
         }
        $('ul.sub-menu').slideUp()

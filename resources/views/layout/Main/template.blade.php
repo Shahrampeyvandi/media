@@ -64,10 +64,15 @@
 </head>
 
 <body class="device-desktop theme-light">
-    <div class="page-loader" style="display: none; ">
+    <div class="page-loader " style="display: none;" >
         <div class="spinner-border text-success"></div>
-        <span>در حال بارگذاری ...</span>
+        <img src="{{asset('assets/images/LOGO.jpeg')}}" style=" bottom: 19px;
+        position: absolute;
+        /* bottom: 0; */
+        right: 103px;
+        width: 95px;" alt="">
     </div>
+    
 
     <div id="notes" class="d-b  pt-2">
         <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
@@ -569,7 +574,7 @@
             <div class="view">
 
                 @yield('content')
-                <section id="" style=" padding: 40px 0;" class="list-item li stylish-color" data-list="slider">
+                <section id="" style=" padding: 40px 0;position: absolute;bottom:0;" class="list-item li stylish-color" data-list="slider">
                 <div class="text-center text-white-50">
                     کلیه حقوق این سایت متعلق به ژن برتر میباشد
                 </div>

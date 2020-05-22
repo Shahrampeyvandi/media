@@ -21,7 +21,7 @@
                                             {{\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')}}
                                         </span>
                                     </div>
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                    <p style="word-wrap: break-word;min-height: 40px;font-size:18px;" class="w-100">
                                         {!!$comment->text!!}
                                     </p>
                                     <div>
@@ -74,7 +74,7 @@
                                         </span>
                                     </div>
 
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                    <p style="word-wrap: break-word;min-height: 40px;font-size:18px;" class="w-100">
                                         {!!$comment_l2->text!!}
                                     </p>
                                     <div>
@@ -124,7 +124,7 @@
                                         </span>
                                     </div>
 
-                                    <p style="word-wrap: break-word;min-height: 40px;" class="w-100">
+                                    <p style="word-wrap: break-word;min-height: 40px;font-size:18px;" class="w-100">
                                         {!!$comment_l3->text!!}
                                     </p>
                                     <div>

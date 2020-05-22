@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
                 $list .= ' <div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
             <div class="thumb-wrapper">
-            <a class="thumb" href="' . route('ShowItem', ['id' => $movie->id]) . '">
+            <a class="thumb" href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '">
                 <div class="abs-fit">';
                 if ($movie->picture) {
                     $list .= ' <img src="' . asset($movie->picture) . '" alt="' . $movie->title . '"
@@ -106,7 +106,7 @@ class CategoryController extends Controller
             </div>
             <div class="position-relative px-2 pt-3">
     
-            <a href="' . route('ShowItem', ['id' => $movie->id]) . '" title="' . $movie->title . '"
+            <a href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '" title="' . $movie->title . '"
                 class="title title d-block mb-2"><span>' . $movie->title . '</span></a>
                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">';
                 if ($movie->subjects) {
@@ -138,7 +138,7 @@ class CategoryController extends Controller
                     <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['id' => $music->id]) . '"><i
+                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['content'=>$music->categories->name,'slug'=>$music->slug]) . '"><i
                             class="ti ti-control-play fs-2"></i></a> </div>
                 <div class="bottom padder m-b-sm"> <a href="#" class="ml-2"> <span
                         class="text-info">' . count($music->comments) . '</span><svg
@@ -218,11 +218,11 @@ class CategoryController extends Controller
                     $list .= '</div>
                 <div class="card__content px-3 pb-2">
                     <div class="card__share">
-                        <a href="' . route('ShowItem', ['id' => $podcast->id]) . '" id="" class=" share-icon"
+                        <a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" id="" class=" share-icon"
                         ><i class="fa fa-play-circle"></i></a>
                     </div>
                     <article class="card__article mt-2 pt-3">
-                        <h2><a href="' . route('ShowItem', ['id' => $podcast->id]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
+                        <h2><a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
                         <p>' . $podcast->desc . '</p>
                     </article>
                 </div>
@@ -319,7 +319,7 @@ class CategoryController extends Controller
 
                 $list .= ' <div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
             <div class="thumb-wrapper">
-            <a class="thumb" href="' . route('ShowItem', ['id' => $movie->id]) . '">
+            <a class="thumb" href="' . route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '">
                 <div class="abs-fit">';
                 if ($movie->picture) {
                     $list .= ' <img src="' . asset($movie->picture) . '" alt="' . $movie->title . '"
@@ -364,7 +364,7 @@ class CategoryController extends Controller
             </div>
             <div class="position-relative px-2 pt-3">
     
-            <a href="' . route('ShowItem', ['id' => $movie->id]) . '" title="' . $movie->title . '"
+            <a href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '" title="' . $movie->title . '"
                 class="title title d-block mb-2"><span>' . $movie->title . '</span></a>
                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">';
                 if ($movie->subjects) {
@@ -396,7 +396,7 @@ class CategoryController extends Controller
                     <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['id' => $music->id]) . '"><i
+                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['content'=>$music->categories->name,'slug'=>$music->slug]) . '"><i
                             class="ti ti-control-play fs-2"></i></a> </div>
                 <div class="bottom padder m-b-sm"> <a href="#" class="ml-2"> <span
                         class="text-info">' . count($music->comments) . '</span><svg
@@ -476,11 +476,11 @@ class CategoryController extends Controller
                     $list .= '</div>
                 <div class="card__content px-3 pb-2">
                     <div class="card__share">
-                        <a href="' . route('ShowItem', ['id' => $podcast->id]) . '" id="" class=" share-icon"
+                        <a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" id="" class=" share-icon"
                         ><i class="fa fa-play-circle"></i></a>
                     </div>
                     <article class="card__article mt-2 pt-3">
-                        <h2><a href="' . route('ShowItem', ['id' => $podcast->id]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
+                        <h2><a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
                         <p>' . $podcast->desc . '</p>
                     </article>
                 </div>
