@@ -32,6 +32,10 @@ class SendResetPasswordToken extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.resetpassword');
+        return $this->subject($this->subject)
+        ->view('emails.resetpassword')
+        ->text('emails.resetpasswordtext')
+        ->with('token', $this->token);
+        //return $this->view('emails.resetpassword');
     }
 }

@@ -11,11 +11,11 @@
                     <div id="thumb" class="d-flex flex-md-wrap m-3 mx-md-0">
                         <div class="w-50">
                             @if ($related->picture)
-                            <a href="{{route('ShowItem',['id'=>$related->id])}}"> <img
+                            <a href="{{route('ShowItem',['content'=>$related->categories->name,'slug'=>$related->slug])}}"> <img
                                     src="{{route('BaseUrl')}}/{{$related->picture}}" alt="{{$related->title}}"
                                     aria-label="{{$related->title}}" class="thumb-image" style="min-height: 130px;"></a>
                             @else
-                            <a href="{{route('ShowItem',['id'=>$related->id])}}">
+                            <a href="{{route('ShowItem',['content'=>$related->categories->name,'slug'=>$related->slug])}}">
                                 <div class="d-flex justify-content-center align-items-center h-100 " style="    border: 1px solid gray;
                                 border-radius: 4px;">
                                     {{-- <img src="{{asset('assets/images/cinema.png')}}"
@@ -34,7 +34,7 @@
                         </div>
                         <div class="thumb-details pr-2 pt-2 mb-3">
                             <h4 class="thumb-title">
-                                <a href="{{route('ShowItem',['id'=>$related->id])}}" title="{{$related->title}}"
+                                <a href="{{route('ShowItem',['content'=>$related->categories->name,'slug'=>$related->slug])}}" title="{{$related->title}}"
                                     class="title"><span>{{Illuminate\Support\Str::limit($related->title,12)}}</span></a>
                             </h4>
                             <a href="{{route('Category',['slug'=>$related->categories->latin_name])}}"
