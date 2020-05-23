@@ -18,8 +18,8 @@ class CreateAdvertLinksTable extends Migration
             $table->string('content_link');
             $table->string('pic_address')->nullable();
             $table->enum('type',['image','video']);
-            $table->unsignedBigInteger('cat_id');
-            $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('cat_id');
+           
             $table->integer('view_count');
             $table->string('status')->nullable();
             $table->timestamps();

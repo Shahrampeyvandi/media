@@ -18,6 +18,7 @@
                         <h3 class="mt-3 mb1">مربوط به : </h3>
 
                         <select name="category" id="category" class="form-control custom-select">
+                            <option value="همه">همه</option>
                             @foreach (\App\Models\Contents\Categories::whereNotIn('id', [4,5])->get() as $item)
 
                             <option value="{{$item->id}}">{{$item->name}}</option>

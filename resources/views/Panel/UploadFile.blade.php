@@ -156,7 +156,7 @@
             <div class="sc-gqjmRU CZXVf">؟</div>
         </div>
         <div class="sc-VigVT hESCWV">
-            <p>avi,mp4,mp3,mpga,mkv,3gp
+            <p>mp4,mp3,mpga,mkv,3gp
             </p>
         </div>
     </div>
@@ -220,7 +220,7 @@
                 filesize:2000 * 1024,
                 accept: "jpg|jpeg|png|JPG|JPEG|PNG"
             },
-            file:{required:true,accept: "avi,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp"},
+            file:{required:true,accept: "mp4,mp3,mpga,mkv,3gp"},
             lang:"required",
             subject:"required",
             level:"required",

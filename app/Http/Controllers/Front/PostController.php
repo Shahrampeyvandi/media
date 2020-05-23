@@ -26,7 +26,11 @@ class PostController extends Controller
         $id = $content->id;
         $title= "ژن برتر - $content->title";
         $followers = Follows::where('followed_id',$content->members_id)->count();
-        $advert = AdvertLink::where(['cat_id' => $content->categories_id, 'status' => 1])->latest()->first();
+
+        $advert = AdvertLink::where('cat_id',$content->categories_id)
+        ->orWhere(['cat_id' =>'همه'])->where('status',1)
+        ->latest()->first();
+        
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
@@ -70,7 +74,9 @@ class PostController extends Controller
             $isbuyedit = true;
         }
 
-        $relateds = Posts::where('categories_id', $content->categories_id)->where('id', '!=', $id)->take(5)->get();
+        $relateds = Posts::where('categories_id', $content->categories_id)
+        ->where('confirmed',1)
+        ->where('id', '!=', $id)->take(10)->get();
         $categories = Categories::all();
         $countcategoryposts = Posts::where('categories_id', $content->categories_id)->count();
         $comments =
@@ -234,7 +240,10 @@ class PostController extends Controller
         $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
         $episode_id = $ep;
-        $advert = AdvertLink::where(['cat_id' => $content->post->categories_id, 'status' => 1])->latest()->first();
+       
+        $advert = AdvertLink::where('cat_id',$content->categories_id)
+        ->orWhere(['cat_id' =>'همه'])->where('status',1)
+        ->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;

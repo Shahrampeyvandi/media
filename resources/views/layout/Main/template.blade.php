@@ -574,7 +574,7 @@
             <div class="view">
 
                 @yield('content')
-                <section id="" style=" padding: 40px 0;position: absolute;bottom:0;" class="list-item li stylish-color" data-list="slider">
+                <section id="" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
                 <div class="text-center text-white-50">
                     کلیه حقوق این سایت متعلق به ژن برتر میباشد
                 </div>

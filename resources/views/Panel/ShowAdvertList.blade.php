@@ -47,15 +47,15 @@
                         @endif
 
                     </td>
-                <td>
+                    <td>
 
-                    @if ($advert->status == 1)
+                        @if ($advert->status == 1)
                         <span class="text-success">فعال</span>
-                    @else
-                            <span class="text-danger">غیرفعال</span>
-                    @endif
-                   
-                </td>
+                        @else
+                        <span class="text-danger">غیرفعال</span>
+                        @endif
+
+                    </td>
                     <td><span class="text-primary">
                             @if ($advert->type == 'image')
                             تصویر
@@ -66,7 +66,15 @@
 
                         </span></td>
 
-                    <td>{{$advert->categories->name}}</td>
+                    <td>
+                        @if ($advert->cat_id == "همه")
+                        همه
+
+                        @else
+                        {{\App\Models\Contents\Categories::where('id',$advert->cat_id)->first()->name}}
+                        @endif
+                       
+                    </td>
                     <td>
 
                         {{$advert->view_count}}
@@ -82,10 +90,9 @@
 
                         <div class="btn-group" role="group" aria-label="">
 
-                            <a data-id="{{$advert->id}}"
-                                class="delete btn btn-rounded btn-danger btn-sm m-0">حذف</a>
-                                <a data-id="{{$advert->id}}"
-                                    class="status btn btn-rounded btn-info btn-sm m-0">تغییر وضعیت</a>
+                            <a data-id="{{$advert->id}}" class="delete btn btn-rounded btn-danger btn-sm m-0">حذف</a>
+                            <a data-id="{{$advert->id}}" class="status btn btn-rounded btn-info btn-sm m-0">تغییر
+                                وضعیت</a>
                         </div>
                     </td>
                 </tr>
@@ -103,7 +110,7 @@
 @section('js')
 
 <script>
-     $('.delete').click(function(e){
+    $('.delete').click(function(e){
                 e.preventDefault()
                 var value = $(this).data('id');
                 swal({

@@ -77,7 +77,7 @@
                     <div class="sc-gqjmRU CZXVf">؟</div>
                 </div>
                 <div class="sc-VigVT hESCWV">
-                    <p>avi,mp4,mp3,mpga,mkv,3gp
+                    <p>mp4,mp3,mpga,mkv,3gp
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
 		rules: {
             epizode_number:"required",
             epizode_title:"required",
-            file:{required:true,accept: "avi,mp4,mov,mpga,mkv,3gp"},
+            file:{required:true,accept: "mp4,mpga,mkv,3gp"},
             epizode_subtitle:{
                 accept: "vtt"
             }
