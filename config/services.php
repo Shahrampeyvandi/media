@@ -33,6 +33,6 @@ return [
     'google' => [
         'client_id' => '255472263652-volkl5iah38trt9ivftkblllmcp54rm7.apps.googleusercontent.com',
         'client_secret' => 'O2lRUjAEGHHEII5AewHs5WKx',
-        'redirect' => 'http://genebartar.ir/auth/google/callback',
+        'redirect' => 'http://www.genebartar.com/auth/google/callback',
     ],
 ];
