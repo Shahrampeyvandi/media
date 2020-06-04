@@ -119,10 +119,12 @@
                         {{$member->wallet}}
                         <br>
 
-                        <div class="btn-group" role="group" aria-label="">
-                            <a data-id="{{$member->id}}"
-                                class="delete-post btn  btn-danger btn-sm m-0">تسویه</a>
-                        </div>
+                       @if (auth()->user()->is_admin())
+                       <div class="btn-group" role="group" aria-label="">
+                        <a data-id="{{$member->id}}"
+                            class="delete-post btn  btn-danger btn-sm m-0">تسویه</a>
+                    </div>
+                       @endif
                     </td>
 
                     <td style="">
@@ -150,17 +152,21 @@
                         @if($member->approved == 1)
                         رسمی
                         <br>
-                        <div class="btn-group" role="group" aria-label="">
-                            <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
-                                 غیر رسمی</a>
-                        </div>
+                            @if (auth()->user()->is_admin())
+                            <div class="btn-group" role="group" aria-label="">
+                                <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
+                                    غیر رسمی</a>
+                            </div>
+                            @endif
                         @else
                         غیر رسمی 
                         <br>
-                        <div class="btn-group" role="group" aria-label="">
-                            <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
-                                 رسمی</a>
-                        </div>
+                            @if (auth()->user()->is_admin())
+                            <div class="btn-group" role="group" aria-label="">
+                                <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
+                                    رسمی</a>
+                            </div>
+                            @endif
                         @endif
 
 
@@ -172,7 +178,9 @@
                    
                  
                 <td>
-                    <a href="" data-id="{{$member->id}}"  class=" delete--user btn btn-sm btn-danger"> <i class="fas fa-trash"></i></a>
+                    @if (auth()->user()->is_admin())
+                   <a href="" data-id="{{$member->id}}"  class=" delete--user btn btn-sm btn-danger"> <i class="fas fa-trash"></i></a>
+                   @endif
                 <a href="{{route('Members.SendMessage',$member)}}"  class="  btn btn-sm btn-primary"> <i class="fas fa-inbox"></i></a>
                 </td>
                    

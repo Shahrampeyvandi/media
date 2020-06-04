@@ -7,7 +7,7 @@
 @endphp
 <div class="row">
     <div class="col-md-12">
-        <section id="" style="padding: 40px 0;" class="list-item li px-3" data-list="slider">
+        <section id="" style="padding: 40px 0;height: 100vh;" class="list-item li px-3" data-list="slider">
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
                     style="margin-right: 0px;"><span class="title__divider__wrapper text-header">  {{$title}} <span

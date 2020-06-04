@@ -69,6 +69,7 @@
                             <a
                                 class="button button-info button-small button-hollow button-bordered upload-video"
                                 data-ctr="upload-button" data-ctr-cta="upload-button">
+                                <i class="fa fa-wallet"></i>
                                 <span class="text mr-1">موجودی کیف پول: {{auth()->user()->wallet}}</span></a>
                         </div>
                         @endif
@@ -644,6 +645,7 @@
        if($(this).hasClass('active')){
         $(this).next('ul').slideUp()
         $('i').removeClass('rotate-in')
+        $(this).removeClass('active')
         return false;
         }
        $('ul.sub-menu').slideUp()

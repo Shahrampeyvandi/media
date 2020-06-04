@@ -15171,3 +15171,7 @@ font-size: 12px;
 .vjs-watermark{
   bottom: 0 !important;
 }
+
+.view{
+  min-height:100vh;
+}
