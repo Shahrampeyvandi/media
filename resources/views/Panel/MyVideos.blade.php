@@ -5,7 +5,7 @@
         <div class="tab-wrapper">
             <a href="{{route('MyVideos')}}"  @if (request()->path() == "panel/myvideos")
             class="btn btn-info" @else class="btn btn-light"  @endif >فیلم </a>
-            <a href="{{route('MyVideos','clips')}}" @if (request()->path() == "panel/myvideos/clips")
+            <a href="{{route('MyVideos','genplus')}}" @if (request()->path() == "panel/myvideos/genplus")
             class="btn btn-info" @else class="btn btn-light"  @endif> ژن پلاس </a>
 
             <a href="{{route('MyVideos','animations')}}" @if (request()->path() == "panel/myvideos/animations")
@@ -22,12 +22,12 @@
 @component('Panel.Components.videos', ['movies' => $posts])
 @endcomponent
 @endif
-@if (request()->path() == "panel/myvideos/clips")
-@component('Panel.Components.clips', ['clips' => $posts])
+@if (request()->path() == "panel/myvideos/genplus")
+@component('Panel.Components.videos', ['movies' => $posts])
 @endcomponent
 @endif
 @if (request()->path() == "panel/myvideos/animations")
-@component('Panel.Components.animations',['animations' => $posts])
+@component('Panel.Components.videos',['movies' => $posts])
 @endcomponent
 @endif
    

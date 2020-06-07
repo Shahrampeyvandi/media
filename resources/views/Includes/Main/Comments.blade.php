@@ -32,13 +32,13 @@
                                                     class="like-comment border-1 radius-5 pr-2 text-success" href="#">
                                                     <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','like')->count()}}</span>
-                                                    <i class="fa fa-plus-square"></i>
+                                                    <i class="fa fa-check"></i>
                                                 </a>
                                                 <a data-id="{{$comment->id}}"
                                                     class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
                                                     href="#"> <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment->id)->where('score','dislike')->count()}}</span>
-                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                    <i class="fa fa-close pl-1"></i>
                                                 </a>
                                             </div>
                                             <div class="text-info mr-2">
@@ -85,13 +85,13 @@
                                                     class="like-comment border-1 radius-5 pr-2 text-success" href="#">
                                                     <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','like')->count()}}</span>
-                                                    <i class="fa fa-plus-square"></i>
+                                                    <i class="fa fa-check"></i>
                                                 </a>
                                                 <a data-id="{{$comment_l2->id}}"
                                                     class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
                                                     href="#"> <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l2->id)->where('score','dislike')->count()}}</span>
-                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                    <i class="fa fa-close pl-1"></i>
                                                 </a>
                                             </div>
                                             <div class="text-info mr-2">
@@ -135,13 +135,13 @@
                                                     class="like-comment border-1 radius-5 pr-2 text-success" href="#">
                                                     <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l3->id)->where('score','like')->count()}}</span>
-                                                    <i class="fa fa-plus-square"></i>
+                                                    <i class="fa fa-check"></i>
                                                 </a>
                                                 <a data-id="{{$comment_l3->id}}"
                                                     class="dislike-comment border-1 radius-5 pr-2 text-danger mr-2"
                                                     href="#"> <span
                                                         class="text-success pl-3">{{\App\Models\Contents\CommentsLikes::where('comments_id',$comment_l3->id)->where('score','dislike')->count()}}</span>
-                                                    <i class="fa fa-plus-square pl-1"></i>
+                                                    <i class="fa fa-close pl-1"></i>
                                                 </a>
                                             </div>
                                             <div class="text-info mr-2">

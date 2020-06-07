@@ -44,7 +44,7 @@
             @case("panel/members/deactive")
             غیر فعال
             @break
-           
+
 
             @default
 
@@ -98,8 +98,10 @@
                     <th>وضعیت کانال</th>
                     @endif
                     <th>تاریخ عضویت</th>
-                    
+
+                    @if (auth()->user()->is_admin())
                     <th>عملیات</th>
+                    @endif
 
                 </tr>
             </thead>
@@ -111,7 +113,8 @@
                     <td>{{$member->firstname}}</td>
                     <td>{{$member->lastname}}</td>
                     <td>{{$member->mobile}}</td>
-                <td><a href="{{route('User.Show',$member->username)}}" class="text-primary">{{$member->username}}</a></td>
+                    <td><a href="{{route('User.Show',$member->username)}}"
+                            class="text-primary">{{$member->username}}</a></td>
                     <td>{{$member->email}}</td>
 
                     @if($member->group=='teacher')
@@ -119,12 +122,11 @@
                         {{$member->wallet}}
                         <br>
 
-                       @if (auth()->user()->is_admin())
-                       <div class="btn-group" role="group" aria-label="">
-                        <a data-id="{{$member->id}}"
-                            class="delete-post btn  btn-danger btn-sm m-0">تسویه</a>
-                    </div>
-                       @endif
+                        @if (auth()->user()->is_admin())
+                        <div class="btn-group" role="group" aria-label="">
+                            <a data-id="{{$member->id}}" class="delete-post btn  btn-danger btn-sm m-0">تسویه</a>
+                        </div>
+                        @endif
                     </td>
 
                     <td style="">
@@ -152,21 +154,23 @@
                         @if($member->approved == 1)
                         رسمی
                         <br>
-                            @if (auth()->user()->is_admin())
-                            <div class="btn-group" role="group" aria-label="">
-                                <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
-                                    غیر رسمی</a>
-                            </div>
-                            @endif
+                        @if (auth()->user()->is_admin())
+                        <div class="btn-group" role="group" aria-label="">
+                            <a id="fromoff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i
+                                    class="fas fa-sync"></i>&nbsp;
+                                غیر رسمی</a>
+                        </div>
+                        @endif
                         @else
-                        غیر رسمی 
+                        غیر رسمی
                         <br>
-                            @if (auth()->user()->is_admin())
-                            <div class="btn-group" role="group" aria-label="">
-                                <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i class="fas fa-sync"></i>&nbsp;
-                                    رسمی</a>
-                            </div>
-                            @endif
+                        @if (auth()->user()->is_admin())
+                        <div class="btn-group" role="group" aria-label="">
+                            <a id="tooff" value="{{$member->id}}" class=" btn  btn-danger btn-sm m-0"><i
+                                    class="fas fa-sync"></i>&nbsp;
+                                رسمی</a>
+                        </div>
+                        @endif
                         @endif
 
 
@@ -175,15 +179,19 @@
 
 
                     <td>{{\Morilog\Jalali\Jalalian::forge($member->created_at)->format('%d %B %Y')}}</td>
-                   
-                 
-                <td>
+
+
                     @if (auth()->user()->is_admin())
-                   <a href="" data-id="{{$member->id}}"  class=" delete--user btn btn-sm btn-danger"> <i class="fas fa-trash"></i></a>
-                   @endif
-                <a href="{{route('Members.SendMessage',$member)}}"  class="  btn btn-sm btn-primary"> <i class="fas fa-inbox"></i></a>
-                </td>
-                   
+                    <td>
+
+                        <a href="" data-id="{{$member->id}}" class=" delete--user btn btn-sm btn-danger"> <i
+                                class="fas fa-trash"></i></a>
+
+                        <a href="{{route('Members.SendMessage',$member)}}" class="  btn btn-sm btn-primary"> <i
+                                class="fas fa-inbox"></i></a>
+                    </td>
+
+                    @endif
 
 
                     @endforeach
@@ -203,9 +211,7 @@
 
 @section('js')
 <script>
-
-
-$('.delete--user').click(function(e){
+    $('.delete--user').click(function(e){
                 e.preventDefault()
                 var value = $(this).data('id');
            swal({

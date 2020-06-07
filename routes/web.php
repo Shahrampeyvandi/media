@@ -130,7 +130,7 @@ Route::middleware('auth')->group(function () {
     
 });
 
-Route::middleware(['auth','admin','mid-admin'])->group(function () {
+Route::middleware(['auth','mid-admin'])->group(function () {
     Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
     Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
     Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
@@ -141,6 +141,7 @@ Route::middleware(['auth','admin','mid-admin'])->group(function () {
     Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
     Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
     Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+    Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
 
 });
 
@@ -149,19 +150,10 @@ Route::middleware(['auth','admin'])->group(function () {
     
     Route::get('/panel/sendmessage/{member}', 'Panel\MembersController@SendMessage')->name('Members.SendMessage');
     Route::post('/panel/submitmessage', 'Panel\MembersController@SubmitMessage')->name('Members.SubmitMessage');
-    Route::get('/panel/members/{content?}', 'Panel\MembersController@Index')->name('Panel.Members');
+    
     Route::post('/panel/members/active', 'Panel\MembersController@Active')->name('Panel.Members.Active');
     Route::post('/panel/members/delete', 'Panel\MembersController@Delete')->name('Panel.Members.Delete');
 
-    Route::get('/panel/allposts/unconfirmed', 'Panel\PostsController@unconfirmed')->name('Panel.Posts.Unconfirmed');
-    Route::get('/panel/allposts/rejected', 'Panel\PostsController@rejected')->name('Panel.Posts.Rejected');
-    Route::post('/panel/confirm', 'Panel\PostsController@confirm')->name('Panel.Posts.Confirm.Submit');
-    Route::get('/panel/allposts/category/{content?}', 'Panel\PostsController@Index')->name('Panel.Posts.All');
-    Route::get('/panel/reject', 'Panel\PostsController@reject')->name('Panel.Posts.Reject.Submit');
-    Route::post('/panel/post/delete', 'Panel\PostsController@Delete')->name('Panel.Post.Delete');
-    Route::get('/panel/allcomments/confirm/{id}', 'Panel\CommentController@confirm')->name('Panel.Comments.Confirm.Submit');
-    Route::post('/panel/allcomments/unconfirm', 'Panel\CommentController@unconfirm')->name('Panel.Comments.UnConfirm.Submit');
-    Route::get('/panel/allcomments/{content?}', 'Panel\CommentController@Index')->name('Panel.Comments.All');
     Route::get('/panel/slideshow/', 'Panel\SlideshowController@Index')->name('Panel.SlideShow.All');
     Route::post('/panel/slideshow/submit', 'Panel\SlideshowController@Submit')->name('Panel.SaveSlideShow');
     Route::post('/panel/slideshow/delete', 'Panel\SlideshowController@Delete')->name('Panel.SlideShow.Delete');
@@ -180,7 +172,7 @@ Route::middleware(['auth','admin'])->group(function () {
     
     Route::post('/panel/savebanner', 'Panel\ContentController@SaveBannesPost')->name('Panel.SaveBannesPost');
 
-    Route::get('/post/check/{id}', 'Panel\PostsController@CheckPost')->name('Admin.CheckPost');
+   
     Route::get('panel/reports', 'Panel\PostsController@allreport')->name('Post.Report.All');
     Route::post('panel/responsemessage', 'Panel\DashboardController@responsemessage')->name('Message.Response');
     Route::get('panel/membermessages', 'Panel\DashboardController@messages')->name('Message.All');
@@ -213,11 +205,14 @@ Route::middleware(['auth','admin'])->group(function () {
     
     Route::get('panel/advertlist', 'Panel\ContentController@ShowAdvertList')->name('Panel.Content.AdvertList');
     Route::get('panel/addadvert', 'Panel\ContentController@AddContentAdvert')->name('Panel.Content.AddAdvert');
-    
     Route::post('panel/addadvert', 'Panel\ContentController@SubmitAdvertContent')->name('Panel.Content.AddAdvert');
+    Route::get('panel/editadvert/{advert}', 'Panel\ContentController@EditAdvertLink')->name('Panel.Content.EditAdvertLink');
+    Route::post('panel/editAdvert/submit', 'Panel\ContentController@EditAdvertLinkSubmit')->name('Panel.Content.SubmitEditAdvertLink');
+ 
     Route::post('panel/advert/delete', 'Panel\ContentController@DeleteAdvertContent')->name('Panel.AdvertList.Delete');
     
     Route::post('panel/advert/status', 'Panel\ContentController@StatusAdvertContent')->name('Panel.AdvertList.Status');
+    
 
     Route::post('panel/membertoadmin', 'Panel\MembersController@chageability')->name('Panel.Member.ChangeAbility');
 

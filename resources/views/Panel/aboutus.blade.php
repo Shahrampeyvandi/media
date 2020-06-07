@@ -125,7 +125,7 @@
 		}
 	});
 
-$(document).on('click','.clone-bottom',function(e){
+ $(document).on('click','.clone-bottom',function(e){
   e.preventDefault()
   let cloned = $(this).siblings('.wrapper-content').clone()
   cloned.find('input[type="text"]').val('')
@@ -135,17 +135,17 @@ $(document).on('click','.clone-bottom',function(e){
                                 </a></div>`)
                                
   $(this).prev('.clone').append(cloned)
-})
+ })
 
 
-$(document).on('click','.remove-link',function(e){
+ $(document).on('click','.remove-link',function(e){
     e.preventDefault()
     $(this).parents('.wrapper-content').remove()
   
-})
+ })
 
 
 
-});
+ });
 </script>
 @endsection

@@ -128,11 +128,13 @@ class DashboardController extends Controller
     public function UploadFile()
     {
         $query = request()->c;
+        
         $member = auth()->user();
         return view('Panel.UploadFile', compact(['member','query']));
     }
     public function SubmitUploadFile(Request $request)
     {
+        
         // check post with title
         if(Posts::whereTitle($request->title)->count()){
             return response()->json(
@@ -147,7 +149,7 @@ class DashboardController extends Controller
         $fileNamevideo = '1';
 
         $validator = Validator::make($request->all(), [
-            'file' => 'mimes:avi,x-m4v,mp4,mov,ogg,qt,mp3,mpga,mkv,3gp|required', new VideoDimension($request->type),
+            'file' => 'mimes:mp4,mov,mp3,mkv,3gp|required', new VideoDimension($request->type),
             'pic' => 'nullable|mimes:jpeg,png,jpg',
         ]);
         if ($validator->fails()) {
@@ -174,7 +176,13 @@ class DashboardController extends Controller
                 mkdir($destinationPath, 0755, true);
             }
             $extension = $request->file('file')->getClientOriginalExtension();
+           if($extension == "mp3"){
+               $media = 'audio';
+           }else{
+               $media = 'video';
+           }
             // Valid extensions
+
             $fileNamevideo = 'file_' . time() . '.' . $extension;
             //$request->file('file')->move($destinationPath, $fileNamevideo);
             $filePath22 = "files/posts/$fileNamevideo";
@@ -208,12 +216,8 @@ class DashboardController extends Controller
         } else {
             $subTitle = '';
         }
-        if ($request->type == 4 || $request->type == 5) {
-
-            $media = 'audio';
-        } else {
-            $media = 'video';
-        }
+        
+        
         $getID3 = new \getID3;
         $filedur = $getID3->analyze($request->file('file'));
 

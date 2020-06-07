@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
     <link rel="stylesheet" href=" {{asset('Panel/assets/css/RTL.css')}} ">
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}" />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
     {{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/sweet-alert.js"></script> --}}
     @yield('css')
     <script>
@@ -230,6 +230,17 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        
+                        <li class="menu-item-link">
+                            <a style="padding-right: 28px;" href="{{route('Panel.Members')}}" aria-label="لیست کاربران">
+                            
+                                <i
+                                    class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">لیست کاربران</span>
+                                </div>
+                            </a>
                         </li>
 
                         @endif

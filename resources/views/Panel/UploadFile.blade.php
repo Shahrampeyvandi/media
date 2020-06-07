@@ -18,11 +18,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <select name="type" id="type" class="form-control browser-default custom-select">
-                            <option value="" selected>دسته بندی</option>
+                            <option value="" >دسته بندی</option>
                             @if($member->group=='student')
                             @forelse (\App\Models\Contents\Categories::where('id','!=',6)->latest()->get() as $category)
                             
-                            <option value="{{$category->id}}" >{{$category->name}}</option>
+                            <option value="{{$category->id}}" @if ($category->latin_name == $query)
+                                selected
+                                @endif >{{$category->name}}</option>
                             @empty
                             <option value="" selected>دسته بندی تعریف نشده است</option>
                             @endforelse
@@ -124,7 +126,7 @@
                         <div class="form-group col-md-4">
                             <label for="desc">قیمت: </label>
                             <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
-                            <span class="rial">تومان</span>
+                            <span class="rial">ریال</span>
                         </div>
                     </div>
                     @endif

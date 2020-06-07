@@ -1,14 +1,15 @@
 @foreach($musics as $music)
-
-<div class="item w-100 ml-5 mr-2  my-5 card" style="max-width: 233px;">
+<div class="item w-100  mr-2  my-5 card" style="max-width: 233px;margin-left:1.5rem;">
     <div class="position-relative">
         <div class="item-overlay opacity r r-2x bg-black">
+            <a class="item-overlay"
+            href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}">
+            
             <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                    class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-            <div class="center text-center m-t-n"> <a
-                    href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"><i
-                        class="ti ti-control-play fs-2"></i></a> </div>
+                    class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+            <div class="center text-center m-t-n"> <i
+                        class="ti ti-control-play fs-2"></i> </div>
             <div class="bottom padder m-b-sm">
 
                 <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}" class="ml-2"> <span
@@ -54,6 +55,7 @@
                     <i class="fa fa-clock-o pl-1"></i>
                 </span>
             </div>
+        </a>
         </div>
         <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                     class="fa fa-bookmark i-lg"></i> </span> </div> <a
@@ -68,7 +70,7 @@
         </a>
     </div>
     <div class="padder-v px-2"> <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"
-            class="text-ellipsis">{{$music->title}}</a>
+            class="text-ellipsis">{{Illuminate\Support\Str::limit($music->title,22)}}</a>
         <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
         <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:
             @if ($music->levels->name == 'مقدماتی')
@@ -103,5 +105,4 @@
         </div>
     </div>
 </div>
-
 @endforeach

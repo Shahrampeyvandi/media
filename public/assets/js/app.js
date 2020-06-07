@@ -1050,175 +1050,175 @@
                     });
             })());
     })(),
-    (function () {
-        "use strict";
-        var o, e, t, i;
-        function n() {
-            localStorage.setItem("term", $$.searchInput.val());
-        }
-        function a(a) {
-            clearTimeout(e),
-                (e = 0),
-                window.AJAX && AJAX.abort(),
-                o.addLoading("logo", { removeContent: !0 }),
-                (e = setTimeout(function () {
-                    var e, t, n;
-                    2 <= a.value.trim().length &&
-                        ((t = (e = a).value.trim()),
-                        (n =
-                            $(e)
-                                .parents(".search-widget")
-                                .attr("data-suggest-url") +
-                            "/" +
-                            t),
-                        (i =
-                            '<div class="more-suggestions"><a href="{link}" id="moreSuggestions" class="button button-white button-medium">' +
-                            TEXT.glob.viewMore +
-                            El.icon("left") +
-                            "</a></div>"),
-                        getContent({
-                            url: n,
-                            cache: t,
-                            afterAction: function (e) {
-                                o.removeLoading("logo"),
-                                    o.html(
-                                        e && "" !== e
-                                            ? e +
-                                                  i.replace(
-                                                      "{link}",
-                                                      searchQuery(t)
-                                                  )
-                                            : '<div class="no-suggest">' +
-                                                  TEXT.msg.noVideo +
-                                                  "</div>"
-                                    ),
-                                    $$.lazyLoad();
-                            },
-                        }));
-                }, 400));
-        }
-        function r(e) {
-            $$.html.css("overflow", "hidden"),
-                e.addClass("has-suggest"),
-                o.html(""),
-                localStorage.getItem($$.shname) &&
-                    (function () {
-                        (t = localStorage.getItem($$.shname).split(",")),
-                            o.removeLoading("logo");
-                        for (var e = t.length - 1; 0 <= e; e--)
-                            "" !== t[e] &&
-                                o.append(
-                                    '<a href="/search/' +
-                                        t[e] +
-                                        '" class="history" data-term="' +
-                                        t[e] +
-                                        '">' +
-                                        El.icon("history") +
-                                        '<span class="text">' +
-                                        t[e] +
-                                        "</span>" +
-                                        El.button({
-                                            type: "custom",
-                                            icon: "close",
-                                            className:
-                                                "button button-hollow button-circular button-gray delete",
-                                        }) +
-                                        "</a>"
-                                );
-                    })();
-        }
-        function s(e) {
-            $$.html.css("overflow", ""), e.removeClass("has-suggest");
-        }
-        "undefined" != typeof localStorage &&
-            ("search-results" === $$.page && (n(), $$.addSearchHistory()),
-            "single-page" === $$.page &&
-                void 0 !== $$.pageName &&
-                "live" !== $$.pageName &&
-                localStorage.getItem("term") &&
-                ($$.searchInput.val(localStorage.getItem("term")),
-                localStorage.removeItem("term"))),
-            $(document)
-                .on("click", "#openSearchWidget", function () {
-                    $$.header
-                        .find(".search-widget")
-                        .addClass("active")
-                        .find(".input")
-                        .focus();
-                })
-                .on("click", "#closeSearchWidget", function () {
-                    $$.header
-                        .find(".search-widget")
-                        .removeClass("active has-suggest")
-                        .find(".input")
-                        .val("");
-                })
-                .on("click", "#searchIcon", function () {
-                    var e = $(this).parents(".search-widget").find(".input"),
-                        t = e.val().trim();
-                    "" === t
-                        ? e.focus()
-                        : (window.location.href = searchQuery(t));
-                })
-                .on("click", ".search-widget .history", function (e) {
-                    ($(e.target).hasClass("delete") ||
-                        "button" === e.target.tagName ||
-                        "svg" === e.target.tagName ||
-                        "use" === e.target.tagName) &&
-                        e.preventDefault();
-                })
-                .on("click", ".search-widget .history > .delete", function () {
-                    var e = $(this).parents(".history");
-                    (t = localStorage.getItem($$.shname).split(",")).splice(
-                        t.indexOf(e.data("term")),
-                        1
-                    ),
-                        localStorage.setItem($$.shname, t.join(",")),
-                        e.remove();
-                })
-                .on("focus", ".search-widget .input", function () {
-                    var e,
-                        t = $(this).parents(".search-widget");
-                    (o = t.find(".suggestion-content")),
-                        (e = localStorage.getItem($$.shname)),
-                        "undefined" != typeof localStorage &&
-                            "" !== e &&
-                            0 < e.split(",").length &&
-                            r(t);
-                })
-                .on("keydown", ".search-widget .input", function (e) {
-                    13 === e.keyCode &&
-                        (window.location.href = searchQuery(this.value));
-                })
-                .on("input", ".search-widget .input", function (e) {
-                    var t = $(this).parents(".search-widget");
-                    if (
-                        !$$.isCommandKey(e.keyCode || e.which) &&
-                        t[0].hasAttribute("data-suggest-url")
-                    ) {
-                        if (
-                            ((o = t.find(".suggestion-content")),
-                            this.value.trim().length < 2)
-                        )
-                            return void s(t);
-                        r(t), a(this);
-                    }
-                })
-                .on("click", ".search-overlay", function (e) {
-                    e.preventDefault(),
-                        s($(this).parent().find(".search-widget"));
-                })
-                .on("click", '.search-widget [class*="thumbnail"]', function (
-                    e
-                ) {
-                    var t = $(this);
-                    e.preventDefault(),
-                        $$.addSearchHistory(),
-                        n(),
-                        t.data("uid") &&
-                            (window.location = t.find(".thumb").attr("href"));
-                });
-    })(),
+    // (function () {
+    //     "use strict";
+    //     var o, e, t, i;
+    //     function n() {
+    //         localStorage.setItem("term", $$.searchInput.val());
+    //     }
+    //     function a(a) {
+    //         clearTimeout(e),
+    //             (e = 0),
+    //             window.AJAX && AJAX.abort(),
+    //             o.addLoading("logo", { removeContent: !0 }),
+    //             (e = setTimeout(function () {
+    //                 var e, t, n;
+    //                 2 <= a.value.trim().length &&
+    //                     ((t = (e = a).value.trim()),
+    //                     (n =
+    //                         $(e)
+    //                             .parents(".search-widget")
+    //                             .attr("data-suggest-url") +
+    //                         "/" +
+    //                         t),
+    //                     (i =
+    //                         '<div class="more-suggestions"><a href="{link}" id="moreSuggestions" class="button button-white button-medium">' +
+    //                         TEXT.glob.viewMore +
+    //                         El.icon("left") +
+    //                         "</a></div>"),
+    //                     getContent({
+    //                         url: n,
+    //                         cache: t,
+    //                         afterAction: function (e) {
+    //                             o.removeLoading("logo"),
+    //                                 o.html(
+    //                                     e && "" !== e
+    //                                         ? e +
+    //                                               i.replace(
+    //                                                   "{link}",
+    //                                                   searchQuery(t)
+    //                                               )
+    //                                         : '<div class="no-suggest">' +
+    //                                               TEXT.msg.noVideo +
+    //                                               "</div>"
+    //                                 ),
+    //                                 $$.lazyLoad();
+    //                         },
+    //                     }));
+    //             }, 400));
+    //     }
+    //     function r(e) {
+    //         $$.html.css("overflow", "hidden"),
+    //             e.addClass("has-suggest"),
+    //             o.html(""),
+    //             localStorage.getItem($$.shname) &&
+    //                 (function () {
+    //                     (t = localStorage.getItem($$.shname).split(",")),
+    //                         o.removeLoading("logo");
+    //                     for (var e = t.length - 1; 0 <= e; e--)
+    //                         "" !== t[e] &&
+    //                             o.append(
+    //                                 '<a href="/search/' +
+    //                                     t[e] +
+    //                                     '" class="history" data-term="' +
+    //                                     t[e] +
+    //                                     '">' +
+    //                                     El.icon("history") +
+    //                                     '<span class="text">' +
+    //                                     t[e] +
+    //                                     "</span>" +
+    //                                     El.button({
+    //                                         type: "custom",
+    //                                         icon: "close",
+    //                                         className:
+    //                                             "button button-hollow button-circular button-gray delete",
+    //                                     }) +
+    //                                     "</a>"
+    //                             );
+    //                 })();
+    //     }
+    //     function s(e) {
+    //         $$.html.css("overflow", ""), e.removeClass("has-suggest");
+    //     }
+    //     "undefined" != typeof localStorage &&
+    //         ("search-results" === $$.page && (n(), $$.addSearchHistory()),
+    //         "single-page" === $$.page &&
+    //             void 0 !== $$.pageName &&
+    //             "live" !== $$.pageName &&
+    //             localStorage.getItem("term") &&
+    //             ($$.searchInput.val(localStorage.getItem("term")),
+    //             localStorage.removeItem("term"))),
+    //         $(document)
+    //             .on("click", "#openSearchWidget", function () {
+    //                 $$.header
+    //                     .find(".search-widget")
+    //                     .addClass("active")
+    //                     .find(".input")
+    //                     .focus();
+    //             })
+    //             .on("click", "#closeSearchWidget", function () {
+    //                 $$.header
+    //                     .find(".search-widget")
+    //                     .removeClass("active has-suggest")
+    //                     .find(".input")
+    //                     .val("");
+    //             })
+    //             .on("click", "#searchIcon", function () {
+    //                 var e = $(this).parents(".search-widget").find(".input"),
+    //                     t = e.val().trim();
+    //                 "" === t
+    //                     ? e.focus()
+    //                     : (window.location.href = searchQuery(t));
+    //             })
+    //             .on("click", ".search-widget .history", function (e) {
+    //                 ($(e.target).hasClass("delete") ||
+    //                     "button" === e.target.tagName ||
+    //                     "svg" === e.target.tagName ||
+    //                     "use" === e.target.tagName) &&
+    //                     e.preventDefault();
+    //             })
+    //             .on("click", ".search-widget .history > .delete", function () {
+    //                 var e = $(this).parents(".history");
+    //                 (t = localStorage.getItem($$.shname).split(",")).splice(
+    //                     t.indexOf(e.data("term")),
+    //                     1
+    //                 ),
+    //                     localStorage.setItem($$.shname, t.join(",")),
+    //                     e.remove();
+    //             })
+    //             .on("focus", ".search-widget .input", function () {
+    //                 var e,
+    //                     t = $(this).parents(".search-widget");
+    //                 (o = t.find(".suggestion-content")),
+    //                     (e = localStorage.getItem($$.shname)),
+    //                     "undefined" != typeof localStorage &&
+    //                         "" !== e &&
+    //                         0 < e.split(",").length &&
+    //                         r(t);
+    //             })
+    //             .on("keydown", ".search-widget .input", function (e) {
+    //                 13 === e.keyCode &&
+    //                     (window.location.href = searchQuery(this.value));
+    //             })
+    //             .on("input", ".search-widget .input", function (e) {
+    //                 var t = $(this).parents(".search-widget");
+    //                 if (
+    //                     !$$.isCommandKey(e.keyCode || e.which) &&
+    //                     t[0].hasAttribute("data-suggest-url")
+    //                 ) {
+    //                     if (
+    //                         ((o = t.find(".suggestion-content")),
+    //                         this.value.trim().length < 2)
+    //                     )
+    //                         return void s(t);
+    //                     r(t), a(this);
+    //                 }
+    //             })
+    //             .on("click", ".search-overlay", function (e) {
+    //                 e.preventDefault(),
+    //                     s($(this).parent().find(".search-widget"));
+    //             })
+    //             .on("click", '.search-widget [class*="thumbnail"]', function (
+    //                 e
+    //             ) {
+    //                 var t = $(this);
+    //                 e.preventDefault(),
+    //                     $$.addSearchHistory(),
+    //                     n(),
+    //                     t.data("uid") &&
+    //                         (window.location = t.find(".thumb").attr("href"));
+    //             });
+    // })(),
     (window.pop = function (e) {
         $("#popMessage").length ||
             $("body").append(

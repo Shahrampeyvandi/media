@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/login.css">
 
 
-<div class="col-md-8 offset-md-2 mb-3">
+<div class="col-md-8 offset-md-2 mb-3 mt-sm-120 mt-100">
 <form id="edit" action="{{route('Profile.Submit')}}" method="post" enctype="multipart/form-data">
 @csrf
 <input type="hidden" name="id" value="{{$member->id}}">

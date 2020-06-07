@@ -66,10 +66,10 @@ class PostsController extends Controller
                 $q->where('latin_name', 'videos');
             })->latest()->paginate(8);
         }
-        if ($content == 'clips') {
+        if ($content == 'genplus') {
             //get all related videos orderby created at 
             $posts =  Posts::where('members_id', $member->id)->whereHas('categories', function ($q) {
-                $q->where('latin_name', 'clips');
+                $q->where('latin_name', 'genplus');
             })->latest()->get();
         }
         if ($content == 'animations') {
@@ -205,7 +205,7 @@ class PostsController extends Controller
 
         // send notifications to user where post
         toastr()->success('محتوا با موفقیت تایید شد');
-        return redirect()->route('Panel.Posts.All');
+        return redirect('/panel/allposts/unconfirmed');
     }
 
     public function reject(Request $request)
@@ -225,11 +225,11 @@ class PostsController extends Controller
         $notification->title = 'پست شما تایید نشد!';
         $notification->text = 'پست اخیر شما با نام ' . $post->title . ' به دلیل ' . $request->reason . ' توسط مدیر رد تایید گردید.';
         $notification->posts_id = $post->id;
-        
-        if($post->delete())  $notification->save();
-       
+
+        if ($post->delete())  $notification->save();
+
         toastr()->success('محتوا حذف و پیام شما برای کاربر ارسال شد');
-        return back();
+        return redirect()->route('Panel.Posts.Unconfirmed');
     }
 
     public function ReadNoty(Request $request)
@@ -353,6 +353,11 @@ class PostsController extends Controller
             //     mkdir($destinationPath, 0755, true);
             // }
             $extension = $request->file('file')->getClientOriginalExtension();
+            if($extension == "mp3"){
+                $media = 'audio';
+            }else{
+                $media = 'video';
+            }
             // Valid extensions
             $fileNameepisode = 'file_' . time() . '.' . $extension;
             $destinationPath = "files/posts/episodes/$fileNameepisode";
@@ -389,12 +394,7 @@ class PostsController extends Controller
         } else {
             $subTitle = '';
         }
-        if ($request->type == 4 || $request->type == 5) {
-
-            $media = 'audio';
-        } else {
-            $media = 'video';
-        }
+        
         $getID3 = new \getID3;
         $file = $getID3->analyze($request->file('file'));
         $duration = gmdate('H:i:s', $file['playtime_seconds']);
@@ -402,7 +402,7 @@ class PostsController extends Controller
         $newepisode = new Episodes();
         $newepisode->posts_id = $request->post_id;
         $newepisode->title = $request->epizode_title;
-        
+        $newepisode->media = $media;
         $newepisode->number = $request->epizode_number;
         $newepisode->desc = $request->epizode_desc;
         $newepisode->categories_id = $post->categories_id;
@@ -427,21 +427,23 @@ class PostsController extends Controller
 
     public function CheckPost()
     {
+
         $member = Members::whereId(request()->member)->first();
         $post = Posts::whereId(request()->id)->first();
-        $advert = AdvertLink::where(['cat_id'=>$post->categories_id,'status'=>1])->latest()->first();
+        if (is_null($post)) return back();
+        $advert = AdvertLink::where(['cat_id' => $post->categories_id, 'status' => 1])->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
             $link_type = $advert->type;
-        }else{
+        } else {
             $link = '';
             $pic_link = '';
-            $link_type = '';    
+            $link_type = '';
         }
-    
+
         return view('Panel.CheckPost', compact([
-            'member', 
+            'member',
             'post',
             'link',
             'link_type',
@@ -451,6 +453,7 @@ class PostsController extends Controller
 
     public function report(Request $request)
     {
+
 
         $member = auth()->user()->id;
         $post = Posts::whereId($request->postid)->first();
@@ -469,15 +472,16 @@ class PostsController extends Controller
             $notification = new Notifications;
             $notification->members_id = $admin->id;
             $notification->title = 'گزارش تخلف پست';
-            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', $post->id) . '">' . $post->title . '</a>' . ' ثبت شد';
+            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', ['content'=>$post->categories->name,'slug'=>$post->slug]) . '">' . $post->title . '</a>' . ' ثبت شد';
             $notification->save();
         }
 
 
 
+
         toastr()->success('گزارش شما با موفقیت ثبت شد');
         return back();
-    }
+        }
 
     public function reportepisode(Request $request)
     {
