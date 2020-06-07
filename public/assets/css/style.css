@@ -5221,7 +5221,7 @@ justify-content-start {
   color: #212123;
 }
 .theme-light p {
-  color: #212123;
+  color: #6d6d6d;
 }
 .theme-dark h1,
 .theme-dark h2,
@@ -9500,6 +9500,7 @@ html[lang="fa"] .input-select select {
 [class^="thumbnail"] .thumb-wrapper .thumb-image {
   display: block;
   position: absolute;
+  object-fit:contain;
   top: 50%;
   left: 50%;
   width: 100%;
@@ -15193,9 +15194,15 @@ font-size: 12px;
 .view{
   min-height:100vh;
 }
+.header-carousel .item{
+  height:20rem;
+}
 @media (max-width: 883px) {
 #footer-section{
   margin-top: 260px !important;
+}
+.header-carousel .item{
+  height:10rem;
 }
 }
 img.client-img{

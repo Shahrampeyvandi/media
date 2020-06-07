@@ -338,7 +338,7 @@
 
       error:function(data){
         swal("خطا"
-            , 'آپلود ناموفق بود'
+            , data
             ,
              "error", {
 			button: "باشه"

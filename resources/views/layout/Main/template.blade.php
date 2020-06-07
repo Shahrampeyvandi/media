@@ -577,9 +577,10 @@
 
 
         <div id="" class="container">
-            <div class="">
+            <div class="showall-wrapper">
 
                 @yield('content')
+            </div>
                 <section id="footer-section" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
                 <div class="text-center text-white-50">
                     کلیه حقوق این سایت متعلق به ژن برتر میباشد
@@ -594,7 +595,7 @@
                     </ul>
                 </div>
                 @endif
-            </div>
+           
         </div>
 
 

@@ -107,7 +107,7 @@ class PostController extends Controller
            if (count($array)) {
             foreach ($array as $key => $value) {
                
-                if ($value > $max) {
+                if ($value > $max && $value > 10 ) {
                     $best = [];
                     $max = $value;
                     $bestcomment_id = $key;

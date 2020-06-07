@@ -1,5 +1,5 @@
 @extends('layout.Main.template')
-
+@section('title','ژن برتر - قوانین')
 @section('content')
 
 <div class="col-md-12 p-3">

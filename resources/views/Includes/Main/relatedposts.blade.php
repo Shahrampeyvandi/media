@@ -77,7 +77,7 @@
 <div class="col-md-3">
     <aside id="secondary" class="secondary">
         <section id="recom" class="single-recom mt-5">
-            <div class="alert alert-success ml-2">
+            <div class="alert alert-success ml-2 mr-2 mr-md-0">
                 محتوای مرتبط با این موضوع وجود ندارد
             </div>
         </section>

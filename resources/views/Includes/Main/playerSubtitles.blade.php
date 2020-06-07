@@ -5,9 +5,9 @@
                 class="text">#{{$tag->name}}</span></a>
         @endforeach
     </div>
-    <div class="d-flex justify-content-between align-items-center col-12">
-        <h1 class="title fs-1-4 fw-300"> {{$content->title}}</h1>
-        <div class="d-flex align-items-center">
+    <div class="d-flex justify-content-between  flex-column flex-md-rw col-12 mb-2">
+        <h1 class="title fs-1-2 fw-300"> {{$content->title}}</h1>
+        <div class="d-flex align-items-center my-3">
             <a id="shareinmedia" href="#"
                 class="button button-medium button-gray button-hollow "><svg class="icon icon-share"
                     viewBox="0 0 24 24" 0="" 24="" 24""="">
@@ -60,7 +60,7 @@
             @if (auth()->check())
             <a data-id="0" class="button__  p-1 text-primary mr-2 fs-0-8 radius-5 border-1 bc-blue">
 
-                افزودن دیدگاه
+                 دیدگاه
             </a>
 
             <a class="downloadfile p-1 text-success mr-2 fs-0-8 radius-5 border-1 bc-theme" 

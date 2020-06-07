@@ -16,10 +16,10 @@
     showRemaining: false, //Show remaining ad time > works if allowSkip is false
     adsOptions: {}, //Options passed to the ads plugin
     lang: {
-      'skip':'Skip',
-      'skip in': 'Skip in ',
+      'skip':'رد کردن',
+      'skip in': 'رد کردن آگهی در ',
       'advertisement': 'Advertisement',
-      'video start in': 'Video will start in: '
+      'video start in': 'ویدیو شروع خواهد شد : '
     } //Language entries for translation
   }, prerollPlugin;
 

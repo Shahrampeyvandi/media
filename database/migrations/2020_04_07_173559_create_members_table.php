@@ -38,6 +38,7 @@ class CreateMembersTable extends Migration
             $table->enum('ability',['admin','mid-level-admin','member'])->default('member');
             $table->text('aboutus')->nullable();
             $table->string('shaba')->nullable();
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
         DB::table('members')->insert(
@@ -56,6 +57,7 @@ class CreateMembersTable extends Migration
                 'years'=>'2',
                 'active'=>1,
                 'ability'=>'admin',
+                'remember_token'=>null
 
                 )
         );

@@ -211,7 +211,8 @@
 
 @section('js')
 <script>
-    $('.delete--user').click(function(e){
+    $(document).on('click','.delete--user',function(e){
+    
                 e.preventDefault()
                 var value = $(this).data('id');
            swal({
@@ -255,7 +256,9 @@
 
     
     })
-    $('.toadmin').click(function(e){
+
+    $(document).on('click','.toadmin',function(e){
+    
                 e.preventDefault()
                 var value = $(this).attr('value');
            swal({
@@ -291,8 +294,8 @@
     	});
     })
 
-
-    $('.touser').click(function(e){
+    $(document).on('click','.touser',function(e){
+   
                 e.preventDefault()
                 var value = $(this).attr('value');
                 swal({
@@ -327,8 +330,8 @@
     		}
     	});
     })
-   
-    $('#fromoff').click(function(e){
+    $(document).on('click','#fromoff',function(e){
+    
                 e.preventDefault()
                 var value = $(this).attr('value');
 
@@ -368,8 +371,8 @@
 
     })
 
+    $(document).on('click','#tooff',function(e){
     
-    $('#tooff').click(function(e){
                 e.preventDefault()
                 var value = $(this).attr('value');
                      // ajax request

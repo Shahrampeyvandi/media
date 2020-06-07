@@ -91,14 +91,14 @@ $sum['m'] = $sum['m']%60;
 
 
    
-    public function setDescAttribute($value)
-    {
-        return $this->attributes['desc']= nl2br($value);
-    }
-    public function setOtheroninformationAttribute($value)
-    {
-        return $this->attributes['otheroninformation']= nl2br($value);
-    }
+    // public function setDescAttribute($value)
+    // {
+    //     return $this->attributes['desc']= nl2br($value);
+    // }
+    // public function setOtheroninformationAttribute($value)
+    // {
+    //     return $this->attributes['otheroninformation']= nl2br($value);
+    // }
    
    
 
