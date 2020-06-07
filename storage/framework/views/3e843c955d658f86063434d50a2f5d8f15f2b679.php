@@ -2,58 +2,22 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div id="popup" class="overlay delete">
-    <div class="popup">
-        <a class="close" href="#">&times;</a>
-        <div class="content">
-            <form id="" action="<?php echo e(route('Panel.Posts.Reject.Submit')); ?>" method="get">
-                <?php echo csrf_field(); ?>
-                <div class="mt-5 pr-2">
-                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
-                    <div class="form-group col-md-12">
-                        <input type="hidden" id="post-id" name="post_id" value="">
-                        <input type="hidden" id="member-id" name="member_id" value="">
-                    </div>
-                    <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> دلیل عدم تایید:
-                    </label>
-                    <div class="form-group mt-2 ">
-                        <select name="reason" id="reason" class="form-control browser-default custom-select">
-                            <option value="" selected>باز کردن فهرست انتخاب</option>
-                       <?php $__currentLoopData = \App\Models\Contents\ViolationList::latest()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($item->name); ?>" ><?php echo e($item->name); ?></option>
-    
-                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                       
-                        </select>
-                    </div>               
-                </div>
-                <div class="form-group  float-left mt-1 ">
-                    <button type="submit" class="btn btn-sm btn-danger ">عدم تایید </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div>
-            <a href="<?php echo e(route('Panel.Posts.Unconfirmed')); ?>" <?php if(request()->path() == "panel/allposts/unconfirmed"): ?>
-                class="btn btn-info" <?php else: ?> class="btn btn-light" <?php endif; ?>>درانتظار تایید</a>
-            <a href="<?php echo e(route('Panel.Posts.Rejected')); ?>" <?php if(request()->path() == "panel/allposts/rejected"): ?>
-                class="btn btn-info" <?php else: ?> class="btn btn-light" <?php endif; ?>>تایید نشده</a>
-            <a href="#"></a>
-        </div>
-        <hr>
-    </div>
-</div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+        <li class="breadcrumb-item active">پست های پیش نویس</li>
+        
+    </ol>
+</nav>
+
 <div class="col-sm-12 col-sm-offset-3 col-md-12  ">
     <div class="wpb_wrapper py-3">
         <h2 class="  mt-15 mb-15 title__divider title__divider--line" style="margin-right: 0px;"><span
-                class="title__divider__wrapper">پست ها<span class="line brk-base-bg-gradient-right"></span>
+                class="title__divider__wrapper">پست های پیش نویس<span class="line brk-base-bg-gradient-right"></span>
             </span></h2>
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead class="grey lighten-1 text-white">
                 <tr>
                     <th>ردیف</th>
@@ -76,7 +40,7 @@
                 <tr>
                     <td><?php echo e($key+1); ?></td>
                     <td>
-                        <a class="text-primary" href="<?php echo e(route('ShowItem',$post->id)); ?>">
+                        <a class="text-primary" href=" <?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>">
                             <?php echo e($post->title); ?>
 
                         </a>
@@ -93,9 +57,8 @@
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a href="<?php echo e(route('Admin.CheckPost',$post->id)); ?>?member=<?php echo e($post->members_id); ?>"
-                                class=" btn btn-primary btn-sm m-0">مشاهده و تایید</a>
-                            <a data-id="<?php echo e($post->id); ?>" data-member="<?php echo e($post->members_id); ?>"
-                                class="post--delete btn btn-danger btn-sm m-0">رد</a>
+                                class=" btn btn-primary btn-sm m-0">مشاهده  </a>
+                          
                         </div>
                     </td>
                     <?php break; ?>

@@ -26,7 +26,29 @@
         </div>
     </div>
 </div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+        <li class="breadcrumb-item"><a href="#">کامنت ها</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <?php switch(request()->path()):
+            case ("panel/allcomments"): ?>
+            تایید شده
+            <?php break; ?>
+            <?php case ("panel/allcomments/unconfirmed"): ?>
+            در انتظار تایید
+            <?php break; ?>
+            <?php case ("panel/allcomments/rejected"): ?>
+            تایید نشده
+            <?php break; ?>
+           
 
+            <?php default: ?>
+
+            <?php endswitch; ?>
+        </li>
+    </ol>
+</nav>
 <div class="row">
     <div class="col-md-12">
         <div>
@@ -54,7 +76,7 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
             <tr>
                 <th>ردیف</th>
@@ -75,7 +97,7 @@
             <tr>
             <td><?php echo e($key+1); ?></td>
             <td style="max-width: 500px;word-wrap: break-word;"><?php echo $comment->text; ?></td>
-            <td><a class="text-primary" href="<?php echo e(route('ShowItem',['id'=>$comment->posts->id])); ?>"><?php echo e($comment->posts->title); ?></a></td>
+            <td><a class="text-primary" href="<?php echo e(route('ShowItem',['content'=>$comment->posts->categories->name,'slug'=>$comment->posts->slug])); ?>"><?php echo e($comment->posts->title); ?></a></td>
             <td><?php echo e($comment->members->username); ?></td>
             <td><?php echo e(\Morilog\Jalali\Jalalian::forge($comment->created_at)->format('%d %B %Y')); ?></td>
             <td class="text-success"><?php echo e($comment->commentlikes->where('score','like')->count()); ?></td>

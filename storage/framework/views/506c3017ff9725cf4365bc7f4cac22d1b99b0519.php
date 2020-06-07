@@ -5,12 +5,12 @@
     
 
 ?>
-<div class="row">
+<div class="row showall-wrapper">
     <div class="col-md-12">
         <section id="" style="padding: 40px 0;" class="list-item li px-3" data-list="slider">
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
-                    style="margin-right: 0px;"><span class="title__divider__wrapper">  <?php echo e($title); ?> ها<span
+                    style="margin-right: 0px;"><span class="title__divider__wrapper text-header">  <?php echo e($title); ?> <span
                             class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
                 <a href="#">   
@@ -24,7 +24,7 @@
                     </div>
 
                 </div>
-                <div class="row content-page ">
+                <div class="row content-page justify-content-sm-center justify-content-md-start ">
                    
                     <?php if(request()->path() == 'category/videos'): ?>
                     <?php $__env->startComponent('Main.components.video',['videos' => $posts]); ?>
@@ -35,11 +35,21 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
                     <?php endif; ?>
+                    <?php if(request()->path() == 'category/genplus'): ?>
+                    <?php $__env->startComponent('Main.components.video',['videos' => $posts]); ?>
+                
+                    <?php if (isset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba)): ?>
+<?php $component = $__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba; ?>
+<?php unset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+                    <?php endif; ?>
                     <?php if(request()->path() == 'category/animations'): ?>
-                    <?php $__env->startComponent('Main.components.animations',['animations' => $posts]); ?>
-                    <?php if (isset($__componentOriginalb5efba199958e601e638c3a8defcdb5e7d20d2b7)): ?>
-<?php $component = $__componentOriginalb5efba199958e601e638c3a8defcdb5e7d20d2b7; ?>
-<?php unset($__componentOriginalb5efba199958e601e638c3a8defcdb5e7d20d2b7); ?>
+                    <?php $__env->startComponent('Main.components.video',['videos' => $posts]); ?>
+                
+                    <?php if (isset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba)): ?>
+<?php $component = $__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba; ?>
+<?php unset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
                     <?php endif; ?>
@@ -57,6 +67,15 @@
                     <?php if (isset($__componentOriginal3f4b5a3d350223054b91697b5f2734dccaae4b6a)): ?>
 <?php $component = $__componentOriginal3f4b5a3d350223054b91697b5f2734dccaae4b6a; ?>
 <?php unset($__componentOriginal3f4b5a3d350223054b91697b5f2734dccaae4b6a); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+                    <?php endif; ?>
+                    <?php if(request()->path() == 'category/tutorial'): ?>
+                    <?php $__env->startComponent('Main.components.video',['videos' => $posts]); ?>
+                
+                    <?php if (isset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba)): ?>
+<?php $component = $__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba; ?>
+<?php unset($__componentOriginald7ef89c74a2a6fd287c782bf336d87ee05cae3ba); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
                     <?php endif; ?>

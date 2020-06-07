@@ -10,7 +10,7 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
             <tr>
                 <th>ردیف</th>
@@ -28,7 +28,7 @@
             <?php $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
             <td><?php echo e($key+1); ?></td>
-            <td><a href="<?php echo e(route('User.Videos',['name'=>$purchase->members->username])); ?>">
+            <td><a href="<?php echo e(route('User.Show',['name'=>$purchase->members->username])); ?>">
             <?php echo e($purchase->members->username); ?>
 
             </a>

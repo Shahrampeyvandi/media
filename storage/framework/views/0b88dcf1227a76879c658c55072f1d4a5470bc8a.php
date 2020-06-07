@@ -1,8 +1,8 @@
 
 <?php $__env->startSection('content'); ?>
-<?php echo $__env->make('Includes.Login.Header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <div class="main mt-5 mt-md-0" style=" display: flex; justify-content: center; align-items: center;">  
-        <div class="login-wrap">
+
+    <div class="main mt-5 mt-md-0" style="height:100vh; display: flex; justify-content: center; align-items: center;">  
+        <div class="login-wrap card">
             <div class="col-md-12">
                 
                 <div class="login-form p-md-3">

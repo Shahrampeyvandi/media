@@ -124,7 +124,13 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" action="<?php echo e(route('AddComment')); ?>" method="post">
+            <form id="" <?php if($type == "post"): ?>
+            action="<?php echo e(route('AddPostComment')); ?>"
+            <?php endif; ?> 
+            <?php if($type == "episode"): ?>
+            action="<?php echo e(route('AddEpisodeComment')); ?>"
+            <?php endif; ?> 
+            method="post">
                 <?php echo csrf_field(); ?>
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> افزودن دیدگاه
@@ -132,8 +138,8 @@
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
                         <input type="hidden" name="post_id" value="<?php echo e($content->id); ?>">
-                        <textarea type="text" rows="4" class="form-control" name="comment"
-                            id="comment"></textarea>
+                        <textarea type="text" rows="4" rows="6" class="add-emoji" name="comment"
+                            id="comment" dir="rtl"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -147,16 +153,24 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" action="<?php echo e(route('Post.Report')); ?>" method="post">
+            <form id="" 
+            <?php if($type == "post"): ?>
+            action="<?php echo e(route('Post.Report')); ?>"
+            <?php endif; ?> 
+            <?php if($type == "episode"): ?>
+            action="<?php echo e(route('Episode.Report')); ?>"
+            <?php endif; ?> 
+            
+            method="post">
                 <?php echo csrf_field(); ?>
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> ارسال گزارش تخلف
                     </h5>
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
-                        <input type="hidden" name="postid" value="<?php echo e($id); ?>">
+                        <input type="hidden" name="postid" value="<?php echo e($content->id); ?>">
 
-                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control"
+                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control add-emoji"
                             name="info" id="description"></textarea>
                     </div>
                 </div>

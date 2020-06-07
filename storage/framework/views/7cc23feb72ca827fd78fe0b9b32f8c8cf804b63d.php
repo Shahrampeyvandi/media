@@ -1,24 +1,36 @@
 <header class="channel-header">
     <section class="cover-wrapper">
 
+        <?php if(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first() && $url = \App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->image ): ?>
+        <div class="cover"
+            style="background-image: url(<?php echo e(asset($url)); ?>); background-position: center;">
+        </div>
+        <?php else: ?> 
         <div class="cover"
             style="background-image: url(<?php echo e(asset('assets/images/edu.jpg')); ?>); background-position: center;">
-        </div>
+        </div>   
+        <?php endif; ?>
         <div class="wrapper">
 
+            <?php if(!is_null(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first())): ?>
             <ul class="socials">
+
+
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="<?php echo e(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_whatsapp); ?>"
+                        class="social-icons" title="whatsapp" target="_blank"><i class="fa fa-whatsapp"></i></a>
                 </li>
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i class="fa fa-telegram"></i></a>
+                    <a href="<?php echo e(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_telegram); ?>"
+                        class="social-icons" title="telegram" target="_blank"><i class="fa fa-telegram"></i></a>
                 </li>
                 <li class="social">
-                    <a href="#" class="social-icons" title="facebook" target="_blank"><i
-                            class="fa fa-instagram"></i></a>
+                    <a href="<?php echo e(\App\Models\Members\ChannelInformations::where('members_id',auth()->id())->first()->link_instagram); ?>"
+                        class="social-icons" title="instagram" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
 
             </ul>
+            <?php endif; ?>
         </div>
     </section>
     <section class="details-row">
@@ -85,8 +97,8 @@
         <a href="<?php echo e(route('User.Show',['name'=>$member->username,'slug'=>'animations'])); ?>"
             class="tabs push_btn ml-2 px-2 mb-2 <?php if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'animations'])): ?> active <?php endif; ?>">انیمیشن
             ها</a>
-        <a href="<?php echo e(route('User.Show',['name'=>$member->username,'slug'=>'clips'])); ?>"
-            class="tabs push_btn ml-2 px-2 mb-2 <?php if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'clips'])): ?> active <?php endif; ?>">کلیپ
+        <a href="<?php echo e(route('User.Show',['name'=>$member->username,'slug'=>'genplus'])); ?>"
+            class="tabs push_btn ml-2 px-2 mb-2 <?php if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'genplus'])): ?> active <?php endif; ?>">ژن پلاس
             ها</a>
         <a href="<?php echo e(route('User.Show',['name'=>$member->username,'slug'=>'musics'])); ?>"
             class="tabs push_btn ml-2 px-2 mb-2 <?php if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'musics'])): ?> active <?php endif; ?>">موسیقی
@@ -97,10 +109,12 @@
         <a href="<?php echo e(route('User.Show',['name'=>$member->username,'slug'=>'tutorial'])); ?>"
             class="tabs push_btn ml-2 px-2 mb-2 <?php if(Request::url() == route('User.Show',['name'=>$member->username,'slug'=>'tutorial'])): ?> active <?php endif; ?>">دوره
             های آموزشی</a>
+        <?php if(auth()->user()->approved == 1 || auth()->user()->group == "admin"): ?>
 
         <a href="<?php echo e(route('User.About',['name'=>$member->username])); ?>" <?php if(request()->route()->getName() == "User.About"): ?>
             class="tabs push_btn active ml-2 px-2 mb-2" <?php else: ?> class="tabs push_btn ml-2 px-2 mb-2" <?php endif; ?> >درباره
             کانال</a>
+        <?php endif; ?>
 
     </div>
 

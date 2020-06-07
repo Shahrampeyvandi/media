@@ -1,31 +1,59 @@
 
 
 <?php $__env->startSection('content'); ?>
+
+<div id="popup" class="overlay delete">
+    <div class="popup">
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form id="" action="<?php echo e(route('Panel.Posts.Reject.Submit')); ?>" method="get">
+                <?php echo csrf_field(); ?>
+                <div class="mt-5 pr-2">
+                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
+                    <div class="form-group col-md-12">
+                        <input type="hidden" id="post-id" name="post_id" value="">
+                        <input type="hidden" id="member-id" name="member_id" value="">
+                    </div>
+                    <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> دلیل عدم تایید:
+                    </label>
+                    <div class="form-group mt-2 ">
+                        <select name="reason" id="reason" class="form-control browser-default custom-select">
+                            <option value="" selected>باز کردن فهرست انتخاب</option>
+                       <?php $__currentLoopData = \App\Models\Contents\ViolationList::latest()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($item->name); ?>" ><?php echo e($item->name); ?></option>
+    
+                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                       
+                        </select>
+                    </div>               
+                </div>
+                <div class="form-group  mt-1 ">
+                    <button type="submit" class="btn btn-sm btn-danger ">عدم تایید </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
 
         <div class="card p-3">
+            
+            <?php $__env->startComponent('Includes.Main.player',['content' => $post,'link' => $link,
+            'link_type'=>$link_type,
+            'pic_link'=> $pic_link]); ?>
+                
+            <?php if (isset($__componentOriginal05cfbe25f58014efe1d163753904743c3c2151ce)): ?>
+<?php $component = $__componentOriginal05cfbe25f58014efe1d163753904743c3c2151ce; ?>
+<?php unset($__componentOriginal05cfbe25f58014efe1d163753904743c3c2151ce); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
 
-            <section id="play" class="mt-3 ">
-                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                    poster="<?php echo e(route('BaseUrl')); ?>/<?php echo e($post->picture); ?>" data-setup="{}">
-                    <source src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($post->content_link); ?>" type="video/mp4" />
-                    <source src="<?php echo e(route('BaseUrl')); ?>/<?php echo e($post->content_link); ?>" type="video/webm" />
-                    
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports
-                            HTML5 video</a>
-                    </p>
-                </video>
-            </section>
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
                     style="margin-right: 0px;"><span class="title__divider__wrapper">ویرایش محتوا<span
                             class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
-
             </div>
             <form id="upload-file" method="post" action="<?php echo e(route('Panel.Posts.Confirm.Submit')); ?>" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
@@ -121,23 +149,27 @@
                         <textarea class="form-control" name="desc2" id="desc2" cols="30" rows="8"><?php echo $post->desc2; ?></textarea>
                     </div>
                 </div>
-                <div class="row">
-                    
-                    <div class="form-group col-md-2">
-                        <label for="desc">قیمت:  </label>
-                        <input type="number" class="form-control" value="<?php echo e($post->price); ?>" name="price" id="price" placeholder="">
-                        <span class="rial">ریال</span>
-                    </div>
-            
-                    
-                   
+               <?php if($post->categories->id == 6): ?>
+               <div class="row">
+                 
+                <div class="form-group col-md-2">
+                    <label for="desc">قیمت:  </label>
+                    <input type="number" class="form-control" value="<?php echo e($post->price); ?>" name="price" id="price" placeholder="">
+                    <span class="rial">ریال</span>
                 </div>
+        
+                
+               
+            </div>
+               <?php endif; ?>
 
                 <div class="form-footer">
                    
                     <div class="row">
                         <div class="col-md-3 my-2 btn--wrapper">
                             <input type="submit" name="upload" value="تایید محتوا" class="btn btn-sm btn-success" />
+                            <a data-id="<?php echo e($post->id); ?>" data-member="<?php echo e($post->members_id); ?>"
+                                class="post--delete btn btn-danger btn-sm m-0">رد</a>
                         </div>
                     </div>
                 </div>
@@ -203,24 +235,51 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('css'); ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
-<link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
 
 
-<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
 
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
 
-<script src="<?php echo e(asset('Panel/vendor/input-mask/jquery.mask.js')); ?>"></script>
-<script src="<?php echo e(asset('Panel/assets/js/input-mask.js')); ?>"></script>
-<!-- end::input mask -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+
+<script src="https://cdn.plyr.io/3.5.10/plyr.js"></script>
+
+
 
 <script src="<?php echo e(asset('Panel/vendor/ckeditor/ckeditor.js')); ?>"></script>
 <script>
+
     $(document).ready(function(){
+        
+    var controls =
+[
+    'play-large', // The large play button in the center
+    
+    'rewind', // Rewind by the seek time (default 10 seconds)
+    'play', // Play/pause playback
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'progress', // The progress bar and scrubber for playback and buffering
+    'current-time', // The current time of playback
+    'duration', // The full duration of the media
+    'mute', // Toggle mute
+    'volume', // Volume control
+    'captions', // Toggle captions
+    'settings', // Settings menu
+    'pip', // Picture-in-picture (currently Safari only)
+    'airplay', // Airplay (currently Safari only)
+    'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+    'fullscreen' // Toggle fullscreen
+];
+    const player = new Plyr('#player',{
+        controls
+    ,
+    speed:{ selected: 1, options: [ 0.5, 0.75, 1, 1.25] }
+    });
+
+
         CKEDITOR.replace('desc',{
             filebrowserUploadUrl : '<?php echo e(route('UploadImage')); ?>',
             filebrowserImageUploadUrl : '<?php echo e(route('UploadImage')); ?>'

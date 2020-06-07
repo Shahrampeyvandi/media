@@ -3,9 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>
-        ژن برتر - پنل
-    </title>
+   <?php if(auth()->user()->is_admin()): ?>
+   <title>
+    ژن برتر - پنل ادمین
+</title>   
+   <?php else: ?> 
+   <title>
+    ژن برتر - پنل کاربری
+</title>   
+   <?php endif; ?>
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
@@ -25,15 +31,12 @@
     <link rel="stylesheet" href="<?php echo e(asset('assets/css/dashboard.css')); ?>" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
-
     <?php echo $__env->yieldContent('css'); ?>
     <script>
         var isMobile = false;
     </script>
 </head>
-
 <body class="device-desktop theme-light">
-
     <div class="load-progress hidden">
         <div class="bar"></div>
     </div>
@@ -54,10 +57,24 @@
                                     </use>
                                 </svg>
                             </button>
+
+                            <a href="<?php echo e(route('BaseUrl')); ?>" class="mr-3 pt-1 ">
+                            <img src="<?php echo e(asset('assets/images/Logo-genebartar.png')); ?>" width="52px;" alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="item">
+                    <?php if(auth()->user()->group=='teacher'): ?>
                         <div class="inline-flex upload-button">
+                            <a
+                                class="button button-info button-small button-hollow button-bordered upload-video"
+                                data-ctr="upload-button" data-ctr-cta="upload-button">
+                                <i class="fa fa-wallet"></i>
+                                <span class="text mr-1">موجودی کیف پول: <?php echo e(auth()->user()->wallet); ?></span></a>
+                        </div>
+                        <?php endif; ?>
+                        <div class="inline-flex upload-button">
+                            
                             <a href="<?php echo e(route('UploadFile')); ?>"
                                 class="button button-info button-small button-hollow button-bordered upload-video"
                                 data-ctr="upload-button" data-ctr-cta="upload-button">
@@ -87,10 +104,10 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <div id="notification " class="d-b  pt-2">
-                                        <ul>
+                                        <ul class="ul">
                                             <?php $__currentLoopData = $notifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li>
-                                                <div class="  d-flex flex-column flex-sm-wrap mb-2">
+                                                <div class=" d-flex flex-column flex-sm-wrap mb-2">
                                                     <span class="mr-1 fs-0-8 d-flex justify-content-between">
                                                         <span class="text-info"><?php echo e($notification->title); ?>
 
@@ -114,42 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="search-widget" data-suggest-url="/search_suggestion">
-                    <div class="input-text">
-                        <div class="input-inner">
-
-                            <input class="input" type="search" id="" value="" name="search"
-                                placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
-
-                            <div class="input-box input-round"></div>
-                        </div>
-                        <button type="submit" id=searchIcon
-                            class="button button-small button-gray button-hollow button-circular end-icon search-icon">
-                            <svg class="icon icon-search" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                                <use xlink:href="#si_search">
-                                    <g id="si_search" data-viewBox="0 0 24 24">
-                                        <path
-                                            d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.494 4.494 0 0 1 9.5 14z">
-                                        </path>
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                    </g>
-                                </use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div id="suggestions" class="search-suggestion">
-
-                        <div id="suggestionContent" class="suggestion-content">
-                            <div class="loading loading-aparat">
-                                <div class="inner"><svg class="icon icon-inner">
-                                        <use xlink:href="#si_loading-inner"></use>
-                                    </svg><svg class="icon icon-outer">
-                                        <use xlink:href="#si_loading-outer"></use>
-                                    </svg></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <a href="#" class="search-overlay"></a>
             </div>
         </header>
@@ -166,8 +148,8 @@
                         </button>
                     </div>
                     <div class="logo">
-                        <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو"><svg
+                        <a href="#" title=""
+                            aria-label=""><svg
                                 class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
                                 viewBox="viewBox=" 0 0 90 31.89"">
                                 <use xlink:href="#si_logo-fa"></use>
@@ -181,13 +163,13 @@
                     <div class="avatar">
 
                         <?php if(auth()->user()->avatar): ?>
-                        <a href="#" class="picture image">
+                        <a href="<?php echo e(route('Panel.Dashboard')); ?>?u=<?php echo e(auth()->user()->username); ?>" class="picture image">
                             <div class=" avatar-img"
                                 style="background-image: url(<?php echo e(route('BaseUrl')); ?>/<?php echo e(auth()->user()->avatar); ?>)">
                             </div>
                         </a>
                         <?php else: ?>
-                        <a href="#" class="picture image">
+                        <a href="<?php echo e(route('Panel.Dashboard')); ?>?u=<?php echo e(auth()->user()->username); ?>" class="picture image">
                             <div class=" avatar-img"
                                 style="background-image: url(<?php echo e(asset('assets/images/avatar.png')); ?>)">
                             </div>
@@ -220,16 +202,64 @@
                             </a>
                         </li>
 
+                        <?php if(auth()->user()->is_mid_admin()): ?>
+                        <li class="menu-item-link d-flex flex-column">
+                            <a class="menu-link position-relative" aria-label=""><i
+                                    class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">پست ها 
+                                        <?php if(\App\Models\Contents\Posts::where('confirmed',0)->count()): ?>
+                                        <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
+                                <i class="sub-menu-arrow ti-angle-left "></i>
+                            </a>
+                            <ul class="sub-menu" style="display:none;">
+                          <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Posts.Unconfirmed')); ?>" aria-label="">
+                                        <div class="content">
+                                            <span class="text">پست های پیش نویس</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Comments.All')); ?>" aria-label="">
+                                        <div class="content">
+                                            <span class="text">کامنت ها</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="menu-item-link">
+                            <a style="padding-right: 28px;" href="<?php echo e(route('Panel.Members')); ?>" aria-label="لیست کاربران">
+                            
+                                <i
+                                    class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
+                                <div class="content">
+                                    <span class="text">لیست کاربران</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <?php endif; ?>
+
                         <?php if(auth()->user()->is_admin()): ?>
                         <li class="menu-item-link d-flex flex-column">
                             <a class="menu-link position-relative" aria-label=""><i
                                     class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
-                                    <span class="text">پست ها</span>
+                                    <span class="text">پست ها 
+                                        <?php if(\App\Models\Contents\Posts::where('confirmed',0)->count()): ?>
+                                        <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
+                                        <?php endif; ?>
+                                    </span>
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display:none;">
+                            <ul class="sub-menu" style="display:none;">
                                 <li class="menu-item-link mr-35">
                                     <a href="<?php echo e(route('Panel.Posts.All')); ?>" aria-label="">
                                         <div class="content">
@@ -255,25 +285,31 @@
                         </li>
 
                         <li class="menu-item-link d-flex flex-column">
-                            <a class="menu-link position-relative" href="#" aria-label=""><i
+                            <a class="menu-link position-relative" href="#" aria-label="کاربران"><i
                                     class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
                                     <span class="text">کاربران</span>
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display: none;">
+                            <ul class="sub-menu" style="display: none;">
                                 <li class="menu-item-link mr-35">
-                                    <a href="<?php echo e(route('Panel.Members')); ?>" aria-label="">
+                                    <a href="<?php echo e(route('Panel.Members')); ?>" aria-label="لیست کاربران">
                                         <div class="content">
                                             <span class="text">لیست کاربران</span>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="<?php echo e(route('Message.All')); ?>" aria-label="">
+                                
+                                 <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Channel.Requested.All')); ?>" aria-label="درخواست کانال رسمی">
                                         <div class="content">
-                                            <span class="text">پیام های کاربران</span>
+                                            <span class="text">درخواست کانال رسمی
+
+                                                <?php if(\App\Models\Members\ChannelInformations::where('accepted',1)->count()): ?>
+                                                <span class="fs-0-8 text-danger fw-500">جدید</span>
+                                                <?php endif; ?>
+                                            </span>
                                         </div>
                                     </a>
                                 </li>
@@ -287,35 +323,72 @@
                                 </div>
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
-                            <ul style="display: none;">
+                            <ul class="sub-menu" style="display: none;">
                                 <li class="menu-item-link mr-35">
-                                    <a href="<?php echo e(route('Panel.SlideShow.All')); ?>" aria-label="">
+                                    <a href="<?php echo e(route('Panel.SlideShow.All')); ?>" aria-label="اسلایدشو">
                                         <div class="content">
                                             <span class="text">اسلایدشو</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="<?php echo e(route('Panel.Policies')); ?>" aria-label="">
+                                    <a href="<?php echo e(route('Panel.BannerPost')); ?>" aria-label="پست ویژه">
+                                        <div class="content">
+                                            <span class="text">پست ویژه</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Policies')); ?>" aria-label="قوانین">
                                         <div class="content">
                                             <span class="text">قوانین</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="menu-item-link mr-35">
-                                    <a href="<?php echo e(route('Panel.ContactUs')); ?>" aria-label="">
+                                    <a href="<?php echo e(route('Panel.ContactUs')); ?>" aria-label="تماس با ما">
                                         <div class="content">
                                             <span class="text">تماس با ما</span>
                                         </div>
                                     </a>
                                 </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Advert')); ?>" aria-label="تبلیغات">
+                                        <div class="content">
+                                            <span class="text">صفحه تبلیغات</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Content.AdvertList')); ?>" aria-label="مدیریت تبلیغات">
+                                        <div class="content">
+                                            <span class="text">مدیریت تبلیغات</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item-link mr-35">
+                                    <a href="<?php echo e(route('Panel.Testimonials')); ?>" aria-label="سوالات متداول">
+                                        <div class="content">
+                                            <span class="text">سوالات متداول</span>
+                                        </div>
+                                    </a>
+                                </li>
                                 
+                        <?php if(auth()->user()->approved == 1 || auth()->user()->group == "admin"): ?>
+                          <li class="menu-item-link  mr-35">
+                            <a href="<?php echo e(route('AddAboutUs')); ?>" aria-label="">
+                                <div class="content">
+                                    <span class="text">اضافه کردن متن درباره ما</span>
+                                </div>
+                            </a>
+                         </li>
+                         <?php endif; ?>
                     </ul>
                     </li>
 
                     <li class="menu-item-link">
-                        <a href="<?php echo e(route('Post.Report.All')); ?>" aria-label=""><i
-                                class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
+                        <a href="<?php echo e(route('Post.Report.All')); ?>" aria-label="" style="padding-right: 37px;"><i
+                                class="fas fa-exclamation fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">گزارش های تخلف</span>
                             </div>
@@ -330,7 +403,34 @@
                             </div>
                         </a>
                     </li>
-
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Panel.Setting')); ?>" aria-label=""><i
+                                class="fas fa-cog fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تنظیمات</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a style="padding-right: 31px;" href="<?php echo e(route('Accounting.Transactions')); ?>" aria-label="تراکنش های من">
+                        
+                            <i
+                            class="fas fa-dollar-sign fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تراکنش های من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a style="padding-right: 24px;" href="<?php echo e(route('Panel.Checkout')); ?>" aria-label="تسویه حساب با اساتید">
+                            
+                            <i
+                            class="fas fa-hand-holding-usd fs-1-2 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تسویه حساب با اساتید</span>
+                            </div>
+                        </a>
+                    </li>
                     <?php endif; ?>
 
                     <?php if(auth()->user()->group == 'teacher' || auth()->user()->group == 'student'): ?>
@@ -353,7 +453,7 @@
                     </li>
                     <li class="menu-item-link">
                         <a href="<?php echo e(route('MyAudios')); ?>" aria-label=""><i
-                                class="ti ti-volume fs-1-5 text-black-50 ml-3"></i>
+                                class="fa fa-music fs-1-2 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">فایل های صوتی من</span>
                             </div>
@@ -367,14 +467,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu-item-link">
-                        <a href="<?php echo e(route('UnsubscribeFiles')); ?>" aria-label=""><i
-                                class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">فایل های منتشر نشده</span>
-                            </div>
-                        </a>
-                    </li>
+                    
                     <li class="menu-item-link">
                         <a href=" <?php echo e(route('Panel.Comments')); ?> " aria-label="گیم"><svg class="icon icon-comments"
                                 viewBox="0 0 24 24" 0="" 24="" 24""="">
@@ -405,7 +498,12 @@
                         <a href="<?php echo e(route('Message.My')); ?>" aria-label=""><i
                                 class="ti ti-layout-media-overlay fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">پیام های من</span>
+                                <span class="text">پیام های من
+
+                                    <?php if(\App\Models\Members\Messages::where('recived_id',auth()->user()->id)->where('read',0)->count()): ?>
+                                    <span class="fs-0-8 text-danger fw-500">جدید</span>
+                                    <?php endif; ?>
+                                </span>
                             </div>
                         </a>
                     </li>
@@ -413,29 +511,52 @@
                         <a href="<?php echo e(route('Purchase.My')); ?>" aria-label=""><i
                                 class="ti ti-info fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
-                                <span class="text">دوره های خریداری من</span>
+                                <span class="text">لیست خرید ها</span>
                             </div>
                         </a>
                     </li>
+   
                     <?php endif; ?>
+                    
                     <li class="menu-item-link">
-                        <a href="<?php echo e(route('Panel.MyFollowers')); ?>" aria-label="گیم"><svg class="icon icon-gamepad"
-                                viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                                <use xlink:href="#si_gamepad"></use>
-                            </svg>
+                        <a href="<?php echo e(route('Panel.MyFollowers')); ?>" aria-label="گیم">
+                            <i class="fa fa-users text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">دنبال کننده ها</span>
                             </div>
                         </a>
                     </li>
+                   
+                    <?php if(auth()->user()->group == 'teacher'): ?>
+                    <li class="menu-item-link">
+                        <a style="padding-right: 20px;" href="<?php echo e(route('Request.Channel')); ?>" aria-label="تقاضای کانال رسمی">
+                        
+                            <i
+                                class="fas fa-user-check fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تقاضای کانال رسمی</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-item-link">
+                        <a href="<?php echo e(route('Accounting.Transactions')); ?>" aria-label=""><i
+                        class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">تراکنش های من</span>
+                            </div>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                   
                     <li class="menu-item-link">
                         <a href="<?php echo e(route('Profile')); ?>" aria-label=""><i
-                                class="ti ti-user fs-1-5 text-black-50 ml-3"></i>
+                                class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">ویرایش پروفایل</span>
                             </div>
                         </a>
                     </li>
+                   
                     <li class="menu-item-link">
                         <a href="<?php echo e(route('logout')); ?>" aria-label=""><svg class="icon icon-logout" viewBox="0 0 24 24"
                                 0="" 24="" 24""="">
@@ -486,41 +607,52 @@
     <script>
         $('.noty-link').click(function(e){
         e.preventDefault()
-      
         let id = $(this).data('id')
-       
        var thiss = $(this)
-
+       
+       if ($(this).parents('ul').children().length == 1) {
+           $(this).parents('.dropdown-content').remove()
+       }
         $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
           });
-        $.ajax({ 
+        $.ajax({
             url: '<?php echo e(route("Noty.Read")); ?>',
             type: 'POST',
             data:{id:id},
-            dataType: 'JSON', 
+            dataType: 'JSON',
             cache:false,
             success: function(res) {
-                
-                $('.dropdown-content').removeClass('lighten-1').addClass('lighten-2')
+               if(res === true){
+                thiss.parents('li').remove()
+               }
+               
             }
     });
 
-
-   
     })
     $('.menu-link').click(function(e){
         e.preventDefault();
+       if($(this).hasClass('active')){
+        $(this).next('ul').slideUp()
+        $('i').removeClass('rotate-in')
+        $(this).removeClass('active')
+        return false;
+        }
+       $('ul.sub-menu').slideUp()
+       $('.menu-link').removeClass('active')
+        $(this).addClass('active')
+        
+        $('i').removeClass('rotate-in')
         $(this).next('ul').slideToggle()
         $(this).find('i').toggleClass('rotate-in')
 
     })
-
-    
     </script>
     <?php echo $__env->yieldContent('js'); ?>
 </body>
 
-</html><?php /**PATH C:\xampp\htdocs\media\resources\views/layout/Panel/temp.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\media\resources\views/layout/Panel/temp.blade.php ENDPATH**/ ?>

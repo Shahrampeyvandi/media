@@ -4,11 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title>
-        ژن برتر
+       <?php echo $__env->yieldContent('title','ژن برتر - مرجع آموزش زبان '); ?>
+        
     </title>
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
+    <meta name="description" 
+    content="<?php echo $__env->yieldContent('description','موزیک و ویدیوهای آموزشی خود را به راحتی آپلود کرده و با یکدیگر به اشتراک بگذارید'); ?>">
+    <link rel="canonical" href="<?php echo e(route('BaseUrl')); ?>" />
+    
+    
+    
+    
+    
     <link rel="icon" href="<?php echo e(asset('assets/images/logo.jpeg')); ?>">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     
@@ -22,7 +31,7 @@
     <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/mdb.min.css">
     <link href="<?php echo e(route('BaseUrl')); ?>/assets/css/swiper.min.css" rel="stylesheet">
     <script src="<?php echo e(asset('assets/js/jquery-3.4.1.js')); ?>"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="<?php echo e(asset('assets/js/sweetalert.min.js')); ?>"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/simplebar.min.js"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/simple-scrollbar.min.js"></script>
     <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/swiper.js"></script>
@@ -53,22 +62,67 @@
     <script>
         var isMobile = false;
     </script>
+
+    <script type="text/javascript">
+        !function(){function t(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,localStorage.getItem("rayToken")?t.src="https://app.raychat.io/scripts/js/"+o+"?rid="+localStorage.getItem("rayToken")+"&href="+window.location.href:t.src="https://app.raychat.io/scripts/js/"+o;var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}var e=document,a=window,o="7a58561c-2f4a-4a15-8c90-e75c8ed050ed";"complete"==e.readyState?t():a.attachEvent?a.attachEvent("onload",t):a.addEventListener("load",t,!1)}();
+    </script>
+
 </head>
 
 <body class="device-desktop theme-light">
-    <div class="page-loader" style="display: none; ">
+    <div class="page-loader " style="display: none;" >
         <div class="spinner-border text-success"></div>
-        <span>در حال بارگذاری ...</span>
+        <img src="<?php echo e(asset('assets/images/LOGO.jpeg')); ?>" style=" bottom: 19px;
+        position: absolute;
+        /* bottom: 0; */
+        right: 103px;
+        width: 95px;" alt="">
     </div>
+    
+
+    <div id="notes" class="d-b  pt-2">
+        <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
+        <h3>یادداشت ها</h3>
+        <ul class="mt-4">
+            <?php $__currentLoopData = $mynotes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $note): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li><?php echo $note->text; ?>
 
 
+
+                <a data-id="<?php echo e($note->id); ?>" href="#" class="float-left text-danger trash-note mr-2 pt-1"><i
+                        class="fa fa-trash"></i></a>
+                <span
+                    class="float-left fs-0-8 pt-1"><?php echo e(\Morilog\Jalali\Jalalian::forge($note->created_at)->format('%d %B %Y')); ?>
+
+
+                </span>
+            </li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+        <div class="col-md-12 mt-3 mr-0 pr-0">
+            <form id="newnote" action="#" method="post">
+                <div class="form-group">
+                    <textarea type="text" class="form-control" name="text" id="text"></textarea>
+                    <button type="submit" class="btn btn-sm btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
     
 
     <main id="main" class="main" data-sidebar>
 
         <?php if(auth()->check()): ?>
-        <a href="#" class="account-icon"><i class="fa fa-user"></i>
+        <?php if(auth()->user()->avatar): ?>
+        <a href="#" class="account-icon p-0 ">
+            <img src="<?php echo e(asset(auth()->user()->avatar)); ?>" alt="">
         </a>
+        <?php else: ?>
+        <a href="#" class="account-icon ">
+            <i class="fa fa-user"></i>
+        </a>
+        <?php endif; ?>
+
         <div class="dropdown-content" style="display:none;">
             <div class="menu-wrapper">
                 <ul class="menu-list">
@@ -166,6 +220,9 @@
                                     </use>
                                 </svg>
                             </button>
+                            <a href="<?php echo e(route('BaseUrl')); ?>" class="mr-3 pt-1 ">
+                                <img src="<?php echo e(asset('assets/images/Logo-genebartar.png')); ?>" width="52px;" alt="">
+                            </a>
                         </div>
 
                     </div>
@@ -211,7 +268,7 @@
                     <div class="input-text">
                         <div class="input-inner">
 
-                            <input class="input" type="search" id="" value="" name="search"
+                            <input class="input" type="text" id="searchinput" value="" name=""
                                 placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
 
                             <div class="input-box input-round"></div>
@@ -229,20 +286,14 @@
                                 </use>
                             </svg>
                         </button>
-                    </div>
-                    <div id="suggestions" class="search-suggestion">
 
-                        <div id="suggestionContent" class="suggestion-content">
-                            <div class="loading loading-aparat">
-                                <div class="inner">
-                                    <svg class="icon icon-inner">
-                                        <use xlink:href="#si_loading-inner"></use>
-                                    </svg>
-                                    <svg class="icon icon-outer">
-                                        <use xlink:href="#si_loading-outer"></use>
-                                    </svg>
-                                </div>
-                            </div>
+                    </div>
+                    <div id="search--content" class="search-suggestion">
+
+                        <div id="" class="">
+                            <ul>
+                                <li class="fs-0-8 text-black-50">در حال جست و جو ...</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -254,7 +305,7 @@
         <aside id="sidebar" class="sidebar">
 
             <div class="sidebar-inner" data-simplebar data-simplebar-direction=rtl>
-                <div class="sidebar-toggle">
+                <div class="inline-flex sidebar-toggle">
                     <div class="toggle">
                         <button type="button"
                             class="button button-medium button-gray button-hollow button-circular sidebar-toggler">
@@ -262,21 +313,18 @@
                                 <use xlink:href="#si_cats"></use>
                             </svg>
                         </button>
+
                     </div>
+
                     <div class="logo">
-                        <a href="https://www.aparat.com" title="آپارات - سرویس اشتراک ویدیو"
-                            aria-label="آپارات - سرویس اشتراک ویدیو">
-                            <svg class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
-                                viewBox="viewBox=" 0 0 90 31.89 "">
-                                <use xlink:href="#si_logo-fa"></use>
-                            </svg></a>
+
                     </div>
                 </div>
 
 
                 <div id=1 class="menu-wrapper main-list">
                     <ul class="menu-list">
-                      
+
                         <li class="menu-item-link active">
                             <a href="<?php echo e(route('BaseUrl')); ?>" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
@@ -289,15 +337,15 @@
                         </li>
                         <?php if(auth()->check()): ?>
                         <li class="menu-item-link ">
-                         <a href="<?php echo e(route('User.Show',auth()->user()->username)); ?>" aria-label="پروفایل من">
-                             <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                 <use xlink:href="#si_home"></use>
-                             </svg>
-                             <div class="content">
-                                 <span class="text">پروفایل من</span>
-                             </div>
-                         </a>
-                     </li>
+                            <a href="<?php echo e(route('User.Show',auth()->user()->username)); ?>" aria-label="پروفایل من">
+                                <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
+                                    <use xlink:href="#si_home"></use>
+                                </svg>
+                                <div class="content">
+                                    <span class="text">پروفایل من</span>
+                                </div>
+                            </a>
+                        </li>
                         <?php endif; ?>
                         
                         <li class="menu-item-link ">
@@ -332,7 +380,9 @@
                             <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر">
                                 <svg class="icon icon-down" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_down"></use>
-                                </svg> <span class="content">نمایش بیشتر</span></a>
+                                </svg> 
+                                <span class="content">نمایش بیشتر</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -430,14 +480,14 @@
                             </a>
                         </li>
                         <li class="menu-item-link">
-                            <a href="#" aria-label="تبلیغات">
+                            <a href="<?php echo e(route('Advert')); ?>" aria-label="تبلیغات">
                                 <div class="content">
                                     <span class="text">تبلیغات</span>
                                 </div>
                             </a>
                         </li>
                         <li class="menu-item-link">
-                        <a href="<?php echo e(route('ContactUs')); ?>" aria-label="تماس با ما">
+                            <a href="<?php echo e(route('ContactUs')); ?>" aria-label="تماس با ما">
                                 <div class="content">
                                     <span class="text">تماس با ما</span>
                                 </div>
@@ -454,7 +504,7 @@
 
 
                         <li class="menu-item-link">
-                            <a href="#" aria-label="سوالات متداول">
+                            <a href="<?php echo e(route('Testimonials')); ?>" aria-label="سوالات متداول">
                                 <div class="content">
                                     <span class="text">سوالات متداول</span>
                                 </div>
@@ -469,27 +519,32 @@
 
 
         <div id="" class="container">
-            <div class="view">
+            <div class="showall-wrapper">
 
                 <?php echo $__env->yieldContent('content'); ?>
-
-
+            </div>
+                <section id="footer-section" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
+                <div class="text-center text-white-50">
+                    کلیه حقوق این سایت متعلق به ژن برتر میباشد
+                </div>
+                </section>
+                <?php if(auth()->check()): ?>
                 <div class="">
                     <ul class="side-function">
                         <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
                                     class="fa fa-pencil fs-2"></i></a>
-
                         </li>
-
-
                     </ul>
-
                 </div>
-            </div>
+                <?php endif; ?>
+           
         </div>
 
 
     </main>
+  
+       
+   
 
 
     <script src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
@@ -505,14 +560,108 @@
     <script>
         $(document).ready(function () {
         var checkauth = '<?php echo e(auth()->user()); ?>';
-        $('.note-link').click(function(e){
-            e.preventDefault()
+     
+
+        $('.note-link').click(function(){
+            $('#notes').css({opacity: 1.0, visibility: "visible",left:"80px"});
         })
+        $('.close-notes').click(function(e){
+            e.preventDefault();
+            $(this).parents('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
+        })
+
+        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+        $('#newnote').submit(function(e){
+            e.preventDefault()
+            var note = $(this).find('#text').val();
+           
+            if(note.length !== 0){
+            $.ajax({
+                    url: '<?php echo e(route('Note.Save')); ?>',
+                    type: 'POST',
+                    data: {note: note},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     
+                        $('#text').val('')
+                        $('#notes ul').append(res)
+                        $("#notes ul").stop().animate({ scrollTop: $("#notes ul")[0].scrollHeight}, 1000);
+
+                    }
+                });
+            }
+        })
+        $(document).on('click','.trash-note',function(e){
+       
+            e.preventDefault();
+           
+            var noteid = $(this).data('id')
+            thiss = $(this)
+            $.ajax({
+                    url: '<?php echo e(route('Note.Delete')); ?>',
+                    type: 'POST',
+                    data: {id: noteid},
+                    dataType: 'JSON',
+                    cache: false,
+                    success: function (res) {
+                     thiss.parents('li').remove()
+                    }
+                });
+        })
+
+
+var request = false;
+$(document).on('keyup','#searchinput',function(e){
+    e.preventDefault()
+    if($(this).val().length === 0) {
+       
+        $('#search--content').css({'visibility':'hidden','opacity':0})
+        $('.search-widget').removeClass('has-suggest')
+        
+        
+    }else{
+        
+    setTimeout(() => {
+        if (!request) {
+    
+        request = true;
+        let key = $(this).val();
+        let url = '<?php echo e(route('SearchBar')); ?>';
+
+          $.ajax({ 
+               url: url,
+               type: 'POST',
+               data:{key:key},
+               dataType: 'JSON', 
+              
+               success: function(res) {
+                  $('#search--content').css({'visibility':'visible','opacity':1})
+                  $('.search-widget').addClass('has-suggest')
+                   $('#search--content ul').html(res)
+                  
+                //    $('.content-page').html(res[0])
+                //    $('.paginate-item').html(res[1])
+                   setTimeout(()=>{
+                       request=false;
+                   },500)
+                   
+               }
+           
+       })
+       
+     }
+   },1000)
+}
+})
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+       
         var swiper = new Swiper('.swiper-container1', {
             spaceBetween: 5,
             nextButton: '.swiper-p',
@@ -571,11 +720,44 @@
 
 
         });
+        
+        var swiper = new Swiper('.swiper-container-clip', {
+
+spaceBetween: 5,
+nextButton: '.swiper-clip-p',
+prevButton: '.swiper-clip-n',
+breakpoints: {
+    320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+    },
+    640: {
+        slidesPerView: 1,
+        spaceBetween: 20
+    },
+    768: {
+        slidesPerView: 3,
+        spaceBetween: 10
+    },
+    1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+    },
+    1380: {
+        slidesPerView: 4,
+        spaceBetween: 40
+    },
+
+}
+
+
+});
         var learning_slider = new Swiper('.swiper-container-learning', {
 
             spaceBetween: 5,
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
+            nextButton: '.swiper-learning-p',
+            prevButton: '.swiper-learning-n',
+           
             breakpoints: {
                 320: {
                     slidesPerView: 1,
@@ -633,6 +815,37 @@
             }
 
         });
+        var music_slider = new Swiper('.swiper-container-podcast', {
+
+spaceBetween: 5,
+pagination: '.swiper-podcast-pagination',
+paginationClickable: true,
+breakpoints: {
+    320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+    },
+    640: {
+        slidesPerView: 1,
+        spaceBetween: 20
+    },
+    768: {
+        slidesPerView: 3,
+        spaceBetween: 10
+    },
+    1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+    },
+    1380: {
+        slidesPerView: 4,
+        spaceBetween: 40
+    },
+
+
+}
+
+});
         var baner_slider = new Swiper('.swiper-container-banner', {
             spaceBetween: 30,
             effect: 'fade',
@@ -650,6 +863,11 @@
             if ($(e.target).closest(".account-icon").length == 0 && $(e.target).closest(".dropdown-content").length == 0) {
                 $('.dropdown-content').fadeOut(200)
             }
+            if ($(e.target).closest(".note-link").length == 0 && $(e.target).closest("#notes").length == 0) {
+                
+                $('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
+
+            }
         })
 
         $('.button__').click(function (e) {
@@ -665,7 +883,6 @@
         $('.report-btn').click(function (e) {
             e.preventDefault()
 
-            $('#parent_id').attr('value', parent_id)
             $('.overlay.report').css({
                 'visibility': 'visible',
                 'opacity': '1',
@@ -732,61 +949,7 @@
         });
 
 
-        function ajaxlike(id, url) {
-          
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {id: id},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                        $('#like-post span').text(res)
-                    }
-                });
-           
-        }
-
-        $('#like-post').click(function (e) {
-            e.preventDefault();
-            if (checkauth) {
-                let url = '<?php echo e(route("LikePost")); ?>';
-                let post_id = $(this).data('id')
-                ajaxlike(post_id, url);
-            } else {
-                window.location.href = "<?php echo e(route("login")); ?>"
-            }
-
-        })
-
-        $('.favorite-post').click(function (e) {
-            e.preventDefault();
-            if (checkauth) {
-                
-                let thiss = $(this)
-
-                let url = '<?php echo e(route("AddFavorite")); ?>';
-                let id = $(this).data('id')
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {id: id},
-                    dataType: 'JSON',
-                    cache: false,
-                    success: function (res) {
-                        if (res == 'add') {
-                            thiss.find('svg').attr('fill', 'red')
-                        }
-                        if (res == 'remove') {
-                            thiss.find('svg').attr('fill', 'gray')
-                        }
-                    }
-
-                });
-            } else {
-                window.location.href = "<?php echo e(route("login")); ?>"
-            }
-        })
+       
 
         $('.like-comment').click(function (e) {
             e.preventDefault();
@@ -848,6 +1011,20 @@
 
 
     })
+
+
+    $('.menu-show-more').click(function(e){
+        e.preventDefault()
+        if($(this).hasClass('less')){
+            $(this).find('span').text('نمایش بیشتر')
+            $(this).removeClass('less')
+
+        }else{
+            $(this).addClass('less')
+        $(this).find('span').text('نمایش کمتر')
+        }
+        
+    });
 
 
     </script>

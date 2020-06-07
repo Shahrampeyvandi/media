@@ -5,24 +5,39 @@
 <div class="row">
     <div class="col-md-12">
         <?php echo $__env->make('Includes.Channel.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-       <h3 class="mt-5">
-          <span class="mr-3 d-inline-block pr-1 pb-2" style="border-bottom: 3px solid gray;"> همه چیز درباره کانال ...</span>
-       </h3>
+        <h3 class="mt-5">
+            <span class="mr-3 d-inline-block pr-1 pb-2" style="border-bottom: 3px solid gray;"> همه چیز درباره کانال
+                ...</span>
+        </h3>
 
-       <div>
-           
-           {! content !}
-       </div>
-       <h4 class="mt-5">
-        <span class="mr-3 d-inline-block pr-1 pb-2" >لینک های مرتبط</span>
-     </h4>
-       <div class="other links d-flex justify-content-start mx-3">
-            <a href="#" class="ml-2"><i class="fa fa-circle"></i> تلگرام </a>
-            <a href="#" class="ml-2"><i class="fa fa-circle"></i> توییتر</a>
-            <a href="#" class="ml-2"><i class="fa fa-circle"></i> اینستاگرام</a>
-            <a href="#" class="ml-2"><i class="fa fa-circle"></i> وبسایت</a>
+        <div class="pr-3 my-3">
+            <?php if(auth()->user()->channelInformations->content !== null): ?>
 
-       </div>
+            <?php echo auth()->user()->channelInformations->content; ?>
+
+            <?php else: ?>
+            هیچ اطلاعاتی وارد نشده است
+            <?php endif; ?>
+        </div>
+        <h4 class="mt-5">
+            <span class="mr-3 d-inline-block pr-1 pb-2">لینک های مرتبط</span>
+        </h4>
+        <div class="other links d-flex justify-content-start mx-3">
+            <?php if(auth()->user()->channelInformations->link_telegram): ?>
+
+            <a href="<?php echo e(auth()->user()->channelInformations->link_telegram); ?>" class="ml-2"><i class="fa fa-circle"></i>
+                تلگرام </a>
+            <?php endif; ?>
+            <?php if(auth()->user()->channelInformations->link_whatsapp): ?>
+            <a href="<?php echo e(auth()->user()->channelInformations->link_whatsapp); ?>" class="ml-2"><i class="fa fa-circle"></i> واتس اپ</a>
+            <?php endif; ?>
+            <?php if(auth()->user()->channelInformations->link_instagram): ?>
+            <a href="<?php echo e(auth()->user()->channelInformations->link_instagram); ?>" class="ml-2"><i class="fa fa-circle"></i> اینستاگرام</a>
+            <?php endif; ?>
+            <?php if(auth()->user()->channelInformations->link_linkedin): ?>
+            <a href="<?php echo e(auth()->user()->channelInformations->link_linkedin); ?>" class="ml-2"><i class="fa fa-circle"></i> لینکدین</a>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 

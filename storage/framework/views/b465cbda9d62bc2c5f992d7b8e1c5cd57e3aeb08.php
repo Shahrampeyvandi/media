@@ -4,25 +4,35 @@
 <div class="container-fluid boxShadow p-5">
 
     <div class="row justify-content-center">
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            <?php if(auth()->user()->is_admin()): ?>
+            <a href="<?php echo e(route('Panel.Posts.All')); ?>">
+            <?php else: ?> 
+
             <a href="<?php echo e(route('MyVideos')); ?>">
+            <?php endif; ?>
                 <div class="small-box"
                     style="  padding: 21px;   box-shadow: 0 6px 20px 0 rgba(255,202,40,.5)!important; background: linear-gradient(-45deg,#ff6f00,#ffca28)!important;color: #fff;border-radius: 7px;">
                     <div class="inner ">
                         <h3 class="text-white"><?php echo e($countfilms); ?></h3>
-                        <p class="text-white fs-1-5">فیلم ها</p>
+                        <p class="text-white fs-1-5">فیلم و سریال </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-exclamation"></i>
+                        <i class="fas fa-video"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            <?php if(auth()->user()->is_admin()): ?>
+            <a href="<?php echo e(route('Panel.Posts.All','animations')); ?>">
+            <?php else: ?> 
+
             <a href="<?php echo e(route('MyVideos','animations')); ?>">
+                <?php endif; ?>
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #71ec62 !important;
                     background: linear-gradient(-45deg,#2a9c05,#71ec62)!important;                    color: #fff;
@@ -30,19 +40,24 @@
                     <div class="inner">
                         <h3 style="color: white !important;"><?php echo e($countanimations); ?><sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">انیمیشن ها</p>
+                        <p class="text-white fs-1-5">انیمیشن </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-radiation-alt"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            <?php if(auth()->user()->is_admin()): ?>
+            <a href="<?php echo e(route('Panel.Posts.All','clips')); ?>">
+            <?php else: ?> 
+
             <a href="<?php echo e(route('MyVideos','clips')); ?>">
+                <?php endif; ?>
                 <div class="small-box" style="    padding: 20px;
                    box-shadow: 0 6px 20px 0 #bb52e6!important;
     background: linear-gradient(-45deg,#70059c,#bb52e6)!important;
@@ -51,19 +66,24 @@
                     <div class="inner">
                         <h3 style="color: white !important;"><?php echo e($countclips); ?><sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">کلیپ ها</p>
+                        <p class="text-white fs-1-5">ژن پلاس</p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-film"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
+            <?php if(auth()->user()->is_admin()): ?>
+            <a href="<?php echo e(route('Panel.Posts.All','musics')); ?>">
+            <?php else: ?> 
+
             <a href="<?php echo e(route('MyAudios')); ?>">
+                <?php endif; ?>
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 #f971a3 !important;
                     background: linear-gradient(-45deg,#de0067,#f1689a)!important;                   color: #fff;
@@ -71,19 +91,24 @@
                     <div class="inner">
                         <h3 style="color: white !important;"><?php echo e($countmusics); ?><sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">موسیقی ها</p>
+                        <p class="text-white fs-1-5">موسیقی </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-music"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            <a href="<?php echo e(route('MyAudios','podcasts')); ?>">
+                <?php if(auth()->user()->is_admin()): ?>
+                <a href="<?php echo e(route('Panel.Posts.All','podcasts')); ?>">
+                <?php else: ?> 
+    
+                <a href="<?php echo e(route('MyAudios','podcasts')); ?>">
+                    <?php endif; ?>
                 <div class="small-box" style="    padding: 20px;
                     box-shadow: 0 6px 20px 0 rgba(255, 53, 19, 0.5)!important;
                     background: linear-gradient(-45deg,#9c1405,#e91d26)!important;
@@ -92,32 +117,35 @@
                     <div class="inner">
                         <h3 style="color: white !important;"><?php echo e($countpodcasts); ?><sup style="font-size: 20px"></sup>
                         </h3>
-                        <p class="text-white fs-1-5">پادکست ها</p>
+                        <p class="text-white fs-1-5">پادکست </p>
                     </div>
                     <div class="fs-2">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-compact-disc"></i>
                     </div>
                 </div>
             </a>
         </div>
         <!-- ./col -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <?php if(auth()->user()->group !== "student"): ?>
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            <?php if(auth()->user()->group !== "student"): ?>
-            <a href="<?php echo e(route('MyTutorials')); ?>">
-                <?php else: ?>
-                <a href="#">
-                    <?php endif; ?>
+            <?php if(auth()->user()->is_admin()): ?>
+            <a href="<?php echo e(route('Panel.Posts.All','learnings')); ?>">
+            <?php else: ?> 
 
-                    <div class="small-box" style="    padding: 20px;
+            <a href="<?php echo e(route('MyTutorials')); ?>">
+                <?php endif; ?>
+            
+            
+            <div class="small-box" style="    padding: 20px;
                       box-shadow: 0 6px 20px 0 #ff88e0!important;
                       background: linear-gradient(-45deg,#bb057b,#ff88e0)!important;                   color: #fff;
                     border-radius: 7px;">
                         <div class="inner">
                             <h3 style="color: white !important;"><?php echo e($countlearnings); ?><sup style="font-size: 20px"></sup>
                             </h3>
-                            <p class="text-white fs-1-5">دوره های آموزشی</p>
+                            <p class="text-white fs-1-5">دوره آموزشی</p>
                         </div>
                         <div class="fs-2">
                             <i class="fas fa-cubes"></i>
@@ -125,10 +153,13 @@
                     </div>
                 </a>
         </div>
+                <?php else: ?>
+                    <?php endif; ?>
+
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6 my-3">
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
-            <?php if(auth()->user()->group == "admin"): ?>
+            <?php if(auth()->user()->is_admin()): ?>
             <a href="<?php echo e(route('Panel.Comments.All')); ?>">
                 <?php else: ?>
                 <a href="<?php echo e(route('Panel.Comments')); ?>">
@@ -136,35 +167,18 @@
                     <div class="small-box"
                         style="padding:20px; box-shadow: 0 6px 20px 0 rgba(29,233,182,.5)!important; background: linear-gradient(-45deg,#43a047,#1de9b6)!important; color: #fff;border-radius: 7px;">
                         <div class="inner">
-                            <h3><?php echo e($countcomments); ?></h3>
+                            <h3 style="color: white !important;"><?php echo e($countcomments); ?></h3>
 
                             <p class="text-white fs-1-5">دیدگاه ها</p>
                         </div>
                         <div class="fs-2">
-                            <i class="fas fa-dice-d20"></i>
+                            <i class="fas fa-comments"></i>
                         </div>
                     </div>
                 </a>
         </div>
-        <div class="col-lg-3 col-xs-6 my-3">
-            <!-- small box -->
-            <div class="small-box"
-                style=" 
-                                    border-radius: 7px;
-                                    padding: 21px;
-                                    box-shadow: 0 6px 20px 0 rgba(244,143,177,.5)!important; background: linear-gradient(-45deg,#ff5252,#f48fb1)!important;">
-                <div class="inner">
-                    <h3 style="color: white !important;">0<sup style="font-size: 20px"></sup>
-                    </h3>
-
-                    <p class="text-white fs-1-5"> بازدید های امروز</p>
-                </div>
-                <div class="fs-2 text-white">
-                    <i class="fas fa-file"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6 my-3">
+        
+        <div class="col-lg-3 col-sm-6 my-3">
             <!-- small box -->
             <div class="small-box" style="border-radius: 7px;
                             padding: 21px;
@@ -172,7 +186,7 @@
                             background: linear-gradient(-45deg,#0288d1,#26c6da)!important;
                         ">
                 <div class="inner">
-                    <h3 style="color: white !important;">0</h3>
+                <h3 style="color: white !important;"><?php echo e($followers); ?></h3>
 
                     <p class="text-white fs-1-5">دنبال کننده ها</p>
                 </div>
