@@ -17,9 +17,15 @@
             </div>
            
             <div class="recent_content d-flex mr-3">
-                <a href="<?php echo e(route('ShowItem',['id'=>$lastpost->id])); ?>" class="image">
+                <a href="<?php echo e(route('ShowItem',['content'=>$lastpost->categories->name,'slug'=>$lastpost->slug])); ?>" class="image">
                     
+                    <?php if($lastpost->picture): ?>
                     <img src="<?php echo e(asset("$lastpost->picture")); ?>" height="100%" width="100%" alt="">
+                    <?php else: ?>
+                   <img style="width: 100%;
+                   object-fit: cover;
+                   height: 100%;box-shadow: 0 0 2px 0px grey;" src="<?php echo e(asset('assets/images/logo-video1.png')); ?>" alt="">
+                    <?php endif; ?>
                 </a>
                 <div class="d-flex  flex-column pr-3">
                     <h3><a href="#"><?php echo e(Illuminate\Support\Str::limit($lastpost->title,15)); ?></a></h3>
@@ -54,7 +60,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -107,7 +113,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -172,7 +178,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -241,7 +247,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -310,7 +316,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -380,7 +386,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">
@@ -450,7 +456,7 @@
                                     <div id="" class="thumbnail-video" data-uid="" data-duration=""
                                         data-recommendation="other">
                                         <div class="thumb-wrapper">
-                                            <a id="" href="<?php echo e(route('ShowItem',['id'=>$post->id])); ?>"
+                                            <a id="" href="<?php echo e(route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])); ?>"
                                                 class="thumb thumb-preview"
                                                 data-poster="<?php echo e(asset("$post->picture")); ?>"><img
                                                     src="<?php echo e(asset("$post->picture")); ?>" class=" thumb-image">

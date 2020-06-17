@@ -28,6 +28,7 @@ class CreateEpisodesTable extends Migration
             $table->foreign('levels_id')->references('id')->on('levels');
             $table->string('title');
             $table->string('slug');
+            $table->enum('media',['audio','video']);
             $table->text('desc');
             $table->string('picture')->nullable();
             $table->string('content_link')->nullable();

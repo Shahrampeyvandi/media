@@ -109,7 +109,7 @@
               
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                     <a href="{{route('Panel.Comments.Confirm.Submit',$comment->id)}}"  class=" btn btn-success btn-sm m-0">تایید</a>
-                    <a  data-id="{{$comment->id}}" class="button__ btn btn-warning btn-sm m-0">رد</a>
+                    <a  data-id="{{$comment->id}}" class="button__ btn btn-danger btn-sm m-0">رد</a>
                   </div>
             </td>
             @break

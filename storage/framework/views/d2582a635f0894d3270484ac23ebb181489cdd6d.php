@@ -1,21 +1,20 @@
 
 <div class="row">
    <?php $__currentLoopData = $movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-  
-<div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
+   <div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
     <div class="thumb-wrapper">
-        <a class="thumb" href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>">
+        <a class="thumb" href="<?php echo e(route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])); ?>">
             <div class="abs-fit">
-               <?php if($movie->picture): ?>
-               <img src="<?php echo e(asset("$movie->picture")); ?>" height="230px" alt="<?php echo e($movie->title); ?>"
-               aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
-               <?php else: ?> 
-              <div class="d-flex justify-content-center align-items-center h-100">
-                
-            <i class="ti ti-video-camera text-black-50" style="font-size: 5rem;"></i>  
-            </div>
-               <?php endif; ?> 
-               
+                <?php if($movie->picture): ?>
+                <img src="<?php echo e(asset("$movie->picture")); ?>" alt="<?php echo e($movie->title); ?>"
+                aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
+                <?php else: ?>
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    
+                    <img style="object-fit: cover;" src="<?php echo e(asset("assets/images/logo-video1.png")); ?>" alt="<?php echo e($movie->title); ?>"
+                    aria-label="<?php echo e($movie->title); ?>" class="thumb-image">
+                </div>
+                <?php endif; ?>
             </div>
             <div class="tools">
                 <span class="badge-rate">
@@ -33,49 +32,64 @@
                             </g>
                         </use>
                     </svg> </span>
-                <span class="badge-rate">
-                    <span> <?php if(substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1) == '0'): ?>
+                <span class="badge-rate"><span>
+                        <?php if(substr($movie->duration,0,1) == '0' && substr($movie->duration,1,1)
+                        == '0'): ?>
                         <?php echo e(substr($movie->duration,3)); ?>
 
                         <?php else: ?>
                         <?php echo e($movie->duration); ?>
 
-                        <?php endif; ?></span>
-                    <i class="fa fa-clock pl-1"></i>
+                        <?php endif; ?>
+                    </span>
+                    <i class="fa fa-clock-o pl-1"></i>
                 </span>
             </div>
         </a>
     </div>
     <div class="position-relative px-2 pt-3">
-
-        <a href="<?php echo e(route('ShowItem',['id'=>$movie->id])); ?>" title="<?php echo e($movie->title); ?>"
+        <a href="<?php echo e(route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])); ?>" title="<?php echo e($movie->title); ?>"
             class="title title d-block mb-2"><span><?php echo e($movie->title); ?></span></a>
-            <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
+        <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                 <?php if($movie->subjects): ?>
-                
+
                 <?php echo e($movie->subjects->name); ?>
 
                 <?php endif; ?>
             </span></p>
-            <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
+        <p class=""><span class="text-black-50">زبان: </span><span class="fw-500 fs-0-8">
                 <?php if($movie->languages): ?>
                 <?php echo e($movie->languages->name); ?>
 
                 <?php endif; ?>
             </span></p>
-            <p class=""><span class="fs-0-9">سطح: <?php echo e($movie->levels->name); ?></span></p>
+            <p class="item-level position-relative"><span class="fs-0-9">سطح: 
+                <?php if($movie->levels->name == 'مقدماتی'): ?>
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level0.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level0.png')); ?>" alt="">
+                <?php elseif($movie->levels->name == 'متوسط'): ?>
+
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level0.png')); ?>" alt="">
+                <?php else: ?>
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <img src="<?php echo e(asset('assets/images/level1.png')); ?>" alt="">
+                <?php endif; ?>
+        </span></p>
 
         <ul class="meta-tags d-b w-100 mt-xs  pb-2">
-            <li class="meta d-in light-60 dark-110"><?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
-       
+            <li class="meta d-in light-60 dark-110">
+                <?php echo e(\Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y')); ?></li>
         </ul>
-
     </div>
 </div>
   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 <div class="row">
    <div class="col-md-12">
-    <a href="<?php echo e(route('UploadFile')); ?>" class=" btn btn-sm btn-outline-info btn-rounded"><i class="fa fa-plus"></i> &nbsp; آپلود  </a>
+    <a href="<?php echo e(route('UploadFile')); ?>?c=videos" class=" btn btn-sm btn-outline-info btn-rounded"><i class="fa fa-plus"></i> &nbsp; آپلود  </a>
    </div>
 </div><?php /**PATH C:\xampp\htdocs\media\resources\views/Panel/Components/videos.blade.php ENDPATH**/ ?>

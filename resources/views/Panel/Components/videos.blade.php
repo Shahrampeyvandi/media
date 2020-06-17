@@ -19,6 +19,11 @@
                 @endif
             </div>
             <div class="tools">
+                <span class="badge-rate"><span>
+                   {{$movie->views}}
+                </span>
+                <i class="fa fa-eye pl-1"></i>
+            </span>
                 <span class="badge-rate">
                     <span>{{count($movie->likes)}}</span>
                     <svg class="icon icon-thumb-up d-in v-m g-20 fs-1-2 ml-xxs"
@@ -44,6 +49,7 @@
                     </span>
                     <i class="fa fa-clock-o pl-1"></i>
                 </span>
+               
             </div>
         </a>
     </div>

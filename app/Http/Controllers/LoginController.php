@@ -37,7 +37,7 @@ class LoginController extends Controller
 
 
             if (Hash::check($request->pass, $member->password)) {
-                Auth::Login($member);
+                Auth::Login($member,true);
                 return redirect()->route('Panel.Dashboard');
             } else {
                 $request->session()->flash('Error', 'نام کاربری یا رمز عبور اشتباه است');
@@ -56,7 +56,8 @@ class LoginController extends Controller
 
                 if (Hash::check($request->pass,$member->password)) {
 
-                    Auth::Login($member);
+                    Auth::Login($member,true);
+
                     return redirect()->route('Panel.Dashboard');
                 } else {
                     $request->session()->flash('Error', 'رمز عبور وارد شده صحیح نمی باشد');
@@ -88,7 +89,8 @@ class LoginController extends Controller
 
                 if (Hash::check($request->pass,$member->password)) {
 
-                    Auth::Login($member);
+                    Auth::Login($member,true);
+
                     return redirect()->route('Panel.Dashboard');
                 } else {
                     $request->session()->flash('Error', 'رمز عبور وارد شده اشتباه می باشد');

@@ -1,5 +1,5 @@
 @extends('layout.Main.template')
-
+@section('title','ژن برتر - کانال های رسمی')
 @section('content')
 
 <div class="row mr-3">

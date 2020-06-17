@@ -1,5 +1,5 @@
 
-
+<?php $__env->startSection('title','ژن برتر - کانال های رسمی'); ?>
 <?php $__env->startSection('content'); ?>
 
 <div class="row mr-3">

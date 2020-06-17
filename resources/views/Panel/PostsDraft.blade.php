@@ -2,38 +2,6 @@
 
 @section('content')
 
-<div id="popup" class="overlay delete">
-    <div class="popup">
-        <a class="close" href="#">&times;</a>
-        <div class="content">
-            <form id="" action="{{route('Panel.Posts.Reject.Submit')}}" method="get">
-                @csrf
-                <div class="mt-5 pr-2">
-                    <h5 class="modal-title  pt-1 mb-2" id="exampleModalLabel">اخطار</h5>
-                    <div class="form-group col-md-12">
-                        <input type="hidden" id="post-id" name="post_id" value="">
-                        <input type="hidden" id="member-id" name="member_id" value="">
-                    </div>
-                    <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> دلیل عدم تایید:
-                    </label>
-                    <div class="form-group mt-2 ">
-                        <select name="reason" id="reason" class="form-control browser-default custom-select">
-                            <option value="" selected>باز کردن فهرست انتخاب</option>
-                       @foreach (\App\Models\Contents\ViolationList::latest()->get() as $item)
-                        <option value="{{$item->name}}" >{{$item->name}}</option>
-    
-                       @endforeach
-                       
-                        </select>
-                    </div>               
-                </div>
-                <div class="form-group  mt-1 ">
-                    <button type="submit" class="btn btn-sm btn-danger ">عدم تایید </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">پست ها</a></li>
@@ -88,9 +56,8 @@
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a href="{{route('Admin.CheckPost',$post->id)}}?member={{$post->members_id}}"
-                                class=" btn btn-primary btn-sm m-0">مشاهده و تایید</a>
-                            <a data-id="{{$post->id}}" data-member="{{$post->members_id}}"
-                                class="post--delete btn btn-danger btn-sm m-0">رد</a>
+                                class=" btn btn-primary btn-sm m-0">مشاهده  </a>
+                          
                         </div>
                     </td>
                     @break

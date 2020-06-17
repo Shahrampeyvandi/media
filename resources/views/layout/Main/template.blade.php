@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-       @yield('title','ژن برتر - اشتراک گذاری محتوای آموزشی')
+       @yield('title','ژن برتر - مرجع آموزش زبان ')
         
     </title>
     <!-- UA-153829- -->
@@ -12,6 +12,12 @@
     <meta http-equiv="content-language" content="fa" />
     <meta name="description" 
     content="@yield('description','موزیک و ویدیوهای آموزشی خود را به راحتی آپلود کرده و با یکدیگر به اشتراک بگذارید')">
+    <link rel="canonical" href="{{route('BaseUrl')}}" />
+    
+    
+    
+    
+    
     <link rel="icon" href="{{asset('assets/images/logo.jpeg')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css"> --}}
@@ -25,7 +31,7 @@
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/mdb.min.css">
     <link href="{{route('BaseUrl')}}/assets/css/swiper.min.css" rel="stylesheet">
     <script src="{{asset('assets/js/jquery-3.4.1.js')}}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simplebar.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simple-scrollbar.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/swiper.js"></script>
@@ -571,10 +577,11 @@
 
 
         <div id="" class="container">
-            <div class="view">
+            <div class="showall-wrapper">
 
                 @yield('content')
-                <section id="" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
+            </div>
+                <section id="footer-section" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
                 <div class="text-center text-white-50">
                     کلیه حقوق این سایت متعلق به ژن برتر میباشد
                 </div>
@@ -588,7 +595,7 @@
                     </ul>
                 </div>
                 @endif
-            </div>
+           
         </div>
 
 
@@ -666,6 +673,14 @@
 var request = false;
 $(document).on('keyup','#searchinput',function(e){
     e.preventDefault()
+    if($(this).val().length === 0) {
+       
+        $('#search--content').css({'visibility':'hidden','opacity':0})
+        $('.search-widget').removeClass('has-suggest')
+        
+        
+    }else{
+        
     setTimeout(() => {
         if (!request) {
     
@@ -680,7 +695,8 @@ $(document).on('keyup','#searchinput',function(e){
                dataType: 'JSON', 
               
                success: function(res) {
-                  
+                  $('#search--content').css({'visibility':'visible','opacity':1})
+                  $('.search-widget').addClass('has-suggest')
                    $('#search--content ul').html(res)
                   
                 //    $('.content-page').html(res[0])
@@ -695,6 +711,7 @@ $(document).on('keyup','#searchinput',function(e){
        
      }
    },1000)
+}
 })
 
         $.ajaxSetup({
@@ -856,6 +873,37 @@ breakpoints: {
             }
 
         });
+        var music_slider = new Swiper('.swiper-container-podcast', {
+
+spaceBetween: 5,
+pagination: '.swiper-podcast-pagination',
+paginationClickable: true,
+breakpoints: {
+    320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+    },
+    640: {
+        slidesPerView: 1,
+        spaceBetween: 20
+    },
+    768: {
+        slidesPerView: 3,
+        spaceBetween: 10
+    },
+    1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+    },
+    1380: {
+        slidesPerView: 4,
+        spaceBetween: 40
+    },
+
+
+}
+
+});
         var baner_slider = new Swiper('.swiper-container-banner', {
             spaceBetween: 30,
             effect: 'fade',

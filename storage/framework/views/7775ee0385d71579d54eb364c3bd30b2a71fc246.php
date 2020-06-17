@@ -1,11 +1,11 @@
 
 <?php $__env->startSection('content'); ?>
-<?php echo $__env->make('Includes.Login.Header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <div class="main mt-5 mt-md-0" style="display: flex; justify-content: center; align-items: center;">
+
+    <div class="main mt-5 mt-md-2" style="display: flex; justify-content: center; align-items: center;">
         <div class="col-md-12 card" style="max-width:650px !important;margin-bottom: 2rem; ">
             <div class="head-login">
-              <h4 class="mb-2"><a class="text-black-50 fs-0-8" href="#">اطلاعات فردی</a></h4>
+              <h3 class="mb-0"><a class="text-success fs-0-8 " href="#"> ثبت نام</a></h3>
             </div>
             <div class="row">
               <div class="col-md-12 text-center">
@@ -119,10 +119,10 @@
                               <input type="text" placeholder="مقطع تحصیلی" class="form-control" name="user_level" id="user_level">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="text" placeholder="سابقه تدریس" class="form-control" name="user_history" id="user_history">
+                              <input type="text" placeholder="دوره های تدریس شده" class="form-control" name="user_history" id="user_history">
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="text" placeholder="حق سنوات" class="form-control" name="user_sanavat" id="user_sanavat">
+                              <input type="text" placeholder="سنوات تدریس" class="form-control" name="user_sanavat" id="user_sanavat">
                             </div>
                           
                           
@@ -156,6 +156,7 @@
         $('.teacher-spec').fadeOut();
       }
    });
+   
     $.validator.addMethod(
     "regex",
     function(value, element, regexp) {
@@ -183,7 +184,13 @@
 			},
 		user_mobile: {
 				
-      required: true
+      required: true,
+      regex:/^09[0-9]{9}$/
+			},
+      userid: {
+				required: true,
+        minlength: 5,
+        regex: /^[a-zA-Z]+[a-zA-Z\d]*$/
 			},
       user_history:{
         required: function(element){
@@ -223,13 +230,19 @@
 				required: "رمز عبور را وارد نمایید",
 				equalTo: "رمز عبور وارد شده مطابقت ندارد"
 			},
+      userid: {
+				required: "لطفا نام کاربری یکتای خود را وارد نمایید",
+        minlength: "نام کابری حداقل 5 کاراکتر دارد",
+        regex:"نام کاربری تنها شامل حروف لاتین میباشد و نمی تواند با عدد شروع شود"
+			},
       user_mobile:{
-        required:"شماره موبایل الزامی میباشد"
+        required:"شماره موبایل الزامی میباشد",
+        regex:"موبایل دارای فرمت نامعتبر می باشد"
       },
       user_responsibility:"انتخاب نقش الزامی است",
       user_role:"نقش خود را انتخاب کنید",
-      user_history:{required:"سابقه تدریس الزامی میباشد"}
-    ,user_sanavat:{required:"سابقه سنوات را وارد نمایید"}
+      user_history:{required:"دوره هایی که تدریس کرده اید را وارد کنید"}
+    ,user_sanavat:{required:"سنوات تدریس خود را وارد کنید"}
     ,user_certificate:{required:" مدرک تحصیلی را وارد نمایید"}
     ,user_level:{required:"مقطع تحصیلی را وارد نمایید"}
 

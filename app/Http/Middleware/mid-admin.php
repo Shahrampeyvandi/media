@@ -15,9 +15,10 @@ class midAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->is_mid_admin()){
-            return redirect()->route('BaseUrl');
+        if(auth()->user()->ability == 'mid-level-admin' || auth()->user()->ability == 'admin'){
+           
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->route('BaseUrl');
     }
 }

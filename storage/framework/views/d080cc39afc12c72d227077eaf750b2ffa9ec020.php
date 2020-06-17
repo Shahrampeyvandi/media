@@ -7,11 +7,13 @@
         <h2 class="  mt-15 mb-15 title__divider title__divider--line"
             style="margin-right: 0px;"><span class="title__divider__wrapper">دوره های من<span
                     class="line brk-base-bg-gradient-right"></span>
-            </span></h2>
+            </span>
+        <a class="float-left btn btn-outline-success btn-sm btn-rounded" href="<?php echo e(route('UploadFile')); ?>?c=tutorial">  <i class="fas fa-plus"></i> جدید</a>
+        </h2>
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead class="blue lighten-2 text-white">
             <tr>
                 <th>ردیف</th>
@@ -20,11 +22,13 @@
                 <th>زبان</th>
                 <th>سطح</th>
                 <th>موضوع</th>
+                <?php if(auth()->user()->group!=='student'): ?>
                 <th>کامنت ها</th>
                 <th>گزارشات تخلف</th>
                 <th>لایک ها</th>
                 <th>بازدیدها</th>
-                <th></th>
+                <th>عملیات</th>
+                <?php endif; ?>
                 
 
             </tr>
@@ -34,12 +38,14 @@
             <?php $__currentLoopData = $tutorials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
             <td><?php echo e($key+1); ?></td>
-            <td><?php echo e($post->title); ?></td>
+            <td>
+            <a href="<?php echo e(route('ShowItem',$post->id)); ?>" class="text-primary"><?php echo e($post->title); ?></a>
+            </td>
             <td><?php echo e($post->categories->name); ?></td>
             <td><?php echo e($post->languages->name); ?></td>
             <td><?php echo e($post->levels->name); ?></td>
             <td><?php echo e($post->subjects->name); ?></td>
-           
+            <?php if(auth()->user()->group!=='student'): ?>
             <td><?php echo e($post->comments->count()); ?></td>
             <td><?php echo e($post->violations->count()); ?></td>
             <td><?php echo e($post->likes->count()); ?></td>
@@ -53,6 +59,7 @@
                     </div>
             
             </td>
+            <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           
           

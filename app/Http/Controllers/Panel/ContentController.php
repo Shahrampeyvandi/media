@@ -290,10 +290,6 @@ class ContentController extends Controller
             return back();
         }
 
-
-
-
-
         if ($request->content_type == "image") {
 
 
@@ -311,8 +307,11 @@ class ContentController extends Controller
             $pic_address = route('BaseUrl') . $picPath;
         }
         if ($request->content_type == "video") {
+                $content_type = "video";
+                $pic_address = null;
             if ($request->link !== null) {
                 $content_link = $request->link;
+              
             } else {
                 $destinationPath = "files/adverts/";
                 if (!file_exists($destinationPath)) {
@@ -323,8 +322,7 @@ class ContentController extends Controller
                 $request->file('file')->move($destinationPath, $fileName);
                 $filePath = "/files/adverts/$fileName";
                 $content_link = route('BaseUrl') . $filePath;
-                $content_type = "video";
-                $pic_address = null;
+                
             }
         }
 
@@ -344,6 +342,21 @@ class ContentController extends Controller
         return redirect()->route('Panel.Content.AdvertList');
     }
 
+    public function EditAdvertLink(AdvertLink $advert)
+    {
+        
+        return view('Panel.EditAdvertLink',['advert'=>$advert]);
+    }
+    public function EditAdvertLinkSubmit(Request $request)
+    {
+        $advert = AdvertLink::where('id',$request->id)->update([
+            'cat_id'=>$request->category,
+            'view_count'=>$request->count
+        ]);
+        toastr()->success('با موفقیت ویرایش شد');
+
+        return redirect()->route('Panel.Content.AdvertList');
+    }
     public function DeleteAdvertContent(Request $request)
     {
         $model = AdvertLink::where('id', $request->id)->first();

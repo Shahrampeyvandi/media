@@ -18,7 +18,7 @@
      <?php echo $__env->yieldContent('css'); ?>
 </head>
 
-<body style="direction: rtl;text-align: right;">
+<body style="direction: rtl;text-align: right;height:100vh;" class="aqua-gradient">
   <div class="container">
     <?php echo $__env->yieldContent('content'); ?>
   </div>

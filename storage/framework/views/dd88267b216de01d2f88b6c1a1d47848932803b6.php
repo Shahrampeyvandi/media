@@ -10,11 +10,10 @@
      
     </div>
     <div style="overflow-x: auto;">
-        <table id="example1" class="table table-striped  table-bordered">
+        <table id="example1" class="table table-striped  table-bordered w-100">
             <thead>
             <tr>
                 <th>ردیف</th>
-                <th >کاربر</th>
                 <th >دوره</th>
                 <th >هزینه پرداخت شده</th>
                 <th >اطلاعات پرداخت</th>
@@ -28,23 +27,19 @@
             <?php $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
             <td><?php echo e($key+1); ?></td>
-            <td><a href="<?php echo e(route('User.Videos',['name'=>$purchase->members->username])); ?>">
-            <?php echo e($purchase->members->username); ?>
 
-            </a>
-            </td>
             <td><a href="<?php echo e(route('ShowItem',['id'=>$purchase->posts->id])); ?>">
             <?php echo e($purchase->posts->title); ?>
 
             </a></td>
             <td><?php echo e($purchase->payedprice); ?></td>
-            <td><?php echo e($purchase->payinfo); ?></td>
+            <td><?php echo $purchase->payinfo; ?></td>
             <td>
             <?php if($purchase->success ==1): ?>
-            موفق
+            <span class="text-success">موفق</span>
 
             <?php else: ?>
-            نا موفق
+            <span class="text-danger">نا موفق</span>
 
             <?php endif; ?>
             </td>

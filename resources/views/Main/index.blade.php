@@ -23,7 +23,7 @@
                 @else
                 <a href="#">
                 @endif
-                    <div class="item single-client position-relative" style="height: 20rem;">
+                    <div class="item single-client position-relative" >
                         <img src="{{asset($slideshow->banner)}}" alt="client logo" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
                         <div class="banner-txt">
@@ -103,7 +103,7 @@
                             </div>
                             <div class="position-relative px-2 pt-3">
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -222,7 +222,7 @@
                             <div class="position-relative px-2 pt-3">
 
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -351,7 +351,7 @@
                             <div class="position-relative px-2 pt-3">
 
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -424,7 +424,7 @@
                 <div class="theater-slider slider-for px-2">
                     <div class="single-theater">
                         <img src="{{asset($toppostbanner->image)}}" alt="theater thumb">
-                        <a class="play-video" href="{{route('ShowItem',$toppostbanner->content_id)}}">
+                        <a class="play-video" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
                             <i class="fa fa-play"></i>
                         </a>
                     </div>
@@ -613,7 +613,7 @@
 
 
         <section class="list-content">
-            <div id="carousel6d37245e2b67ebb3960241b7a1155e61" class="carousel carousel-movie swiper-container-music"
+            <div id="" class="carousel carousel-movie swiper-container-music"
                 dir="rtl">
                 <div class="swiper-wrapper">
 
@@ -622,12 +622,14 @@
                         <div class="item w-100 ml-5 mr-2  my-5 card" style="max-width: 233px;">
                             <div class="position-relative">
                                 <div class="item-overlay opacity r r-2x bg-black">
+                                    <a class="item-overlay"
+                                    href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}">
+                                    
                                     <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                                             class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-                                    <div class="center text-center m-t-n"> <a
-                                            href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"><i
-                                                class="ti ti-control-play fs-2"></i></a> </div>
+                                            class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                    <div class="center text-center m-t-n"> <i
+                                                class="ti ti-control-play fs-2"></i> </div>
                                     <div class="bottom padder m-b-sm">
 
                                         <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}" class="ml-2"> <span
@@ -673,6 +675,7 @@
                                             <i class="fa fa-clock-o pl-1"></i>
                                         </span>
                                     </div>
+                                </a>
                                 </div>
                                 <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                                             class="fa fa-bookmark i-lg"></i> </span> </div> <a
@@ -687,7 +690,7 @@
                                 </a>
                             </div>
                             <div class="padder-v px-2"> <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"
-                                    class="text-ellipsis">{{$music->title}}</a>
+                                    class="text-ellipsis">{{Illuminate\Support\Str::limit($music->title,22)}}</a>
                                 <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
                                 <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:
                                     @if ($music->levels->name == 'مقدماتی')
@@ -753,60 +756,81 @@
         </div>
 
 
-        <section class="">
-            <div class="row">
+        <section id="podcasts">
+            <div id="" class="carousel carousel-movie swiper-container-podcast"
+            dir="rtl">
+             <div class="swiper-wrapper">
                 @foreach($podcasts as $podcast)
-                <div style="width:230px;" class="m-3">
-                    <div class="card radius shadowDepth1">
-                        <div class="card__image border-tlr-radius">
-                            @if ($podcast->picture)
-                            <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
-                            @else
-
-                            <img src="{{asset('assets/images/logo-music1.png')}}" alt="image" class="border-tlr-radius">
-                            @endif
-                        </div>
-                        <div class="card__content px-3 pb-2">
-                            <div class="card__share">
-                                <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}" id="" class=" share-icon"><i
-                                        class="fa fa-play-circle"></i></a>
+                <div class="swiper-slide ">
+                    <div style="width:230px;" class="m-3">
+                        <div class="card radius shadowDepth1">
+                            <div class="card__image border-tlr-radius">
+                                 <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}">
+                                @if ($podcast->picture)
+                                <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
+                                @else
+                    
+                                <img src="{{asset('assets/images/logo-music1.png')}}" alt="image" class="border-tlr-radius">
+                                @endif
+                                 </a>
                             </div>
-                            <article class="card__article mt-2 pt-3">
-                                <h2><a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}"
-                                        class="fs-0-8">{{$podcast->title}}</a></h2>
-                                
-                            </article>
-                        </div>
-                        <div class="pr-3">
-                            <div class="card__author">
-                                <a class="fs-0-8"> زبان: {{$podcast->languages->name}}</a>
-                                <p class="item-level position-relative">سطح: 
-                                    @if ($podcast->levels->name == 'مقدماتی')
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
-                                    @elseif($music->levels->name == 'متوسط')
-
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
-                                    @else
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
-                                    @endif    
-                                </p>
+                            <div class="card__content px-3 pb-2">
+                                <div class="card__share">
+                                    <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}" id="" class=" share-icon"><i
+                                            class="fa fa-play-circle"></i></a>
+                                </div>
+                                <article class="card__article mt-2 pt-3">
+                                    <h2><a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}"
+                                            class="fs-0-8">{{Illuminate\Support\Str::limit($podcast->title,22)}}</a></h2>
+                                    
+                                </article>
                             </div>
-                        </div>
-                        <div class="card__meta d-flex justify-content-between px-3 pt-1">
-                            <span class="text-black-50 fs-0-8">{{$podcast->languages->name}}</span>
-                            <span
-                                class="text-black-50 fs-0-8">{{\Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y')}}</span>
+                            <div class="pr-3">
+                                <div class="card__author">
+                                    <a class="fs-0-8"> زبان: {{$podcast->languages->name}}</a>
+                                    <p class="item-level position-relative">سطح: 
+                                        @if ($podcast->levels->name == 'مقدماتی')
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                                        @elseif($podcast->levels->name == 'متوسط')
+                    
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-0.png')}}" alt="">
+                                        @else
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        <img src="{{asset('assets/images/audio-level-1.png')}}" alt="">
+                                        @endif    
+                                    </p>
+                                    <p  class="item-level position-relative">
+                                        بازدید: {{$podcast->views}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card__meta d-flex justify-content-between px-3 pt-1">
+                            <span class="text-black-50 fs-0-8">
+                                <i class="fa fa-clock-o pl-1"></i>
+                                @if (substr($podcast->duration,0,1) == '0' && substr($podcast->duration,1,1)
+                                == '0')
+                                {{substr($podcast->duration,3)}}
+                                @else
+                                {{$podcast->duration}}
+                                @endif
+                
+                               
+                            </span>
+                                <span
+                                    class="text-black-50 fs-0-8">{{\Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y')}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
+             </div>
             </div>
+            <div class="swiper-pagination swiper-podcast-pagination"></div>
         </section>
     </div>
 </section>
@@ -903,10 +927,10 @@
         autoplaySpeed:4500,
         responsive:{
             0:{
-                items:2
+                items:1
             },
             500: {
-                items:2
+                items:1
             },
             600:{
                 items:<?php echo json_encode($setting->footer_slide_count) ?>

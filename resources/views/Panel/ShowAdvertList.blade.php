@@ -73,7 +73,7 @@
                         @else
                         {{\App\Models\Contents\Categories::where('id',$advert->cat_id)->first()->name}}
                         @endif
-                       
+
                     </td>
                     <td>
 
@@ -91,8 +91,16 @@
                         <div class="btn-group" role="group" aria-label="">
 
                             <a data-id="{{$advert->id}}" class="delete btn btn-rounded btn-danger btn-sm m-0">حذف</a>
-                            <a data-id="{{$advert->id}}" class="status btn btn-rounded btn-info btn-sm m-0">تغییر
-                                وضعیت</a>
+                            <a data-id="{{$advert->id}}" class="status btn btn-rounded btn-info btn-sm m-0">
+                                @if ($advert->status == 1)
+                                غیرفعال
+                                @else
+                                فعال
+                                @endif
+                            </a>
+                            <a href="{{route('Panel.Content.EditAdvertLink',$advert)}}"
+                                class=" btn btn-rounded btn-primary btn-sm m-0">ویرایش
+                            </a>
                         </div>
                     </td>
                 </tr>
@@ -110,8 +118,9 @@
 @section('js')
 
 <script>
-    $('.delete').click(function(e){
+    $(document).on('click','.delete',function(e){
                 e.preventDefault()
+                
                 var value = $(this).data('id');
                 swal({
             title: "آیا اطمینان دارید؟",
@@ -150,7 +159,7 @@
 
 
      })
-      $('.status').click(function(e){
+     $(document).on('click','.status',function(e){
                 e.preventDefault()
                 var value = $(this).data('id');
                 swal({

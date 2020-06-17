@@ -88,6 +88,7 @@ class PostController extends Controller
             Comments::where('posts_id', $id)
             ->where('confirmed', 1)
             ->latest()->get();
+            
         $from = date("Y-m-01 00:00:00");
         $to = date("Y-m-29 23:59:59");
         $maxlike = 0;
@@ -102,8 +103,11 @@ class PostController extends Controller
             }
             $max = 0;
             $countbestcomments = 0;
+            $bestcomment_id=0;
+           if (count($array)) {
             foreach ($array as $key => $value) {
-                if ($value > $max) {
+               
+                if ($value > $max && $value > 10 ) {
                     $best = [];
                     $max = $value;
                     $bestcomment_id = $key;
@@ -113,6 +117,11 @@ class PostController extends Controller
             foreach ($array as $key => $value) {
                 if ($value == $max) $countbestcomments++;
             }
+           }else{
+            $bestcomment_id = 0;
+            $countbestcomments = 0;
+           }
+           
         } else {
             $bestcomment_id = 0;
             $countbestcomments = 0;

@@ -92,7 +92,10 @@
             <thead class="blue lighten-2 text-white">
                 <tr>
                     <th>ردیف</th>
-                    <th> نام پست</th>
+                    <th> نام </th>
+                    @if (request()->path() == "panel/allposts/category/learnings")
+                    <th>قسمت ها</th>
+                    @endif
                     <th>بازدید ها</th>
                     <th>لایک ها</th>
                     <th>گزارشات تخلف</th>
@@ -113,8 +116,11 @@
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>
-                        <a href="{{route('ShowItem',$post->id)}}" class="text-primary">{{$post->title}}</a>
+                        <a href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}" class="text-primary">{{$post->title}}</a>
                     </td>
+                    @if (request()->path() == "panel/allposts/category/learnings")
+                <th>{{$post->epizodes->count()}}</th>
+                    @endif
                     <td>{{$post->views}}</td>
                     <td class="text-success">{{$post->likes->count()}}</td>
                     <td class="text-danger">{{$post->violations->count()}}</td>

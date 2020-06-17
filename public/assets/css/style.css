@@ -1437,6 +1437,15 @@ img {
  .mt-5, .my-5 {
   margin-top: 3rem!important
  }
+ .mt-100{
+  margin-top: 100px!important
+ }
+ .mt-120{
+  margin-top: 120px!important
+ }
+ .mt-150{
+  margin-top: 150px!important
+ }
 
  .mr-5, .mx-5 {
   margin-right: 3rem!important
@@ -1691,6 +1700,15 @@ img {
  }
 
  @media (min-width:576px) {
+  .mt-sm-100{
+    margin-top: 100px!important
+   }
+   .mt-sm-120{
+    margin-top: 120px!important
+   }
+   .mt-sm-150{
+    margin-top: 150px!important
+   }
   .m-sm-0 {
    margin: 0!important
   }
@@ -5203,7 +5221,7 @@ justify-content-start {
   color: #212123;
 }
 .theme-light p {
-  color: #212123;
+  color: #6d6d6d;
 }
 .theme-dark h1,
 .theme-dark h2,
@@ -6303,7 +6321,7 @@ justify-content-start {
   position: fixed;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 10;
 }
 .sidebar .sidebar-inner {
   position: relative;
@@ -9482,6 +9500,7 @@ html[lang="fa"] .input-select select {
 [class^="thumbnail"] .thumb-wrapper .thumb-image {
   display: block;
   position: absolute;
+  object-fit:contain;
   top: 50%;
   left: 50%;
   width: 100%;
@@ -11622,9 +11641,9 @@ html[lang="fa"] .input-select select {
 .theme-light .list-item .list-tags .tag > a:hover {
   color: #00b96c;
 }
-.theme-light .list-item:not(:last-child) .list-wrapper:after {
+/* .theme-light .list-item:not(:last-child) .list-wrapper:after {
   border-bottom: 1px solid #f5f5f9;
-}
+} */
 .theme-dark .list-item .list-tags .tag > a,
 .theme-dark.list-item .list-tags .tag > a {
   color: #9da1b1;
@@ -13768,7 +13787,7 @@ color: var(--yellow);
   margin: 0 3px;
 }
 .swiper-pagination{
-  bottom: -45px;
+  bottom: -10px;
     right: 25px;
 }
 .img-fluid {
@@ -15142,7 +15161,7 @@ font-size: 12px;
 }
 #play .close{
   position: absolute !important;
-    z-index: 111;
+    z-index: 12;
     top: 20%;
     /* border-radius: 50%; */
     right: 25%;
@@ -15174,4 +15193,21 @@ font-size: 12px;
 
 .view{
   min-height:100vh;
+}
+.header-carousel .item{
+  height:20rem;
+}
+@media (max-width: 883px) {
+#footer-section{
+  margin-top: 260px !important;
+}
+.header-carousel .item{
+  height:10rem;
+}
+}
+img.client-img{
+  object-fit:cover;
+}
+.showall-wrapper{
+  min-height: calc(100vh - 160px) !important;
 }

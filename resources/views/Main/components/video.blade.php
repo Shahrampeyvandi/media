@@ -1,6 +1,6 @@
 @foreach($videos as $movie)
 
-<div class="thumbnail-movie thumbnail-serial mx-3 card" style="max-width: 220px;">
+<div class="thumbnail-movie thumbnail-serial m-3 card" style="max-width: 220px;">
     <div class="thumb-wrapper">
         <a class="thumb" href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}">
             <div class="abs-fit">
@@ -48,7 +48,7 @@
     </div>
     <div class="position-relative px-2 pt-3">
         <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-            class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+            class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
         <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                 @if ($movie->subjects)
 

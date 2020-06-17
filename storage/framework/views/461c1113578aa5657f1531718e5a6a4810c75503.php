@@ -1,8 +1,10 @@
 
 
 <?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/login.css">
 
-<div class="col-md-8 offset-md-2 mb-3">
+
+<div class="col-md-8 offset-md-2 mb-3 mt-sm-120 mt-100">
 <form id="edit" action="<?php echo e(route('Profile.Submit')); ?>" method="post" enctype="multipart/form-data">
 <?php echo csrf_field(); ?>
 <input type="hidden" name="id" value="<?php echo e($member->id); ?>">
@@ -50,12 +52,14 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_pass" class="col-form-label"><span class="text-danger">*</span> تغییر رمز عبور: </label>
-            <input type="text" class="form-control" name="user_pass" id="user_pass" value="">
+            <input type="password" class="form-control" name="user_pass" id="user_pass" value="">
+            <span toggle="#user_pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div>
             <div class="form-group col-md-6">
               <label for="confirm_user_pass" class="col-form-label"><span class="text-danger">*</span> تکرار
                 رمز عبور:</label>
-              <input type="text" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
+              <input type="password" class="form-control" name="confirm_user_pass" id="confirm_user_pass">
+              <span toggle="#confirm_user_pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div>
           </div>
           <div class="row">
@@ -63,11 +67,14 @@
               <label for="user_email" class="col-form-label" >ایمیل:</label>
               <input type="text" disabled class="form-control" name="user_email" id="user_email" value="<?php echo e($member->email); ?>">
             </div>
+    
             <div class="form-group col-md-6">
               <label for="username" class="col-form-label"><span class="text-danger">*</span> نام کاربری:</label>
               <input type="text" class="form-control" name="username" id="username" value="<?php echo e($member->username); ?>">
             </div>
           </div>
+
+         
           <div class="row">
             <div class="form-group col-md-6">
               <label for="user_mobile" class="col-form-label"><span class="text-danger">*</span> موبایل:</label>
@@ -80,24 +87,50 @@
           </div>
          
          
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">مدرک تحصیلی: </label>
-                <input type="text" placeholder="" class="form-control" name="certificate" id="user_certificate">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">مقطع تحصیلی: </label>
-                <input type="text" placeholder="" class="form-control" name="level" id="user_level">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">سابقه تدریس: </label>
-                <input type="text" placeholder="" class="form-control" name="history" id="history">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="user_mobile" class="col-form-label">حق سنوات: </label>
-                <input type="text" placeholder="" class="form-control" name="years" id="years">
-              </div>
+          <?php if(auth()->user()->group == "teacher"): ?>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">مدرک تحصیلی: </label>
+              <input type="text" placeholder="" class="form-control" 
+              name="certificate"
+              value="<?php echo e($member->certificate); ?>"
+               id="user_certificate">
             </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">مقطع تحصیلی: </label>
+              <input type="text" placeholder="" 
+              class="form-control" name="level" 
+              value="<?php echo e($member->edu_level); ?>"
+              id="user_level">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">سابقه تدریس: </label>
+              <input type="text" placeholder="" class="form-control"
+               name="history"
+               value="<?php echo e($member->history); ?>" 
+               id="history">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">حق سنوات: </label>
+              <input type="text" placeholder="" class="form-control"
+               name="years" 
+            value="<?php echo e($member->years); ?>"
+               id="years">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="user_mobile" class="col-form-label">شماره شبا: (دقت کنید که شماره شبا حتما باید به نام صاحب پروفایل باشد)</label>
+              <input type="number" placeholder="" class="form-control " name="shaba" id="shaba" value="<?php echo e($member->shaba); ?>">
+              <span class="" style="position: absolute;
+              top: 42px;
+              left: -1px;">IR</span>
+            </div>
+   
+          </div>
+          <?php endif; ?>
+
+           
           
           
          
@@ -111,8 +144,19 @@
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
+
 <script type="text/javascript">
   $(document).ready(function(){
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -126,6 +170,8 @@
     $("#user_profile").change(function(){
         readURL(this);
     });
+
+    
     $.validator.addMethod(
     "regex",
     function(value, element, regexp) {
@@ -142,6 +188,9 @@
         minlength: 5,
         regex: /^[a-zA-Z]+[a-zA-Z\d]*$/
 			},
+      age:{
+        max:80
+      },
      
 			user_pass: {
 				
@@ -156,9 +205,15 @@
 				
       required: true
       },
-      user_email:"required"
+      user_email:"required",
+      shaba:{
+        required:true,regex:/^[0-9]{24}$/
+      }
 		},
 		messages: {
+      age:{
+        max:"سن وارد شده غیر مجاز است"
+      },
 			user_name: "لطفا نام خود را وارد نمایید",
       user_family: "لطفا نام خانوادگی خود را وارد نمایید",
       user_email:"ایمیل الزامی است",
@@ -178,10 +233,26 @@
       user_mobile:{
         required:"شماره موبایل الزامی میباشد"
       },
+      shaba:{
+        required:"شماره شبا الزامی می باشد",
+        regex:"شماره شبا دارای فرمت نامعتبر می باشد"
+
+      }
      
 		}
 	});
+  $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
   })
+
 </script>
 
 <?php $__env->stopSection(); ?>

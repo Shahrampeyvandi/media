@@ -76,12 +76,16 @@ class MainController extends Controller
     }
     public function Search(Request $request)
     {
+       if($request->key != ''){
        
       $posts =  Posts::where('title','like', '%' . $request->key . '%')->latest()->take(10)->get();
+       }else{
+           return false;
+       }
       $li = '';
       if(count($posts) !== 0){
         foreach ($posts as $key => $post) {
-            $li .='<li><a href="'.route('ShowItem',$post->id).'" class="float-right text-primary">'.$post->title.'</a><span class="float-left fs-0-8">دسته بندی: '.$post->categories->name.'</span></li>';
+            $li .='<li><a href="' . route('ShowItem', ['content'=>$post->categories->name,'slug'=>$post->slug]) . '" class="float-right text-primary">'.$post->title.'</a><span class="float-left fs-0-8"> '.$post->categories->name.'</span></li><br/>';
         }
       }else{
         $li .='<li><a href="#" class="float-right text-primary fs-0-8">موردی یافت نشد</a></li>';
