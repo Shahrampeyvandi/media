@@ -22,7 +22,7 @@
                     <h3 class="mb-2">آپلود قسمت های دوره: </h3>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <input type="number" class="form-control" name="epizode_number" id="epizode_number"
+                            <input type="number" class="form-control"  name="epizode_number" id="epizode_number"
                                 value="{{$number+1}}" placeholder="شماره قسمت">
                         </div>
                         <div class="form-group col-md-6">

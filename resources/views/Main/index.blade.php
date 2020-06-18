@@ -891,6 +891,7 @@
 @endsection
 
 @section('js')
+<script src="{{asset('assets/js/parallax.min.js')}}"></script>
 <script>
    
         new WOW().init();

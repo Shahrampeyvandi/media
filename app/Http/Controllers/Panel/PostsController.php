@@ -429,6 +429,22 @@ class PostsController extends Controller
         );
     }
 
+
+
+    public function DeleteEpisode(Request $request)
+    {
+        $episode = Episodes::find($request->id);
+        if($episode->delete()){
+            return response()->json(
+                ['success' => "موفق", 200]
+            );
+        }else{
+            return response()->json(
+                ['success' => "ناموفق", 401]
+            );
+        }
+    }
+
     public function CheckPost()
     {
 

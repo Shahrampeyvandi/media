@@ -175,7 +175,7 @@
                                     <div class="episodes_list--details">
                                         @if(auth()->user())
                                         @if ($content->members_id == auth()->user()->id)
-                                        <a href="#"><span class="btn btn-danger btn-sm btn-rounded">
+                                    <a href="#" data-episode="{{$episode->id}}" class="dl-episode"><span class="btn btn-danger btn-sm btn-rounded">
                                                 حذف </span></a>
                                         <span class="btn btn-info btn-sm btn-rounded">
                                             تعداد بازدیدها {{$episode->views}}</span>
@@ -226,38 +226,9 @@
     pickerPosition: "bottom"
 });
 
-//     var controls =
-// [
-//     'play-large', // The large play button in the center
-    
-//     'rewind', // Rewind by the seek time (default 10 seconds)
-//     'play', // Play/pause playback
-//     'fast-forward', // Fast forward by the seek time (default 10 seconds)
-//     'progress', // The progress bar and scrubber for playback and buffering
-//     'current-time', // The current time of playback
-//     'duration', // The full duration of the media
-//     'mute', // Toggle mute
-//     'volume', // Volume control
-//     'captions', // Toggle captions
-//     'settings', // Settings menu
-//     'pip', // Picture-in-picture (currently Safari only)
-//     'airplay', // Airplay (currently Safari only)
-//     'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
-//     'fullscreen' // Toggle fullscreen
-// ];
-// const player = new Plyr('#player',{
-//         controls
-//     ,
-//     speed:{ selected: 1, options: [ 0.5, 0.75, 1, 1.25] }
-//     });
     var type = "{{$type}}";
     var checkauth = '{{auth()->user()}}';
     
-    function ajaxlike(id, url) {
-          
-        
-     
-  }
 
   $('#like-post').click(function (e) {
       e.preventDefault();
@@ -316,6 +287,50 @@
       } else {
           window.location.href = "{{route("login")}}"
       }
+  })
+
+  $(document).on('click','.dl-episode',function(e){
+      e.preventDefault()
+      let episode_id = $(this).data('episode');
+      let url = '{{route("DeleteEpisode")}}';
+      swal({
+            title: "آیا اطمینان دارید؟",
+          
+            icon: "warning",
+			buttons: {
+				confirm : 'بله',
+				cancel : 'خیر'
+			},
+            dangerMode: true
+        })
+        .then(function(willDelete) {
+            if (willDelete) {
+                // ajax request
+              $.ajax({
+                type:'post',
+                url:url,
+                 data:{id:episode_id},
+        
+                      
+                 
+                 success:function(data){
+
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },200)
+               
+                }
+        })
+            }
+			else {
+                swal("عملیات لغو شد", {
+					icon: "error",
+					button: "تایید"
+				});
+    		}
+    	});
+    
   })
 </script>
 @endsection

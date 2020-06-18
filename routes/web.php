@@ -216,6 +216,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('panel/checkout', 'Panel\PurchaseController@checkout')->name('Panel.Checkout');
     Route::post('panel/checkout', 'Panel\PurchaseController@checkoutcreate')->name('Panel.Checkout.Create');
 
+    Route::post('panel/episode/delete', 'Panel\PostsController@DeleteEpisode')->name('DeleteEpisode');
 
 });
 

@@ -553,7 +553,7 @@
     <script src="{{route('BaseUrl')}}/assets/js/app.js"></script>
     <script src="{{asset('assets/js/wow.min.js')}}"></script>
     
-    <script src="{{asset('assets/js/parallax.min.js')}}"></script>
+   
 
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 

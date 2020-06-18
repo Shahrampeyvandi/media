@@ -10,14 +10,14 @@
             @if (!is_null($lastpost))
             <div class="list-wrapper">
                 <div class="wpb_wrapper py-3 mr-2">
-                    <h2 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider " style="margin-right: 0px;">
-                        <span class="title__divider__wrapper text-success">آخرین مطلب<span
+                    <h3 class="font__family-open-sans fs-1  mt-15 mb-15 title__divider " style="margin-right: 0px;">
+                        <span class=" text-success">آخرین مطلب<span
                                 class="line brk-base-bg-gradient-right"></span>
-                        </span></h2>
+                        </span></h3>
                 </div>
             </div>
 
-            <div class="recent_content d-flex mr-3">
+            <div class="recent_content d-flex flex-column flex-md-row mr-md-3">
                 <a href="{{route('ShowItem',['content'=>$lastpost->categories->name,'slug'=>$lastpost->slug])}}"
                     class="image">
 
@@ -30,8 +30,8 @@
                    height: 100%;box-shadow: 0 0 2px 0px grey;'}}" height="100%" width="100%" alt="">
 
                 </a>
-                <div class="d-flex  flex-column pr-3">
-                    <h3><a href="#">{{$lastpost->title}}</a></h3>
+                <div class="d-flex  flex-column pr-md-3 pt-2 pt-md-0">
+                    <h3 class="mb-2"><a href="#">{{$lastpost->title}}</a></h3>
                     <p>{{$lastpost->subjects->name}}</p>
                     <div>
                         <span class="fs-0-8 text-black-50 mt-2 ml-3">
@@ -636,11 +636,11 @@
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 1,
+          spaceBetween: 10,
         },
         1380:{
           slidesPerView: 4,
-          spaceBetween: 1,
+          spaceBetween: 10,
         }
     }
     var swiper = new Swiper('.swiper-container-1', {

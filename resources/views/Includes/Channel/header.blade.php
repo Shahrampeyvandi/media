@@ -40,10 +40,16 @@
                     <div class="avatar">
 
                         <a href="{{route('User.Show',['name'=>$member->username])}}" class="picture image">
-                            {{-- <img
-                                src="https://static.cdn.asset.aparat.com/profile-photo/349868-m.jpg"
-                                class=" avatar-img"> --}}
+                            @if ($member->avatar)
+                            <img
+                                src="{{$member->avatar}}"
+                                alt="تصویر پروفایل"
+                                class=" avatar-img">
+                            @else
                             <i class="fa fa-user channel-pic"></i>
+
+                            @endif
+                            
 
                         </a>
 
@@ -75,7 +81,7 @@
                     </a>
                 </div>
 
-                <div class="item">
+                <div class="">
                     <div class="stat">
 
                         <span class="number channel-followers-349868">{{count($member->followers)}}</span>

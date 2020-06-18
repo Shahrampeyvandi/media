@@ -118,8 +118,9 @@
 
 .channel-header .details-row .details .item {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+   
+    flex-direction: column;
+    align-items: flex-end;
     flex-grow: 1;
 }
 .channel-header .stat {
@@ -412,6 +413,10 @@ a.push_btn.active {
 @media (min-width: 456px){
 .device-desktop [data-grid-fixed]:not([data-detailside]).grid-thumbnail-ads>.item, .device-desktop [data-grid-fixed]:not([data-detailside]).grid-thumbnail>.item {
     width: 210px;
+}
+.channel-header .details-row .details .item {
+flex-direction: row;
+align-items: center;
 }
 }
 .grid-thumbnail:not([data-detailside])>.item {
