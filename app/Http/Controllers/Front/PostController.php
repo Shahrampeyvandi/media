@@ -129,6 +129,25 @@ class PostController extends Controller
 
         $type = "post";
         $episode_id = null;
+        $compacts = [
+            'title',
+            'type',
+            'isbuyedit',
+            'id',
+            'content',
+            'comments',
+            'likes',
+            'favorite_status',
+            'relateds',
+            'categories',
+            'countcategoryposts',
+            'bestcomment_id',
+            'countbestcomments',
+            'link',
+            'link_type',
+            'pic_link',
+            'followers'
+        ];
         if ($content->categories_id == 6) {
 
             $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
@@ -159,26 +178,14 @@ class PostController extends Controller
 
             ]));
         } else {
-            // get Epizodes
-            return view('Main.single', compact([
-                'title',
-                'type',
-                'isbuyedit',
-                'id',
-                'content',
-                'comments',
-                'likes',
-                'favorite_status',
-                'relateds',
-                'categories',
-                'countcategoryposts',
-                'bestcomment_id',
-                'countbestcomments',
-                'link',
-                'link_type',
-                'pic_link',
-                'followers'
-            ]));
+         
+            if($content->media == "video"){
+
+                return view('Main.show_video', compact($compacts));
+            }else{
+                return view('Main.show_audio', compact($compacts));
+
+            }
         }
     }
 

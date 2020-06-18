@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/mdb.min.css">
-    <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/bootstrap/RTL.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/login.css">
      @yield('css')
 </head>
@@ -22,7 +21,7 @@
   <div class="container">
     @yield('content')
   </div>
-  <script src="{{route('BaseUrl')}}/Panel/vendor/jquery/jquery-3.4.1.js"></script>
+  <script src="{{route('BaseUrl')}}/assets/js/jquery-3.5.1.min.js"></script>
   <script src="{{route('BaseUrl')}}/Panel/assets/js/jquery.validate.js"></script>
     @yield('js')
     <script>

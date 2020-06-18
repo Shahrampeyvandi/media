@@ -23,7 +23,9 @@ class ProfileController extends Controller
             $postsconversaion = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 4)->where('confirmed', 1)->take(10);
             $postswriting = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 5)->where('confirmed', 1)->take(10);
             $postsreading = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 6)->where('confirmed', 1)->take(10);
-            $postslessening = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 7)->where('confirmed', 1)->take(10);
+            $postspeaking = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 7)->where('confirmed', 1)->take(10);
+            $ilets = $member->posts->where('id', '!=', $lastpost->id)->where('categories_id', $category->id)->where('subjects_id', 8)->where('confirmed', 1)->take(10);
+
         } else {
             $postsloghat = [];
             $postsgrammer = [];
@@ -31,7 +33,8 @@ class ProfileController extends Controller
             $postsconversaion = [];
             $postswriting = [];
             $postsreading = [];
-            $postslessening = [];
+            $postspeaking = [];
+            $ilets = [];
         }
         $checkfollow = 0;
         if (auth()->user()) {
@@ -50,7 +53,8 @@ class ProfileController extends Controller
             'postsconversaion',
             'postswriting',
             'postsreading',
-            'postslessening'
+            'postspeaking',
+            'ilets'
 
         ]));
     }

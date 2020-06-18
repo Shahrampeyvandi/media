@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\admin::class,
         'mid-admin' => \App\Http\Middleware\midAdmin::class,
         'check-shaba' => \App\Http\Middleware\CheckShaba::class,
+      
     ];
 }

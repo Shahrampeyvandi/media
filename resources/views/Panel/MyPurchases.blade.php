@@ -28,10 +28,10 @@
             <tr>
             <td>{{$key+1}}</td>
 
-            <td><a href="{{route('ShowItem',['id'=>$purchase->posts->id])}}">
+            <td><a href="{{route('ShowItem',['content'=>\App\Models\Contents\Posts::where('id',$purchase->posts_id)->first()->categories->name,'slug'=>\App\Models\Contents\Posts::where('id',$purchase->posts_id)->first()->slug])}}">
             {{$purchase->posts->title}}
             </a></td>
-            <td>{{$purchase->payedprice}}</td>
+            <td>{{$purchase->payedprice}} تومان</td>
             <td>{!!$purchase->payinfo!!}</td>
             <td>
             @if($purchase->success ==1)

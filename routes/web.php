@@ -46,14 +46,6 @@ Route::get('/testimonials', 'MainController@Testimonials')->name('Testimonials')
 Route::post('search', 'MainController@Search')->name('SearchBar');
 
 
-// Channel Routes
-Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
-Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
-Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
-Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
-Route::get('channel/{name}/{category}/{subject}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
-
-Route::get('video/show/{id}', 'Front\PostController@ShowVideo')->name('Video.Show');
 
 // routes where must login
 
@@ -84,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/panel/myfavorites/{content?}', 'Panel\FavoritesController@index')->name('Panel.MyFavorites');
     Route::get('/panel/myfollowers', 'Panel\FollowersController@index')->name('Panel.MyFollowers');
     Route::get('/panel/mycomments', 'Panel\CommentController@myComments')->name('Panel.Comments');
-    Route::get('/uploadfile', 'Panel\DashboardController@UploadFile')->name('Main.UploadFile');
+   
     Route::post('addpostcomment', 'Front\CommentController@AddPostComment')->name('AddPostComment');
     Route::post('addepizodecomment', 'Front\CommentController@AddEpisodeComment')->name('AddEpisodeComment');
 
@@ -226,4 +218,13 @@ Route::middleware(['auth','admin'])->group(function () {
 
 
 });
+
+Route::get('channel/showall/{subject}/{member}', 'Front\ChannelController@ShowAll')->name('Channel.Category.ShowAll');
 Route::get('/{content}/{slug}', 'Front\PostController@index')->name('ShowItem');
+// Channel Routes
+Route::get('channel/{name}/content/{slug?}', 'Front\ProfileController@Show')->name('User.Show');
+Route::get('channel/{name}/about', 'Front\ProfileController@About')->name('User.About');
+Route::get('channels', 'Front\ChannelController@List')->name('Channels.List');
+Route::post('/follow', 'Front\ProfileController@Follow')->name('User.Follow');
+
+Route::get('video/show/{id}', 'Front\PostController@ShowVideo')->name('Video.Show');

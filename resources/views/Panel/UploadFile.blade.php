@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="overlay_upload " >
-<img src="{{asset('assets/images/LOGO.jpeg')}}" style=" bottom: -60px;" alt="">
+<img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="لوگوی ژن برتر">
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -126,7 +126,7 @@
                         <div class="form-group col-md-4">
                             <label for="desc">قیمت: </label>
                             <input type="number" class="form-control" value="0" name="price" id="price" placeholder="">
-                            <span class="rial">ریال</span>
+                            <span class="rial">تومان</span>
                         </div>
                     </div>
                     @endif
@@ -151,7 +151,6 @@
         </div>
     </div>
 </div>
-</div>
 <div class="row">
     <div class="col-md-12 mt-3 mb-5">
         <div class="sc-gZMcBi ePNtwd"><span>پسوند های مجاز فایل </span>
@@ -163,10 +162,12 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 @section('js')
 
-<!-- end::input mask -->
+
 <script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
 <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
 <script>
@@ -174,18 +175,16 @@
         CKEDITOR.replace('desc',{
             extraPlugins: 'uploadimage',
             filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
-            imageUploadUrl: '{{route('UploadImage')}}?type=image'
+            imageUploadUrl: '{{route('UploadImage')}}?type=image',
+            contentsLangDirection: 'rtl'
         });
     CKEDITOR.replace('desc2',{
             extraPlugins: 'uploadimage',
             filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
-            imageUploadUrl: '{{route('UploadImage')}}?type=image'
+            imageUploadUrl: '{{route('UploadImage')}}?type=image',
+            contentsLangDirection: 'rtl'
         });
-        CKEDITOR.replace('epizode_desc',{
-            extraPlugins: 'uploadimage',
-            filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
-            imageUploadUrl: '{{route('UploadImage')}}?type=image'
-        });
+       
         $(document).on('change','#type',function(){
 
             if($(this).val() == '6'){
@@ -296,8 +295,7 @@
              "error", {
 			button: "باشه"
 		});
-          $('.progress-bar').text('0%');
-          $('.progress-bar').css('width', '0%');
+       
         }
         if(data.success)
         {
@@ -311,40 +309,26 @@
              "success", {
 			button: "باشه"
 		});
-              setTimeout(() => {
-                window.location.reload()
-              }, 600);
-            }
-        
             
-
-          $('.progress-bar').text('انجام شد');
-          $('.progress-bar').css('width', '100%');
-         
-          $('#success').append(data.image);
-
-          var form = $('#upload-file')
-            form.find('input[type="text"]').val('')
-           
-            form.find('input[type="file"]').val('')
-           
-            form.find('textarea').val('')
-
+            }
+        }
+        
+            $('.progress-bar').text('انجام شد');
+            $('.progress-bar').css('width', '0%');
+            $('#success').append(data.image);
             $('.overlay_upload').hide(400)
             $('.overlay_upload img').animate({bottom:'-60px'}, 1000) 
-          
-        }
       },
 
       error:function(data){
         swal("خطا"
-            , data
+            , data.responseJSON.errors
             ,
              "error", {
 			button: "باشه"
 		});
         $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-
+        $('.progress-bar').css('width', '0%');
         $('.overlay_upload').hide(400)
         $('.overlay_upload img').animate({bottom:'-60px'}, 1000) 
       }

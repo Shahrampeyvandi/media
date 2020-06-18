@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/themify/themify-icons.css">
     <link rel="stylesheet" href="{{asset('Panel/vendor/dataTable/responsive.bootstrap.min.css')}}">
-    <script src="{{asset('assets/js/jquery-3.4.1.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{asset('assets/js/simplebar.min.js')}}"></script>
     <script src="{{asset('assets/js/simple-scrollbar.min.js')}}"></script>
     <link rel="stylesheet" href=" {{asset('Panel/assets/css/app.css')}} ">
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href=" {{asset('Panel/assets/css/RTL.css')}} ">
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}" />
     <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
-    {{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/sweet-alert.js"></script> --}}
+  
     @yield('css')
     <script>
         var isMobile = false;

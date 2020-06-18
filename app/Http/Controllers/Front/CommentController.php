@@ -8,20 +8,38 @@ use App\Models\Contents\Comments;
 use App\Models\Contents\CommentsLikes;
 use App\Models\Contents\Episodes;
 use App\Models\Contents\Posts;
+use App\Models\Members\Members;
+use App\Models\Notifications\Notifications;
 
 class CommentController extends Controller
 {
     public function AddPostComment(Request $request)
     {
-    
+        $post = Posts::where('id',$request->post_id)->first();
         $comment=new Comments();
         $comment->members_id = auth()->user()->id;
         $comment->text=$request->comment;
         $comment->parent_id = $request->parent_id;
-        $post=Posts::whereId($request->post_id)->first()->id;
-        $comment->posts_id = $post;
+        
+        $comment->posts_id = $request->post_id;
         $comment->confirmed = auth()->user()->is_admin() ? 1 : 0;
         $comment->save();
+
+
+        
+
+        foreach (Members::where('group', 'admin')->get() as $key => $admin) {
+            $notification = new Notifications;
+            $notification->members_id = $admin->id;
+            $notification->title = 'دیدگاه جدید';
+            $notification->text = 'کاربر با نام کاربری <a href="' . route('User.Show', auth()->user()->username) . '" class="text-primary">' . auth()->user()->username .
+             '</a> برای پست با عنوان <a class="text-primary" href="'.route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug]).'"> '
+             .\Illuminate\Support\Str::limit($post->title,12).' </a> دیدگاه جدید نوشت';
+            $notification->posts_id = 0;
+            $notification->save();
+        }
+
+
         toastr()->success('نظر شما با موفقیت ثبت شد');
         return back();
     }  

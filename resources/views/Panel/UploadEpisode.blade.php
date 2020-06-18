@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="overlay_upload " >
-    <img src="{{asset('assets/images/LOGO.jpeg')}}" style=" bottom: -60px;" alt="">
+    <img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="">
     </div>
 <div class="row">
     <div class="col-md-12">
@@ -97,7 +97,8 @@
         CKEDITOR.replace('epizode_desc',{
             extraPlugins: 'uploadimage',
             filebrowserUploadUrl: '{{route('UploadImage')}}?type=file',
-            imageUploadUrl: '{{route('UploadImage')}}?type=image'
+            imageUploadUrl: '{{route('UploadImage')}}?type=image',
+            contentsLangDirection: 'rtl'
         });
 
 
@@ -162,7 +163,10 @@
         
 
           $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
-     
+          $('.overlay_upload').hide(300)
+        $('.overlay_upload img').animate({bottom:'-60px'}, 1000)
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
         if(data.errors)
         {
             swal("خطا"
@@ -191,6 +195,10 @@
       },
 
       error:function(data){
+        $('.overlay_upload').hide(300)
+        $('.overlay_upload img').animate({bottom:'-60px'}, 1000)
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
         swal("خطا"
             , 'آپلود ناموفق بود'
             ,

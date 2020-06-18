@@ -4,23 +4,22 @@
 <head>
     <meta charset="utf-8">
     <title>
-       @yield('title','ژن برتر - مرجع آموزش زبان ')
-        
+        @yield('title','ژن برتر - مرجع آموزش زبان ')
+
     </title>
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
-    <meta name="description" 
-    content="@yield('description','موزیک و ویدیوهای آموزشی خود را به راحتی آپلود کرده و با یکدیگر به اشتراک بگذارید')">
+    <meta name="description"
+        content="@yield('description','موزیک و ویدیوهای آموزشی خود را به راحتی آپلود کرده و با یکدیگر به اشتراک بگذارید')">
     <link rel="canonical" href="{{route('BaseUrl')}}" />
-    
-    
-    
-    
-    
-    <link rel="icon" href="{{asset('assets/images/logo.jpeg')}}">
+
+
+
+
+
+    <link rel="icon" href="{{asset('assets/images/LOGO.jpeg')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{-- <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/FontAwesome/all.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Panel/vendor/themify/themify-icons.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/owl.carousel.min.css">
@@ -30,7 +29,7 @@
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/stylemusic.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/assets/css/mdb.min.css">
     <link href="{{route('BaseUrl')}}/assets/css/swiper.min.css" rel="stylesheet">
-    <script src="{{asset('assets/js/jquery-3.4.1.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simplebar.min.js"></script>
     <script src="{{route('BaseUrl')}}/assets/js/simple-scrollbar.min.js"></script>
@@ -63,22 +62,21 @@
         var isMobile = false;
     </script>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         !function(){function t(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,localStorage.getItem("rayToken")?t.src="https://app.raychat.io/scripts/js/"+o+"?rid="+localStorage.getItem("rayToken")+"&href="+window.location.href:t.src="https://app.raychat.io/scripts/js/"+o;var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}var e=document,a=window,o="7a58561c-2f4a-4a15-8c90-e75c8ed050ed";"complete"==e.readyState?t():a.attachEvent?a.attachEvent("onload",t):a.addEventListener("load",t,!1)}();
-    </script>
+    </script> --}}
 
 </head>
 
 <body class="device-desktop theme-light">
-    <div class="page-loader " style="display: none;" >
+    <div class="page-loader " style="display: none;">
         <div class="spinner-border text-success"></div>
         <img src="{{asset('assets/images/LOGO.jpeg')}}" style=" bottom: 19px;
         position: absolute;
-        /* bottom: 0; */
         right: 103px;
         width: 95px;" alt="">
     </div>
-    
+
 
     <div id="notes" class="d-b  pt-2">
         <a class="float-left text-danger close-notes"><i class="fa fa-times "></i></a>
@@ -106,58 +104,7 @@
             </form>
         </div>
     </div>
-    {{-- <div id="popup2" class="overlay note">
-        <div class="popup" style="width:60%;">
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                <div class="row">
-                    <div class="note-text" style="flex: 1.2;display: none;">
-                        <form id="" action="#" method="post">
-                            @csrf
-                            <div class="mt-3">
-                                <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> یادداشت ها
-                                </h5>
-                                <div class="form-group col-md-12">
-                                    <input type="hidden" id="parent_id" name="parent_id" value="0">
-                                    <input type="hidden" name="postid" value="">
 
-                                    <textarea type="text" placeholder=" " rows="7" class="form-control" name="info"
-                                        id="description"></textarea>
-                                </div>
-                            </div>
-                            {{-- <div class="form-group col-md-12">
-            <button type="submit" class="btn btn-sm btn-primary">افزودن </button>
-        </div> 
-                        </form>
-                    </div>
-                    <div class="" style="margin: 0 20px;
-                            flex: 1;">
-                        <ul style="max-height: 235px;
-                            overflow: scroll;margin-top: 40px;">
-                            <li style="display: flex;
-                      justify-content: space-between;"><a class="note-list" href="" style="flex: 1.7;">dsf</a>
-                                <span style="flex:.3;" class="fs-0-8 text-black-50 ml-1">11 بهمن </span>
-                            </li>
-                            <li><a href="">sfsf</a></li>
-                            <li><a href="">sdf</a></li>
-                            <li><a href="">sdfsd</a></li>
-                            <li><a href="">sdfsf</a></li>
-                            <li><a href="">dsf</a></li>
-                            <li><a href="">sfsf</a></li>
-                            <li><a href="">sdf</a></li>
-                            <li><a href="">sdfsd</a></li>
-                            <li><a href="">sdfsf</a></li>
-                            <li><a href="">dsf</a></li>
-                            <li><a href="">sfsf</a></li>
-                            <li><a href="">sdf</a></li>
-                            <li><a href="">sdfsd</a></li>
-                            <li><a href="">sdfsf</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     <main id="main" class="main" data-sidebar>
 
@@ -277,18 +224,12 @@
                     </div>
                     <div class="item">
                         <div class="inline-flex upload-button">
-                            <a href="{{route('Main.UploadFile')}}"
-                                class="button button-info button-small button-hollow button-bordered upload-video"
-                                data-ctr="upload-button" data-ctr-cta="upload-button">
+                            <a href="{{route('UploadFile')}}"
+                                class="button button-info button-small button-hollow button-bordered upload-video">
                                 <i class="fa fa-plus"></i>
                                 <span class="text mr-1">بارگذاری فایل</span></a>
                         </div>
-                        <div class="inline-flex live-button" data-responsive="mobile">
-                            <a href="/live" class="button button-gray button-medium button-hollow live-button">
-                                <svg class="icon icon-live" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                    <use xlink:href="#si_live"></use>
-                                </svg> <span class="text">55 </span></a>
-                        </div>
+
 
 
                         <div class="inline-flex register-button">
@@ -313,7 +254,7 @@
                 </div>
 
 
-                <div class="search-widget" data-suggest-url="/search_suggestion">
+                <div class="search-widget" data-suggest-url="">
                     <div class="input-text">
                         <div class="input-inner">
 
@@ -353,7 +294,7 @@
 
         <aside id="sidebar" class="sidebar">
 
-            <div class="sidebar-inner" data-simplebar data-simplebar-direction=rtl>
+            <div class="sidebar-inner">
                 <div class="inline-flex sidebar-toggle">
                     <div class="toggle">
                         <button type="button"
@@ -377,7 +318,7 @@
                         <li class="menu-item-link active">
                             <a href="{{route('BaseUrl')}}" aria-label="صفحه نخست">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                    <use xlink:href="#si_home"></use>
+                                    <use></use>
                                 </svg>
                                 <div class="content">
                                     <span class="text">صفحه نخست</span>
@@ -388,7 +329,7 @@
                         <li class="menu-item-link ">
                             <a href="{{route('User.Show',auth()->user()->username)}}" aria-label="پروفایل من">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                    <use xlink:href="#si_home"></use>
+                                    <use></use>
                                 </svg>
                                 <div class="content">
                                     <span class="text">پروفایل من</span>
@@ -399,7 +340,7 @@
                         {{-- <li class="menu-item-link ">
                         <a href="{{route('Panel.MyFavorites')}}" aria-label="صفحه نخست"><svg class="icon icon-home"
                             viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24"">
-                            <use xlink:href="#si_home"></use>
+                            <use></use>
                         </svg>
                         <div class="content">
                             <span class="text">ویدیوهای دنبال شوندگان</span>
@@ -409,7 +350,7 @@
                         <li class="menu-item-link ">
                             <a href="{{route('Panel.MyFavorites')}}" aria-label="علاقه مندی ها">
                                 <svg class="icon icon-home" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
-                                    <use xlink:href="#si_home"></use>
+                                    <use></use>
                                 </svg>
                                 <div class="content">
                                     <span class="text">علاقه مندی ها</span>
@@ -438,7 +379,7 @@
                             <a href="#" title="نمایش بیشتر" aria-label="نمایش بیشتر">
                                 <svg class="icon icon-down" viewBox="0 0 24 24" viewBox="viewBox=" 0 0 24 24 "">
                                     <use xlink:href="#si_down"></use>
-                                </svg> 
+                                </svg>
                                 <span class="content">نمایش بیشتر</span>
                             </a>
                         </li>
@@ -581,40 +522,43 @@
 
                 @yield('content')
             </div>
-                <section id="footer-section" style=" padding: 40px 0;position: relative;bottom:0;" class="list-item li stylish-color" data-list="slider">
+            <section id="footer-section" style=" padding: 40px 0;position: relative;bottom:0;"
+                class="list-item li stylish-color" data-list="slider">
                 <div class="text-center text-white-50">
                     کلیه حقوق این سایت متعلق به ژن برتر میباشد
                 </div>
-                </section>
-                @if (auth()->check())
-                <div class="">
-                    <ul class="side-function">
-                        <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
-                                    class="fa fa-pencil fs-2"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                @endif
-           
+            </section>
+            @if (auth()->check())
+            <div class="">
+                <ul class="side-function">
+                    <li class="side-contact"><a href="#" class="note-link" rel="nofollow"><i
+                                class="fa fa-pencil fs-2"></i></a>
+                    </li>
+                </ul>
+            </div>
+            @endif
+
         </div>
 
 
     </main>
-  
-       
-   
+
+
+
 
 
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('assets/js/scripts.js')}}"></script>
+
     <script src="{{route('BaseUrl')}}/assets/js/app.js"></script>
     <script src="{{asset('assets/js/wow.min.js')}}"></script>
+    
+    <script src="{{asset('assets/js/parallax.min.js')}}"></script>
+
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
+
     @toastr_render
-    <script>
-        new WOW().init();
-    </script>
+   
     <script>
         $(document).ready(function () {
         var checkauth = '{{auth()->user()}}';
@@ -673,14 +617,15 @@
 var request = false;
 $(document).on('keyup','#searchinput',function(e){
     e.preventDefault()
+    
     if($(this).val().length === 0) {
        
         $('#search--content').css({'visibility':'hidden','opacity':0})
         $('.search-widget').removeClass('has-suggest')
-        
+        request = false;
         
     }else{
-        
+       
     setTimeout(() => {
         if (!request) {
     
@@ -701,9 +646,9 @@ $(document).on('keyup','#searchinput',function(e){
                   
                 //    $('.content-page').html(res[0])
                 //    $('.paginate-item').html(res[1])
-                   setTimeout(()=>{
+                   
                        request=false;
-                   },500)
+                  
                    
                }
            
@@ -719,191 +664,72 @@ $(document).on('keyup','#searchinput',function(e){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        var default_slides = 5;
+        var  breakpoints= {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 5,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 1,
+        },
+        1380:{
+            slidesPerView: 4,
+          spaceBetween: 1,
+        }
+    }
        
         var swiper = new Swiper('.swiper-container1', {
+            slidesPerView:default_slides,
             spaceBetween: 5,
             nextButton: '.swiper-p',
             prevButton: '.swiper-n',
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 20
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1380: {
-                    slidesPerView: 4,
-                    spaceBetween: 40
-                },
-            }
+            breakpoints:breakpoints
+            
         });
         var swiper = new Swiper('.swiper-container2', {
-
+            slidesPerView:default_slides,
             spaceBetween: 5,
             nextButton: '.swiper-ani-p',
             prevButton: '.swiper-ani-n',
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 20
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1380: {
-                    slidesPerView: 4,
-                    spaceBetween: 40
-                },
-
-            }
-
-
+            breakpoints:breakpoints
         });
         
         var swiper = new Swiper('.swiper-container-clip', {
+            slidesPerView:default_slides,
+            spaceBetween: 5,
+            nextButton: '.swiper-clip-p',
+            prevButton: '.swiper-clip-n',
+            breakpoints:breakpoints
 
-spaceBetween: 5,
-nextButton: '.swiper-clip-p',
-prevButton: '.swiper-clip-n',
-breakpoints: {
-    320: {
-        slidesPerView: 1,
-        spaceBetween: 10
-    },
-    640: {
-        slidesPerView: 1,
-        spaceBetween: 20
-    },
-    768: {
-        slidesPerView: 3,
-        spaceBetween: 10
-    },
-    1024: {
-        slidesPerView: 4,
-        spaceBetween: 20
-    },
-    1380: {
-        slidesPerView: 4,
-        spaceBetween: 40
-    },
-
-}
-
-
-});
+        });
         var learning_slider = new Swiper('.swiper-container-learning', {
-
+            slidesPerView:default_slides,
             spaceBetween: 5,
             nextButton: '.swiper-learning-p',
             prevButton: '.swiper-learning-n',
-           
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 20
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1380: {
-                    slidesPerView: 4,
-                    spaceBetween: 40
-                },
-
-
-            }
+            breakpoints:breakpoints
 
         });
         var music_slider = new Swiper('.swiper-container-music', {
-
+            slidesPerView:default_slides,
             spaceBetween: 5,
             pagination: '.swiper-pagination',
             paginationClickable: true,
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 20
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 10
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1380: {
-                    slidesPerView: 4,
-                    spaceBetween: 40
-                },
-
-
-            }
-
+            breakpoints:breakpoints
         });
         var music_slider = new Swiper('.swiper-container-podcast', {
-
-spaceBetween: 5,
-pagination: '.swiper-podcast-pagination',
-paginationClickable: true,
-breakpoints: {
-    320: {
-        slidesPerView: 1,
-        spaceBetween: 10
-    },
-    640: {
-        slidesPerView: 1,
-        spaceBetween: 20
-    },
-    768: {
-        slidesPerView: 3,
-        spaceBetween: 10
-    },
-    1024: {
-        slidesPerView: 4,
-        spaceBetween: 20
-    },
-    1380: {
-        slidesPerView: 4,
-        spaceBetween: 40
-    },
-
-
-}
-
-});
+        slidesPerView:default_slides,
+        spaceBetween: 5,
+        pagination: '.swiper-podcast-pagination',
+        paginationClickable: true,
+        breakpoints:breakpoints
+        });
         var baner_slider = new Swiper('.swiper-container-banner', {
             spaceBetween: 30,
             effect: 'fade',
@@ -926,10 +752,15 @@ breakpoints: {
                 $('#notes').css({opacity: 0, visibility: "hidden",left:"-60px"});
 
             }
+            if ($(e.target).closest("#search--content").length == 0 && $(e.target).closest(".search-widget").length == 0) {
+                $('.search-suggestion').css({opacity: 0, visibility: "hidden"});
+                $('.search-widget').removeClass('has-suggest')
+            }
         })
 
         $('.button__').click(function (e) {
             e.preventDefault()
+            if (checkauth) {
             let parent_id = $(this).data('id')
             $('#parent_id').attr('value', parent_id)
             $('.overlay1').css({
@@ -937,15 +768,21 @@ breakpoints: {
                 'opacity': '1',
                 'z-index': '10',
             })
+        }else {
+                window.location.href = "{{route("login")}}"
+            }
         })
         $('.report-btn').click(function (e) {
             e.preventDefault()
-
+            if (checkauth) {
             $('.overlay.report').css({
                 'visibility': 'visible',
                 'opacity': '1',
                 'z-index': '10',
             })
+            }else {
+                window.location.href = "{{route("login")}}"
+            }
         })
         $('.close').click(function (e) {
             e.preventDefault()

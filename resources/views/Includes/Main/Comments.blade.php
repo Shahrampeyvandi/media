@@ -1,7 +1,7 @@
 
                     <div class="w-100 information put-right mt-2 mb-5 pl-3 radius-5 text-black-50 border-1">
 
-                        <h3 class="mb-2 pr-2 pt-3 text-info">نظرهای شما</h3>
+                        <h3 class="mb-2 pr-2 pt-3 text-info">نظرات</h3>
                         @if (count($comments))
                         @foreach ($comments as $comment)
                             @if ($comment->id == $bestcomment_id && $countbestcomments == 1)
@@ -178,6 +178,6 @@
                         @endforeach
                         @endforeach
                         @else
-                        <p class="py-3 pr-2 text-black-50">هیچ نظری برای این پست ثبت نشده است</p>
+                        <p class="py-3 pr-2 text-black-50">هنوز هیچ نظری ثبت نشده است</p>
                         @endif
                     </div>

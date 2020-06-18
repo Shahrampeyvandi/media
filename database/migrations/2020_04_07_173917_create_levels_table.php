@@ -21,6 +21,11 @@ class CreateLevelsTable extends Migration
         });
         DB::table('levels')->insert(
             array(
+                'name' => 'کودکانه',
+            )
+        );
+        DB::table('levels')->insert(
+            array(
                 'name' => 'مقدماتی',
             )
         );
@@ -36,7 +41,7 @@ class CreateLevelsTable extends Migration
         );
         DB::table('levels')->insert(
             array(
-                'name' => 'آیلس',
+                'name' => 'آیلتس',
             )
         );
     }

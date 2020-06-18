@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Morilog\Jalali\Jalalian;
 use Illuminate\Support\Facades\Storage;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class DashboardController extends Controller
 {
@@ -128,45 +130,59 @@ class DashboardController extends Controller
     public function UploadFile()
     {
         $query = request()->c;
-        
+
         $member = auth()->user();
-        return view('Panel.UploadFile', compact(['member','query']));
+        return view('Panel.UploadFile', compact(['member', 'query']));
     }
     public function SubmitUploadFile(Request $request)
     {
+        $getID3 = new \getID3;
+        $filedur = $getID3->analyze($request->file('file'));
         
-        // check post with title
-        if(Posts::whereTitle($request->title)->count()){
+        if(array_key_exists('error',$filedur) && count($filedur['error'])){
             return response()->json(
                 [
-                    'errors'=> "محتوایی با این عنوان از قبل ثبت شده است"
-                     ,'code'=>403
-            ],403
-                
+                    'errors' => "فایل دارای فرمت نامشخص میباشد"
+                ],
+                403
+
             );
         }
-        
+       
+        $duration = gmdate('H:i:s', $filedur['playtime_seconds']);
+        // check post with title
+        if (Posts::whereTitle($request->title)->count()) {
+            return response()->json(
+                [
+                    'errors' => "محتوایی با این عنوان از قبل ثبت شده است", 'code' => 403
+                ],
+                403
+
+            );
+        }
+
         $fileNamevideo = '1';
 
         $validator = Validator::make($request->all(), [
-            'file' => 'mimes:mp4,mov,mp3,mkv,3gp|required', new VideoDimension($request->type),
+            'file' => 'mimes:mp4,mov,mpga,wav,mkv,3gp|required', new VideoDimension($request->type),
             'pic' => 'nullable|mimes:jpeg,png,jpg',
         ]);
         if ($validator->fails()) {
             return response()->json(
                 [
-                    'errors'=> "فایل دارای فرمت غیرمجاز می باشد"
-                     ,'code'=>403
-            ],403
-                
+                    'errors' => "فایل دارای فرمت غیرمجاز می باشد", 'code' => 403
+                ],
+                403
+
             );
         }
         if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
             return response()->json(
-                ['errors'=> "فایل زیرنویس دارای فرمت غیرمجاز می باشد"
-                ,'code'=>403
-            ],403
-                
+                [
+                    'errors' => "فایل زیرنویس دارای فرمت غیرمجاز می باشد", 'code' => 403
+                ],
+                403
+
             );
         }
         // Upload path
@@ -176,14 +192,14 @@ class DashboardController extends Controller
                 mkdir($destinationPath, 0755, true);
             }
             $extension = $request->file('file')->getClientOriginalExtension();
-           if($extension == "mp3"){
-               $media = 'audio';
-           }else{
-               $media = 'video';
-           }
+            if ($extension == "mp3") {
+                $media = 'audio';
+            } else {
+                $media = 'video';
+            }
             // Valid extensions
 
-            $fileNamevideo = 'file_' . time() . '.' . $extension;
+            $fileNamevideo = SlugService::createSlug(Posts::class, 'slug', $request->title) . '_' . date("Y-m-d") . '_' . time() . '.' . $extension;
             //$request->file('file')->move($destinationPath, $fileNamevideo);
             $filePath22 = "files/posts/$fileNamevideo";
 
@@ -201,31 +217,25 @@ class DashboardController extends Controller
         if ($request->hasFile('pic')) {
 
             $picextension = $request->file('pic')->getClientOriginalExtension();
-            $fileName = 'pic_' . time() . '.' . $picextension;
+            $fileName = SlugService::createSlug(Posts::class, 'slug', $request->title) . '_' . date("Y-m-d") . '_' . time() . '.' . $picextension;
             $request->file('pic')->move($destinationPath, $fileName);
             $picPath = "files/posts/$request->title/$fileName";
+           
         } else {
             $picPath = '';
         }
         if ($request->hasFile('subtitle')) {
 
             $picextension = $request->file('subtitle')->getClientOriginalExtension();
-            $fileName = 'subtitle_' . time() . '.' . $picextension;
+            $fileName = SlugService::createSlug(Posts::class, 'slug', $request->title) . '_' . date("Y-m-d") . '_' . time() . '.' . $picextension;
             $request->file('subtitle')->move($destinationPath, $fileName);
             $subTitle = "files/posts/$request->title/$fileName";
         } else {
             $subTitle = '';
         }
-        
-        
-        $getID3 = new \getID3;
-        $filedur = $getID3->analyze($request->file('file'));
 
 
-        //$duration = $filedur['playtime_seconds'];
-
-
-        $duration = gmdate('H:i:s', $filedur['playtime_seconds']);
+      
 
         $post = new Posts();
         $post->title = $request->title;
@@ -233,7 +243,7 @@ class DashboardController extends Controller
         $post->desc = $request->desc;
         $post->picture = $picPath;
         $post->content_name = $fileNamevideo;
-        $post->content_link = "Https://dl.genebartar.com/$filePath22";
+        $post->content_link = "https://dl.genebartar.com/$filePath22";
         $post->categories_id = $request->type;
         $post->languages_id = $request->lang;
         $post->subjects_id = $request->subject;
@@ -251,7 +261,7 @@ class DashboardController extends Controller
         $post->subtitle = $subTitle;
         $post->otheroninformation = $request->desc2;
         $post->views = 0;
-        if (auth()->user()->ability == 'admin' || auth()->user()->ability == 'mid-level-admin') {
+        if (auth()->user()->ability == 'admin') {
             $post->confirmed = 1;
         }
         $post->save();
@@ -273,17 +283,16 @@ class DashboardController extends Controller
 
 
         if ($request->type !== "6") {
-           return response()->json(
-               ['success'=>"موفق",200]
-           );
+            return response()->json(
+                ['success' => "موفق", 200]
+            );
         }
         if ($request->type == "6") {
             return response()->json(
-                ['success'=>"موفق"
-                ,'id' => $post->id
-                ,200]
+                [
+                    'success' => "موفق", 'id' => $post->id, 200
+                ]
             );
-           
         }
         // } catch (\Throwable $th) {
 
@@ -310,34 +319,33 @@ class DashboardController extends Controller
     {
         $member = auth()->user();
 
- 
-    
+
+
 
         return view('Panel.RequestChannel', compact('member'));
     }
     public function VerifyMobile(Request $request)
     {
         //session()->put('mobile',$request->mobile);
-       
-       $mobile=auth()->user()->mobile;
 
-     
-       $activationCode_OBJ = ActivationCode::where('v_code', $request->code)->first();
-       if ($activationCode_OBJ) {
-           
-
-       } else {
-
-           $request->session()->flash('Error', 'کد وارد شده صحیح نمی باشد');
-           return back();
-               }
+        $mobile = auth()->user()->mobile;
 
 
-        return view('Panel.VerifyMobile',compact('mobile'));
+        $activationCode_OBJ = ActivationCode::where('v_code', $request->code)->first();
+        if ($activationCode_OBJ) {
+        } else {
+
+            $request->session()->flash('Error', 'کد وارد شده صحیح نمی باشد');
+            return back();
+        }
+
+
+        return view('Panel.VerifyMobile', compact('mobile'));
     }
 
 
-    public function sendsms(Request $request){
+    public function sendsms(Request $request)
+    {
 
         $member = auth()->user();
 
@@ -347,23 +355,26 @@ class DashboardController extends Controller
         }
 
 
-        $api='644B6B646441646E3851346F34336D52632F6A59497872383733587259303249515A352B3855586D5564553D';
+        $api = '644B6B646441646E3851346F34336D52632F6A59497872383733587259303249515A352B3855586D5564553D';
 
         $curl = curl_init();
-        curl_setopt_array($curl,
-        array(
-        CURLOPT_URL => "https://api.kavenegar.com/v1/$api/verify/lookup.json",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "receptor=$member->mobile&template=verify&token=$code->v_code",
-        CURLOPT_HTTPHEADER => array(
-        "apikey: a6dd62cdc40d3990a48b9f04397506600b5bca37248176981a37fb97bec262b0",
-        "cache-control: no-cache",
-        "content-type: application/x-www-form-urlencoded",
-        )));
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => "https://api.kavenegar.com/v1/$api/verify/lookup.json",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "receptor=$member->mobile&template=verify&token=$code->v_code",
+                CURLOPT_HTTPHEADER => array(
+                    "apikey: a6dd62cdc40d3990a48b9f04397506600b5bca37248176981a37fb97bec262b0",
+                    "cache-control: no-cache",
+                    "content-type: application/x-www-form-urlencoded",
+                )
+            )
+        );
 
         $response = curl_exec($curl);
         //dd($response);
@@ -371,32 +382,32 @@ class DashboardController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
         if ($err) {
-        echo "cURL Error #:" . $err;
+            echo "cURL Error #:" . $err;
         } else {
-        //echo $response;
+            //echo $response;
         }
 
 
 
-    
+
         return 'کد با موفقیت ارسال شد';
     }
 
 
     public function SubmitRequestChannel(Request $request)
     {
-       //dd($request->all());
+        //dd($request->all());
         $member = auth()->user();
-        
+
 
         /**
          * 
          * get activation code
          * if true then 
          * 
-         *  */  
+         *  */
 
-    
+
 
 
 
@@ -470,22 +481,22 @@ class DashboardController extends Controller
             $info->accepted = 1;
             $info->update();
         }
-        if($info){
+        if ($info) {
             // ارسال نوتیفیکیشن برای گروه ادمین
-       foreach (Members::where('group','admin')->get() as $key => $admin) {
-        $notification = new Notifications;
-        $notification->members_id = $admin->id;
-        $notification->title = 'درخواست کانال رسمی';
-        $notification->text = 'کاربر با نام کاربری <a href="'.route('User.Show',$member->username).'" class="text-primary">'.$member->username.'</a> تقاضای ثبت کانال رسمی دارد';
-        $notification->posts_id = 0;
-        $notification->save();
-       }
-       $notificationuser = new Notifications;
-       $notificationuser->members_id = $member->id;
-       $notificationuser->title = 'درخواست کانال رسمی';
-       $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی در دست بررسی می باشد.';
-       $notificationuser->posts_id = 0;
-       $notificationuser->save();
+            foreach (Members::where('group', 'admin')->get() as $key => $admin) {
+                $notification = new Notifications;
+                $notification->members_id = $admin->id;
+                $notification->title = 'درخواست کانال رسمی';
+                $notification->text = 'کاربر با نام کاربری <a href="' . route('User.Show', $member->username) . '" class="text-primary">' . $member->username . '</a> تقاضای ثبت کانال رسمی دارد';
+                $notification->posts_id = 0;
+                $notification->save();
+            }
+            $notificationuser = new Notifications;
+            $notificationuser->members_id = $member->id;
+            $notificationuser->title = 'درخواست کانال رسمی';
+            $notificationuser->text = 'کاربر گرامی! در خواست شما برای کانال رسمی در دست بررسی می باشد.';
+            $notificationuser->posts_id = 0;
+            $notificationuser->save();
         }
 
 
@@ -528,8 +539,8 @@ class DashboardController extends Controller
         $member->years = $request->years;
         $member->history = $request->history;
         $member->edu_level = $request->level;
-        $member->certificate=$request->certificate;
-        $member->shaba=$request->shaba;
+        $member->certificate = $request->certificate;
+        $member->shaba = $request->shaba;
         $member->update();
         toastr()->success('ویرایش اطلاعات با موفقیت انجام شد');
         return redirect()->route('Panel.Dashboard');
@@ -543,14 +554,14 @@ class DashboardController extends Controller
         $message->read = 0;
         $message->save();
 
-        foreach (Members::where('group','admin')->get() as $key => $admin) {
+        foreach (Members::where('group', 'admin')->get() as $key => $admin) {
             $notification = new Notifications;
             $notification->members_id = $admin->id;
             $notification->title = 'پیام جدید';
-            $notification->text = 'کاربر <a class="text-primary">'.auth()->user()->username.'</a> برای شما یک پیام ارسال کرده است <br/> <a href="'.route('Members.SendMessage',auth()->user()->id).'" class="text-primary">مشاهده پیام</a>';
+            $notification->text = 'کاربر <a class="text-primary">' . auth()->user()->username . '</a> برای شما یک پیام ارسال کرده است <br/> <a href="' . route('Members.SendMessage', auth()->user()->id) . '" class="text-primary">مشاهده پیام</a>';
             $notification->posts_id = 0;
             $notification->save();
-           }
+        }
 
         toastr()->success('نظر شما برای مدیریت ارسال گردید');
         return back();
@@ -558,22 +569,22 @@ class DashboardController extends Controller
 
     public function messages()
     {
-        $messages = Messages::where('recived_id',null)->latest()->get();
+        $messages = Messages::where('recived_id', null)->latest()->get();
         return view('Panel.AllMessages', compact('messages'));
     }
 
     public function sendmessages()
     {
-        $messages = Messages::where('members_id',null)->latest()->get();
+        $messages = Messages::where('members_id', null)->latest()->get();
         return view('Panel.AllMessages', compact('messages'));
     }
 
-    
+
     public function mymessages()
     {
         $member = auth()->user();
-        Messages::where('recived_id',$member->id)->update([
-            'read'=> 1
+        Messages::where('recived_id', $member->id)->update([
+            'read' => 1
         ]);
         return view('Panel.MyMessages', compact('member'));
     }
@@ -594,7 +605,7 @@ class DashboardController extends Controller
         toastr()->success('پاسخ با موفقیت برای کاربر ارسال شد');
         return back();
     }
-    
+
     public function DeleteMessage($id)
     {
         $message =  Messages::findOrFail($id);
@@ -611,7 +622,7 @@ class DashboardController extends Controller
             return back();
         }
     }
-    
+
     public function DeleteMyMessage($id)
     {
         $message =  Messages::findOrFail($id);

@@ -1,16 +1,14 @@
 <div class="head w-100 put-right  border-b-1 light-bc-30 dark-bc-100">
     <div class="genre mb-md">
         @foreach($content->tags as $tag)
-        <a href="#" class="actor d-in v-m fs-0-9 c-blue ml-xs"><span
-                class="text">#{{$tag->name}}</span></a>
+        <a href="#" class="actor d-in v-m fs-0-9 c-blue ml-xs"><span class="text">#{{$tag->name}}</span></a>
         @endforeach
     </div>
     <div class="d-flex justify-content-between  flex-column flex-md-rw col-12 mb-2">
         <h1 class="title fs-1-2 fw-300"> {{$content->title}}</h1>
         <div class="d-flex align-items-center my-3">
-            <a id="shareinmedia" href="#"
-                class="button button-medium button-gray button-hollow "><svg class="icon icon-share"
-                    viewBox="0 0 24 24" 0="" 24="" 24""="">
+            <a id="shareinmedia" href="#" class="button button-medium button-gray button-hollow pr-0"><svg
+                    class="icon icon-share" viewBox="0 0 24 24" 0="" 24="" 24""="">
                     <use xlink:href="#si_share">
                         <g id="si_share" data-viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -23,8 +21,7 @@
             <a href="#" id="like-post" data-id="{{$content->id}}"> <span class="text-success">
                     {{$likes}}
                 </span>
-                <svg class="icon icon-thumb-up d-in v-m c-theme fs-1-2 ml-xxs" viewBox="0 0 24 24"
-                    0="" 24="" 24""="">
+                <svg class="icon icon-thumb-up d-in v-m c-theme fs-1-2 ml-xxs" viewBox="0 0 24 24" 0="" 24="" 24""="">
                     <use xlink:href="#si_thumb-up">
                         <g id="si_thumb-up" data-viewbox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -37,8 +34,8 @@
                     </use>
                 </svg> </a>
             <a href="#" data-id="{{$content->id}}" class="favorite-post pt-2 mx-2">
-                <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray"
-                    @endif viewBox="0 0 24 24" 0="" 24="" 24""="">
+                <svg class="icon icon-favorite" @if ($favorite_status) fill="red" @else fill="gray" @endif
+                    viewBox="0 0 24 24" 0="" 24="" 24""="">
                     <use xlink:href="#si_favorite">
                         <g id="si_favorite" data-viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -50,35 +47,28 @@
                 </svg>
 
             </a>
-            @if (auth()->check())
+
             <a class="report-btn  p-1 text-danger mr-2 fs-0-8 radius-5 border-1 bc-red">
 
                 گزارش تخلف
             </a>
-            @endif
 
-            @if (auth()->check())
+
+
             <a data-id="0" class="button__  p-1 text-primary mr-2 fs-0-8 radius-5 border-1 bc-blue">
 
-                 دیدگاه
+                دیدگاه
             </a>
 
             <a class="downloadfile p-1 text-success mr-2 fs-0-8 radius-5 border-1 bc-theme" 
-                                @if (Illuminate\Support\Facades\Route::currentRouteName()=='ShowItem.Episode' )
-                            
-                                href="{{route('Download')}}?type=2&id={{$episode_id}}"
-                                
-                                @else
-                                
-                                href="{{route('Download')}}?type=1&id={{$id}}"
-                                
-                                @endif
-                                >
+            @if(Illuminate\Support\Facades\Route::currentRouteName()=='ShowItem.Episode' )
+                href="{{route('Download')}}?type=2&id={{$episode_id}}" @else
+                href="{{route('Download')}}?type=1&id={{$id}}" @endif>
 
-                                    دانلود
-                                </a>
+                دانلود
+            </a>
 
-            @endif
+
 
         </div>
     </div>

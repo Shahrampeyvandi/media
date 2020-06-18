@@ -356,7 +356,7 @@ select[name='example1_length']{
     left: 0;
     background: #0000001a;
     right: 0;
-    z-index: 2;
+    z-index: 10;
     display: none;
 }
 .overlay_upload img{

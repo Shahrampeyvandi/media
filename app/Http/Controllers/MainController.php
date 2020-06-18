@@ -88,7 +88,8 @@ class MainController extends Controller
             $li .='<li><a href="' . route('ShowItem', ['content'=>$post->categories->name,'slug'=>$post->slug]) . '" class="float-right text-primary">'.$post->title.'</a><span class="float-left fs-0-8"> '.$post->categories->name.'</span></li><br/>';
         }
       }else{
-        $li .='<li><a href="#" class="float-right text-primary fs-0-8">موردی یافت نشد</a></li>';
+        $li .='<li><a href="#" class="float-right text-primary fs-0-8">موردی یافت نشد</a> 
+        <a class="float-left fs-0-8 text-success" href="'.route('UploadFile').'">آپلود کنید!</a></li>';
 
       }
      

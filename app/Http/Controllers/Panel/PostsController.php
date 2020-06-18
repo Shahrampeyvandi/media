@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Accounting\Purchase;
 use App\Models\Contents\AdvertLink;
 use Illuminate\Support\Str;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostsController extends Controller
 {
@@ -359,7 +360,7 @@ class PostsController extends Controller
                 $media = 'video';
             }
             // Valid extensions
-            $fileNameepisode = 'file_' . time() . '.' . $extension;
+            $fileNameepisode = SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() . '.' . $extension;
             $destinationPath = "files/posts/episodes/$fileNameepisode";
             //$request->file('file')->move($destinationPath, $fileName);
 
@@ -379,16 +380,19 @@ class PostsController extends Controller
         if ($request->hasFile('episode_pic')) {
 
             $picextension = $request->file('episode_pic')->getClientOriginalExtension();
-            $fileName = 'pic_' . time() . '.' . $picextension;
+          
+            $fileName =SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() . '.' . $picextension;
+
             $request->file('pic')->move($destinationPath, $fileName);
             $picPath = "$destinationPath/$fileName";
+            
         } else {
             $picPath = '';
         }
         if ($request->hasFile('episode_subtitle')) {
 
             $picextension = $request->file('episode_subtitle')->getClientOriginalExtension();
-            $fileName = 'subtitle_' . time() . '.' . $picextension;
+            $fileName = SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() .'.' . $picextension;
             $request->file('subtitle')->move($destinationPath, $fileName);
             $subTitle = "$destinationPath/$fileName";
         } else {
@@ -410,7 +414,7 @@ class PostsController extends Controller
         $newepisode->subjects_id = $post->subjects_id;
         $newepisode->levels_id = $post->levels_id;
         $newepisode->picture = $picPath;
-        $newepisode->content_link = "Https://dl.genebartar.com/$filePathepisode";
+        $newepisode->content_link = "https://dl.genebartar.com/$filePathepisode";
         $newepisode->content_name = $fileNameepisode;
         $newepisode->duration = $duration;
         $newepisode->type = 'free';

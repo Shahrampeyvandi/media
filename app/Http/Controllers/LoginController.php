@@ -33,11 +33,11 @@ class LoginController extends Controller
     {
        
 
-        if ($member = Members::where('mobile', $request->field)->where('ability', 'admin')->orWhere('ability', 'mid-level-admin')->first()) {
+        if ($member = Members::where('mobile', $request->field)->whereIn('ability', ['admin','mid-level-admin'])->first()) {
 
 
             if (Hash::check($request->pass, $member->password)) {
-                Auth::Login($member,true);
+                Auth::Login($member);
                 return redirect()->route('Panel.Dashboard');
             } else {
                 $request->session()->flash('Error', 'نام کاربری یا رمز عبور اشتباه است');
@@ -56,7 +56,7 @@ class LoginController extends Controller
 
                 if (Hash::check($request->pass,$member->password)) {
 
-                    Auth::Login($member,true);
+                    Auth::Login($member);
 
                     return redirect()->route('Panel.Dashboard');
                 } else {
@@ -85,11 +85,12 @@ class LoginController extends Controller
             return back();
         } else {
             $member = Members::where('username', $request->field)->first();
+
             if ($member) {
 
                 if (Hash::check($request->pass,$member->password)) {
 
-                    Auth::Login($member,true);
+                    Auth::Login($member);
 
                     return redirect()->route('Panel.Dashboard');
                 } else {
@@ -255,17 +256,11 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver('google')->user();
             $finduser = Members::where('google_id', $user->id)->first();
-
             if ($finduser) {
-
                 Auth::login($finduser);
-
                 return redirect()->route('Panel.Dashboard');
             } else {
-
-
                 return view('Login.register_step_three', compact('user'));
-
                 // $newUser = User::create([
                 //     'name' => $user->name,
                 //     'email' => $user->email,
@@ -279,17 +274,14 @@ class LoginController extends Controller
                 // $member->email = $user->email;
                 // $member->google_id = $user->id;
                 // $member->save();
-
                 //         Auth::login($member);
-
                 //         return redirect('/home');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
         }
     }
-
-
+    
     public function forgot()
     {
         return view('Login.forgot');

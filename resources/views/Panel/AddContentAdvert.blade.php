@@ -123,7 +123,7 @@
        
       },
       file:{
-        accept: "avi|mp4|mov|ogg|mpga|mkv|3gp"
+        accept: "mp4|3gp"
 
       }
 		},

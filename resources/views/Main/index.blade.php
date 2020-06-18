@@ -2,19 +2,14 @@
 @section('content')
 
 <section class="top-banner"
-    style="ackground-attachment: fixed;position: relative;padding: 100px 0; background: linear-gradient(40deg,#2096ff,#05ffa3) !important;">
+    style="">
     <div class="overlay-baner"></div>
     <div class="container position-relative">
-        <div class="position-absolute" style="
-        bottom: -110px;
-        width: 100%;
-    ">
-            <img src="{{asset('assets/images/untitled1.png')}}" alt="" style="
-        width: 100%;
-    ">
-        </div>
+        <div class="shape-wrapper" >
+            <img src="{{asset('assets/images/header-shape.png')}}" alt="header shape" class="w-100">
+         </div>
         <div class="row justify-content-center">
-            <div class="owl-carousel owl-theme header-carousel fadeOut " style="max-width:1000px;">
+            <div class="owl-carousel owl-theme header-carousel fadeOut " >
                 @foreach ($header_slideshow as $slideshow)
                 @if ($slideshow->link)
                     
@@ -24,7 +19,7 @@
                 <a href="#">
                 @endif
                     <div class="item single-client position-relative" >
-                        <img src="{{asset($slideshow->banner)}}" alt="client logo" height="100%" class="client-img">
+                        <img src="{{asset($slideshow->banner)}}" alt="{{$slideshow->link ?? 'تبلیغ'}}" height="100%" class="client-img">
                         <div class="overlay-banner"></div>
                         <div class="banner-txt">
                             {!! $slideshow->title !!}
@@ -35,6 +30,15 @@
 
             </div>
         </div>
+    </div>
+    <div  id="scene3"  class="d-none d-md-block">
+        <img data-depth="0.1" src="{{asset('assets/images/layer3.png')}}" alt="parallax_shape1">
+    </div>
+    <div  id="scene2"  class="d-none d-md-block" >
+        <img data-depth="0.2" src="{{asset('assets/images/layer2.png')}}" alt="parallax_shape2">
+    </div>
+    <div  id="scene" class="d-none d-md-block">
+     <img data-depth="0.3" src="{{asset('assets/images/layer1.png')}}" alt="parallax_shape3">
     </div>
 </section>
 @if(\App\Models\Setting::first()->mainpage_films==1)
@@ -64,9 +68,6 @@
                                         aria-label="{{$movie->title}}" class="thumb-image">
                                         @else
                                         <div class="d-flex justify-content-center align-items-center h-100">
-                                            {{-- <img src="{{asset('assets/images/cinema.png')}}"
-                                            alt="{{$movie->title}}"
-                                            aria-label="{{$movie->title}}" class="thumb-image"> --}}
                                             <img style="object-fit: cover;" src="{{asset("assets/images/logo-video1.png")}}" alt="{{$movie->title}}"
                                             aria-label="{{$movie->title}}" class="thumb-image">
                                         </div>
@@ -411,7 +412,7 @@
 <section class="filmoja-theater-area section_70 px-2 px-md-0">
     <div class="container">
         <div class="row">
-            <div class="col-md-5 my-2 my-md-0  wow bounceInUp" data-wow-duration=".7s" data-wow-delay=".6s">
+            <div class="col-md-5 my-2 my-md-0  wow bounceInUp" data-wow-duration=".7s" data-wow-delay=".3s">
                 <div class="theater-left">
                     <div class="theater-box">
                         <div class="theater-tex pr-md-4">
@@ -420,7 +421,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 wow slideInLeft" data-wow-duration="1s" data-wow-delay=".3s">
+            <div class="col-md-7 wow slideInLeft" data-wow-duration="1s" data-wow-delay=".2s">
                 <div class="theater-slider slider-for px-2">
                     <div class="single-theater">
                         <img src="{{asset($toppostbanner->image)}}" alt="theater thumb">
@@ -681,11 +682,11 @@
                                             class="fa fa-bookmark i-lg"></i> </span> </div> <a
                                     href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}" class="music-img">
                                     @if($music->picture)
-                                    <img src="{{asset($music->picture)}}" width="100%;" style="height: 131px;" alt=""
+                                    <img src="{{asset($music->picture)}}" width="100%;" style="height: 131px;" alt="{{$music->title}}"
                                         class="r r-2x img-full">
                                     @else
                                     <img src="{{asset('assets/images/logo-music1.png')}}" width="100%;" style="height: 131px;"
-                                        alt="" class="r r-2x img-full">
+                                        alt="{{$music->title}}" class="r r-2x img-full">
                                     @endif
                                 </a>
                             </div>
@@ -767,10 +768,10 @@
                             <div class="card__image border-tlr-radius">
                                  <a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}">
                                 @if ($podcast->picture)
-                                <img src="{{asset("$podcast->picture")}}" alt="image" class="border-tlr-radius">
+                                <img src="{{asset("$podcast->picture")}}" alt="{{$podcast->title}}" class="border-tlr-radius">
                                 @else
                     
-                                <img src="{{asset('assets/images/logo-music1.png')}}" alt="image" class="border-tlr-radius">
+                                <img src="{{asset('assets/images/logo-music1.png')}}" alt="{{$podcast->title}}" class="border-tlr-radius">
                                 @endif
                                  </a>
                             </div>
@@ -891,15 +892,16 @@
 
 @section('js')
 <script>
+   
+        new WOW().init();
+        var scene = document.getElementById('scene');
+        var parallaxInstance = new Parallax(scene);
+        var scene2 = document.getElementById('scene2');
+        var parallaxInstance = new Parallax(scene2);
+        var scene3 = document.getElementById('scene3');
+        var parallaxInstance = new Parallax(scene3);
+   
     $(document).ready(function(){
-
-
-
-
-     
-
-
-
 
             $('.header-carousel').owlCarousel({
             items: <?php echo json_encode($setting->header_slide_count) ?>,
