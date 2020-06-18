@@ -254,10 +254,12 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
             $finduser = Members::where('google_id', $user->id)->first();
             if ($finduser) {
-                Auth::login($finduser);
+
+                Auth::login($finduser,true);
+
                 return redirect()->route('Panel.Dashboard');
             } else {
                 return view('Login.register_step_three', compact('user'));
