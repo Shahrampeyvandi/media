@@ -544,6 +544,10 @@
     </main>
 
 
+      <script>
+        mainUrl = '{{route("BaseUrl")}}';
+        token = $('meta[name="csrf-token"]').attr('content');
+    </script>
 
 
 

@@ -6,12 +6,10 @@
                 <h3 class="modal-title">اشتراک در شبکه های اجتماعی</h3>
                 <div class="share-options">
                     <ul class="socials">
-                       
+
                         <li class="social face">
-                            <a href="#"
-                                title="فیسبوک" target="_blank"><span class="circle">
-                                    <svg class="icon icon-facebook" viewBox="0 0 24 24" 0="" 24=""
-                                        24""="">
+                            <a href="#" title="فیسبوک" target="_blank"><span class="circle">
+                                    <svg class="icon icon-facebook" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                         <use xlink:href="#si_facebook">
                                             <path
                                                 d="M14.5 7.6h1.8c.7 0 1.3-.6 1.3-1.3V3.6c0-.7-.6-1.3-1.3-1.3H14c-1.5 0-2.8.5-3.7 1.4C9.5 4.7 9 6.1 9 7.6v1.1H7.6c-.7 0-1.3.6-1.3 1.3v3.2c0 .7.6 1.3 1.3 1.3H9v6c0 .7.6 1.3 1.3 1.3h3c.7 0 1.3-.6 1.3-1.3v-6h1.8c.7 0 1.3-.6 1.3-1.3V10c0-.5-.2-.9-.7-1.1-.2-.1-.4-.2-.6-.2h-1.7v-.8c-.2-.2-.2-.3-.2-.3zm1.3-3.4v1.6h-1c-.4 0-1.2 0-1.7.6-.4.5-.5 1.1-.5 1.5v1.6c0 .5.4 1 1 1h2.1v2.1h-2.1c-.5 0-1 .4-1 1v6.3h-1.9v-6.3c0-.5-.4-1-1-1H8.2v-2.1h1.7c.5 0 1-.4 1-1V7.6c0-1.1.3-1.9.9-2.5.6-.6 1.4-.9 2.4-.9h1.6z"
@@ -21,10 +19,8 @@
                                 <span class="text">فیسبوک</span></a>
                         </li>
                         <li class="social twit">
-                            <a href="#"
-                                title="تویتتر" target="_blank"><span class="circle">
-                                    <svg class="icon icon-twitter" viewBox="0 0 24 24" 0="" 24=""
-                                        24""="">
+                            <a href="#" title="تویتتر" target="_blank"><span class="circle">
+                                    <svg class="icon icon-twitter" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                         <use xlink:href="#si_twitter">
                                             <g id="si_twitter" data-viewBox="0 0 24 24">
                                                 <path
@@ -36,10 +32,8 @@
                                 <span class="text">تویتتر</span></a>
                         </li>
                         <li class="social whats">
-                            <a href="#"
-                                title="واتس‌اپ" target="_blank"><span class="circle">
-                                    <svg class="icon icon-whatsapp" viewBox="0 0 90 90" 0="" 90=""
-                                        90""="">
+                            <a href="#" title="واتس‌اپ" target="_blank"><span class="circle">
+                                    <svg class="icon icon-whatsapp" viewBox="0 0 90 90" 0="" 90="" 90""="">
                                         <use xlink:href="#si_whatsapp">
                                             <path
                                                 d="M90 43.841c0 24.213-19.779 43.841-44.182 43.841a44.256 44.256 0 0 1-21.357-5.455L0 90l7.975-23.522a43.38 43.38 0 0 1-6.34-22.637C1.635 19.628 21.416 0 45.818 0 70.223 0 90 19.628 90 43.841zM45.818 6.982c-20.484 0-37.146 16.535-37.146 36.859 0 8.065 2.629 15.534 7.076 21.61L11.107 79.14l14.275-4.537A37.122 37.122 0 0 0 45.819 80.7c20.481 0 37.146-16.533 37.146-36.857S66.301 6.982 45.818 6.982zm22.311 46.956c-.273-.447-.994-.717-2.076-1.254-1.084-.537-6.41-3.138-7.4-3.495-.993-.358-1.717-.538-2.438.537-.721 1.076-2.797 3.495-3.43 4.212-.632.719-1.263.809-2.347.271-1.082-.537-4.571-1.673-8.708-5.333-3.219-2.848-5.393-6.364-6.025-7.441-.631-1.075-.066-1.656.475-2.191.488-.482 1.084-1.255 1.625-1.882.543-.628.723-1.075 1.082-1.793.363-.717.182-1.344-.09-1.883-.27-.537-2.438-5.825-3.34-7.977-.902-2.15-1.803-1.792-2.436-1.792-.631 0-1.354-.09-2.076-.09s-1.896.269-2.889 1.344c-.992 1.076-3.789 3.676-3.789 8.963 0 5.288 3.879 10.397 4.422 11.113.541.716 7.49 11.92 18.5 16.223C58.2 65.771 58.2 64.336 60.186 64.156c1.984-.179 6.406-2.599 7.312-5.107.9-2.512.9-4.663.631-5.111z"
@@ -49,10 +43,8 @@
                                 <span class="text">واتس‌اپ</span></a>
                         </li>
                         <li class="social tel">
-                            <a href="#"
-                                title="تلگرام" target="_blank"><span class="circle">
-                                    <svg class="icon icon-telegram" viewBox="0 0 24 24" 0="" 24=""
-                                        24""="">
+                            <a href="#" title="تلگرام" target="_blank"><span class="circle">
+                                    <svg class="icon icon-telegram" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                         <use xlink:href="#si_telegram">
                                             <g id="si_telegram" data-viewBox="0 0 24 24">
                                                 <path
@@ -64,10 +56,8 @@
                                 <span class="text">تلگرام</span></a>
                         </li>
                         <li class="social link">
-                            <a href="#"
-                                title="لینکداین" target="_blank"><span class="circle">
-                                    <svg class="icon icon-linkedin" viewBox="0 0 32 32" 0="" 32=""
-                                        32""="">
+                            <a href="#" title="لینکداین" target="_blank"><span class="circle">
+                                    <svg class="icon icon-linkedin" viewBox="0 0 32 32" 0="" 32="" 32""="">
                                         <use xlink:href="#si_linkedin">
                                             <g id="si_linkedin" data-viewBox="0 0 32 32">
                                                 <path
@@ -85,12 +75,11 @@
                                 <div class="input-text form-input">
                                     <div class="input-inner">
 
-                                        <input class="input ltr input-disabled" type=""
-                                            id="shareUrl" value="" name="link" placeholder=""
-                                            autocomplete="off" disabled="true" readonly="">
+                                        <input class="input ltr input-disabled" type="" id="shareUrl" value=""
+                                            name="link" placeholder="" autocomplete="off" disabled="true" readonly="">
 
                                         <div class="input-box"></div>
-                                      
+
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +88,7 @@
                 </div>
 
                 <script>
-                   $('#shareUrl').val(window.location.href);
+                    $('#shareUrl').val(window.location.href);
                     $('.social.face a').attr('href','http://www.facebook.com/share.php?u='+window.location.href+'')
                     $('.social.whats a').attr('href','https://wa.me/?text='+window.location.href+'')
                     $('.social.twit a').attr('href','https://www.twitter.com/intent/tweet?url='+window.location.href+'')
@@ -124,13 +113,7 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" @if ($type == "post")
-            action="{{route('AddPostComment')}}"
-            @endif 
-            @if ($type == "episode")
-            action="{{route('AddEpisodeComment')}}"
-            @endif 
-            method="post">
+            <form id="" onsubmit="addComment(event,'{{$content->id}}','{{$type}}')" method="post">
                 @csrf
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> افزودن دیدگاه
@@ -138,8 +121,8 @@
                     <div class="form-group col-md-12">
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
                         <input type="hidden" name="post_id" value="{{$content->id}}">
-                        <textarea type="text" rows="4" rows="6" class="add-emoji" name="comment"
-                            id="comment" dir="rtl"></textarea>
+                        <textarea type="text" rows="4" rows="6" class="add-emoji" name="comment" id="comment"
+                            dir="rtl"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -153,15 +136,8 @@
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form id="" 
-            @if ($type == "post")
-            action="{{route('Post.Report')}}"
-            @endif 
-            @if ($type == "episode")
-            action="{{route('Episode.Report')}}"
-            @endif 
-            
-            method="post">
+            <form id="" @if ($type=="post" ) action="{{route('Post.Report')}}" @endif @if ($type=="episode" )
+                action="{{route('Episode.Report')}}" @endif method="post">
                 @csrf
                 <div class="mt-3">
                     <h5 class="modal-title px-3 pt-1 mb-2" id="exampleModalLabel"> ارسال گزارش تخلف
@@ -170,8 +146,8 @@
                         <input type="hidden" id="parent_id" name="parent_id" value="0">
                         <input type="hidden" name="postid" value="{{$content->id}}">
 
-                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control add-emoji"
-                            name="info" id="description"></textarea>
+                        <textarea type="text" placeholder="توضیح " rows="4" class="form-control add-emoji" name="info"
+                            id="description"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -181,4 +157,3 @@
         </div>
     </div>
 </div>
-

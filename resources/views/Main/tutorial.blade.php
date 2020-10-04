@@ -1,6 +1,6 @@
 @extends('layout.Main.template')
 @section('title')
-    {{$title}}
+{{$title}}
 @endsection
 @section('css')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.js"></script>
@@ -22,11 +22,7 @@
                         @include('Includes.Main.player')
                     </div>
 
-                        @include('Includes.Main.playerSubtitles')
-
-                    
-
-
+                    @include('Includes.Main.playerSubtitles')
                     <div>
                         <div class="head  put-right  light-bc-30 dark-bc-100 mt-2" style="display: flex; ">
                             <div class="avatar">
@@ -51,7 +47,7 @@
                                         title="{{$content->members->username}}">
                                         <h3 class="title d-flex flex-column">
                                             <span class="name">{{$content->members->username}}</span>
-                                        <span class="name fs-0-8">دنبال کننده ها  {{$followers}}</span>
+                                            <span class="name fs-0-8">دنبال کننده ها {{$followers}}</span>
                                         </h3>
                                     </a>
                                 </div>
@@ -104,7 +100,7 @@
                     @if ($content->type == "money")
                     @if($isbuyedit==false)
                     <div class="buy w-100 put-right  fs-0-9 fw-300 light-80 dark-white mt-xl mb-5 pr-2 ">
-                        
+
                         <h3>شهریه دوره : {{$content->price}} تومان </h3>
 
                         <form action="{{route('Pay.Start')}}" method="post">
@@ -120,12 +116,12 @@
                     <div id="episodes_list" class="episodes_list">
                         <div class="episodes_list--section">
 
-                            <div class="episodes_list--item "  @if ($episode_id == null)
-                            style="background: #92d7ff54;"
-                            @endif>
+                            <div class="episodes_list--item " @if ($episode_id==null) style="background: #92d7ff54;"
+                                @endif>
                                 <div class="section-right"><span class="episodes_list--number">۰</span>
                                     <div class="episodes_list--title"><a
-                                            href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}">معرفی دوره</a></div>
+                                            href="{{route('ShowItem',['content'=>$post->categories->name,'slug'=>$post->slug])}}">معرفی
+                                            دوره</a></div>
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
@@ -153,7 +149,7 @@
                                 @endif
 
                                 @if ($episode->id == $episode_id)
-                                    style="background: #92d7ff54;"
+                                style="background: #92d7ff54;"
                                 @endif
 
                                 >
@@ -173,10 +169,15 @@
                                 </div>
                                 <div class="section-left">
                                     <div class="episodes_list--details">
+
                                         @if(auth()->user())
                                         @if ($content->members_id == auth()->user()->id)
-                                    <a href="#" data-episode="{{$episode->id}}" class="dl-episode"><span class="btn btn-danger btn-sm btn-rounded">
+                                        <a href="#" data-episode="{{$episode->id}}" class="dl-episode"><span
+                                                class="btn btn-danger btn-sm btn-rounded">
                                                 حذف </span></a>
+                                        <a href="{{route('Admin.CheckPost',$episode->id)}}?type=episode" class=""><span
+                                                class="btn btn-primary btn-sm btn-rounded">
+                                                ویرایش </span></a>
                                         <span class="btn btn-info btn-sm btn-rounded">
                                             تعداد بازدیدها {{$episode->views}}</span>
                                         @endif

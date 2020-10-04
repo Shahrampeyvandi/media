@@ -1,42 +1,81 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="overlay_upload " >
+<div class="overlay_upload ">
     <img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="">
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            @component('Includes.Main.player',['content' => $post,'link' => '',
+            'link_type'=>'',
+            'pic_link'=> ''])
+
+            @endcomponent
+
+        </div>
     </div>
-<div class="row">
     <div class="col-md-12">
 
         <div class="card p-3">
             <div class="wpb_wrapper py-3">
                 <h2 class="font__family-open-sans font__size-20  mt-15 mb-15 title__divider title__divider--line"
-                    style="margin-right: 0px;"><span class="title__divider__wrapper">ایجاد قسمت جدید<span
-                            class="line brk-base-bg-gradient-right"></span>
+                    style="margin-right: 0px;"><span class="title__divider__wrapper">
+                        @isset($post)
+                        ویرایش قسمت
+                        @else
+                        ایجاد قسمت جدید
+
+                        @endisset
+
+                        <span class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
 
             </div>
-            <form id="upload-episode" action="{{route('UploadEpizode')}}" method="post" enctype="multipart/form-data">
+            <form id="{{isset($post) ? '' : 'upload-episode'}}" @isset($post) action="{{route('EditEpizode')}}" @else
+                action="{{route('UploadEpizode')}}" @endisset method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="post_id" value="{{$id}}">
+                <input type="hidden" name="post_id" value="{{$id ?? ''}}">
                 <div class=" epizode p-3">
+                    @if (!isset($post))
+
                     <h3 class="mb-2">آپلود قسمت های دوره: </h3>
+                    @endif
                     <div class="row">
+                        @if (!isset($post))
                         <div class="form-group col-md-6">
-                            <input type="number" class="form-control"  name="epizode_number" id="epizode_number"
-                                value="{{$number+1}}" placeholder="شماره قسمت">
+                            <input type="number" class="form-control" name="epizode_number" id="epizode_number"
+                                value="{{$number ?? ''}}" placeholder="شماره قسمت">
                         </div>
+                        @endif
                         <div class="form-group col-md-6">
-                            <input type="text" class="form-control" name="epizode_title" id="epizode_title"
-                                placeholder="عنوان">
+                            <input type="text" class="form-control" value="{{$post->title ?? ''}}" name="epizode_title"
+                                id="epizode_title" placeholder="عنوان">
                         </div>
+                        @isset($post)
+                        <div class="form-group col-md-6">
+                            <img src="{{asset($post->picture)}}" alt="">
+                        </div>
+                        @endisset
                         <div class="form-group col-md-12">
+
                             <label for="desc">تصویر: </label>
                             <input type="file" class="form-control" name="epizode_pic" id="epizode_pic" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="desc">فایل: </label>
+                            <label for="desc">
+
+
+                                @isset($post)
+                                تغییر فایل:
+                                @else
+
+                                فایل:
+                                @endisset
+
+                            </label>
                             <input type="file" class="form-control" name="file" id="file" />
                         </div>
                     </div>
@@ -44,31 +83,40 @@
                         <div class="form-group col-md-12">
                             <label for="epizode_desc">توضیحات : </label>
                             <textarea class="form-control" name="epizode_desc" id="epizode_desc" cols="30"
-                                rows="8"></textarea>
+                                rows="8">{{$post->desc ?? ''}}</textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="desc">افزودن زیرنویس: فایل زیرنویس باید با فرمت vtt باشد </label>
-                            <input type="file" class="form-control" name="epizode_subtitle" id="epizode_subtitle" />
+                            <label for="desc">
+                                @isset($post)
+                                تغییر زیرنویس
+                                @else
+
+                                افزودن زیرنویس:
+                                @endisset
+
+                            </label>
+                            <input type="file" class="form-control" name="epizode_subtitle" accept=".srt"
+                                id="epizode_subtitle" />
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 my-2 ">
-                            <input type="submit" id="upload" name="upload" value="آپلود"
-                                class="btn btn-sm btn-success" />
+                            <input type="submit" id="upload" name="upload" @isset($post) value="ویرایش" @else
+                                value="آپلود" @endisset class="btn btn-sm btn-success" />
                         </div>
                     </div>
                 </div>
             </form>
             <hr>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                style="width: 0%">
-                0%
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+                    style="width: 0%">
+                    0%
+                </div>
             </div>
-        </div>
 
         </div>
         <div class="row">
@@ -84,15 +132,15 @@
         </div>
 
 
-            @endsection
+        @endsection
 
-            @section('js')
-          
-            <script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
+        @section('js')
 
-            <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
-            <script>
-                $(document).ready(function(){
+        <script src="{{asset('Panel/assets/js/jquery.form.min.js')}}"></script>
+
+        <script src="{{asset('Panel/vendor/ckeditor/ckeditor.js')}}"></script>
+        <script>
+            $(document).ready(function(){
       
         CKEDITOR.replace('epizode_desc',{
             extraPlugins: 'uploadimage',
@@ -209,5 +257,5 @@
     });
    
 });
-            </script>
-            @endsection
+        </script>
+        @endsection

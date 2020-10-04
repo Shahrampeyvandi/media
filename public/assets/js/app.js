@@ -862,3 +862,34 @@
    
    
  
+
+function addComment(event,id, type) {
+    event.preventDefault();
+    var parent_id = $(event.target).find('#parent_id').val()
+    var comment = $(event.target).find('#comment').val()
+    if (type == "post") {
+        var url = mainUrl + "/addpostcomment";
+    } else {
+        var url = mainUrl + "/addepizodecomment";
+    }
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: { _token: token, id: id,parent_id:parent_id,comment },
+        dataType: "JSON",
+        cache: false,
+        success: function (res) {
+             $(".overlay1").css({
+                 visibility: "hidden",
+                 opacity: "0",
+                 "z-index": "0",
+             });
+            if (res == "success") {
+                swal("موفق", "نظر شما با موفقیت ثبت شد", "success", {
+                    button: "باشه",
+                });
+            }
+        },
+    });
+}

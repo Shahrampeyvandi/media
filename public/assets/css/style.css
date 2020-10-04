@@ -519,7 +519,12 @@ img {
  .text-reset {
   color: inherit!important
  }
-
+.text-left {
+  text-align: left !important;
+ }
+ .dir-ltr{
+   direction: ltr !important;
+ }
  .visible {
   visibility: visible!important
  }

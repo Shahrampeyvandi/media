@@ -19,16 +19,16 @@
                 <div class="pr-3 ml-2 ml-md-0">
                     <div class="description w-100 put-right pr-2 mt-5">
 
-                        <p class="paragraph mb-lg text-black-50">
+                        <div class=" mb-lg text-black-50" style="text-align: left">
                             {!!$content->desc!!}
-                        </p>
+                        </div>
                     </div>
                     @if ($content->otheroninformation)
                     <div class="description w-100 put-right pr-2">
-                        <h3 class="fs-0-9 mb-xs">متن زیرنویس: </h3>
-                        <p class="paragraph mb-lg text-black-50">
+                        <h3 class="fs-0-9 mb-xs">متن محتوا: </h3>
+                        <div class=" mb-lg text-black-50" style="text-align: left">
                             {!!$content->otheroninformation!!}
-                        </p>
+                        </div>
                     </div>
                     @endif
                     <div id="primary" class="primary" style="float: right;

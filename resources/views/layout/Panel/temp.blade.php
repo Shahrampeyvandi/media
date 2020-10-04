@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-   @if (auth()->user()->is_admin())
-   <title>
-    ژن برتر - پنل ادمین
-</title>   
-   @else 
-   <title>
-    ژن برتر - پنل کاربری
-</title>   
-   @endif
+    @if (auth()->user()->is_admin())
+    <title>
+        ژن برتر - پنل ادمین
+    </title>
+    @else
+    <title>
+        ژن برتر - پنل کاربری
+    </title>
+    @endif
     <!-- UA-153829- -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-language" content="fa" />
@@ -30,12 +30,13 @@
     <link rel="stylesheet" href=" {{asset('Panel/assets/css/RTL.css')}} ">
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}" />
     <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
-  
+
     @yield('css')
     <script>
         var isMobile = false;
     </script>
 </head>
+
 <body class="device-desktop theme-light">
     <div class="load-progress hidden">
         <div class="bar"></div>
@@ -59,22 +60,21 @@
                             </button>
 
                             <a href="{{route('BaseUrl')}}" class="mr-3 pt-1 ">
-                            <img src="{{asset('assets/images/Logo-genebartar.png')}}" width="52px;" alt="">
+                                <img src="{{asset('assets/images/Logo-genebartar.png')}}" width="52px;" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="item">
-                    @if(auth()->user()->group=='teacher')
+                        @if(auth()->user()->group=='teacher')
                         <div class="inline-flex upload-button">
-                            <a
-                                class="button button-info button-small button-hollow button-bordered upload-video"
+                            <a class="button button-info button-small button-hollow button-bordered upload-video"
                                 data-ctr="upload-button" data-ctr-cta="upload-button">
                                 <i class="fa fa-wallet"></i>
                                 <span class="text mr-1">موجودی کیف پول: {{auth()->user()->wallet}}</span></a>
                         </div>
                         @endif
                         <div class="inline-flex upload-button">
-                            
+
                             <a href="{{route('UploadFile')}}"
                                 class="button button-info button-small button-hollow button-bordered upload-video"
                                 data-ctr="upload-button" data-ctr-cta="upload-button">
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 <a href="#" class="search-overlay"></a>
             </div>
         </header>
@@ -147,10 +147,8 @@
                         </button>
                     </div>
                     <div class="logo">
-                        <a href="#" title=""
-                            aria-label=""><svg
-                                class="icon icon-logo-fa logo-brand sidebar-logo" viewBox="0 0 90 31.89"
-                                viewBox="viewBox=" 0 0 90 31.89"">
+                        <a href="#" title="" aria-label=""><svg class="icon icon-logo-fa logo-brand sidebar-logo"
+                                viewBox="0 0 90 31.89" viewBox="viewBox=" 0 0 90 31.89"">
                                 <use xlink:href="#si_logo-fa"></use>
                             </svg></a>
                     </div>
@@ -206,7 +204,7 @@
                             <a class="menu-link position-relative" aria-label=""><i
                                     class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
-                                    <span class="text">پست ها 
+                                    <span class="text">پست ها
                                         @if (\App\Models\Contents\Posts::where('confirmed',0)->count())
                                         <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
                                         @endif
@@ -215,7 +213,7 @@
                                 <i class="sub-menu-arrow ti-angle-left "></i>
                             </a>
                             <ul class="sub-menu" style="display:none;">
-                          <li class="menu-item-link mr-35">
+                                <li class="menu-item-link mr-35">
                                     <a href="{{route('Panel.Posts.Unconfirmed')}}" aria-label="">
                                         <div class="content">
                                             <span class="text">پست های پیش نویس</span>
@@ -231,12 +229,11 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="menu-item-link">
                             <a style="padding-right: 28px;" href="{{route('Panel.Members')}}" aria-label="لیست کاربران">
-                            
-                                <i
-                                    class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
+
+                                <i class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
                                     <span class="text">لیست کاربران</span>
                                 </div>
@@ -250,7 +247,7 @@
                             <a class="menu-link position-relative" aria-label=""><i
                                     class="ti ti-files fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
-                                    <span class="text">پست ها 
+                                    <span class="text">پست ها
                                         @if (\App\Models\Contents\Posts::where('confirmed',0)->count())
                                         <span class="fs-0-8 text-danger pr-2 fw-500">جدید</span>
                                         @endif
@@ -301,99 +298,99 @@
                                 </li>
                                 {{-- <li class="menu-item-link mr-35">
                                     <a href="{{route('Message.All')}}" aria-label="پیام های کاربران">
-                                        <div class="content">
-                                            <span class="text">پیام های کاربران</span>
-                                        </div>
-                                    </a>
-                                </li> --}}
-                                 <li class="menu-item-link mr-35">
-                                    <a href="{{route('Channel.Requested.All')}}" aria-label="درخواست کانال رسمی">
-                                        <div class="content">
-                                            <span class="text">درخواست کانال رسمی
-
-                                                @if (\App\Models\Members\ChannelInformations::where('accepted',1)->count())
-                                                <span class="fs-0-8 text-danger fw-500">جدید</span>
-                                                @endif
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-link d-flex flex-column">
-                            <a class="menu-link position-relative" href="#" aria-label=""><i
-                                    class="ti ti-list fs-1-5 text-black-50 ml-3"></i>
                                 <div class="content">
-                                    <span class="text">محتوا</span>
-                                </div>
-                                <i class="sub-menu-arrow ti-angle-left "></i>
-                            </a>
-                            <ul class="sub-menu" style="display: none;">
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.SlideShow.All')}}" aria-label="اسلایدشو">
-                                        <div class="content">
-                                            <span class="text">اسلایدشو</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.BannerPost')}}" aria-label="پست ویژه">
-                                        <div class="content">
-                                            <span class="text">پست ویژه</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Policies')}}" aria-label="قوانین">
-                                        <div class="content">
-                                            <span class="text">قوانین</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.ContactUs')}}" aria-label="تماس با ما">
-                                        <div class="content">
-                                            <span class="text">تماس با ما</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Advert')}}" aria-label="تبلیغات">
-                                        <div class="content">
-                                            <span class="text">صفحه تبلیغات</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Content.AdvertList')}}" aria-label="مدیریت تبلیغات">
-                                        <div class="content">
-                                            <span class="text">مدیریت تبلیغات</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.Testimonials')}}" aria-label="سوالات متداول">
-                                        <div class="content">
-                                            <span class="text">سوالات متداول</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                {{-- <li class="menu-item-link mr-35">
-                                    <a href="{{route('Panel.ContactUs')}}" aria-label="">
-                                <div class="content">
-                                    <span class="text">درآمدزایی</span>
+                                    <span class="text">پیام های کاربران</span>
                                 </div>
                                 </a>
                         </li> --}}
-                        @if (auth()->user()->approved == 1 || auth()->user()->group == "admin")
-                          <li class="menu-item-link  mr-35">
-                            <a href="{{route('AddAboutUs')}}" aria-label="">
+                        <li class="menu-item-link mr-35">
+                            <a href="{{route('Channel.Requested.All')}}" aria-label="درخواست کانال رسمی">
                                 <div class="content">
-                                    <span class="text">اضافه کردن متن درباره ما</span>
+                                    <span class="text">درخواست کانال رسمی
+
+                                        @if (\App\Models\Members\ChannelInformations::where('accepted',1)->count())
+                                        <span class="fs-0-8 text-danger fw-500">جدید</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </a>
-                         </li>
-                         @endif
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="menu-item-link d-flex flex-column">
+                        <a class="menu-link position-relative" href="#" aria-label=""><i
+                                class="ti ti-list fs-1-5 text-black-50 ml-3"></i>
+                            <div class="content">
+                                <span class="text">محتوا</span>
+                            </div>
+                            <i class="sub-menu-arrow ti-angle-left "></i>
+                        </a>
+                        <ul class="sub-menu" style="display: none;">
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.SlideShow.All')}}" aria-label="اسلایدشو">
+                                    <div class="content">
+                                        <span class="text">اسلایدشو</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.BannerPost')}}" aria-label="پست ویژه">
+                                    <div class="content">
+                                        <span class="text">پست ویژه</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.Policies')}}" aria-label="قوانین">
+                                    <div class="content">
+                                        <span class="text">قوانین</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.ContactUs')}}" aria-label="تماس با ما">
+                                    <div class="content">
+                                        <span class="text">تماس با ما</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.Advert')}}" aria-label="تبلیغات">
+                                    <div class="content">
+                                        <span class="text">صفحه تبلیغات</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.Content.AdvertList')}}" aria-label="مدیریت تبلیغات">
+                                    <div class="content">
+                                        <span class="text">مدیریت تبلیغات</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="menu-item-link mr-35">
+                                <a href="{{route('Panel.Testimonials')}}" aria-label="سوالات متداول">
+                                    <div class="content">
+                                        <span class="text">سوالات متداول</span>
+                                    </div>
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-link mr-35">
+                                    <a href="{{route('Panel.ContactUs')}}" aria-label="">
+                            <div class="content">
+                                <span class="text">درآمدزایی</span>
+                            </div>
+                            </a>
+                    </li> --}}
+                    @if (auth()->user()->approved == 1 || auth()->user()->group == "admin")
+                    <li class="menu-item-link  mr-35">
+                        <a href="{{route('AddAboutUs')}}" aria-label="">
+                            <div class="content">
+                                <span class="text">اضافه کردن متن درباره ما</span>
+                            </div>
+                        </a>
+                    </li>
+                    @endif
                     </ul>
                     </li>
 
@@ -423,20 +420,20 @@
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a style="padding-right: 31px;" href="{{route('Accounting.Transactions')}}" aria-label="تراکنش های من">
-                        
-                            <i
-                            class="fas fa-dollar-sign fs-1-5 text-black-50 ml-3"></i>
+                        <a style="padding-right: 31px;" href="{{route('Accounting.Transactions')}}"
+                            aria-label="تراکنش های من">
+
+                            <i class="fas fa-dollar-sign fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تراکنش های من</span>
                             </div>
                         </a>
                     </li>
                     <li class="menu-item-link">
-                        <a style="padding-right: 24px;" href="{{route('Panel.Checkout')}}" aria-label="تسویه حساب با اساتید">
-                            
-                            <i
-                            class="fas fa-hand-holding-usd fs-1-2 text-black-50 ml-3"></i>
+                        <a style="padding-right: 24px;" href="{{route('Panel.Checkout')}}"
+                            aria-label="تسویه حساب با اساتید">
+
+                            <i class="fas fa-hand-holding-usd fs-1-2 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تسویه حساب با اساتید</span>
                             </div>
@@ -480,11 +477,11 @@
                     </li>
                     {{-- <li class="menu-item-link">
                         <a href="{{route('UnsubscribeFiles')}}" aria-label=""><i
-                                class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
-                            <div class="content">
-                                <span class="text">فایل های منتشر نشده</span>
-                            </div>
-                        </a>
+                        class="ti ti-na fs-1-5 text-black-50 ml-3"></i>
+                    <div class="content">
+                        <span class="text">فایل های منتشر نشده</span>
+                    </div>
+                    </a>
                     </li> --}}
                     <li class="menu-item-link">
                         <a href=" {{route('Panel.Comments')}} " aria-label="گیم"><svg class="icon icon-comments"
@@ -518,7 +515,7 @@
                             <div class="content">
                                 <span class="text">پیام های من
 
-                                    @if (\App\Models\Members\Messages::where('recived_id',auth()->user()->id)->where('read',0)->count())
+                                    @if(\App\Models\Members\Messages::where('recived_id',auth()->user()->id)->where('read',0)->count())
                                     <span class="fs-0-8 text-danger fw-500">جدید</span>
                                     @endif
                                 </span>
@@ -533,9 +530,9 @@
                             </div>
                         </a>
                     </li>
-   
+
                     @endif
-                    
+
                     <li class="menu-item-link">
                         <a href="{{route('Panel.MyFollowers')}}" aria-label="گیم">
                             <i class="fa fa-users text-black-50 ml-3"></i>
@@ -544,13 +541,13 @@
                             </div>
                         </a>
                     </li>
-                   
+
                     @if (auth()->user()->group == 'teacher')
                     <li class="menu-item-link">
-                        <a style="padding-right: 20px;" href="{{route('Request.Channel')}}" aria-label="تقاضای کانال رسمی">
-                        
-                            <i
-                                class="fas fa-user-check fs-1-5 text-black-50 ml-3"></i>
+                        <a style="padding-right: 20px;" href="{{route('Request.Channel')}}"
+                            aria-label="تقاضای کانال رسمی">
+
+                            <i class="fas fa-user-check fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تقاضای کانال رسمی</span>
                             </div>
@@ -558,14 +555,14 @@
                     </li>
                     <li class="menu-item-link">
                         <a href="{{route('Accounting.Transactions')}}" aria-label=""><i
-                        class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
+                                class="ti ti-money fs-1-5 text-black-50 ml-3"></i>
                             <div class="content">
                                 <span class="text">تراکنش های من</span>
                             </div>
                         </a>
                     </li>
                     @endif
-                   
+
                     <li class="menu-item-link">
                         <a href="{{route('Profile')}}" aria-label=""><i
                                 class="fas fa-user fs-1-5 text-black-50 ml-3"></i>
@@ -574,7 +571,7 @@
                             </div>
                         </a>
                     </li>
-                   
+
                     <li class="menu-item-link">
                         <a href="{{route('logout')}}" aria-label=""><svg class="icon icon-logout" viewBox="0 0 24 24"
                                 0="" 24="" 24""="">
@@ -621,6 +618,7 @@
     <script src="{{asset('Panel/assets/js/datatable.js')}}"></script>
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
     @toastr_render
+  
     <script src="{{asset('Panel/assets/js/custom.js')}}"></script>
     <script>
         $('.noty-link').click(function(e){
@@ -643,9 +641,14 @@
             dataType: 'JSON',
             cache:false,
             success: function(res) {
+              
+               if (thiss.parents('ul').children().length == '1') {
+                    $('.noty-icon').remove()
+                }
                if(res === true){
                 thiss.parents('li').remove()
                }
+               
                
             }
     });

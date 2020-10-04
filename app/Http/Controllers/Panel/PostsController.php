@@ -15,6 +15,7 @@ use App\Models\Accounting\Purchase;
 use App\Models\Contents\AdvertLink;
 use Illuminate\Support\Str;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\File;
 
 class PostsController extends Controller
 {
@@ -24,36 +25,6 @@ class PostsController extends Controller
         return view('Panel.UploadFile');
     }
 
-    public function SubmitUploadFile(Request $request)
-    {
-        dd($request->all());
-
-        if ($request->hasFile('file')) {
-
-            // Upload path
-            $destinationPath = 'files/';
-
-            // Create directory if not exists
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-
-            // Get file extension
-            $extension = $request->file('file')->getClientOriginalExtension();
-
-            // Valid extensions
-            $validextensions = array("jpeg", "jpg", "png", "pdf");
-
-            // Check extension
-
-
-            // Rename file 
-            $fileName = time() . '.' . $extension;
-
-            // Uploading file to given path
-            $request->file('file')->move($destinationPath, $fileName);
-        }
-    }
 
     public function MyVideos($content = '')
     {
@@ -173,35 +144,84 @@ class PostsController extends Controller
 
     public function confirm()
     {
+        $post = Posts::find(request()->id);
 
-        if (request()->price !== "0" || request()->price !== null) {
+        if (request()->price !== "0" && request()->price !== null) {
             $price_type = 'money';
         } else {
             $price_type = 'free';
         }
-        $update_post = Posts::where('id', request()->id)->update([
-            'confirmed' => 1,
-            'title' => request()->title,
-            'desc' => request()->desc,
-            'categories_id' => request()->type,
-            'languages_id' => request()->lang,
-            'subjects_id' => request()->subject,
-            'levels_id' => request()->level,
-            'price' => request()->price,
-            'type' => $price_type,
-            'otheroninformation' => request()->desc2
+        $post->type = $price_type;
 
-        ]);
-        $post = Posts::whereId(request()->id)->first();
+        $destinationPath = 'files/posts/' . request()->title . '';
+        if (isset(request()->file) && request()->file !== null) {
+            $this->delete_from_server("files/posts/$post->content_name");
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
 
-        if ($update_post) {
-            $notification = new Notifications;
-            $notification->members_id = $post->members_id;
-            $notification->title = 'پیام مدیر سایت';
-            $notification->text = 'پست شما با عنوان ' . $post->title . ' تایید و در سایت قرار گرفت';
-            $notification->posts_id = $post->id;
-            $notification->save();
-        }
+            $extension = request()->file('file')->getClientOriginalExtension();
+            if ($extension == "mp3") {
+                $media = 'audio';
+            } else {
+                $media = 'video';
+            }
+            $post->media = $media;
+
+
+            $fileNamevideo = SlugService::createSlug(Posts::class, 'slug', request()->title) . '_' . date("Y-m-d") . '_' . time() . '.' . $extension;
+            $filePath22 = "files/posts/$fileNamevideo";
+            $conn = ftp_connect(env('FTP_HOST'));
+            $login = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+            ftp_set_option($conn, FTP_USEPASVADDRESS, false);
+            ftp_pasv($conn, true);
+            ftp_put($conn, $filePath22, $_FILES['file']['tmp_name'], FTP_BINARY);
+            ftp_close($conn);
+
+
+
+            $getID3 = new \getID3;
+            $filedur = $getID3->analyze(request()->file('file'));
+            $duration = gmdate('H:i:s', $filedur['playtime_seconds']);
+            $post->duration = $duration;
+            $post->content_name = $fileNamevideo;
+            $post->content_link = "https://dl.genebartar.com/$filePath22";
+
+            if (array_key_exists('error', $filedur) && count($filedur['error'])) {
+                return response()->json(
+                    [
+                        'errors' => "فایل دارای فرمت نامشخص میباشد"
+                    ],
+                    403
+
+                );
+            }
+        } 
+
+
+
+
+        $post->title = request()->title;
+        $post->confirmed = 1;
+        $post->desc = request()->desc;
+        $post->categories_id = request()->type;
+        $post->languages_id = request()->lang;
+        $post->subjects_id = request()->subject;
+        $post->levels_id = request()->level;
+        $post->price = request()->price;
+        $post->otheroninformation = request()->desc2;
+        $post->update();
+
+
+
+
+        $notification = new Notifications;
+        $notification->members_id = $post->members_id;
+        $notification->title = 'پیام مدیر سایت';
+        $notification->text = 'پست شما با عنوان ' . $post->title . ' تایید و در سایت قرار گرفت';
+        $notification->posts_id = $post->id;
+        $notification->save();
+
 
 
         // send notifications to user where post
@@ -227,6 +247,8 @@ class PostsController extends Controller
         $notification->text = 'پست اخیر شما با نام ' . $post->title . ' به دلیل ' . $request->reason . ' توسط مدیر رد تایید گردید.';
         $notification->posts_id = $post->id;
 
+        File::delete(public_path() . '/' . $post->picture);
+        $this->delete_from_server('files/posts/' . $post->content_name);
         if ($post->delete())  $notification->save();
 
         toastr()->success('محتوا حذف و پیام شما برای کاربر ارسال شد');
@@ -248,10 +270,9 @@ class PostsController extends Controller
     public function Delete(Request $request)
     {
 
-
-
         $post = Posts::whereId($request->post_id)->first();
         // set up basic connection
+        File::delete(public_path() . '/' . $post->picture);
         $conn = ftp_connect(env('FTP_HOST'));
         // login with username and password
         $login_result = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
@@ -261,6 +282,7 @@ class PostsController extends Controller
                 Posts::whereId($request->post_id)->delete();
             } else {
                 foreach ($post->epizodes as $key => $episode) {
+                    File::delete(public_path() . '/' . $episode->picture);
                     ftp_delete($conn, "files/posts/episodes/$episode->content_name");
                 }
                 Posts::whereId($request->post_id)->delete();
@@ -346,27 +368,59 @@ class PostsController extends Controller
         }
     }
 
+
+    public function CheckPost()
+    {
+
+
+        $member = Members::whereId(request()->member)->first();
+        if (isset(request()->type) && request()->type == 'episode') {
+            $post = Episodes::whereId(request()->id)->first();
+            $id = $post->id;
+
+            return view('Panel.UploadEpisode', compact(['post', 'id']));
+        } else {
+
+            $post = Posts::whereId(request()->id)->first();
+        }
+        if (is_null($post)) return back();
+        $advert = AdvertLink::where(['cat_id' => $post->categories_id, 'status' => 1])->latest()->first();
+        if ($advert) {
+            $link = $advert->content_link;
+            $pic_link = $advert->pic_address;
+            $link_type = $advert->type;
+        } else {
+            $link = '';
+            $pic_link = '';
+            $link_type = '';
+        }
+
+        return view('Panel.CheckPost', compact([
+            'member',
+            'post',
+            'link',
+            'link_type',
+            'pic_link'
+        ]));
+    }
+
+
     public function UploadEpizode(Request $request)
     {
         $post = Posts::whereId($request->post_id)->first();
         if ($request->file !== null) {
-            // if (!file_exists($destinationPath)) {
-            //     mkdir($destinationPath, 0755, true);
-            // }
+
+
             $extension = $request->file('file')->getClientOriginalExtension();
-            if($extension == "mp3"){
+            if ($extension == "mp3") {
                 $media = 'audio';
-            }else{
+            } else {
                 $media = 'video';
             }
             // Valid extensions
-            $fileNameepisode = SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() . '.' . $extension;
+            $fileNameepisode = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $extension;
             $destinationPath = "files/posts/episodes/$fileNameepisode";
-            //$request->file('file')->move($destinationPath, $fileName);
 
-            // $filePathepisode22 = "$destinationPath/$fileName";
-
-            // Storage::disk('ftp')->put($filePathepisode22, fopen($request->file('file'), 'r+'));
             $conn = ftp_connect(env('FTP_HOST'));
             $login = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
             ftp_set_option($conn, FTP_USEPASVADDRESS, false);
@@ -378,27 +432,24 @@ class PostsController extends Controller
             $filePathepisode = null;
         }
         if ($request->hasFile('episode_pic')) {
-
+            File::delete(public_path() . '/' . $post->picture);
             $picextension = $request->file('episode_pic')->getClientOriginalExtension();
-          
-            $fileName =SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() . '.' . $picextension;
-
+            $fileName = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $picextension;
             $request->file('pic')->move($destinationPath, $fileName);
             $picPath = "$destinationPath/$fileName";
-            
         } else {
             $picPath = '';
         }
         if ($request->hasFile('episode_subtitle')) {
-
+            File::delete(public_path() . '/' . $post->picture);
             $picextension = $request->file('episode_subtitle')->getClientOriginalExtension();
-            $fileName = SlugService::createSlug(Posts::class, 'slug', $request->epizode_title) . '_'. date("Y-m-d")  .'_' .time() .'.' . $picextension;
+            $fileName = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $picextension;
             $request->file('subtitle')->move($destinationPath, $fileName);
             $subTitle = "$destinationPath/$fileName";
         } else {
             $subTitle = '';
         }
-        
+
         $getID3 = new \getID3;
         $file = $getID3->analyze($request->file('file'));
         $duration = gmdate('H:i:s', $file['playtime_seconds']);
@@ -429,47 +480,92 @@ class PostsController extends Controller
         );
     }
 
+    public function EditEpizode(Request $request)
+    {
+        $post = Episodes::whereId($request->post_id)->first();
+        if ($request->file !== null) {
+            $this->delete_from_server("files/posts/episodes/$post->content_name");
+
+            $extension = $request->file('file')->getClientOriginalExtension();
+            if ($extension == "mp3") {
+                $media = 'audio';
+            } else {
+                $media = 'video';
+            }
+            $post->media = $media;
+
+            $fileNameepisode = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $extension;
+            $destinationPath = "files/posts/episodes/$fileNameepisode";
+
+            $conn = ftp_connect(env('FTP_HOST'));
+            $login = ftp_login($conn, env('FTP_USERNAME'), env('FTP_PASSWORD'));
+            ftp_set_option($conn, FTP_USEPASVADDRESS, false);
+            ftp_pasv($conn, true);
+            ftp_put($conn, $destinationPath, $_FILES['file']['tmp_name'], FTP_BINARY);
+            $filePathepisode = $destinationPath;
+            ftp_close($conn);
+
+            $getID3 = new \getID3;
+            $file = $getID3->analyze($request->file('file'));
+            $duration = gmdate('H:i:s', $file['playtime_seconds']);
+            $post->duration = $duration;
+            $post->content_link = "https://dl.genebartar.com/$filePathepisode";
+            $post->content_name = $fileNameepisode;
+        }
+        if ($request->hasFile('episode_pic')) {
+
+            $picextension = $request->file('episode_pic')->getClientOriginalExtension();
+
+            $fileName = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $picextension;
+
+            $request->file('pic')->move($destinationPath, $fileName);
+            $picPath = "$destinationPath/$fileName";
+            $post->picture = $picPath;
+        }
+        if ($request->hasFile('episode_subtitle')) {
+
+            $picextension = $request->file('episode_subtitle')->getClientOriginalExtension();
+            $fileName = SlugService::createSlug(Episodes::class, 'slug', $request->epizode_title) . '_' . date("Y-m-d")  . '_' . time() . '.' . $picextension;
+            $request->file('subtitle')->move($destinationPath, $fileName);
+            $subTitle = "$destinationPath/$fileName";
+        }
+
+
+        $post->title = $request->epizode_title;
+
+        $post->desc = $request->epizode_desc;
+
+
+        $post->price = 0;
+
+        $post->update();
+        return response()->json(
+            ['success' => "موفق", 200]
+        );
+    }
+
 
 
     public function DeleteEpisode(Request $request)
     {
         $episode = Episodes::find($request->id);
-        if($episode->delete()){
+        $this->delete_from_server("files/posts/episodes/$episode->content_name");
+        if ($episode->picture) {
+            File::delete(public_path() . '/' . $episode->picture);
+        }
+
+        if ($episode->delete()) {
             return response()->json(
                 ['success' => "موفق", 200]
             );
-        }else{
+        } else {
             return response()->json(
                 ['success' => "ناموفق", 401]
             );
         }
     }
 
-    public function CheckPost()
-    {
 
-        $member = Members::whereId(request()->member)->first();
-        $post = Posts::whereId(request()->id)->first();
-        if (is_null($post)) return back();
-        $advert = AdvertLink::where(['cat_id' => $post->categories_id, 'status' => 1])->latest()->first();
-        if ($advert) {
-            $link = $advert->content_link;
-            $pic_link = $advert->pic_address;
-            $link_type = $advert->type;
-        } else {
-            $link = '';
-            $pic_link = '';
-            $link_type = '';
-        }
-
-        return view('Panel.CheckPost', compact([
-            'member',
-            'post',
-            'link',
-            'link_type',
-            'pic_link'
-        ]));
-    }
 
     public function report(Request $request)
     {
@@ -492,7 +588,7 @@ class PostsController extends Controller
             $notification = new Notifications;
             $notification->members_id = $admin->id;
             $notification->title = 'گزارش تخلف پست';
-            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', ['content'=>$post->categories->name,'slug'=>$post->slug]) . '">' . $post->title . '</a>' . ' ثبت شد';
+            $notification->text = 'یک گزارش تخلف برای پست با نام ' . '<a class="text-primary" href="' . route('ShowItem', ['content' => $post->categories->name, 'slug' => $post->slug]) . '">' . $post->title . '</a>' . ' ثبت شد';
             $notification->save();
         }
 
@@ -501,9 +597,9 @@ class PostsController extends Controller
 
         toastr()->success('گزارش شما با موفقیت ثبت شد');
         return back();
-        }
+    }
 
-    public function reportepisode(Request $request)
+    public function reportcheode(Request $request)
     {
 
 

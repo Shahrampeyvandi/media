@@ -20,17 +20,17 @@ use App\Models\Members\Follows;
 
 class PostController extends Controller
 {
-    public function index($category,$slug)
+    public function index($category, $slug)
     {
         $content = Posts::whereSlug($slug)->first();
         $id = $content->id;
-        $title= "ژن برتر - $content->title";
-        $followers = Follows::where('followed_id',$content->members_id)->count();
+        $title = "ژن برتر - $content->title";
+        $followers = Follows::where('followed_id', $content->members_id)->count();
 
-        $advert = AdvertLink::where('cat_id',$content->categories_id)
-        ->orWhere(['cat_id' =>'همه'])->where('status',1)
-        ->latest()->first();
-        
+        $advert = AdvertLink::where('cat_id', $content->categories_id)
+            ->orWhere(['cat_id' => 'همه'])->where('status', 1)
+            ->latest()->first();
+
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
@@ -75,8 +75,8 @@ class PostController extends Controller
         }
 
         $relateds = Posts::where('categories_id', $content->categories_id)
-        ->where('confirmed',1)
-        ->where('id', '!=', $id)->take(10)->get();
+            ->where('confirmed', 1)
+            ->where('id', '!=', $id)->take(10)->get();
         $categories = Categories::all();
         $countcategoryposts = Posts::where('categories_id', $content->categories_id)->count();
         $comments =
@@ -88,7 +88,7 @@ class PostController extends Controller
             Comments::where('posts_id', $id)
             ->where('confirmed', 1)
             ->latest()->get();
-            
+
         $from = date("Y-m-01 00:00:00");
         $to = date("Y-m-29 23:59:59");
         $maxlike = 0;
@@ -103,25 +103,24 @@ class PostController extends Controller
             }
             $max = 0;
             $countbestcomments = 0;
-            $bestcomment_id=0;
-           if (count($array)) {
-            foreach ($array as $key => $value) {
-               
-                if ($value > $max && $value > 10 ) {
-                    $best = [];
-                    $max = $value;
-                    $bestcomment_id = $key;
-                    $best[$key] = $value;
-                }
-            }
-            foreach ($array as $key => $value) {
-                if ($value == $max) $countbestcomments++;
-            }
-           }else{
             $bestcomment_id = 0;
-            $countbestcomments = 0;
-           }
-           
+            if (count($array)) {
+                foreach ($array as $key => $value) {
+
+                    if ($value > $max && $value > 10) {
+                        $best = [];
+                        $max = $value;
+                        $bestcomment_id = $key;
+                        $best[$key] = $value;
+                    }
+                }
+                foreach ($array as $key => $value) {
+                    if ($value == $max) $countbestcomments++;
+                }
+            } else {
+                $bestcomment_id = 0;
+                $countbestcomments = 0;
+            }
         } else {
             $bestcomment_id = 0;
             $countbestcomments = 0;
@@ -153,7 +152,7 @@ class PostController extends Controller
             $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
 
             $post = $content;
-            //dd($episodes);
+            
             return view('Main.tutorial', compact([
                 'title',
                 'episode_id',
@@ -178,13 +177,12 @@ class PostController extends Controller
 
             ]));
         } else {
-         
-            if($content->media == "video"){
+
+            if ($content->media == "video") {
 
                 return view('Main.show_video', compact($compacts));
-            }else{
+            } else {
                 return view('Main.show_audio', compact($compacts));
-
             }
         }
     }
@@ -206,10 +204,10 @@ class PostController extends Controller
     {
         $post = Posts::whereSlug($slug)->first();
         $id = $post->id;
-        $followers = Follows::where('followed_id',$post->members_id)->count();
+        $followers = Follows::where('followed_id', $post->members_id)->count();
 
         $content = Episodes::where('posts_id', $id)->where('number', $ep)->first();
-       $title= "ژن برتر - $content->title";
+        $title = "ژن برتر - $content->title";
         $post = Posts::whereId($id)->first();
         $favorite_status = 0;
         $isbuyedit = true;
@@ -252,14 +250,56 @@ class PostController extends Controller
             ->where('confirmed', 1)
             ->latest()->get();
 
+             $allpostcomments =
+            Comments::where('episodes_id', $id)
+            ->where('confirmed', 1)
+            ->latest()->get();
+
+        $from = date("Y-m-01 00:00:00");
+        $to = date("Y-m-29 23:59:59");
+        $maxlike = 0;
+        $mostlikeid = 1;
+        $comment_id = 0;
+        $array = [];
+        $best = [];
+        if (count($allpostcomments)) {
+            foreach ($allpostcomments as $comment) {
+                $like = CommentsLikes::where('comments_id', $comment->id)->where('score', 'like')->count();
+                $array[$comment->id] = $like;
+            }
+            $max = 0;
+            $countbestcomments = 0;
+            $bestcomment_id = 0;
+            if (count($array)) {
+                foreach ($array as $key => $value) {
+
+                    if ($value > $max && $value > 10) {
+                        $best = [];
+                        $max = $value;
+                        $bestcomment_id = $key;
+                        $best[$key] = $value;
+                    }
+                }
+                foreach ($array as $key => $value) {
+                    if ($value == $max) $countbestcomments++;
+                }
+            } else {
+                $bestcomment_id = 0;
+                $countbestcomments = 0;
+            }
+        } else {
+            $bestcomment_id = 0;
+            $countbestcomments = 0;
+        }
+
         $content->tags = [];
         $type = "episode";
         $episodes = Episodes::where('posts_id', $id)->orderBy('number', 'asc')->get();
         $episode_id = $ep;
-       
-        $advert = AdvertLink::where('cat_id',$content->categories_id)
-        ->orWhere(['cat_id' =>'همه'])->where('status',1)
-        ->latest()->first();
+
+        $advert = AdvertLink::where('cat_id', $content->categories_id)
+            ->orWhere(['cat_id' => 'همه'])->where('status', 1)
+            ->latest()->first();
         if ($advert) {
             $link = $advert->content_link;
             $pic_link = $advert->pic_address;
@@ -288,78 +328,69 @@ class PostController extends Controller
             'link',
             'pic_link',
             'link_type',
-            'followers'
+            'followers',
+            'bestcomment_id'
         ]));
     }
 
-    public function download(Request $request){
+    public function download(Request $request)
+    {
 
-        if(!auth()->check()){
+        if (!auth()->check()) {
 
             return redirect()->route('login');
-
         }
 
-        if($request->type==1){
+        if ($request->type == 1) {
 
-            $content=Posts::find($request->id);
+            $content = Posts::find($request->id);
+        } else {
 
+            $content = Episodes::find($request->id);
 
-
-        }else{
-
-            $content=Episodes::find($request->id);
-
-            if($content->post->type=='money'){
+            if ($content->post->type == 'money') {
 
                 $purchase = Purchase::where('members_id', auth()->user()->id)->where('posts_id', $content->post->id)->where('success', 1)->first();
                 if (!$purchase) {
 
-                    return redirect()->route('ShowItem',['id'=>$content->post->id]);
+                    return redirect()->route('ShowItem', ['id' => $content->post->id]);
                 }
-
             }
-
-
         }
 
-        $filename=$content->title.substr($content->content_name,-4);
-        $path=substr($content->content_link,26);
+        $filename = $content->title . substr($content->content_name, -4);
+        $path = substr($content->content_link, 26);
 
-        
-$tempImage = tempnam(sys_get_temp_dir(), $filename);
-copy('http://dl.genebartar.ir/sadas.php?path='.$path, $tempImage);
 
-return response()->download($tempImage, $filename);
+        $tempImage = tempnam(sys_get_temp_dir(), $filename);
+        copy('http://dl.genebartar.ir/sadas.php?path=' . $path, $tempImage);
 
-       
+        return response()->download($tempImage, $filename);
     }
 
-    public function downloadinthedownloadhost(Request $request){
+    public function downloadinthedownloadhost(Request $request)
+    {
 
         $file = ($_GET['path']);
 
-        $filetype=filetype($file);
- 
-        $filename=basename($file);
- 
-        header ("Content-Type: ".$filetype);
- 
-        header ("Content-Length: ".filesize($file));
- 
-        header ("Content-Disposition: attachment; filename=".$filename);
- 
+        $filetype = filetype($file);
+
+        $filename = basename($file);
+
+        header("Content-Type: " . $filetype);
+
+        header("Content-Length: " . filesize($file));
+
+        header("Content-Disposition: attachment; filename=" . $filename);
+
         readfile($file);
-
-
     }
     // public function ShowVideo($id)
     // {
     //     $content = Posts::whereId($id)->first();
-       
+
     //     $response = response($content->content_link);
     //     $response->header('Content-Type', 'video/mp4');
     //     return $response;
     // }
 }
-

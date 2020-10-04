@@ -22,9 +22,9 @@
 <script src="{{route('BaseUrl')}}/Panel/assets/js/videojs.watermark.js"></script>
 
 <section id="play" class="mt-5 position-relative">
-  @if ($link_type == 'image')
+  @if (isset($link_type) && $link_type == 'image')
   <a class="close">بستن X</a>
-  <a href="{{$link}}" target="_blank" class="advert-img"><img src="{{$pic_link}}" class="" alt=""></a>
+  <a href="{{$link}}" target="_blank" class="advert-img"><img src="{{$pic_link ?? ''}}" class="" alt=""></a>
   @endif
   <video class="video-js mx-3 w-100" controls preload="auto" height="440" id="player" controls>
     <source src="{{$content->content_link}}" type="video/mp4" size="576" />
@@ -40,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
 <script>
   const player = new Plyr('#player',{
-         speed:{ selected: 1, options: [0.5,0.75, 1] }
+         speed:{ selected: 1, options: [0.5,0.75, 1 , 1.5, 2] }
        });
 </script>
 @else

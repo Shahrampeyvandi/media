@@ -176,15 +176,17 @@ class DashboardController extends Controller
 
             );
         }
-        if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
-            return response()->json(
-                [
-                    'errors' => "فایل زیرنویس دارای فرمت غیرمجاز می باشد", 'code' => 403
-                ],
-                403
 
-            );
-        }
+
+        // if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
+        //     return response()->json(
+        //         [
+        //             'errors' => "فایل زیرنویس دارای فرمت غیرمجاز می باشد", 'code' => 403
+        //         ],
+        //         403
+
+        //     );
+        // }
         // Upload path
         $destinationPath = "files/posts/$request->title";
         if ($request->file !== null) {
@@ -226,10 +228,7 @@ class DashboardController extends Controller
         }
         if ($request->hasFile('subtitle')) {
 
-            $picextension = $request->file('subtitle')->getClientOriginalExtension();
-            $fileName = SlugService::createSlug(Posts::class, 'slug', $request->title) . '_' . date("Y-m-d") . '_' . time() . '.' . $picextension;
-            $request->file('subtitle')->move($destinationPath, $fileName);
-            $subTitle = "files/posts/$request->title/$fileName";
+            $subTitle = $this->SaveCaption($request,$destinationPath);
         } else {
             $subTitle = '';
         }

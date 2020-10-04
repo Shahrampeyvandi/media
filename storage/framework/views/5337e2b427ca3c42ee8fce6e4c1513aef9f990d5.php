@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>
+    ژن برتر - ورود
+</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Panel/vendor/FontAwesome/all.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Panel/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/mdb.min.css">
+    <link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/assets/css/login.css">
+     <?php echo $__env->yieldContent('css'); ?>
+</head>
+
+<body style="direction: rtl;text-align: right;height:100vh;" class="aqua-gradient">
+  <div class="container">
+    <?php echo $__env->yieldContent('content'); ?>
+  </div>
+  <script src="<?php echo e(route('BaseUrl')); ?>/assets/js/jquery-3.5.1.min.js"></script>
+  <script src="<?php echo e(route('BaseUrl')); ?>/Panel/assets/js/jquery.validate.js"></script>
+    <?php echo $__env->yieldContent('js'); ?>
+    <script>
+    $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
+    </script>
+</body>
+
+</html>
+<?php /**PATH C:\xampp1\htdocs\media\resources\views/layout/Login/template.blade.php ENDPATH**/ ?>

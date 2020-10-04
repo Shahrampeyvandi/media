@@ -52,16 +52,11 @@
 
                 گزارش تخلف
             </a>
-
-
-
             <a data-id="0" class="button__  p-1 text-primary mr-2 fs-0-8 radius-5 border-1 bc-blue">
-
                 دیدگاه
             </a>
-
-            <a class="downloadfile p-1 text-success mr-2 fs-0-8 radius-5 border-1 bc-theme" 
-            @if(Illuminate\Support\Facades\Route::currentRouteName()=='ShowItem.Episode' )
+            <a class="downloadfile p-1 text-success mr-2 fs-0-8 radius-5 border-1 bc-theme"
+                @if(Illuminate\Support\Facades\Route::currentRouteName()=='ShowItem.Episode' )
                 href="{{route('Download')}}?type=2&id={{$episode_id}}" @else
                 href="{{route('Download')}}?type=1&id={{$id}}" @endif>
 

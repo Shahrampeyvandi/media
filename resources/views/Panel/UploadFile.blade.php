@@ -113,12 +113,12 @@
                         <div class="form-group col-md-6">
                             <label for="desc">فایل: <span class="genplus text-primary fs-0-8" style="display:none;">مدت زمان ژن پلاس (کلیپ) حداکثر 3
                                     دقیقه می باشد</span></label>
-                            <input type="file" class="form-control" name="file" id="file" />
+                            <input type="file" class="form-control" name="file" id="file" accept=".mp4,.mp3" />
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="desc">افزودن زیرنویس: فایل زیرنویس باید با فرمت vtt باشد </label>
-                            <input type="file" class="form-control" name="subtitle" id="subtitle" />
+                            <label for="desc">افزودن زیرنویس:</label>
+                            <input type="file" class="form-control" name="subtitle" id="subtitle"  accept=".srt"/>
                         </div>
                     </div>
                     @if (auth()->user()->group !== "student")

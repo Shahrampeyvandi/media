@@ -2,38 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use Socialite;
+use Carbon\Carbon;
+use App\Mail\Welcome;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\UserActivation;
-use App\Mail\Welcome;
-use App\Mail\SendResetPasswordToken;
 use App\Models\ActivationCode;
 use App\Models\Members\Members;
-use App\Models\Members\PasswordReset;
 use App\Models\Students\Student;
 use App\Models\Teachers\Teacher;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use App\Mail\SendResetPasswordToken;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Members\PasswordReset;
 use Illuminate\Support\Facades\Validator;
-use Socialite;
 
 
 class LoginController extends Controller
 {
 
+    protected $redirectTo = '/panel/dashboard';
+
+    public function __construct()
+    {
+        // $this->redirectTo = URL::previous();
+        // $this->middleware('guest', ['except' => 'logout']);
+    }
+
 
     public function index()
     {
+
         return view('Login.login');
     }
 
     public function verifyLogin(Request $request)
     {
-       
 
-        if ($member = Members::where('mobile', $request->field)->whereIn('ability', ['admin','mid-level-admin'])->first()) {
+
+        if ($member = Members::where('mobile', $request->field)->whereIn('ability', ['admin', 'mid-level-admin'])->first()) {
 
 
             if (Hash::check($request->pass, $member->password)) {
@@ -48,17 +58,17 @@ class LoginController extends Controller
             $request->session()->flash('Error', 'اطلاعات را به صورت کامل وارد نمایید');
             return back();
         }
-       
+
 
         if (filter_var($request->field, FILTER_VALIDATE_EMAIL)) {
-            $member = Members::where('email',$request->field)->first();
+            $member = Members::where('email', $request->field)->first();
             if ($member) {
 
-                if (Hash::check($request->pass,$member->password)) {
+                if (Hash::check($request->pass, $member->password)) {
 
                     Auth::Login($member);
 
-                    return redirect()->route('Panel.Dashboard');
+                    return redirect($this->redirectTo);
                 } else {
                     $request->session()->flash('Error', 'رمز عبور وارد شده صحیح نمی باشد');
                     return back();
@@ -88,9 +98,12 @@ class LoginController extends Controller
 
             if ($member) {
 
-                if (Hash::check($request->pass,$member->password)) {
+                if (Hash::check($request->pass, $member->password)) {
 
                     Auth::Login($member);
+                    if (request()->has('previous')) {
+                        return url()->previous();
+                    }
 
                     return redirect()->route('Panel.Dashboard');
                 } else {
@@ -126,7 +139,7 @@ class LoginController extends Controller
 
             event(new UserActivation($request->mobile, $code));
             session()->put('email', $request->mobile);
-            session()->put('success_step1','success');
+            session()->put('success_step1', 'success');
             return  redirect()->route('SignUp.Verify', $request->mobile);
         } elseif (preg_match("/^09[0-9]{9}$/", $request->mobile)) {
             // event(new UserActivation($request->mobile,$code));
@@ -154,7 +167,7 @@ class LoginController extends Controller
     {
         $activationCode_OBJ = ActivationCode::where('v_code', $request->code)->first();
         if ($activationCode_OBJ) {
-            session()->put('success_step2','success');
+            session()->put('success_step2', 'success');
             return redirect()->route('SignUp.Final');
         } else {
             return back();
@@ -221,7 +234,7 @@ class LoginController extends Controller
             $member->years = $request->user_sanavat;
             $member->certificate = $request->user_certificate;
             $member->edu_level = $request->user_level;
-            $member->active = 1;    
+            $member->active = 1;
             $member->group = $request->user_role;
             $member->shaba = null;
             $member->ability = 'member';
@@ -230,10 +243,9 @@ class LoginController extends Controller
             Mail::to($member->email)->send(
                 new Welcome(auth()->user())
             );
-            session()->put('success_step3','success');
+            session()->put('success_step3', 'success');
             toastr()->success('به ژن برتر خوش آمدید');
             return redirect()->route('Panel.Dashboard');
-
         } catch (\Illuminate\Database\QueryException $e) {
             $request->session()->flash('Error', 'ذخیره اطلاعات با مشکل مواجه شد');
             return back();
@@ -258,7 +270,7 @@ class LoginController extends Controller
             $finduser = Members::where('google_id', $user->id)->first();
             if ($finduser) {
 
-                Auth::login($finduser,true);
+                Auth::login($finduser, true);
 
                 return redirect()->route('Panel.Dashboard');
             } else {
@@ -283,7 +295,7 @@ class LoginController extends Controller
             dd($e->getMessage());
         }
     }
-    
+
     public function forgot()
     {
         return view('Login.forgot');
@@ -292,23 +304,22 @@ class LoginController extends Controller
     public function forgotsendtoken(Request $request)
     {
 
-        $member=Members::where('email',$request->email)->first();
+        $member = Members::where('email', $request->email)->first();
 
-        if(is_null($member)){
+        if (is_null($member)) {
 
             $request->session()->flash('Error', 'این ایمیل در سایت وجود ندارد');
 
             return back();
-
         }
 
-        $passreset=new PasswordReset;
-        $passreset->email=$member->email;
-        $passreset->token=md5(uniqid($member->email.microtime(), true));;
+        $passreset = new PasswordReset;
+        $passreset->email = $member->email;
+        $passreset->token = md5(uniqid($member->email . microtime(), true));;
         $passreset->save();
 
         Mail::to($member->email)->send(
-            new SendResetPasswordToken($member->email,$passreset->token)
+            new SendResetPasswordToken($member->email, $passreset->token)
         );
 
         //event(new UserActivation($request->mobile, $code));
@@ -321,55 +332,52 @@ class LoginController extends Controller
 
     public function forgotresetpass(Request $request)
     {
-        $token=$request->token;
+        $token = $request->token;
 
-        $passreset=PasswordReset::where('token',$token)->where('created_at','>=',Carbon::now()->subMinutes(5))->latest()->first();
+        $passreset = PasswordReset::where('token', $token)->where('created_at', '>=', Carbon::now()->subMinutes(5))->latest()->first();
 
-       if(is_null($passreset)){
+        if (is_null($passreset)) {
 
-        $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
-        //return back();
-       }
-
-
+            $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
+            //return back();
+        }
 
 
-        return view('Login.resetpassword',compact('token'));
+
+
+        return view('Login.resetpassword', compact('token'));
     }
 
-    
+
     public function forgotresetpassword(Request $request)
     {
 
-        $token=$request->token;
+        $token = $request->token;
 
-        $passreset=PasswordReset::where('token',$token)->where('created_at','>=',Carbon::now()->subMinutes(5))->latest()->first();
+        $passreset = PasswordReset::where('token', $token)->where('created_at', '>=', Carbon::now()->subMinutes(5))->latest()->first();
 
-       if(is_null($passreset)){
+        if (is_null($passreset)) {
 
-        $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
-        return back();
+            $request->session()->flash('Error', 'به دلایل امنیتی امکان بازیابی رمز عبور وجود ندارد');
+            return back();
+        }
 
-       }
+        if ($request->password != $request->passwordr) {
 
-       if($request->password != $request->passwordr){
+            $request->session()->flash('Error', 'رمز های وارد شده مطابقت ندارند');
+            return back();
+        }
 
-        $request->session()->flash('Error', 'رمز های وارد شده مطابقت ندارند');
-        return back();
 
-       }
-       
+        $member = Members::where('email', $passreset->email)->first();
 
-       $member=Members::where('email',$passreset->email)->first();
+        $member->password = Hash::make($request->password);
 
-       $member->password = Hash::make($request->password);
+        $member->update();
 
-       $member->update();
+        Auth::Login($member);
+        return redirect()->route('Panel.Dashboard');
 
-       Auth::Login($member);
-       return redirect()->route('Panel.Dashboard');
-
-       // return view('Login.resetpassword');
+        // return view('Login.resetpassword');
     }
-
 }

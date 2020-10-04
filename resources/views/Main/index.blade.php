@@ -104,7 +104,7 @@
                             </div>
                             <div class="position-relative px-2 pt-3">
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
+                                class="title title d-block mb-2  {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -223,7 +223,7 @@
                             <div class="position-relative px-2 pt-3">
 
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
+                                    class="title title d-block mb-2 {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -352,7 +352,7 @@
                             <div class="position-relative px-2 pt-3">
 
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
+                                    class="title title d-block mb-2 {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}"><span>{{Illuminate\Support\Str::limit($movie->title,22)}}</span></a>
                                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">
                                         @if ($movie->subjects)
 
@@ -539,7 +539,7 @@
                             <div class="position-relative px-2 pt-3">
 
                                 <a href="{{route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug])}}" title="{{$movie->title}}"
-                                    class="title title d-block mb-2"><span>{{$movie->title}}</span></a>
+                                    class="title title d-block mb-2 {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}"><span>{{$movie->title}}</span></a>
                                 <p class=""><span class="text-black-50">ویدیوها:</span><span class="fw-500">
 
 
@@ -691,7 +691,7 @@
                                 </a>
                             </div>
                             <div class="padder-v px-2"> <a href="{{route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug])}}"
-                                    class="text-ellipsis">{{Illuminate\Support\Str::limit($music->title,22)}}</a>
+                                    class="text-ellipsis {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}">{{Illuminate\Support\Str::limit($music->title,22)}}</a>
                                 <p href="#" class="text-ellipsis text-black-50">موضوع: {{$music->subjects->name}}</p>
                                 <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:
                                     @if ($music->levels->name == 'مقدماتی')
@@ -782,7 +782,7 @@
                                 </div>
                                 <article class="card__article mt-2 pt-3">
                                     <h2><a href="{{route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug])}}"
-                                            class="fs-0-8">{{Illuminate\Support\Str::limit($podcast->title,22)}}</a></h2>
+                                            class="fs-0-8 {{preg_match('/^[^\x{600}-\x{6FF}]+$/u', $movie->title) ? 'text-left dir-ltr' : '' }}">{{Illuminate\Support\Str::limit($podcast->title,22)}}</a></h2>
                                     
                                 </article>
                             </div>

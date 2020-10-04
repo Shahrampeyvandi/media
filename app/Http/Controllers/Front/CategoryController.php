@@ -18,9 +18,8 @@ class CategoryController extends Controller
 
         $categories = Categories::all();
         $category = Categories::where('latin_name', $slug)->first();
-        $posts = Posts::where('categories_id', $category->id)->paginate(6);
+        $posts = Posts::where('categories_id', $category->id)->where('confirmed',1)->paginate(6);
         $title = $category->name;
-
         $cid = Categories::where('latin_name', $slug)->first()->id;
         //dd($moveis[0]->languages);
         $levels = Levels::latest()->get();
@@ -46,6 +45,7 @@ class CategoryController extends Controller
     
         $posts =Posts
         ::where('categories_id',$request->cat_id)
+         ->where('confirmed',1)
         ->where('title','like', '%' . $request->key . '%')
         ->paginate(6);
       
@@ -254,54 +254,52 @@ class CategoryController extends Controller
     public function FilterData(Request $request)
     {
 
-
         if (count($request->except(['category_id', 'page'])) == 0) {
             $posts =  Posts::where('categories_id', $request->category_id)
-
+            ->where('confirmed',1)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('langs')) {
-
-
             $posts =  Posts::where('categories_id', $request->category_id)
                 ->whereIn('languages_id', $request->langs)
+                ->where('confirmed',1)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('subjects')) {
-            $posts =  Posts::where('categories_id', $request->category_id)->whereIn('subjects_id', $request->subjects)->paginate(6);
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)->whereIn('subjects_id', $request->subjects)->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('levels')) {
-            $posts =  Posts::where('categories_id', $request->category_id)->whereIn('levels_id', $request->levels)->paginate(6);
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)->whereIn('levels_id', $request->levels)->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['langs', 'subjects'])) {
 
-            $posts =  Posts::where('categories_id', $request->category_id)
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('subjects_id', $request->subjects)
                 ->paginate(6);
             $paginate = $posts->links()->render();
-            //dd($posts);
+        
         }
         if ($request->has(['langs', 'levels'])) {
-            $posts =  Posts::where('categories_id', $request->category_id)
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('levels_id', $request->levels)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['levels', 'subjects'])) {
-            $posts = Posts::where('categories_id', $request->category_id)
+            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed',1)
                 ->whereIn('levels_id', $request->levels)
                 ->whereIn('subjects_id', $request->subjects)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['levels', 'subjects', 'langs'])) {
-            $posts = Posts::where('categories_id', $request->category_id)
+            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed',1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('subjects_id', $request->subjects)
                 ->whereIn('levels_id', $request->levels)
