@@ -35,7 +35,8 @@
                         <div class="thumb-details pr-2 pt-2 mb-3">
                             <h4 class="thumb-title">
                                 <a href="{{route('ShowItem',['content'=>$related->categories->name,'slug'=>$related->slug])}}" title="{{$related->title}}"
-                                    class="title"><span>{{Illuminate\Support\Str::limit($related->title,12)}}</span></a>
+                                    class="title"><span style="width: 135px;
+    display: inline-block;">{{Illuminate\Support\Str::limit($related->title,36)}}</span></a>
                             </h4>
                             <a href="{{route('Category',['slug'=>$related->categories->latin_name])}}"
                                 title="{{$related->categories->name}}" class="thumb-channel has-priority"><span
@@ -65,6 +66,14 @@
                                     {{$related->levels->name}}
                                 </li>
                             </ul>
+                            @if ($related instanceof \App\Models\Contents\Episodes)
+                                
+                            <ul class="meta-tags d-b w-100">
+                               <li class="meta d-in light-60 dark-110 fs-0-8">قسمت:
+                                   {{$related->number}}
+                               </li>
+                           </ul>
+                            @endif
                         </div>
                     </div>
                     @endforeach

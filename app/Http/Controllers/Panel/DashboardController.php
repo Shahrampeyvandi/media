@@ -178,15 +178,6 @@ class DashboardController extends Controller
         }
 
 
-        // if (!is_null($request->subtitle) && $request->file('subtitle')->getClientOriginalExtension() !== "vtt") {
-        //     return response()->json(
-        //         [
-        //             'errors' => "فایل زیرنویس دارای فرمت غیرمجاز می باشد", 'code' => 403
-        //         ],
-        //         403
-
-        //     );
-        // }
         // Upload path
         $destinationPath = "files/posts/$request->title";
         if ($request->file !== null) {
@@ -260,7 +251,7 @@ class DashboardController extends Controller
         $post->subtitle = $subTitle;
         $post->otheroninformation = $request->desc2;
         $post->views = 0;
-        if (auth()->user()->ability == 'admin') {
+        if (auth()->user()->is_admin()) {
             $post->confirmed = 1;
         }
         $post->save();

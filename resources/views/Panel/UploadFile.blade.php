@@ -3,6 +3,7 @@
 @section('content')
 <div class="overlay_upload " >
 <img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="لوگوی ژن برتر">
+ <a href="#" style="position: absolute;right:140px;bottom:0px" onclick="cancelUpload(event)" class="btn btn-sm btn-danger">توقف</a>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -13,7 +14,7 @@
                             class="line brk-base-bg-gradient-right"></span>
                     </span></h2>
             </div>
-            <form id="upload-file" method="post" action="{{ route('sUploadFile') }}" enctype="multipart/form-data">
+            <form id="upload-fil" method="post" action="{{ route('sUploadFile') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -88,7 +89,7 @@
                                 <label for="">تصویر فایل</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="file" class="form-control" id="pic" name="pic">
+                                <input type="file" required class="form-control" id="pic" name="pic">
                             </div>
                         </div>
                     </div>
@@ -134,6 +135,7 @@
                         <div class="col-md-3 my-2 btn--wrapper">
                             <input type="submit" name="upload" id="upload" value="آپلود"
                                 class="btn btn-sm btn-success" />
+                               
                         </div>
                     </div>
                 </div>
@@ -273,7 +275,8 @@
                     در حال بارگذاری ...
                 </button>`)
         $('.overlay_upload').show(300)
-        $('.overlay_upload img').animate({bottom:'8px'}, 1000) 
+        $('.overlay_upload img').animate({bottom:'8px'}, 400) 
+         $('.overlay_upload a').animate({bottom:'8px'}, 400) 
         $('.progress-bar').text(percentComplete + '%');
         $('.progress-bar').css('width', percentComplete + '%');
       

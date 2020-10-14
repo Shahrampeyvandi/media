@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
         $categories = Categories::all();
         $category = Categories::where('latin_name', $slug)->first();
-        $posts = Posts::where('categories_id', $category->id)->where('confirmed',1)->paginate(6);
+        $posts = Posts::where('categories_id', $category->id)->where('confirmed', 1)->paginate(6);
         $title = $category->name;
         $cid = Categories::where('latin_name', $slug)->first()->id;
         //dd($moveis[0]->languages);
@@ -42,14 +42,14 @@ class CategoryController extends Controller
 
     public function FilterWithName(Request $request)
     {
-    
-        $posts =Posts
-        ::where('categories_id',$request->cat_id)
-         ->where('confirmed',1)
-        ->where('title','like', '%' . $request->key . '%')
-        ->paginate(6);
-      
-       
+
+        $posts = Posts
+            ::where('categories_id', $request->cat_id)
+            ->where('confirmed', 1)
+            ->where('title', 'like', '%' . $request->key . '%')
+            ->paginate(6);
+
+
         $paginate = $posts->links()->render();
 
         $list = '';
@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
                 $list .= ' <div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
             <div class="thumb-wrapper">
-            <a class="thumb" href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '">
+            <a class="thumb" href="' . route('ShowItem', ['content' => $movie->categories->name, 'slug' => $movie->slug]) . '">
                 <div class="abs-fit">';
                 if ($movie->picture) {
                     $list .= ' <img src="' . asset($movie->picture) . '" alt="' . $movie->title . '"
@@ -106,7 +106,7 @@ class CategoryController extends Controller
             </div>
             <div class="position-relative px-2 pt-3">
     
-            <a href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '" title="' . $movie->title . '"
+            <a href="' . route('ShowItem', ['content' => $movie->categories->name, 'slug' => $movie->slug]) . '" title="' . $movie->title . '"
                 class="title title d-block mb-2"><span>' . $movie->title . '</span></a>
                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">';
                 if ($movie->subjects) {
@@ -118,7 +118,26 @@ class CategoryController extends Controller
                     $list .=   $movie->languages->name;
                 }
                 $list .= '</span></p>
-                <p class=""><span class="fs-0-9">سطح: ' . $movie->levels->name . '</span></p>
+                <p class="item-level position-relative"><span class="fs-0-9">سطح: ';
+
+                $level1 = asset('assets/images/level1.png');
+                $level0 = asset('assets/images/level0.png');
+
+                if ($movie->levels->name == 'مقدماتی') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } elseif ($movie->levels->name == 'متوسط') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } else {
+                    $list .= '<img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">';
+                }
+
+                $list .= '</span></p>
     
             <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                 <li class="meta d-in light-60 dark-110">' . \Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y') . '</li>
@@ -126,7 +145,7 @@ class CategoryController extends Controller
             </ul>
     
             </div>
-          </div>';
+            </div>';
             }
         }
 
@@ -138,7 +157,7 @@ class CategoryController extends Controller
                     <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                     class="fa fa-star"></i> <i class="fa fa-star-o text-muted"></i> </div>
-                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['content'=>$music->categories->name,'slug'=>$music->slug]) . '"><i
+                <div class="center text-center m-t-n"> <a href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '"><i
                             class="ti ti-control-play fs-2"></i></a> </div>
                 <div class="bottom padder m-b-sm"> <a href="#" class="ml-2"> <span
                         class="text-info">' . count($music->comments) . '</span><svg
@@ -173,22 +192,41 @@ class CategoryController extends Controller
             <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                         class="fa fa-bookmark i-lg"></i> </span> </div> <a href="#"
                 class="music-img">';
-                    if ($music->picture) {
-                        $list .= ' <img src="' . asset($music->picture) . '" width="100%;" height="230px" alt="" class="r r-2x img-full">';
-                    } else {
-                        $list .= '<img src="' . asset('assets/images/p4.jpg') . '" width="100%;" height="230px"  alt=""
+                if ($music->picture) {
+                    $list .= ' <img src="' . asset($music->picture) . '" width="100%;" height="230px" alt="" class="r r-2x img-full">';
+                } else {
+                    $list .= '<img src="' . asset('assets/images/p4.jpg') . '" width="100%;" height="230px"  alt=""
                     class="r r-2x img-full">';
-                    }
-                    $list .= '</a>
+                }
+                $list .= '</a>
             </div>
             <div class="padder-v px-2"> <a href="#" class="text-ellipsis">' . $music->title . '</a>
-            <p href="#" class="text-ellipsis text-black-50">سطح: ' . $music->levels->name . '</p>
+            <p href="#" class="text-ellipsis text-black-50">سطح: ';
+                $level1 = asset('assets/images/audio-level-1.png');
+                $level0 = asset('assets/images/audio-level-0.png');
+
+                if ($music->levels->name == 'مقدماتی') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } elseif ($music->levels->name == 'متوسط') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } else {
+                    $list .= '<img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">';
+                }
+
+
+                $list .= '</p>
             <a href="#"
                 class="text-ellipsis text-xs text-muted">';
-                    if ($music->languages) {
-                        $list .= $music->language;
-                    }
-                    $list .= '  </a>
+                if ($music->languages) {
+                    $list .= $music->language;
+                }
+                $list .= '  </a>
             <div class="d-flex justify-content-between mt-3">
                 <span class="fs-0-8 text-black-50">
                     ' . $music->languages->name . '
@@ -200,36 +238,53 @@ class CategoryController extends Controller
             </div>
           </div>
            </div>';
-                }
             }
+        }
 
-            if ($request->cat_id == 5) {
-                foreach ($posts as $key => $podcast) {
+        if ($request->cat_id == 5) {
+            foreach ($posts as $key => $podcast) {
 
-                    $list .= ' <div style="width:230px;" class="m-3">
+                $list .= ' <div style="width:230px;" class="m-3">
             <div class="card radius shadowDepth1">
                 <div class="card__image border-tlr-radius">';
-                    if ($podcast->picture) {
-                        $list .= '<img src="' . asset("$podcast->picture") . '" alt="image" class="border-tlr-radius">';
-                    } else {
+                if ($podcast->picture) {
+                    $list .= '<img src="' . asset("$podcast->picture") . '" alt="image" class="border-tlr-radius">';
+                } else {
 
-                        $list .= '<img src="' . asset('assets/images/record.png') . '" alt="image" class="border-tlr-radius">';
-                    }
-                    $list .= '</div>
+                    $list .= '<img src="' . asset('assets/images/record.png') . '" alt="image" class="border-tlr-radius">';
+                }
+                $list .= '</div>
                 <div class="card__content px-3 pb-2">
                     <div class="card__share">
-                        <a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" id="" class=" share-icon"
+                        <a href="' . route('ShowItem', ['content' => $podcast->categories->name, 'slug' => $podcast->slug]) . '" id="" class=" share-icon"
                         ><i class="fa fa-play-circle"></i></a>
                     </div>
                     <article class="card__article mt-2 pt-3">
-                        <h2><a href="' . route('ShowItem', ['content'=>$podcast->categories->name,'slug'=>$podcast->slug]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
+                        <h2><a href="' . route('ShowItem', ['content' => $podcast->categories->name, 'slug' => $podcast->slug]) . '" class="fs-0-8">' . $podcast->title . '</a></h2>
                         <p>' . $podcast->desc . '</p>
                     </article>
                 </div>
                 <div class="pr-3">
                     <div class="card__author">
                         <a href="#" class="fs-0-8"> زبان: ' . $podcast->languages->name . '</a>
-                        <p class="">سطح:  ' . $podcast->levels->name . '</p>
+                        <p class="">سطح:  ';
+                $level1 = asset('assets/images/audio-level-1.png');
+                $level0 = asset('assets/images/audio-level-0.png');
+
+                if ($podcast->levels->name == 'مقدماتی') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } elseif ($podcast->levels->name == 'متوسط') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } else {
+                    $list .= '<img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">';
+                }
+                $list .= '</p>
                     </div>
                 </div>
                 <div class="card__meta d-flex justify-content-between px-3 pt-1">
@@ -238,7 +293,7 @@ class CategoryController extends Controller
                 </div>
             </div>
            </div>';
-                }
+            }
         }
 
 
@@ -256,50 +311,49 @@ class CategoryController extends Controller
 
         if (count($request->except(['category_id', 'page'])) == 0) {
             $posts =  Posts::where('categories_id', $request->category_id)
-            ->where('confirmed',1)
+                ->where('confirmed', 1)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('langs')) {
             $posts =  Posts::where('categories_id', $request->category_id)
                 ->whereIn('languages_id', $request->langs)
-                ->where('confirmed',1)
+                ->where('confirmed', 1)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('subjects')) {
-            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)->whereIn('subjects_id', $request->subjects)->paginate(6);
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed', 1)->whereIn('subjects_id', $request->subjects)->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->only('levels')) {
-            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)->whereIn('levels_id', $request->levels)->paginate(6);
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed', 1)->whereIn('levels_id', $request->levels)->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['langs', 'subjects'])) {
 
-            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed', 1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('subjects_id', $request->subjects)
                 ->paginate(6);
             $paginate = $posts->links()->render();
-        
         }
         if ($request->has(['langs', 'levels'])) {
-            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed',1)
+            $posts =  Posts::where('categories_id', $request->category_id)->where('confirmed', 1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('levels_id', $request->levels)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['levels', 'subjects'])) {
-            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed',1)
+            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed', 1)
                 ->whereIn('levels_id', $request->levels)
                 ->whereIn('subjects_id', $request->subjects)
                 ->paginate(6);
             $paginate = $posts->links()->render();
         }
         if ($request->has(['levels', 'subjects', 'langs'])) {
-            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed',1)
+            $posts = Posts::where('categories_id', $request->category_id)->where('confirmed', 1)
                 ->whereIn('languages_id', $request->langs)
                 ->whereIn('subjects_id', $request->subjects)
                 ->whereIn('levels_id', $request->levels)
@@ -317,7 +371,7 @@ class CategoryController extends Controller
 
                 $list .= ' <div class="thumbnail-movie thumbnail-serial mb-5 mx-3 card" style="max-width: 220px;">
             <div class="thumb-wrapper">
-            <a class="thumb" href="' . route('ShowItem',['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '">
+            <a class="thumb" href="' . route('ShowItem', ['content' => $movie->categories->name, 'slug' => $movie->slug]) . '">
                 <div class="abs-fit">';
                 if ($movie->picture) {
                     $list .= ' <img src="' . asset($movie->picture) . '" alt="' . $movie->title . '"
@@ -362,7 +416,7 @@ class CategoryController extends Controller
             </div>
             <div class="position-relative px-2 pt-3">
     
-            <a href="' . route('ShowItem', ['content'=>$movie->categories->name,'slug'=>$movie->slug]) . '" title="' . $movie->title . '"
+            <a href="' . route('ShowItem', ['content' => $movie->categories->name, 'slug' => $movie->slug]) . '" title="' . $movie->title . '"
                 class="title title d-block mb-2"><span>' . $movie->title . '</span></a>
                 <p class=""><span class="text-black-50">موضوع: </span><span class="fw-500">';
                 if ($movie->subjects) {
@@ -374,7 +428,24 @@ class CategoryController extends Controller
                     $list .=   $movie->languages->name;
                 }
                 $list .= '</span></p>
-                <p class=""><span class="fs-0-9">سطح: ' . $movie->levels->name . '</span></p>
+                <p class="item-level position-relative"><span class="fs-0-9">سطح: ';
+                $level1 = asset('assets/images/level1.png');
+                $level0 = asset('assets/images/level0.png');
+
+                if ($movie->levels->name == 'مقدماتی') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } elseif ($movie->levels->name == 'متوسط') {
+                    $list .= ' <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level0 . '" alt="">';
+                } else {
+                    $list .= '<img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">
+                <img src="' . $level1 . '" alt="">';
+                }
+                $list .= '</span></p>
     
             <ul class="meta-tags d-b w-100 mt-xs  pb-2">
                 <li class="meta d-in light-60 dark-110">' . \Morilog\Jalali\Jalalian::forge($movie->created_at)->format('%d %B %Y') . '</li>
@@ -388,11 +459,11 @@ class CategoryController extends Controller
 
         if ($request->category_id == 4) {
             foreach ($posts as $key => $music) {
-                $list.='<div class="item w-100  mr-2  my-5 card" style="max-width: 233px;margin-left:1.5rem;">
+                $list .= '<div class="item w-100  mr-2  my-5 card" style="max-width: 233px;margin-left:1.5rem;">
                 <div class="position-relative">
                     <div class="item-overlay opacity r r-2x bg-black">
                         <a class="item-overlay"
-                        href="'.route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug]).'">
+                        href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '">
                         
                         <div class="text-info padder m-t-sm text-sm"> <i class="fa fa-star"></i> <i
                                 class="fa fa-star"></i> <i class="fa fa-star"></i> <i
@@ -401,8 +472,8 @@ class CategoryController extends Controller
                                     class="ti ti-control-play fs-2"></i> </div>
                         <div class="bottom padder m-b-sm">
             
-                            <a href="'.route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug]).'" class="ml-2"> <span
-                                    class="text-info"> '.count($music->comments).'</span><svg
+                            <a href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '" class="ml-2"> <span
+                                    class="text-info"> ' . count($music->comments) . '</span><svg
                                     class="icon v-m  icon-comments" viewBox="0 0 24 24" 0="" 24="" 24""="">
                                     <use xlink:href="#si_comments">
                                         <g id="si_comments" data-viewBox="0 0 24 24">
@@ -415,8 +486,8 @@ class CategoryController extends Controller
                                     </use>
                                 </svg>
                             </a>
-                            <a href="'.route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug]).'"> <span
-                                    class="text-success">'.\App\Models\Contents\Likes::where('posts_id',$music->slug)->count().'</span>
+                            <a href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '"> <span
+                                    class="text-success">' . \App\Models\Contents\Likes::where('posts_id', $music->slug)->count() . '</span>
                                 <svg class="icon icon-like d-in v-m g-20 fs-1-2 ml-xxs" viewBox="0 0 24 24"
                                     0="" 24="" 24""="">
                                     <use xlink:href="#si_thumb-up">
@@ -434,13 +505,15 @@ class CategoryController extends Controller
             
                             </a>
                             <span class="badge-rate badge-rate float-left text-white-80"><span>';
-                                    if (substr($music->duration,0,1) == '0' && substr($music->duration,1,1)
-                                    == '0'){
-                                    $list.=substr($music->duration,3);
-                                    }else{
-                                        $list.=$music->duration;
-                                     }
-                                $list.='</span>
+                if (
+                    substr($music->duration, 0, 1) == '0' && substr($music->duration, 1, 1)
+                    == '0'
+                ) {
+                    $list .= substr($music->duration, 3);
+                } else {
+                    $list .= $music->duration;
+                }
+                $list .= '</span>
                                 <i class="fa fa-clock-o pl-1"></i>
                             </span>
                         </div>
@@ -448,119 +521,118 @@ class CategoryController extends Controller
                     </div>
                     <div class="top"> <span class="pull-right m-t-n-xs m-r-sm text-white"> <i
                                 class="fa fa-bookmark i-lg"></i> </span> </div> <a
-                        href="'.route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug]).'" class="music-img">';
-                        if($music->picture){
-                            $list.= '<img src="'.asset($music->picture).'" width="100%;" style="height: 131px;" alt=""
+                        href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '" class="music-img">';
+                if ($music->picture) {
+                    $list .= '<img src="' . asset($music->picture) . '" width="100%;" style="height: 131px;" alt=""
                             class="r r-2x img-full">';
-                        }else{
-                            $list.='<img src="'.asset('assets/images/logo-music1.png').'" width="100%;" style="height: 131px;"
+                } else {
+                    $list .= '<img src="' . asset('assets/images/logo-music1.png') . '" width="100%;" style="height: 131px;"
                             alt="" class="r r-2x img-full">';
-                        }
-               $list.='</a>
+                }
+                $list .= '</a>
                 </div>
-                <div class="padder-v px-2"> <a href="'.route('ShowItem',['content'=>$music->categories->name,'slug'=>$music->slug]).'"
-                        class="text-ellipsis">'.\Illuminate\Support\Str::limit($music->title,22).'</a>
-                    <p href="#" class="text-ellipsis text-black-50">موضوع: '.$music->subjects->name.'</p>
-                    <p href="#" class="item-level position-relative text-ellipsis text-black-50">سطح:';
-                        if ($music->levels->name == 'مقدماتی'){
-                       $list.=' <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">';
-                        }elseif($music->levels->name == 'متوسط'){
-            
-                            $list.='<img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">';
-                        }else{
-                            $list.=' <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">';
-                        }
-                        $list.=' </p>
+                <div class="padder-v px-2"> <a href="' . route('ShowItem', ['content' => $music->categories->name, 'slug' => $music->slug]) . '"
+                        class="text-ellipsis">' . \Illuminate\Support\Str::limit($music->title, 22) . '</a>
+                    <p href="#" class="text-ellipsis text-black-50">موضوع: ' . $music->subjects->name . '</p>
+                    <p href="#" class="item-level position-relative position-relative text-ellipsis text-black-50">سطح:';
+                if ($music->levels->name == 'مقدماتی') {
+                    $list .= ' <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">';
+                } elseif ($music->levels->name == 'متوسط') {
+
+                    $list .= '<img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">';
+                } else {
+                    $list .= ' <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">';
+                }
+                $list .= ' </p>
             
                     <a href="#" class="text-ellipsis text-xs text-muted">';
-                        if ($music->languages){
-                        $list.=$music->language;
-                        }
-                        
-                        $list.=' </a>
+                if ($music->languages) {
+                    $list .= $music->language;
+                }
+
+                $list .= ' </a>
                     <div class="d-flex justify-content-between mt-3">
                         <span class="fs-0-8 text-black-50">
-                            '.$music->languages->name.'
+                            ' . $music->languages->name . '
                         </span>
                         <span class="fs-0-8 text-black-50">
-                            '.\Morilog\Jalali\Jalalian::forge($music->created_at)->format('%d %B %Y').'
+                            ' . \Morilog\Jalali\Jalalian::forge($music->created_at)->format('%d %B %Y') . '
                         </span>
             
                     </div>
                 </div>
             </div>';
-              
-                }
             }
+        }
 
-            if ($request->category_id == 5) {
-                foreach ($posts as $key => $podcast) {
+        if ($request->category_id == 5) {
+            foreach ($posts as $key => $podcast) {
 
-                    $list .= '
+                $list .= '
                     <div style="width:230px;" class="m-3">
                         <div class="card radius shadowDepth1">
                             <div class="card__image border-tlr-radius">
-                                 <a href="'.route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug]).'">';
-                                if ($podcast->picture){
-                                    $list .= ' <img src="'.asset("$podcast->picture").'" alt="image" class="border-tlr-radius">';
-                                }else{
-                    
-                                    $list .= ' <img src="'.asset('assets/images/logo-music1.png').'" alt="image" class="border-tlr-radius">';
-                                 }
-                                 $list .= '  </a>
+                                 <a href="' . route('ShowItem', ['content' => $podcast->categories->name, 'slug' => $podcast->slug]) . '">';
+                if ($podcast->picture) {
+                    $list .= ' <img src="' . asset("$podcast->picture") . '" alt="image" class="border-tlr-radius">';
+                } else {
+
+                    $list .= ' <img src="' . asset('assets/images/logo-music1.png') . '" alt="image" class="border-tlr-radius">';
+                }
+                $list .= '  </a>
                             </div>
                             <div class="card__content px-3 pb-2">
                                 <div class="card__share">
-                                    <a href="'.route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug]).'" id="" class=" share-icon"><i
+                                    <a href="' . route('ShowItem', ['content' => $podcast->categories->name, 'slug' => $podcast->slug]) . '" id="" class=" share-icon"><i
                                             class="fa fa-play-circle"></i></a>
                                 </div>
                                 <article class="card__article mt-2 pt-3">
-                                    <h2><a href="'.route('ShowItem',['content'=>$podcast->categories->name,'slug'=>$podcast->slug]).'"
-                                            class="fs-0-8">'.\Illuminate\Support\Str::limit($podcast->title,22).'</a></h2>
+                                    <h2><a href="' . route('ShowItem', ['content' => $podcast->categories->name, 'slug' => $podcast->slug]) . '"
+                                            class="fs-0-8">' . \Illuminate\Support\Str::limit($podcast->title, 22) . '</a></h2>
                                     
                                 </article>
                             </div>
                             <div class="pr-3">
                                 <div class="card__author">
-                                    <a class="fs-0-8"> زبان: '.$podcast->languages->name.'</a>
-                                    <p class="item-level position-relative">سطح: ';
-                                        if ($podcast->levels->name == 'مقدماتی'){
-                                            $list .= '<img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">';
-                                        }elseif($podcast->levels->name == 'متوسط'){
-                    
-                                            $list .= '<img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-0.png').'" alt="">';
-                                        }else{
-                                            $list .= '<img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">
-                                        <img src="'.asset('assets/images/audio-level-1.png').'" alt="">';
-                                        }
-                                        $list .= '   </p>
+                                    <a class="fs-0-8"> زبان: ' . $podcast->languages->name . '</a>
+                                    <p class="item-level position-relative position-relative">سطح: ';
+                if ($podcast->levels->name == 'مقدماتی') {
+                    $list .= '<img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">';
+                } elseif ($podcast->levels->name == 'متوسط') {
+
+                    $list .= '<img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-0.png') . '" alt="">';
+                } else {
+                    $list .= '<img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">
+                                        <img src="' . asset('assets/images/audio-level-1.png') . '" alt="">';
+                }
+                $list .= '   </p>
                                 </div>
                             </div>
                             <div class="card__meta d-flex justify-content-between px-3 pt-1">
-                                <span class="text-black-50 fs-0-8">'.$podcast->languages->name.'</span>
+                                <span class="text-black-50 fs-0-8">' . $podcast->languages->name . '</span>
                                 <span
-                                    class="text-black-50 fs-0-8">'.\Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y').'</span>
+                                    class="text-black-50 fs-0-8">' . \Morilog\Jalali\Jalalian::forge($podcast->created_at)->format('%d %B %Y') . '</span>
                             </div>
                         </div>
                     </div>
                 ';
-                }
+            }
         }
 
 
         return response()->json(
-            [$list, $paginate],
+            [$list, $paginate, request()->page],
             200
         );
     }

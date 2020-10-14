@@ -1,9 +1,11 @@
 @extends('layout.Panel.temp')
 
 @section('content')
-<div class="overlay_upload ">
-    <img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="">
+<div class="overlay_upload " >
+<img src="{{asset('assets/images/Logo-genebartar.png')}}" style=" bottom: -60px;" alt="لوگوی ژن برتر">
+ <a href="#" style="position: absolute;right:140px;bottom:0px" onclick="cancelUpload(event)" class="btn btn-sm btn-danger">توقف</a>
 </div>
+
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
@@ -103,7 +105,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3 my-2 ">
+                        <div class="col-md-3 my-2 btn--wrapper">
                             <input type="submit" id="upload" name="upload" @isset($post) value="ویرایش" @else
                                 value="آپلود" @endisset class="btn btn-sm btn-success" />
                         </div>

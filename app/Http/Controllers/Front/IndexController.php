@@ -35,12 +35,12 @@ class IndexController extends Controller
         $bottompostbanner = PostBanner::where('type','bottom_banner')->first();
         $header_slideshow=Slideshow::where('type','header_slideshow')->latest()->take(8)->get();
         $footer_slideshow=Slideshow::where('type','footer_slideshow')->latest()->take(8)->get();
-        $moveis=Posts::where('confirmed',1)->where('categories_id',1)->take(10)->get();
-        $animations=Posts::where('confirmed',1)->where('categories_id',2)->take(10)->get();
-        $clips=Posts::where('confirmed',1)->where('categories_id',3)->take(10)->get();
-        $musics=Posts::where('confirmed',1)->where('categories_id',4)->take(10)->get();
-        $podcasts=Posts::where('confirmed',1)->where('categories_id',5)->take(4)->get();
-        $learning=Posts::where('confirmed',1)->where('categories_id',6)->take(10)->get();
+        $moveis=Posts::where('confirmed',1)->where('categories_id',1)->latest()->take(10)->get();
+        $animations=Posts::where('confirmed',1)->where('categories_id',2)->latest()->take(10)->get();
+        $clips=Posts::where('confirmed',1)->where('categories_id',3)->latest()->take(10)->get();
+        $musics=Posts::where('confirmed',1)->where('categories_id',4)->latest()->take(10)->get();
+        $podcasts=Posts::where('confirmed',1)->where('categories_id',5)->latest()->take(4)->get();
+        $learning=Posts::where('confirmed',1)->where('categories_id',6)->latest()->take(10)->get();
 
         //dd($moveis[0]->languages);
       

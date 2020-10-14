@@ -51,7 +51,7 @@
                     @endcomponent
                     @endif
                     @if(request()->path() == 'category/tutorial')
-                    @component('Main.components.video',['videos' => $posts])
+                    @component('Main.components.tutorial',['learnings' => $posts])
                 
                     @endcomponent
                     @endif
@@ -303,10 +303,17 @@ $(document).on('click','.page-link',function(e){
                     $('.content-page').html(res[0])
                     $('.paginate-item').html(res[1])
                     $('.page-loader').fadeOut(300)
+                    changeurl('category/videos?page=' + res[2])
                 }
             
         })
 })
+
+function changeurl(url) {
+    var new_url = '/' + url;
+    window.history.pushState('data', 'Title', new_url);
+    
+}
 var request = false;
 $(document).on('keyup','.search-field',function(e){
     e.preventDefault()

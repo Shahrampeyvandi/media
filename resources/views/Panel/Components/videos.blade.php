@@ -73,7 +73,6 @@
                 <img src="{{asset('assets/images/level0.png')}}" alt="">
                 <img src="{{asset('assets/images/level0.png')}}" alt="">
                 @elseif($movie->levels->name == 'متوسط')
-
                 <img src="{{asset('assets/images/level1.png')}}" alt="">
                 <img src="{{asset('assets/images/level1.png')}}" alt="">
                 <img src="{{asset('assets/images/level0.png')}}" alt="">

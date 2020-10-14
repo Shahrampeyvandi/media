@@ -19,15 +19,15 @@
 
 
 @if (request()->path() == "panel/myvideos")
-@component('Panel.Components.videos', ['movies' => $posts])
+@component('Main.components.video', ['videos' => $posts])
 @endcomponent
 @endif
 @if (request()->path() == "panel/myvideos/genplus")
-@component('Panel.Components.videos', ['movies' => $posts])
+@component('Main.components.video', ['videos' => $posts])
 @endcomponent
 @endif
 @if (request()->path() == "panel/myvideos/animations")
-@component('Panel.Components.videos',['movies' => $posts])
+@component('Main.components.video',['videos' => $posts])
 @endcomponent
 @endif
    

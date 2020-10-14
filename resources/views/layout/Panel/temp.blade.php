@@ -618,7 +618,7 @@
     <script src="{{asset('Panel/assets/js/datatable.js')}}"></script>
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
     @toastr_render
-  
+
     <script src="{{asset('Panel/assets/js/custom.js')}}"></script>
     <script>
         $('.noty-link').click(function(e){
@@ -671,6 +671,20 @@
         $(this).find('i').toggleClass('rotate-in')
 
     })
+
+    function cancelUpload(event){
+        event.preventDefault()
+        var xhr = $('form').data('jqxhr');
+
+xhr.abort();
+          $('.btn--wrapper').html(`<input type="submit" name="upload" value="آپلود" class="btn btn-sm btn-success" />`)
+        $('.overlay_upload').hide(300)
+        $('.overlay_upload img').animate({bottom:'0px'}, 400) 
+         $('.overlay_upload a').animate({bottom:'0px'}, 400) 
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
+       
+    }
     </script>
     @yield('js')
 </body>

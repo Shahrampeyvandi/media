@@ -39,10 +39,10 @@
             <td>{!!$purchase->payinfo!!}</td>
             <td>
             @if($purchase->success ==1)
-            موفق
+        <span class="text-success">            موفق</span>
 
             @else
-            نا موفق
+            <span class="text-danger">نا موفق</span>
 
             @endif
             </td>

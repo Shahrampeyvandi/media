@@ -1,12 +1,15 @@
 $(document).ready(function(){
-    $('.button__').click(function(e){
-        e.preventDefault()
-        let id = $(this).data('id')
-       $('#comment_id').attr('value',id)
-     $('.overlay').css({  'visibility': 'visible',
-         'opacity': '1',
-         'z-index': '10',})
-    })
+
+    $(document).on("click",".button__", function (e) {
+        e.preventDefault();
+        let id = $(this).data("id");
+        $("#comment_id").attr("value", id);
+        $(".overlay").css({
+            visibility: "visible",
+            opacity: "1",
+            "z-index": "10",
+        });
+    });
  
     $('.close').click(function(e){
      e.preventDefault()
@@ -56,7 +59,7 @@ $(document).ready(function(){
 
   
 
-    $('.delete-post').click(function(e){
+    $(document).on('click','.delete-post',function(e){
         e.preventDefault()
         let id = $(this).data('id')
         $('#post_id').attr('value',id)
@@ -64,6 +67,7 @@ $(document).ready(function(){
         'opacity': '1',
         'z-index': '10',})
     })
+   
 
 
 

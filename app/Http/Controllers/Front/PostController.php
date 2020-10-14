@@ -18,6 +18,7 @@ use App\Models\Contents\Likes;
 use App\Models\Members\Favorites;
 use App\Models\Members\Follows;
 
+
 class PostController extends Controller
 {
     public function index($category, $slug)
@@ -73,10 +74,11 @@ class PostController extends Controller
         if ($content->type == 'free') {
             $isbuyedit = true;
         }
+        
 
         $relateds = Posts::where('categories_id', $content->categories_id)
             ->where('confirmed', 1)
-            ->where('id', '!=', $id)->take(10)->get();
+            ->where('id', '!=', $id)->latest()->take(10)->get();
         $categories = Categories::all();
         $countcategoryposts = Posts::where('categories_id', $content->categories_id)->count();
         $comments =
@@ -239,9 +241,9 @@ class PostController extends Controller
         $content->views = $content->views + 1;
         $views = Episodes::whereId($content->id)->update(['views' => $content->views]);
         $content->update();
+            $relateds = Episodes::where('posts_id',$content->posts_id)->where('number', '!=', $content->number)->orderBy('number','asc')->get();
 
 
-        $relateds = Posts::where('categories_id', $post->categories_id)->where('id', '!=', $id)->take(5)->get();
         $categories = Categories::all();
         $countcategoryposts = Posts::where('categories_id', $post->categories_id)->count();
         $comments =

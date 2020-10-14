@@ -15,9 +15,6 @@
     <link rel="canonical" href="{{route('BaseUrl')}}" />
 
 
-
-
-
     <link rel="icon" href="{{asset('assets/images/LOGO.jpeg')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -259,6 +256,7 @@
                         <div class="input-inner">
 
                             <input class="input" type="text" id="searchinput" value="" name=""
+                            onkeyup="searchFile(event)"
                                 placeholder="مطلب مورد نظر خود را جست و جو کنید..." autocomplete="off" />
 
                             <div class="input-box input-round"></div>
@@ -544,7 +542,7 @@
     </main>
 
 
-      <script>
+    <script>
         mainUrl = '{{route("BaseUrl")}}';
         token = $('meta[name="csrf-token"]').attr('content');
     </script>
@@ -556,13 +554,13 @@
 
     <script src="{{route('BaseUrl')}}/assets/js/app.js"></script>
     <script src="{{asset('assets/js/wow.min.js')}}"></script>
-    
-   
+
+
 
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 
     @toastr_render
-   
+
     <script>
         $(document).ready(function () {
         var checkauth = '{{auth()->user()}}';
@@ -618,50 +616,7 @@
         })
 
 
-var request = false;
-$(document).on('keyup','#searchinput',function(e){
-    e.preventDefault()
-    
-    if($(this).val().length === 0) {
-       
-        $('#search--content').css({'visibility':'hidden','opacity':0})
-        $('.search-widget').removeClass('has-suggest')
-        request = false;
-        
-    }else{
-       
-    setTimeout(() => {
-        if (!request) {
-    
-        request = true;
-        let key = $(this).val();
-        let url = '{{route('SearchBar')}}';
 
-          $.ajax({ 
-               url: url,
-               type: 'POST',
-               data:{key:key},
-               dataType: 'JSON', 
-              
-               success: function(res) {
-                  $('#search--content').css({'visibility':'visible','opacity':1})
-                  $('.search-widget').addClass('has-suggest')
-                   $('#search--content ul').html(res)
-                  
-                //    $('.content-page').html(res[0])
-                //    $('.paginate-item').html(res[1])
-                   
-                       request=false;
-                  
-                   
-               }
-           
-       })
-       
-     }
-   },1000)
-}
-})
 
         $.ajaxSetup({
             headers: {
@@ -869,6 +824,7 @@ $(document).on('keyup','#searchinput',function(e){
                     cache: false,
                     success: function (res) {
                         thiss.find('span').text(res)
+                        toastr.success('این دیدگاه پسند شد')
                     }
 
                 });
@@ -898,6 +854,7 @@ $(document).on('keyup','#searchinput',function(e){
                     cache: false,
                     success: function (res) {
                         thiss.find('span').text(res)
+                         toastr.success('این دیدگاه رد شد')
                     }
 
                 })
@@ -924,6 +881,40 @@ $(document).on('keyup','#searchinput',function(e){
         }
         
     });
+
+    var request = false;
+function searchFile(event){
+    event.preventDefault()
+
+    
+    if($(event.target).val().length > 1) {
+       
+        
+        setTimeout(() => {
+        if (!request) {
+            request = true;
+        let key = $(event.target).val();
+        let url = '{{route('SearchBar')}}';
+          $.ajax({ 
+               url: url,
+               type: 'POST',
+               data:{key:key},
+               dataType: 'JSON', 
+               success: function(res) {
+                  $('#search--content').css({'visibility':'visible','opacity':1})
+                  $('.search-widget').addClass('has-suggest')
+                   $('#search--content ul').html(res)
+                       request=false;
+               }
+           
+       })
+       
+     }
+   },1000)
+}else{
+     request=false;
+}
+}
 
 
     </script>

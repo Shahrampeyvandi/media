@@ -160,6 +160,7 @@
               cache: false,
               success: function (res) {
                   $('#like-post span').text(res)
+                   toastr.success('این محتوا پسند شد');
               }
           });
       } else {
@@ -185,6 +186,7 @@
               success: function (res) {
                   if (res == 'add') {
                       thiss.find('svg').attr('fill', 'red')
+                         toastr.success('این محتوا به علاقه مندی هام افزوده شد')
                   }
                   if (res == 'remove') {
                       thiss.find('svg').attr('fill', 'gray')
